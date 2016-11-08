@@ -1,124 +1,34 @@
 {layout name="index" /}
-
-<?php if (app\Common::getUpdateUrl() === '/tutecms/public/news.html'): ?>
+<?php if (app\common::getUpdateUrl() === '/tutecms/public/inductive.html'): ?>
 	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<table class="table table-hover">
-				<thead>
-					<tr  class="info">
-						<th>
-							编号
-						</th>
-						<th>
-							新闻标题
-						</th>
-						<th>
-							点击量
-						</th>
-						<th>
-							发布时间
-						</th>
-					</tr>
-					</thead>
-				<tbody>
-					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							<a href="{:__ROOT__}/news/school.html">这是一个新闻标题</a>
-						</td>
-						<td>5</td>
-						<td>
-							01/04/2012
-						</td>
-					</tr>
-					<tr>
-						<td>
-							2
-						</td>
-						<td>
-							<a href="{:__ROOT__}/news/school.html">学院动态</a>
-						</td>
-						<td>521</td>
-						<td>
-							01/04/2012
-						</td>
-					</tr>
-					<tr>
-						<td>
-							3
-						</td>
-						<td>
-							<a href="{:__ROOT__}/news/school.html">这是一个很长很长的新闻标题...</a>
-						</td>
-						<td>7865</td>
-						<td>
-							01/04/2012
-						</td>
-					</tr>
-					<tr>
-						<td>
-							4
-						</td>
-						<td>
-							<a href="{:__ROOT__}/news/school.html">学院的新闻</a>
-						</td>
-						<td>133</td>
-						<td>
-							01/04/2012
-						</td>
-					</tr>
-					<tr>
-						<td>
-							5
-						</td>
-						<td>
-							<a href="{:__ROOT__}/news/school.html">这依然是一个很长很长的标题...</a>
-						</td>
-						<td>52</td>
-						<td>
-							01/04/2012
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<ul class="pagination" style="float: right;">
+		<div class="col-md-3 column">
+			<ul class="nav nav-list">
 				<li>
-					 <a href="#">上一页</a>
+					<a href="#"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>第五届全国高校体谈...</a>
 				</li>
 				<li>
-					 <a href="#">1</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i>学院的最新动态</a>
 				</li>
 				<li>
-					 <a href="#">2</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i>第五届全国高校体谈...</a>
 				</li>
 				<li>
-					 <a href="#">3</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i>学生会举办茶话会</a>
 				</li>
 				<li>
-					 <a href="#">4</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i>学生茶话会</a>
 				</li>
 				<li>
-					 <a href="#">5</a>
-				</li>
-				<li>
-					 <a href="#">下一页</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i>第五届全国高校体谈...</a>
 				</li>
 			</ul>
 		</div>
-	</div>
-<?php endif; ?>    
-
-<?php if (app\Common::getUpdateUrl() === '/tutecms/public/news/school.html'): ?>
-	<div>
-		<div class="page-header">
-            <h1>
-                这是一个新闻标题<small>发布时间：[1970-01-01 08:00:00]</small>
-            </h1>
-        </div>
-		<img width="300" height="300" src="{:__ROOT__}/theme/tute/bootstrap-3.3.5-dist/image/a.jpg" />
-		<div>
+		<div class="col-md-9 column">
+			<img alt="140x140" src="{:__ROOT__}/theme/tute/bootstrap-3.3.5-dist/image/city.jpg" />
+			<h2>
+				Heading
+			</h2>
+			<div>
 			河北工业大学梦云智软件开发团队成立于2014年12月。依托于计算机科学与软件学院，团队现拥有自身独立的实验室，经过一年多不懈的努力，团队学习氛围越来越浓厚，团队精神越来越多地被我们诠释。 
 			 
 			自团队成立以来，已先后完成”“众筹海淘” 微信购物平台系统 、 “天职师大”绩效管理系统、“洛克酒店”管理系统、 “河北工业大学材料学院”论文送审系统、“一鑫教育”英语在线学习系统等项目。在项目的开发过程中，我们也深深的认识到团队发展中分工、合作及设计模式等方面的不足，并不断的在新技术、新模式领域进行探索。
@@ -180,7 +90,7 @@
 			 
 			Now, you can send an email which contains your basic information for an application.
 		</div>
-		<ul class="pagination"  style="float: right;">
+		<ul class="pagination" style="float: right;">
 			<li>
 				 <a href="#">上一页</a>
 			</li>
@@ -203,6 +113,67 @@
 				 <a href="#">下一页</a>
 			</li>
 		</ul>
-		<br><br><br>
+		</div>
 	</div>
+<?php endif; ?>
+
+<?php if (app\common::getUpdateUrl() === '/tutecms/public/course.html'): ?>
+	<div class="row">
+	    <div class="col-md-10">
+	        <form class="form-inline" >
+		        <div class="col-md-4">
+		        	<label>教室</label>
+		        	<select class="form-control" name="category_id">
+		        	<option>A702</option>
+		        	<option>A801</option>
+		        	<option>A802</option>
+		        	</select>
+		        </div>
+	            <div class="form-group">
+	                <label for="name">课程名称</label>
+	                <input name="name" type="text" class="form-control">
+	            </div>
+	            <button  class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
+	        </form>
+	    </div>
+	</div>
+	<hr>
+	<table class="table table-bordered table-hover">
+	  <thead>
+	      <tr>
+	          <th width="228px;">周一</th>
+	          <th width="228px;">周二</th>
+	          <th width="228px;">周三</th>
+	          <th width="228px;">周四</th>
+	          <th width="228px;">周五</th>
+	      </tr>
+	  </thead>
+	  <tbody>
+	      <tr>
+	         <td>金融</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时） </td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时） </td>
+	      </tr><tr>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>社保</td>
+	         <td>财会</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时） </td>
+	      </tr><tr>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>计算机网络基础上机实验课</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	      </tr><tr>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>电商概论实验课</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>物流管理 第二教学楼203 赵丽华 1-16周（两学时）</td>
+	         <td>计算机网络基础上机实验课</td>
+	      </tr>
+	  </tbody>
+	</table>
 <?php endif; ?>
