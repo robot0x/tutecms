@@ -91,7 +91,6 @@ class BlockModel extends ModelModel
         if (null === $this->FieldModels) {
             $this->FieldModels = FieldModel::getListsByRelateTypeRelateValue('Block', $this->getData('block_type_name'));
         }
-
         return $this->FieldModels;
     }
 
@@ -112,7 +111,6 @@ class BlockModel extends ModelModel
                 array_push($this->FieldXXXXModels, $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id')));
             } 
         }
-        
         return $this->FieldXXXXModels;
     }
     /**

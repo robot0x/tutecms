@@ -133,13 +133,12 @@ class FieldModel extends ModelModel
             $map                = [];
             $map['field_id']    = $this->getData('id');
             $map['key_id']      = $keyId;
-
             // 实例化 字段信息详情表
             $table = 'app\model\\' . Loader::parseName('field_data_' . $this->getData('field_type_name'), 1) . 'Model';
             $FiledDataModel = new $table;
+            
 
             $this->getDataByKeyId = $FiledDataModel->get($map);
-
             // 如果返回默认值，则将field_id, key_id传入。防止关联调用时数据不存在抛出的异常
             if ('' === $this->getDataByKeyId->getData('field_id'))
             {

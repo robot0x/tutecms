@@ -1,24 +1,22 @@
 <?php
 namespace app\component\controller;
-use app\model\ContentFrontpageModel;                // 首页推荐内容
+use app\model\ContentModel;                 // 文章
+use app\model\ContentFrontpageModel;        // 首页推荐内容
 
 class HomeController extends ComponentController
 {
     public function indexAction()
     {
-        // 定义配置信息
+        //获取图文列表
+        $ContentModel = new ContentModel();
+        
         $map = [];
-        $offset = 10;
-        $offset = $this->config['count']['value'];
-        $order = ['weight'=>'desc', 'create_time'=>'desc'];
+        $map['content_type_name'] = $this->config['contentTypeName']['value'];
+        $map['is_freezed'] = '0';
+        $map['is_delete'] = '0';
+        $ContentModels = $ContentModel->where($map)->paginate($this->config['count']['value']);
+        $this->assign('ContentModels', $ContentModels);
 
-        // 取推荐新闻，并传给首页
-        $ContentFrontpageModel = new ContentFrontpageModel;
-        $ContentFrontpageModels = $ContentFrontpageModel->order($order)->limit(0, $offset)->select();
-        $this->assign('ContentFrontpageModels', $ContentFrontpageModels);
-
-        unset($ContentFrontpageModels);
-        unset($ContentFrontpageModel);
         return $this->fetch();
     }
 

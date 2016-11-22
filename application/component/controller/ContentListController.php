@@ -3,6 +3,8 @@ namespace app\component\controller;
 
 use think\Request;
 
+use app\model\FieldDataBodyModel;
+use app\model\UserModel;  
 use app\model\ContentModel;                 // 文章
 use app\model\FieldModel;                   // 扩展字段
 
@@ -14,13 +16,16 @@ class ContentListController extends ComponentController
     public function indexAction()
     {
         $ContentModel = new ContentModel();
-        
         $map = [];
         $map['content_type_name'] = $this->config['contentTypeName']['value'];
         $map['is_freezed'] = '0';
         $map['is_delete'] = '0';
-        $ContentModels = $ContentModel->where($map)->paginate($this->config['count']['value']);
+        $ContentModels = $ContentModel->where($map)->paginate(10);
         $this->assign('ContentModels', $ContentModels);
+        
+        //获取当前用户信息
+        $User = UserModel::getCurrentFrontUserModel();
+        $this->assign('User', $User);
         return $this->fetch();
     }
 
@@ -38,6 +43,9 @@ class ContentListController extends ComponentController
         // 增加一个点击量
         $ContentModel->hit = $ContentModel->hit + 1;
         $ContentModel->save();
+        //获取当前用户信息
+        $User = UserModel::getCurrentFrontUserModel();
+        $this->assign('User', $User);
 
         return $this->fetch();
     }
@@ -64,13 +72,25 @@ class ContentListController extends ComponentController
         // 更新当前新闻信息
         $ContentModel->setData('title', $data['title']);
         $ContentModel->save();
-
         // 更新扩展数据字段
         if (isset($data['field_'])) {
             FieldModel::updateLists($data['field_'], $ContentModel->getData('id'));
         }
-
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
+    }
+
+    public function deleteAction($id) {
+        $ContentModel = ContentModel::get($id);
+        $ContentModel->setData('is_delete', 1);
+        $ContentModel->save();
+        $FieldDataBodyModel = FieldDataBodyModel::get($id);
+        $FieldDataBodyModel->setData('is_delete', 1);
+        $FieldDataBodyModel->save();
+        return $this->success('删除成功');
+    }
+
+    public function addAction() {
+        var_dump(1);
     }
 }

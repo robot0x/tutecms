@@ -1,37 +1,45 @@
 <!-- Start menu -->
-<section>
-    <nav class="navbar navbar-default" style="margin-bottom:2px;" role="navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div id="{$config['id']}">
-                        <ul>
-                            {volist name="menuModels" id="menuModel"} {eq name="menuModel->isHaveAvailableSonMenus()" value="1"}
-                            <li class="has-sub {eq name="menuModel->isActive()" value="1"}active"{/eq}" >
-                                <a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</span>&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-down small"></i></a>
-                                <ul>
-                                    {volist name="menuModel->getAvailableSonMenuModels()" id="sonMenuModel"}
-                                    <li class="has-sub" >
-                                        <a href="{:url('@' . $sonMenuModel->url)}"><span>{$sonMenuModel->title}</span> {eq name="sonMenuModel->isHaveAvailableSonMenus()" value="1"}<span class="glyphicon glyphicon-chevron-right" style="float:right;line-height:200%">{/eq}</span></a>
-                                        {eq name="sonMenuModel->isHaveAvailableSonMenus()" value="1"}
-                                            <ul>
-                                                {volist name="sonMenuModel->getAvailableSonMenuModels()" id="_sonMenuModel"}
-                                                    <li><a href="{:url('@' . $_sonMenuModel->url)}"><span>{$_sonMenuModel->title}</span></a></li>
-                                                {/volist}
-                                            </ul>
-                                        {/eq}
-                                    </li>
-                                    {/volist}
-                                </ul>
-                            </li>
-                            {else /}
-                            <li {eq name="menuModel->isActive()" value="1" }class="active" {/eq}><a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</a></span>
-                            </li>
-                            {/eq} {/volist}
-                        </ul>
-                    </div>
-                </div>
+<div class="row">
+    <div class="col-md-11">
+        <h1>
+            <span>天职师大上机管理系统</span>
+            <span class="badge">Version 1.0</span>
+        </h1>
+    </div>
+    <div class="col-md-1 text-right">
+    {eq name="User->getData('user_group_name')" value="editor"}<a href="{:app\\Common::logOutUrl('./logout')}" role="button">注销</a> {else /} <a href="{:app\\Common::login('./login')}">登陆</a>{/eq}
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                   {volist name="menuModels" id="menuModel" key="key"} {eq name="menuModel->isHaveAvailableSonMenus()" value="1"}
+                   <li class="{eq name="menuModel->isActive()" value="1"}active"{/eq}" >
+                       <a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</span></a>
+                       <ul>
+                           {volist name="menuModel->getAvailableSonMenuModels()" id="sonMenuModel"}
+                           <li class="has-sub" >
+                               <a href="{:url('@' . $sonMenuModel->url)}"><span>{$sonMenuModel->title}</span> {eq name="sonMenuModel->isHaveAvailableSonMenus()" value="1"}<span class="glyphicon glyphicon-chevron-right" style="float:right;line-height:200%">{/eq}</span></a>
+                               {eq name="sonMenuModel->isHaveAvailableSonMenus()" value="1"}
+                                   <ul>
+                                       {volist name="sonMenuModel->getAvailableSonMenuModels()" id="_sonMenuModel"}
+                                           <li><a href="{:url('@' . $_sonMenuModel->url)}"><span>{$_sonMenuModel->title}</span></a></li>
+                                       {/volist}
+                                   </ul>
+                               {/eq}
+                           </li>
+                           {/volist}
+                       </ul>
+                   </li>
+                   {else /}
+                   <li {eq name="menuModel->isActive()" value="1" }class="active" {/eq} {eq name="$key" value="1"} style="margin-left: -15px;"{/eq} ><a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</a></span>
+                   </li>
+                   {/eq} {/volist}
+               </ul>
             </div>
-        </div>
-    </nav>
-</section>
+            
+        </nav>
+    </div>
+</div>

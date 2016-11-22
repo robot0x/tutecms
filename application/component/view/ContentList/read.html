@@ -6,7 +6,9 @@
                 <div class="mu-contact-area">
                     <!-- start title -->
                     <div class="mu-title">
-                        <div class="text-right"><a href="{:app\\Common::getEditUrl()}">编辑</a></div>
+                        <div class="text-right">
+                            {eq name="User->getData('user_group_name')" value="editor"}<a href="{:app\\Common::getEditUrl()}">编辑</a>{/eq}
+                        </div>
                         <h2>{$ContentModel->title}</h2>
                         <div class="mu-meta">
                             <span>By Admin</span>
@@ -21,7 +23,6 @@
                             <div class="col-md-12">
                                 {yz:plugin position="beforeContent" object="ContentModel"}
                             </div>
-                            <div class="col-md-12">
                                  {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"}
                                     {$_FieldXXXXModel->render('index')}
                                 {/foreach}

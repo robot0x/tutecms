@@ -27,7 +27,6 @@ class JsonController extends FieldController
         // 获取请求信息
         $Request = Request::instance();
         $param = $Request->param();
-
         // 获取当前数据字段对象
         $FieldDataJsonModel = FieldDataJsonModel::get($data);
         $array = json_decode($FieldDataJsonModel->getData('value'), true);

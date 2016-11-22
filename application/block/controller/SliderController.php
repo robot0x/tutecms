@@ -3,6 +3,8 @@ namespace app\block\controller;
 
 use think\Request;                          // 请求
 
+use app\model\ContentModel;                 // 文章
+use app\model\ContentFrontpageModel;        //首页推荐内容
 use app\Common;                             // 通用模型
 use app\model\BlockModel;                   // 区块模型
 use app\model\FieldModel;                   // 字段模型
@@ -33,6 +35,21 @@ class SliderController extends BlockController
         $totalCount = count($this->BlockModel->FieldModel('descriptions')->filter()) < $totalCount ? count($this->BlockModel->FieldModel('descriptions')->filter()) : $totalCount;
 
         $this->assign('totalCount', $totalCount);
+
+        //获取新闻标题
+        // 定义配置信息
+        $map = [];
+        $offset = 7;
+        $order = ['weight'=>'desc', 'create_time'=>'desc'];
+
+        // 取推荐新闻，并传给首页
+        $ContentFrontpageModel = new ContentFrontpageModel;
+        $ContentFrontpageModels = $ContentFrontpageModel->order($order)->limit(0, $offset)->select();
+
+        $this->assign('ContentFrontpageModels', $ContentFrontpageModels);
+
+        unset($ContentFrontpageModels);
+        unset($ContentFrontpageModel);
 
         return $this->fetch();
     }

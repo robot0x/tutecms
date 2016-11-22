@@ -58,7 +58,6 @@ class FilterModel extends ModelModel
     {
         $className = 'app\filter\server\\' . $this->data['type'] . 'Server';
         $result = call_user_func_array(array($className, $this->function), array($value, $this->getParam()));
-
         if (false === $result)
         {
             return $value;

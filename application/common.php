@@ -511,7 +511,27 @@ class Common{
         return url('@' . $url . $route);
     }
 
+    /**
+     * 用于注销的url
+     * @return string 
+     * @author chuhang
+     */
+    static public function logOutUrl($route = '')
+    {
+        $url = MenuModel::getCurrentMenuModel()->getData('url');
+        return url('../login/' . $route);
+    }
 
+    /**
+     * 用于登录的url
+     * @return string 
+     * @author chuhang
+     */
+    static public function login($route = '')
+    {
+        $url = MenuModel::getCurrentMenuModel()->getData('url');
+        return url('../login/' . $route);
+    }
     /**
      * 通过token获取对应的menuModel
      * @param    string                   $token 

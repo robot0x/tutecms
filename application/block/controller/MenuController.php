@@ -4,6 +4,7 @@ use app\model\MenuModel;                    // 菜单
 use think\Cache;                            // 缓存
 use think\Request;                          // 请求
 
+use app\model\UserModel;                    // 用户
 use app\Common;                             // 通用类
 use app\model\BlockModel;                   // 区块
 /**
@@ -28,6 +29,10 @@ class MenuController extends BlockController
         // 取当前菜单类型下可见的菜单列表
         $menuModels = MenuModel::getAvailableSonMenuModelsByPidMenuTypeName($pid, $menuTypeName);
         $this->assign('menuModels', $menuModels);
+
+        //获取当前用户信息
+        $User = UserModel::getCurrentFrontUserModel();
+        $this->assign('User', $User);
 		return $this->fetch('block@Menu/fetchHtml');
 	}
 

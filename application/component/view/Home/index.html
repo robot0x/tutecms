@@ -1,19 +1,28 @@
 {layout name="index" /}
-<section id="mu-service">
-    <div class="container">
+<br><br>
+<div class="row clearfix">
+    <div class="col-md-12 column">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="mu-service-area">
-                    <?php $cssClass = ['fa-book', 'fa-users', 'fa-table'];?>
-                    {volist name="ContentFrontpageModels" key="key" id="ContentFrontpageModel"}
-                    <div class="mu-service-single">
-                        <span class="fa fa-book"></span>
-                        <h3><a href="{$ContentFrontpageModel->ContentModel()->id | $filterModels['href']->filter}">{$ContentFrontpageModel->ContentModel()->title | $filterModels['title']->filter}</a></h3>
-                        <p>{$ContentFrontpageModel->ContentModel()->title}</p>
+        {volist name="ContentModels" id="ContentModel" key="key"}
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <img alt="300x200" src="bootstrap-3.3.5-dist/image/people.jpg" />
+                    <div class="caption">
+                        <h3>
+                            {$ContentModel->title | $filterModels['title']->filter}
+                        </h3>
+                        <p>
+                            {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"}
+                                {$_FieldXXXXModel->substrArticle($_FieldXXXXModel->render('index'))}
+                            {/foreach}
+                        </p>
+                        <p>
+                             <a class="btn btn-primary" href="{$ContentModel->id | $filterModels['href']->filter}">浏览</a>
+                        </p>
                     </div>
-                    {/volist}
                 </div>
             </div>
+        {/volist}
         </div>
     </div>
-</section>
+</div>

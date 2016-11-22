@@ -38,7 +38,6 @@ class ComponentController extends Controller
         $this->Request = Request::instance();
         // 根据action，计算访问权限值index->list
         $action = $this->Request->action();
-
         // 根据路由表中的action值，查找权限表,做出权限判断
         if (!$this->currentFrontUserModel->UserGroupModel()->isAllowedByMenuModelAction($this->currentMenuModel, $action))
         {

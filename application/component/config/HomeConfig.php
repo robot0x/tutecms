@@ -6,4 +6,11 @@ return [
         'type'          =>  'text',
         'value'         =>  3,
     ],
+    'contentTypeName' => [
+        'type'          =>  'text',
+        'title'         =>  '文章类别',
+        'description'   =>  '显示哪个类别的文章',
+        'value'         =>  'inductive',
+    ], 
+
 ];

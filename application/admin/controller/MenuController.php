@@ -102,7 +102,7 @@ class MenuController extends AdminController
             // 验证失败 输出错误信息
             return $this->error('title不能为空', url('MenuType/read', ['name' => $menuType]));
         }
-
+        var_dump($MenuModel);die();
         $MenuModel->save();
 
         // 更新user_group_menu表

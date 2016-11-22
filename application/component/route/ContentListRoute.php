@@ -18,4 +18,19 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['', 'GET']        
     ],
+    'update' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/:id', 'POST'],
+    ],
+    'delete' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/delete/id/:id', 'GET'],
+    ],
+    'add' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/add', 'GET'],
+    ],
 ];

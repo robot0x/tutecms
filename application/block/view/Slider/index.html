@@ -1,25 +1,42 @@
 <!-- Start Slider -->
-<section id="mu-slider">
-    <?php for ($key=0; $key < $totalCount; $key++) : ?>
-        <!-- Start single slider item -->
-        <div class="mu-slider-single">
-            <div class="mu-slider-img">
-                <figure>
-                    <img src="{$images[$key]}">
-                </figure>
-            </div>
-            <div class="mu-slider-content">
-                <h4>{$titles[$key]}</h4>
-                <span></span>
-                <h2>{$headers[$key]}</h2>
-                <p>{$descriptions[$key]}</p>
-                <a href="{$urls[$key]}" class="mu-read-more-btn">Read More</a>
-                {neq name="token" value=""}
-                    <a target="_blank" class="mu-read-more-btn" href="{:url('api/api/index?token=' . $token)}">编辑</a>
-                {/neq} 
-            </div>
+<div class="row clearfix">
+    <div class="col-md-3 column">
+        <div class="text-right read-more-wrap">
+            <a href="news.html">了解更多 » </a>
         </div>
-        <!-- Start single slider item -->
-    <?php endfor; ?>
-</section>
-<!-- End Slider -->
+        {volist name="ContentFrontpageModels" key="key" id="ContentFrontpageModel"}
+        <ul class="nav nav-list">
+            <li>
+                <a href="{$ContentFrontpageModel->ContentModel()->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentFrontpageModel->ContentModel()->title | $filterModels['title']->filter}<span style="float: right;">{$ContentFrontpageModel->ContentModel()->update_time | $filterModels['date']->filter}</span></a>
+            </li>
+            
+        </ul>
+        {/volist}
+    </div>
+    <div class="col-md-9 column">
+        <section id="mu-slider" style="height: 320px;">
+            <?php for ($key=0; $key < $totalCount; $key++) : ?>
+                <!-- Start single slider item -->
+                <div class="mu-slider-single">
+                    <div class="mu-slider-img">
+                        <figure>
+                            <img src="{$images[$key]}">
+                        </figure>
+                    </div>
+                    <div class="mu-slider-content">
+                        <h4>{$titles[$key]}</h4>
+                        <span></span>
+                        <h2>{$headers[$key]}</h2>
+                        <p>{$descriptions[$key]}</p>
+                        {neq name="token" value=""}
+                            <a target="_blank" class="mu-read-more-btn" href="{:url('api/api/index?token=' . $token)}">编辑</a>
+                        {/neq} 
+                    </div>
+                </div>
+                <!-- Start single slider item -->
+            <?php endfor; ?>
+        </section>
+    </div>
+</div>
+
+          

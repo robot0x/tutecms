@@ -5,7 +5,7 @@ return [
         'type'      => 'String',
         'function'  => 'substr',
         'param'     => [
-            'length'    =>  18,
+            'length'    =>  8,
             'etc'       =>  '..',
         ],
     ], 
@@ -14,5 +14,14 @@ return [
     'href' => [ 
         'type'        => 'System',
         'function'    => 'makeFrontpageContentUrl',
-    ],    
+    ],  
+    // 日期格式化
+    'date' => [
+        'type'      => 'date',
+        'function'  => 'format',
+        'param' => [
+            'dateFormat'    => 'Y-m-d',
+        ],
+            
+    ],  
 ];

@@ -41,11 +41,11 @@ class FieldController extends Controller
         if (array_key_exists('css', $FieldDataXXXModel->getSimpleConfig())) {
             Common::addCss($FieldDataXXXModel->getSimpleConfig()['css']);
         }
-
-        // 送入依赖js, 用于在footer中进行统一引用。
-        if (array_key_exists('js', $FieldDataXXXModel->getSimpleConfig())) {
-            Common::addJs($FieldDataXXXModel->getSimpleConfig()['js']);
-        }
+        //暂时不引用
+        // // 送入依赖js, 用于在footer中进行统一引用。
+        // if (array_key_exists('js', $FieldDataXXXModel->getSimpleConfig())) {
+        //     Common::addJs($FieldDataXXXModel->getSimpleConfig()['js']);
+        // }
 
         // 传入配置信息
         $this->config = $FieldDataXXXModel->getSimpleConfig();
@@ -76,6 +76,7 @@ class FieldController extends Controller
             // 实例化字段,然后调用init()进行实始化 ，调用fetchHtml()进行渲染
             $FieldXXXController = new $className();
             $FieldXXXController->init($FieldDataXXXModel);
+            var_dump($FieldXXXController->$action());
             return $FieldXXXController->$action();
         } else {
             return 'field type is ' . $typeName . '. But ' . $className . '::' . 'index not found!';
