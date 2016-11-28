@@ -45,7 +45,6 @@ class SliderController extends BlockController
         // 取推荐新闻，并传给首页
         $ContentFrontpageModel = new ContentFrontpageModel;
         $ContentFrontpageModels = $ContentFrontpageModel->order($order)->limit(0, $offset)->select();
-
         $this->assign('ContentFrontpageModels', $ContentFrontpageModels);
 
         unset($ContentFrontpageModels);

@@ -76,7 +76,6 @@ class FieldController extends Controller
             // 实例化字段,然后调用init()进行实始化 ，调用fetchHtml()进行渲染
             $FieldXXXController = new $className();
             $FieldXXXController->init($FieldDataXXXModel);
-            var_dump($FieldXXXController->$action());
             return $FieldXXXController->$action();
         } else {
             return 'field type is ' . $typeName . '. But ' . $className . '::' . 'index not found!';

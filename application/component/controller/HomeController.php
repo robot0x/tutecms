@@ -15,8 +15,9 @@ class HomeController extends ComponentController
         $map['is_freezed'] = '0';
         $map['is_delete'] = '0';
         $ContentModels = $ContentModel->where($map)->paginate($this->config['count']['value']);
-        $this->assign('ContentModels', $ContentModels);
+        
 
+        $this->assign('ContentModels', $ContentModels);
         return $this->fetch();
     }
 

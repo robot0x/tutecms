@@ -1,17 +1,11 @@
 {layout name="index" /}
+<?php if ($Url === 'news' || $User->getData('user_group_name') === 'editor'): ?>
 <div class="row clearfix">
     <div class="text-right">
         {eq name="User->getData('user_group_name')" value="editor"}
-        <?php if (app\Common::getUpdateUrl() === '/tutecms/public/inductive.html'): ?>
         <div class="text-right" style="padding-right:15px;">
-            <a class="btn btn-default" href="{:url('@inductive/add')}" ><i class="glyphicon glyphicon-plus">新增</i></a>
+            <a class="btn btn-default" href="{:url("@$Url/add")}" ><i class="glyphicon glyphicon-plus">新增</i></a>
         </div>
-        <?php endif; ?>
-        <?php if (app\Common::getUpdateUrl() === '/tutecms/public/news.html'): ?>
-            <div class="text-right" style="padding-right:15px;">
-            <a class="btn btn-default" href="{:url('@news/add')}" ><i class="glyphicon glyphicon-plus">新增</i></a>
-        </div>
-        <?php endif; ?>
         {/eq}
     </div>
     <div class="col-md-12 column">
@@ -22,8 +16,9 @@
                         编号
                     </th>
                     <th>
-                        <?php if (app\Common::getUpdateUrl() === '/tutecms/public/inductive.html'): ?>操作说明<?php endif; ?>
-                        <?php if (app\Common::getUpdateUrl() === '/tutecms/public/news.html'): ?>新闻通知<?php endif; ?>
+                       {eq name="$Url" value="news"}
+                       新闻通知{else /}操作说明
+                       {/eq}
                     </th>
                     <th>
                         点击量
@@ -51,12 +46,7 @@
                     </td>
                     {eq name="User->getData('user_group_name')" value="editor"}
                     <td>
-                    <?php if (app\Common::getUpdateUrl() === '/tutecms/public/news.html'): ?>
-                    <a href="{:url('@news/delete?id=' . $ContentModel->id)}" class="btn btn-default btn-sm">删除</a>
-                    <?php endif; ?>  
-                    <?php if (app\Common::getUpdateUrl() === '/tutecms/public/inductive.html'): ?>
-                    <a href="{:url('@inductive/delete?id=' . $ContentModel->id)}" class="btn btn-default btn-sm">删除</a>
-                    <?php endif; ?>   
+                        <a href="{:url('@$Url/delete?id=' . $ContentModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
                     </td>
                     {/eq}
                 </tr>
@@ -66,3 +56,23 @@
         {$ContentModels->render()}
     </div>
 </div>
+<?php endif; ?>  
+<?php if ($Url === 'inductive' && $User->getData('user_group_name') === 'public'): ?>
+    <div class="row clearfix">
+        <div class="col-md-3 column">
+            <ul class="nav nav-list">
+            {volist name="ContentModels" id="ContentModel" key="key"}
+                <li>
+                    <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title | $filterModels['title']->filter}</a>
+                </li>
+            {/volist}
+            </ul>
+        </div>
+        <div class="col-md-9 column">
+            <img alt="140x140" src="bootstrap-3.3.5-dist/image/city.jpg" />
+            <div>
+            {$ContentModels[0]->getContent()}
+        </div>
+        </div>
+    </div>
+<?php endif; ?>  

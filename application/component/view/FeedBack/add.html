@@ -1,0 +1,55 @@
+{layout name="index" /}
+<div class="container">  
+	<form  method="post" action="{:app\\Common::url('/save')}">
+    <div class="span">
+    	<h3>我要评论</h3>
+    	<div class="row">
+	    	<div class="form-group">
+                <label class="col-md-1 text-left" for="email">教室	</label>
+                <div class="col-md-2" style="margin-left: -50px;">
+                    <select class="form-control" name="classroom">
+                    {volist name="Classrooms" id="Classroom"}
+	                    <option >{$Classroom->getData('title')}</option>
+                    {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -20px;">
+                <label for="email" class="col-md-2 text-right">机号</label>
+                <div class="col-md-2 text-left">
+                    <input class="form-control" name="number" />
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+	        <div class="form-group">
+	            <label for="name" class="col-md-1">邮箱</label>
+	            <div class="col-md-2" style="margin-left: -50px;">
+	                 <input class="form-control" name="email" type="email" type="email" id="name"></input>
+	            </div>
+	        </div>
+	    </div>
+        <br>
+
+        <div class="row-fluid"> 
+	        <label>评论内容：</label>
+	          <p class="comment-form-comment">
+	           
+	            <textarea style="width:600px;" required="required" aria-required="true" rows="8" cols="45" name="comment"></textarea>
+	          </p>
+	     </div>
+        <div class="row">
+          	<div class="form-group">
+	            <label for="name" class="col-md-1">验证码</label>
+	            <div class="col-md-2" style="margin-left: -50px;">
+	                 <input class="form-control" name="name" id="name"></input>
+	            </div>
+	        </div>	
+	        <img style="margin-top: -20px;" src="bootstrap-3.3.5-dist/image/QQ图片20161103161609.png"><a>看不清楚</a>
+        </div> 
+        <br>               
+        <button class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> 提交</button>       
+    </div>
+	</form>
+</div>

@@ -132,4 +132,16 @@ class ContentModel extends ModelModel
             return $status[$value];
         }
     }
+
+    /**
+     * 获取文章内容
+     * @return string 文章字符串
+     * @author chuhang 
+     */
+    public function getContent() {
+        $KeyId = $this->getData('id');
+        $map['key_id'] = $KeyId;
+        $result = FieldDataBodyModel::get($map)->getData('value');
+        return $result;
+    }
 }

@@ -24,13 +24,18 @@ return [
         'value'         => ['/:id', 'POST'],
     ],
     'delete' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
+        'title'         => '删除',
+        'description'   => '删除',
         'value'         => ['/delete/id/:id', 'GET'],
     ],
     'add' => [
+        'title'         => '添加',
+        'description'   => '添加',
+        'value'         => ['/add', 'GET'],
+    ],
+    'save' => [
         'title'         => '保存（更新）',
         'description'   => '保存数据',
-        'value'         => ['/add', 'GET'],
+        'value'         => ['/save', 'POST'],
     ],
 ];
