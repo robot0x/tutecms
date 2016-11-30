@@ -41,11 +41,11 @@ class FieldController extends Controller
         if (array_key_exists('css', $FieldDataXXXModel->getSimpleConfig())) {
             Common::addCss($FieldDataXXXModel->getSimpleConfig()['css']);
         }
-        //暂时不引用
-        // // 送入依赖js, 用于在footer中进行统一引用。
-        // if (array_key_exists('js', $FieldDataXXXModel->getSimpleConfig())) {
-        //     Common::addJs($FieldDataXXXModel->getSimpleConfig()['js']);
-        // }
+
+        // 送入依赖js, 用于在footer中进行统一引用。
+        if (array_key_exists('js', $FieldDataXXXModel->getSimpleConfig())) {
+            Common::addJs($FieldDataXXXModel->getSimpleConfig()['js']);
+        }
 
         // 传入配置信息
         $this->config = $FieldDataXXXModel->getSimpleConfig();

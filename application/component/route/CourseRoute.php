@@ -9,7 +9,17 @@ return [
     'add' => [
         'title'         => '保存（更新）',
         'description'   => '保存数据',
-        'value'         => ['/add', 'GET'],
+        'value'         => ['/read/add', 'GET'],
+    ],
+    'read' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/read', 'GET'],
+    ],
+    'edit' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/edit', 'GET'],
     ],
 
 ];

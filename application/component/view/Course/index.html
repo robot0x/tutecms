@@ -18,12 +18,12 @@
 	        	<option>第三周</option>
 	        	</select>
 	        </div>
-          <button type="submit" style="margin-left:-80px;" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
+          <button type="submit" style="margin-left:-80px;" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>查询</button>
         </form>
     </div>
     {eq name="User->getData('user_group_name')" value="editor"}
     <div class="col-md-2 text-right">
-      <a href="{:url('@course/edit')}" class="btn btn-default">编辑</a>
+      <a href="{:url('@course/read')}" class="btn btn-default">课表编辑</a>
     </div>
     {/eq}
 </div>

@@ -30,5 +30,26 @@ class CourseController extends ComponentController
         $this->assign('User', $User);
     	return $this->fetch();
     }
+
+    public function editAction(){
+        return $this->fetch();
+    }
+
+    public function readAction(){
+        $CourseModel = new CourseModel;
+        //取每天第一节课
+        for ($i=1; $i<5; $i++) {
+            $map = [];
+            $map['week'] = 1;
+            $map['ranking'] = $i;
+            $results[$i] = $CourseModel->where($map)->select();
+        }
+        $this->assign('results', $results);
+        return $this->fetch();
+    }
+
+    public function addAction(){
+        return $this->fetch();
+    }
 }
 ?> 

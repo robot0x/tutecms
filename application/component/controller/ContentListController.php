@@ -146,7 +146,10 @@ class ContentListController extends ComponentController
         if (false === $FieldDataBodyModel->save()) {
             return $this->error($FieldDataBodyModel->getError());
         }
-        
+        // 更新扩展数据字段
+        if (isset($data['field_'])) {
+            FieldModel::updateLists($data['field_'], $this->ContentModel->getData('id'));
+        }
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
     }

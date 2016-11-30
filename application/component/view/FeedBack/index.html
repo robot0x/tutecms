@@ -1,6 +1,7 @@
 {layout name="index" /}
-<div class="text-right" style="padding-right:15px;">
-	<a class="btn btn-default" href="{:url('@feedback/add')}" >我要反馈</a>
+<div class="row">
+	<div class="text-right" style="padding-right:15px;">
+		<a class="btn btn-default" href="{:url('@feedback/add')}" ><i class="glyphicon glyphicon-plus">我要反馈</i></a>
 	</div>
 	<div class="col-md-12 column">
 	    <table class="table table-hover">
@@ -47,3 +48,4 @@
 	    </table>
 	    {$FeedbackModels->render()}
 	</div>
+</div>

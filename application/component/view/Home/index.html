@@ -13,7 +13,7 @@
                         </h3>
                         <p>
                             {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"}
-                                {$_FieldXXXXModel->render('index')}
+                                {$ContentModel->substrArticle($_FieldXXXXModel->render('index'))}
                             {/foreach}
                         </p>
                         <p>
