@@ -1,0 +1,23 @@
+{layout name="index" /}
+<div class="row clearfix">
+    <div class="col-md-3 column">
+        {include file="./left" }
+    </div>
+    <form action="{:app\\Common::url('/classroom/saveClassroom')}" method="post">
+    <div class="col-md-9">
+    	<div class="row">
+    		<div class="control-group">
+    		    <label class="col-md-3 text-right" for="_name">教室名称</label>
+    		    <div class="col-md-3">
+    		        <input type="text" name="name" class="form-control" />
+    		    </div>
+    		</div>
+    	</div>
+    </div>
+    <br><br>
+    <div class="row">
+    	<div class="col-md-6 text-center">
+    		<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i> 提交</button>
+    	</div>
+    </div>
+</div>

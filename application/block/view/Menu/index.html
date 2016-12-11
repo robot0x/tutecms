@@ -25,7 +25,7 @@
                                {eq name="sonMenuModel->isHaveAvailableSonMenus()" value="1"}
                                    <ul>
                                        {volist name="sonMenuModel->getAvailableSonMenuModels()" id="_sonMenuModel"}
-                                           <li><a href="{:url('@' . $_sonMenuModel->url)}"><span>{$_sonMenuModel->title}</span></a></li>
+                                           <li><a href="{:url('@' . $_sonMenuModel->url)}"><span>{$_sonMenuModel->title}</span></a></li>{:var_dump($_sonMenuModel->title)}
                                        {/volist}
                                    </ul>
                                {/eq}

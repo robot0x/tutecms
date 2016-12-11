@@ -1,0 +1,17 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="<?php if(isset($course)){echo 'active';}  ?>">
+        <a href="{:url('@curriculum/course')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>课程管理</a>
+    </li>
+    <li class="<?php if(isset($teacher)){echo 'active';}  ?>">
+        <a href="{:url('@curriculum/teacher')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>教师管理</a>
+    </li>
+    <li class="<?php if(isset($klass)){echo 'active';}  ?>">
+        <a href="{:url('@curriculum/klass')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>班级管理</a>
+    </li>
+    <li class="<?php if(isset($classroom)){echo 'active';}  ?>">
+        <a href="{:url('@curriculum/classroom')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>教室管理</a>
+    </li>
+    <li class="<?php if(isset($period)){echo 'active';}  ?>">
+        <a href="{:url('@curriculum/period')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>周期管理</a>
+    </li>
+</ul>   

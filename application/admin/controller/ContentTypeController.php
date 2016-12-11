@@ -131,7 +131,6 @@ class ContentTypeController extends AdminController
         $ContentTypeModel->setData('name', $data['name']);
         $ContentTypeModel->setData('weight', $data['weight']);
         $ContentTypeModel->setData('description', $data['description']);
-
         //验证并保存
         if (false === $ContentTypeModel->validate()->save($data)) {
             return $this->error("保存失败,请检查所填的内容正确与完整");

@@ -1,7 +1,7 @@
 <?php
 namespace app\model;
 /**
-* 课表
+* 评论
 */
 class CommentModel extends ModelModel
 {

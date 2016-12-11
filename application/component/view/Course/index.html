@@ -1,4 +1,5 @@
 {layout name="index" /}
+{eq name="User->getData('user_group_name')" value="public"}
 <div class="row">
     <div class="col-md-10">
         <form class="form-inline" action="{:url()}" method="get">
@@ -21,11 +22,11 @@
           <button type="submit" style="margin-left:-80px;" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>查询</button>
         </form>
     </div>
-    {eq name="User->getData('user_group_name')" value="editor"}
+    
     <div class="col-md-2 text-right">
       <a href="{:url('@course/read')}" class="btn btn-default">课表编辑</a>
     </div>
-    {/eq}
+   
 </div>
 <hr>
 <table class="table table-bordered table-hover">
@@ -66,5 +67,87 @@
       </tr>
   </tbody>
   <tbody>
+</table>
+ {/eq}
+ {eq name="User->getData('user_group_name')" value="editor"}
+ <div class="row">
+     <div class="col-md-10">
+         <form class="form-inline" action="{:url()}" method="get">
+         <div class="col-md-6">
+            <label>教室</label>
+            <select class="form-control" style="width:130px;" name="category_id">
+            <option>A702</option>
+            <option>A801</option>
+            <option>A802</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>周次</label>
+            <select class="form-control" style="width:130px;" name="category_id">
+            <option>全选</option>
+            <option>第一周</option>
+            <option>第二周</option>
+            <option>第三周</option>
+            </select>
+          </div>
+           <button type="submit" style="margin-left:-75px;" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>查询</button>
+         </form>
+     </div>
+     <div class="col-md-2 text-right">
+       <a class="btn btn-default" href="{:url('@course/add')}" ><i class="glyphicon glyphicon-plus">新增</i></a>
+     </div>
+ </div>
+<hr>
+<table class="table table-bordered table-hover">
+  <thead>
+      <tr>
+          <th width="40px;">  </th>
+          <th width="228px;">周一</th>
+          <th width="228px;">周二</th>
+          <th width="228px;">周三</th>
+          <th width="228px;">周四</th>
+          <th width="228px;">周五</th>
+      </tr>
+  </thead>
+  <tbody>
+         {foreach name="results" id="result" key="key"}
+         <tr>
+          <td>{$key}</td>
+          {foreach name="result" id="_res" key="key"}
+             <td><a href="{:url('@course/add')}" ><i class="glyphicon glyphicon-plus"></i></a>
+             {empty name="_res"}<div class="text-center">暂无课程</div>{/empty}
+             {notempty name="_res"}
+                {volist name="_res" id="_res" key="key"}
+                <div class="row">
+                  <div class="text-center">
+                     <a href="{:url('@course/edit')}">{$ChuhangCurriculumModel->getCourseName($_res->getData('course_id'))}</a>
+                     <a href="#" style="maigin"><i class="glyphicon glyphicon-edit"></i><a href="{:url('@course/delete')}" style="maigin">&nbsp;<i class="glyphicon glyphicon-trash"></i>
+                   </div>
+                   <div class="text-center">
+                     {$ChuhangCurriculumModel->getTeacherName($_res->getData('teacher_id'))}
+                   </div>
+                   <div class="text-center">
+                   {volist name="ChuhangCurriculumModel->getKlassName($_res->getData('klass'))" id="_result" key="key"}
+                   {$_result}
+                   {/volist}
+                   </div>
+                   <div class="text-center">
+                      第{$ChuhangCurriculumModel->getWeekName($_res)}周
+                   </div>
+                 </div>
+                 <br>
+                
+                {/volist}
+              {/notempty}
+              </td>
+            {/foreach}
+            </tr>
+          {/foreach}
+        
+      
+  </tbody>
+  <tbody>
 
 </table>
+{/eq}
+
