@@ -42,11 +42,11 @@
                     </td>
                     <td>{$ContentModel->hit}</td>
                     <td>
-                        {$ContentModel->update_time | $filterModels['date']->filter}
+                        {$ContentModel->create_time | $filterModels['date']->filter}
                     </td>
                     {eq name="User->getData('user_group_name')" value="editor"}
                     <td>
-                        <a href="{:url('@$Url/delete?id=' . $ContentModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
+                        <a href="{:url("@$Url/delete?id=" . $ContentModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
                     </td>
                     {/eq}
                 </tr>

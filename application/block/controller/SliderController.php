@@ -39,16 +39,18 @@ class SliderController extends BlockController
         //获取新闻标题
         // 定义配置信息
         $map = [];
+        $map['is_delete'] = 0;
+        $map['content_type_name'] = 'news';
         $offset = 7;
         $order = ['weight'=>'desc', 'create_time'=>'desc'];
 
         // 取推荐新闻，并传给首页
-        $ContentFrontpageModel = new ContentFrontpageModel;
-        $ContentFrontpageModels = $ContentFrontpageModel->order($order)->limit(0, $offset)->select();
-        $this->assign('ContentFrontpageModels', $ContentFrontpageModels);
+        $ContentModel = new ContentModel;
+        $ContentModels = $ContentModel->where($map)->order($order)->limit(0, $offset)->select();
+        $this->assign('ContentModels', $ContentModels);
 
-        unset($ContentFrontpageModels);
-        unset($ContentFrontpageModel);
+        unset($ContentModels);
+        unset($ContentModel);
 
         return $this->fetch();
     }
