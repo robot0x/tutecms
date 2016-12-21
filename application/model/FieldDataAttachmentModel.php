@@ -111,7 +111,6 @@ class FieldDataAttachmentModel extends FieldModel
         if (null === $this->url) {
             $this->url = __ROOT__ . $this->getConfig()['uploadPath']['value'] . '/' . $this->getData('save_name');
         }
-
         return $this->url;
     }
 
@@ -144,7 +143,7 @@ class FieldDataAttachmentModel extends FieldModel
         if ( '' !== $Object->getData('id')) {
             // 如果存在历史信息，先删除历史信息
             $oldObject = $self::get(['field_id' => $fieldId, 'key_id' => $keyId]);
-            if ('' !== $oldObject && ($oldObject->getData('id') !== $Object->getData('id'))) {
+            if ( empty($oldObject) && ($oldObject->getData('id') !== $Object->getData('id'))) {
                 $oldObject->delete();
             }
 

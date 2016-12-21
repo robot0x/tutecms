@@ -1,16 +1,15 @@
 {layout name="index" /}
+<div class="container">
+<form method="post" action="{:app\\Common::url('/' .$ChuhangCurriculumModel->getData('id'). '/update')}">
 <br><br><br>
 <div class="row">
 	<div class="control-group">
-	    <label class="col-md-3 text-right" for="_name">课程信息</label>
+	    <label class="col-md-3 text-right">课程信息</label>
 	    <div class="col-md-3">
-	        <select class="form-control">
-	        	<option>物流管理</option>
-	        	<option>电子商务</option>
-	        	<option>管理学</option>
-	        	<option>统计学</option>
-	        	<option>微观经济学</option>
-	        	<option>高数</option>
+	        <select class="form-control" name="course">
+	        {volist name="ChuhangCourseModels" id="ChuhangCourseModel"}
+	        	<option {eq name="ChuhangCurriculumModel->getData('course_id')" value="$ChuhangCourseModel->getData('id')" } selected="selected" {/eq} value="{$ChuhangCourseModel->getData('id')}">{$ChuhangCourseModel->getData('name')}</option>
+        	{/volist}
 	        </select>
 	    </div>
 	</div>
@@ -18,15 +17,12 @@
 <br>
 <div class="row">
 	<div class="control-group">
-	    <label class="col-md-3 text-right" for="_name">教师</label>
+	    <label class="col-md-3 text-right">教师</label>
 	    <div class="col-md-3">
-	        <select class="form-control">
-	        	<option>赵丽华</option>
-	        	<option>李清</option>
-	        	<option>李希</option>
-	        	<option>张老师</option>
-	        	<option>王老师</option>
-	        	<option>登老师</option>
+	        <select class="form-control" name="teacher">
+	        {volist name="ChuhangTeacherModels" id="ChuhangTeacherModel"}
+	        	<option {eq name="ChuhangCurriculumModel->getData('teacher_id')" value="$ChuhangTeacherModel->getData('id')" } selected="selected" {/eq} value="{$ChuhangTeacherModel->getData('id')}">{$ChuhangTeacherModel->getData('name')}</option>
+        	{/volist}
 	        </select>
 	    </div>
 	</div>
@@ -36,11 +32,10 @@
 	<div class="control-group">
 	    <label class="col-md-3 text-right" for="_name">教室</label>
 	    <div class="col-md-3">
-	        <select class="form-control">
-	        	<option>A701</option>
-	        	<option>A702</option>
-	        	<option>A801</option>
-	        	<option>A802</option>
+	        <select class="form-control" name="classroom">
+		        {volist name="ChuhangClassroomModels" id="ChuhangClassroomModel"}
+		        	<option {eq name="ChuhangCurriculumModel->getData('classroom_id')" value="$ChuhangClassroomModel->getData('id')" }  selected="selected" {/eq} value="{$ChuhangClassroomModel->getData('id')}">{$ChuhangClassroomModel->getData('name')}</option>
+	        	{/volist}
 	        </select>
 	    </div>
 	</div>
@@ -49,26 +44,33 @@
 <div class="form-group row">
 	<label class="col-md-3 text-right">班级</label>
 	<div class="col-md-5">
-		<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />电商1501&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />电商1501&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />电商1501&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />电商1501&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />电商1501&nbsp;
+		{volist name="ChuhangKlassModels" id="ChuhangKlassModel" key="key"}
+			<input type="checkbox" type="text" id="_klass{$key}" {eq name="ChuhangKlassModel->getEditKlassInfo($ChuhangCurriculumModel->getData('klass'), $ChuhangKlassModel->getData('id'))" value="true" } checked="checked" {/eq} name="klass[]" value="{$ChuhangKlassModel->getData('id')}" placeholder="姓名" /><label for="_klass{$key}">{$ChuhangKlassModel->getData('name')}</label>
+		{/volist}
 	</div>
 </div>
-<div class="form-group row">
-	<label class="col-md-3 text-right">星期</label>
-	<div class="col-md-5">
-		<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />周一&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />周二&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />周三&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />周四&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />周五&nbsp;
-	</div>
-</div>
-
 <div class="form-group row">
 	<label class="col-md-3 text-right">节次</label>
 	<div class="col-md-5">
-		<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第一大节&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第二大节&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第三大节&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四大节&nbsp;
+		{volist name="ChuhangTimeModels" id="ChuhangTimeModel" key="key"}
+		<input type="checkbox" type="text" id="_time{$key}" {eq name="ChuhangCurriculumModel->getData('time_id')" value="$ChuhangTimeModel->getData('id')" } checked="checked" {/eq} name="time[]" value="{$ChuhangTimeModel->getData('id')}" placeholder="姓名" /><label for="_time{$key}">第{$ChuhangTimeModel->getTime($ChuhangTimeModel->getData('time'))}节</label>
+		{/volist}
 	</div>
 </div>	
 <div class="form-group row">
+	<label class="col-md-3 text-right">星期</label>
+	<div class="col-md-5">
+		{volist name="ChuhangDayModels" id="ChuhangDayModel" key="key"}
+		<input type="checkbox" type="text" id="_day{$key}" name="day[]" {eq name="ChuhangCurriculumModel->getData('day_id')" value="$ChuhangDayModel->getData('id')" } checked="checked" {/eq} value="{$ChuhangDayModel->getData('id')}" placeholder="姓名" /><label for="_day{$key}">星期{$ChuhangDayModel->getDay($ChuhangDayModel->getData('day'))}</label>
+		{/volist}
+	</div>
+</div>
+<div class="form-group row">
 	<label class="col-md-3 text-right">周次</label>
 	<div class="col-md-5">
-		<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第一周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第二周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第三周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;<input type="checkbox" type="text" id="_name" name="name" placeholder="姓名" />第四周&nbsp;
+	{volist name="weeks" id="week" key="key"}
+	<input type="checkbox" {eq name="ChuhangCurriculumModel->getEditWeekInfo($ChuhangCurriculumModels, $key)" value="true" } checked="checked" {/eq} type="text" id="_week{$key}" name="week[]" placeholder="姓名" value="{$key}" /><label for="_week{$key}">第{$week}周</label>
+	{/volist}
 	</div>
 </div><br>
 
@@ -76,5 +78,7 @@
 	<div class="col-md-4 text-right">
 		<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i> 提交</button>
 	</div>
+</div>
+</form>
 </div>
 

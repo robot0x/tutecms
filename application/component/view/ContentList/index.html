@@ -60,9 +60,9 @@
 <?php if ($Url === 'inductive' && $User->getData('user_group_name') === 'public'): ?>
     <div class="row clearfix">
         <div class="col-md-3 column">
-            <ul class="nav nav-list">
+            <ul class="nav nav-pills nav-stacked">
             {volist name="ContentModels" id="ContentModel" key="key"}
-                <li>
+                <li {eq name="1" value="$key" } class="active" {/eq} >
                     <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title | $filterModels['title']->filter}</a>
                 </li>
             {/volist}

@@ -11,6 +11,11 @@ return [
         'description'   => '保存数据',
         'value'         => ['/add', 'GET'],
     ],
+    'addCourse' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/addCourse/:id', 'GET'],
+    ],
     'save' => [
         'title'         => '保存（更新）',
         'description'   => '保存数据',
@@ -19,12 +24,17 @@ return [
     'edit' => [
         'title'         => '保存（更新）',
         'description'   => '保存数据',
-        'value'         => ['/edit', 'GET'],
+        'value'         => ['/edit/:id', 'GET'],
     ],
     'delete' => [
         'title'         => '保存（更新）',
         'description'   => '保存数据',
-        'value'         => ['/delete', 'GET'],
+        'value'         => ['/delete/:id', 'GET'],
+    ],
+    'update' => [
+        'title'         => '保存（更新）',
+        'description'   => '保存数据',
+        'value'         => ['/:id/update', 'POST'],
     ],
 
 

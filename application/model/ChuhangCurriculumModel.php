@@ -6,7 +6,7 @@ namespace app\model;
 class ChuhangCurriculumModel extends ModelModel
 {
 	//获取课表显示的信息学
-	public function getResult(){
+	public function getResult($data){
 		//获取前台显示的每天含有的节次数
 		$ChuhangTimeModels = ChuhangTimeModel::all();
 		$countTime = count($ChuhangTimeModels);
@@ -18,16 +18,49 @@ class ChuhangCurriculumModel extends ModelModel
 
 			for ($m=0; $m<$countDay; $m++) {
 				$day = $ChuhangDayModels[$m]->getData('day');
+
+				
 				//查找对应的当前节次，当前天的课程信息
 				$map['time_id'] = $time;
 				$map['day_id'] = $day;
-				$self = new self;
-				$selfs[$m] = $self->where($map)->select();
-
-				//查找除周次信息不同其它均相同的数据
-				if (!empty($selfs[$m])) {
-				$selfs[$m] = self::getCourseInfo($selfs[$m]);
+				if (isset($data['classroom_id'])) {
+					$map['classroom_id'] = $data['classroom_id'];
 				}
+				
+				$self = new self;
+				//判断查询条件是否为全选
+				if (isset($data['week_id']) && $data['week_id'] == 100) {
+					
+					$selfs[$m] = $self->where($map)->select();
+
+					//查找除周次信息不同其它均相同的数据
+					if (!empty($selfs[$m])) {
+					$selfs[$m] = self::getCourseInfo($selfs[$m]);
+					}
+				//判断如果没有点击查询按钮，则显示所有的课程
+				} elseif (isset($data['week_id']) === false) {
+					$selfs[$m] = $self->where($map)->select();
+
+					//查找除周次信息不同其它均相同的数据
+					if (!empty($selfs[$m])) {
+					$selfs[$m] = self::getCourseInfo($selfs[$m]);
+					}
+					//如果用于选择了查询的周次，则显示当前周次的信息
+				} else {
+					if (isset($data['week_id'])) {
+						$map['week'] = $data['week_id'];
+					}
+					
+					$selfs[$m] = $self->where($map)->select();
+					//删除复合查询条件的数据的配置信息
+					$count = count($selfs[$m]);
+					for ($c=0; $c<$count; $c++) {
+						$selfs[$m][$c]->setData('config', '');
+						$selfs[$m][$c]->save();
+					}
+				}
+
+				
 			}
 			//获取每个节次对应的课程信息
 			$results[$i] = $selfs;
@@ -61,7 +94,7 @@ class ChuhangCurriculumModel extends ModelModel
 	//获取数据的周次信息
 	public function getWeekName($data){
 		if (empty($data->getData('config'))) {
-			$result = self::getChineseName($data->getData('week'));
+			$result = self::getChineseName($data->getData('week') - 1);
 			return $result;
 		}
 		$weeks = json_decode($data->getData('config'));
@@ -170,6 +203,123 @@ class ChuhangCurriculumModel extends ModelModel
 			}
 		}
 		return $new;
+	}
+
+
+	//获取所有的教室，用于查询
+	public function getAllClassroom(){
+		$ChuhangClassroomModel = ChuhangClassroomModel::all();
+		return $ChuhangClassroomModel;
+	}
+
+	//获取所有的周次，用于查询
+	public function getAllWeek(){
+		$ChuhangPeriodModel = ChuhangPeriodModel::get();
+        $week = (int)((($ChuhangPeriodModel->getData('end_time') - $ChuhangPeriodModel->getData('start_time'))/86400)/7) + 1;
+        for ($i=0; $i<$week; $i++) {
+        	$weeks[] = (object)($i+1);
+        }
+        return $weeks;
+	}
+
+	//判断用于选择的当前的教室的当前周次，当前天，当前节次是否已有其他课程安排
+	public function getJudge($data) {
+		$map['classroom_id'] = $data['classroom'];
+		//获取周次
+		$countWeek = count($data['week']);
+		for ($i=0; $i<$countWeek; $i++) {
+			$map['week'] = $data['week'][$i];
+			//获取当前天数
+			$countDay = count($data['day']);
+			for ($m=0; $m<$countDay; $m++) {
+				$map['day_id'] = $data['day'][$m];
+				//获取当前节次
+				$countTime = count($data['time']);
+				for ($n=0; $n<$countTime; $n++) {
+					$map['time_id'] = $data['time'][$n];
+					//查询课表中是否已有课程安排
+					$ChuhangCurriculumModel = new ChuhangCurriculumModel;
+					$result = $ChuhangCurriculumModel->where($map)->select();
+					if (!empty($result)) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	//在update中判断用于选择的当前的教室的当前周次，当前天，当前节次是否已有其他课程安排
+	public function getEditJudge($data) {
+		$map['classroom_id'] = $data['classroom'];
+		//获取要编辑的课程的周次信息
+		$countWeek = count($data['week']);
+		$curriculum = ChuhangCurriculumModel::get($data['id'])->getData();
+		$search['classroom_id'] = $curriculum['classroom_id'];
+		$search['teacher_id'] = $curriculum['teacher_id'];
+		$search['time_id'] = $curriculum['time_id'];
+		$search['day_id'] = $curriculum['day_id'];
+		$search['klass'] = $curriculum['klass'];
+		$CrriculumModel = new ChuhangCurriculumModel;
+		$CrriculumModels = $CrriculumModel->where($search)->select();
+		$countweek = count($CrriculumModels);
+		for ($x=0; $x<$countweek; $x++) {
+			$weeks[] = $CrriculumModels[$x]->getData('week');
+		}
+
+		for ($i=0; $i<$countWeek; $i++) {
+			$map['week'] = $data['week'][$i];
+			//获取当前天数
+			$countDay = count($data['day']);
+			for ($m=0; $m<$countDay; $m++) {
+				$map['day_id'] = $data['day'][$m];
+				//获取当前节次
+				$countTime = count($data['time']);
+				for ($n=0; $n<$countTime; $n++) {
+					$map['time_id'] = $data['time'][$n];
+
+					//判断的用户选择的课程是否已选择
+					if (($map['day_id'] == $curriculum['day_id'] && $map['time_id'] == $curriculum['time_id'] && in_array($map['week'], $weeks)) == false) {
+						
+						//查询课表中是否已有课程安排
+						$ChuhangCurriculumModel = new ChuhangCurriculumModel;
+						$result = $ChuhangCurriculumModel->where($map)->select();
+						
+						if (!empty($result)) {
+							return true;
+						}
+					}
+					
+				}
+			}
+		}
+
+		return false;
+	}
+
+	//判断课程是否为全选，判断删除、编辑等操作的执行
+	public function isAll($data){
+		if (empty($data)) {
+            $isAll = 1;
+        } elseif ($data['week_id'] == 100) {
+            $isAll = 1;
+        } else {
+        	$isAll = 0;
+        }
+        
+        return $isAll;
+	}
+
+	public function getEditWeekInfo($weeks, $week_id) {
+		$count = count($weeks);
+		for ($i=0; $i<$count; $i++) {
+			$week[] = $weeks[$i]->getData('week');
+		}
+		if (in_array($week_id, $week)) {
+			return true;
+		}
+		return false;
 	}
 	
 

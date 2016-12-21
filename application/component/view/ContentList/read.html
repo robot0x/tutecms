@@ -43,9 +43,9 @@
 <?php if ($Url === 'inductive' && $User->getData('user_group_name') === 'public'): ?>
         <div class="row clearfix">
             <div class="col-md-3 column">
-                <ul class="nav nav-list">
+                <ul class="nav nav-pills nav-stacked">
                 {volist name="ContentModels" id="_ContentModel" key="key"}
-                    <li>
+                    <li {eq name="$ContentModel->getData('id')" value="$_ContentModel->getData('id')"} class="active" {/eq}>
                         <a href="{$_ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$_ContentModel->title | $filterModels['title']->filter}</a>
                     </li>
                 {/volist}

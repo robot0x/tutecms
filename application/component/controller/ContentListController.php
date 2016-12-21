@@ -39,6 +39,7 @@ class ContentListController extends ComponentController
         if ('' === $ContentModel->getData('id')) {
             return $this->error('数据不存在或已删除');
         }
+        $ContentModel->FieldXXXXModels();
         $this->assign('ContentModel', $ContentModel);
         //获取操作说明的列表
         $ContentModel = new ContentModel();
@@ -50,6 +51,7 @@ class ContentListController extends ComponentController
         $this->assign('ContentModels', $ContentModels);
 
         // 增加一个点击量
+        $ContentModel = ContentModel::get($id);
         $ContentModel->hit = $ContentModel->hit + 1;
         $ContentModel->save();
         //获取当前用户信息
@@ -73,6 +75,7 @@ class ContentListController extends ComponentController
 
     public function updateAction($id)
     {
+        
         // 更新当前新闻信息
         $ContentModel = ContentModel::get(['id' => $id]);
 

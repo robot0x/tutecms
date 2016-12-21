@@ -1,96 +1,95 @@
 {layout name="index" /}
 {eq name="User->getData('user_group_name')" value="public"}
-<div class="row">
-    <div class="col-md-10">
-        <form class="form-inline" action="{:url()}" method="get">
-	        <div class="col-md-6">
+ <div class="row">
+     <div class="col-md-10">
+         <form class="form-inline" action="{:app\\Common::url('/')}" method="get">
+         <div class="col-md-6">
             <label>教室</label>
-            <select class="form-control" style="width:130px;" name="category_id">
-            <option>A702</option>
-            <option>A801</option>
-            <option>A802</option>
+            <select class="form-control" style="width:130px;" name="classroom_id">
+            {volist name="ChuhangCurriculumModel->getAllClassroom()" id="_classroom"}
+            <option value="{$_classroom->getData('id')}">{$_classroom->getData('name')}</option>
+            {/volist}
             </select>
           </div>
           <div class="col-md-3">
-	        	<label>周次</label>
-	        	<select class="form-control" style="width:130px;" name="category_id">
-	        	<option>第一周</option>
-	        	<option>第二周</option>
-	        	<option>第三周</option>
-	        	</select>
-	        </div>
-          <button type="submit" style="margin-left:-80px;" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>查询</button>
-        </form>
-    </div>
-    
-    <div class="col-md-2 text-right">
-      <a href="{:url('@course/read')}" class="btn btn-default">课表编辑</a>
-    </div>
-   
-</div>
+            <select class="form-control" style="width:130px;" name="week_id">
+            {volist name="ChuhangCurriculumModel->getAllWeek()" id="weeks"}
+            <option value="{$key+1}" {eq name="week" value="$key+1" } selected="selected" {/eq} >第{$ChuhangCurriculumModel->getChineseName($key)}周</option>
+            {/volist}
+            </select>
+          </div>
+           <button type="submit" style="margin-left:-120px;" class="btn btn-default"><i class="glyphicon glyphicon-search">查询</i></button>
+         </form>
+     </div>
+ </div>
 <hr>
 <table class="table table-bordered table-hover">
   <thead>
       <tr>
-      	  <th width="40px;">  </th>
-          <th width="228px;">周一</th>
-          <th width="228px;">周二</th>
-          <th width="228px;">周三</th>
-          <th width="228px;">周四</th>
-          <th width="228px;">周五</th>
+          <th width="20px;"></th>
+      {foreach name="ChuhangDayModel" id="result" key="key"}
+          <th width="228px;" class="text-center">周{$ChuhangCurriculumModel->getChineseName($key)}</th>
+      {/foreach}
       </tr>
   </thead>
   <tbody>
-      <tr>
-          <td>第一节</td>
-         {volist name="results[1]" id="result" key="key"}
-          <td>{$result->name}</td>
-          {/volist}
-      </tr>
-      <tr>
-          <td>第一节</td>
-         {volist name="results[2]" id="result" key="key"}
-          <td>{$result->name}</td>
-          {/volist}
-      </tr>
-      <tr>
-          <td>第一节</td>
-         {volist name="results[3]" id="result" key="key"}
-          <td>{$result->name}</td>
-          {/volist}
-      </tr>
-      <tr>
-          <td>第一节</td>
-         {volist name="results[4]" id="result" key="key"}
-          <td>{$result->name}</td>
-          {/volist}
-      </tr>
+         {foreach name="results" id="result" key="k"}
+         <tr>
+          <td>第{$ChuhangCurriculumModel->getChineseName($k)}节</td>
+          {foreach name="result" id="_res" key="key"}
+             <td>
+             {empty name="_res"}<div class="text-center">暂无课程</div>{/empty}
+             {notempty name="_res"}
+                {volist name="_res" id="_res" key="key"}
+                <div class="row">
+                  <div class="text-center">
+                     {$ChuhangCurriculumModel->getCourseName($_res->getData('course_id'))}
+                   </div>
+                   <div class="text-center">
+                     {$ChuhangCurriculumModel->getTeacherName($_res->getData('teacher_id'))}
+                   </div>
+                   <div class="text-center">
+                   {volist name="ChuhangCurriculumModel->getKlassName($_res->getData('klass'))" id="_result" key="key"}
+                   {$_result}
+                   {/volist}
+                   </div>
+                 </div>
+                 <br>
+                
+                {/volist}
+              {/notempty}
+              </td>
+            {/foreach}
+            </tr>
+          {/foreach}
+        
+      
   </tbody>
   <tbody>
+
 </table>
  {/eq}
  {eq name="User->getData('user_group_name')" value="editor"}
  <div class="row">
      <div class="col-md-10">
-         <form class="form-inline" action="{:url()}" method="get">
+         <form class="form-inline" action="{:app\\Common::url('/')}" method="get">
          <div class="col-md-6">
             <label>教室</label>
-            <select class="form-control" style="width:130px;" name="category_id">
-            <option>A702</option>
-            <option>A801</option>
-            <option>A802</option>
+            <select class="form-control" style="width:130px;" name="classroom_id">
+            {volist name="ChuhangCurriculumModel->getAllClassroom()" id="_classroom"}
+            <option value="{$_classroom->getData('id')}">{$_classroom->getData('name')}</option>
+            {/volist}
             </select>
           </div>
           <div class="col-md-3">
-            <label>周次</label>
-            <select class="form-control" style="width:130px;" name="category_id">
-            <option>全选</option>
-            <option>第一周</option>
-            <option>第二周</option>
-            <option>第三周</option>
+            <select class="form-control" style="width:130px;" name="week_id">
+             <option value="100">全选</option>
+            {volist name="ChuhangCurriculumModel->getAllWeek()" id="week"}
+            <option value="{$key+1}">第{$ChuhangCurriculumModel->getChineseName($key)}周</option>
+            {/volist}
             </select>
           </div>
-           <button type="submit" style="margin-left:-75px;" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>查询</button>
+           <button type="submit" style="margin-left:-120px;" class="btn btn-default"><i class="glyphicon glyphicon-search">查询</i></button>
          </form>
      </div>
      <div class="col-md-2 text-right">
@@ -101,27 +100,25 @@
 <table class="table table-bordered table-hover">
   <thead>
       <tr>
-          <th width="40px;">  </th>
-          <th width="228px;">周一</th>
-          <th width="228px;">周二</th>
-          <th width="228px;">周三</th>
-          <th width="228px;">周四</th>
-          <th width="228px;">周五</th>
+          <th width="20px;"></th>
+      {foreach name="ChuhangDayModel" id="result" key="key"}
+          <th width="228px;"  class="text-center">周{\\app\aaa\ssChuhangCurriculumModel->getChineseName($key)}</th>
+      {/foreach}
       </tr>
   </thead>
   <tbody>
-         {foreach name="results" id="result" key="key"}
+         {foreach name="results" id="result" key="k"}
          <tr>
-          <td>{$key}</td>
+          <td>第{$ChuhangCurriculumModel->getChineseName($k)}节</td>
           {foreach name="result" id="_res" key="key"}
-             <td><a href="{:url('@course/add')}" ><i class="glyphicon glyphicon-plus"></i></a>
+             <td><a href="{:url('@course/addCourse/' . $key . '/ve/' . $k)}" ><i class="glyphicon glyphicon-plus"></i></a>
              {empty name="_res"}<div class="text-center">暂无课程</div>{/empty}
              {notempty name="_res"}
                 {volist name="_res" id="_res" key="key"}
                 <div class="row">
                   <div class="text-center">
-                     <a href="{:url('@course/edit')}">{$ChuhangCurriculumModel->getCourseName($_res->getData('course_id'))}</a>
-                     <a href="#" style="maigin"><i class="glyphicon glyphicon-edit"></i><a href="{:url('@course/delete')}" style="maigin">&nbsp;<i class="glyphicon glyphicon-trash"></i>
+                     {$ChuhangCurriculumModel->getCourseName($_res->getData('course_id'))}
+                     <a href="{:url('@course/edit/' . $_res->getData('id'))}" style="maigin"><i class="glyphicon glyphicon-edit"></i></a><a href="{:url('@course/delete/' . $_res->getData('id') . '/isAll/' . $isAll)}" style="maigin">&nbsp;<i class="glyphicon glyphicon-trash"></i></a>
                    </div>
                    <div class="text-center">
                      {$ChuhangCurriculumModel->getTeacherName($_res->getData('teacher_id'))}

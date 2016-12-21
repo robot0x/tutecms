@@ -16,6 +16,11 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/klass/addKlass', 'GET']        
     ],
+    'addPeriod' => [
+        'title'         => '添加课程',
+        'description'   => '用户登陆前和登陆后的form表单显示',
+        'value'         => ['/period/addPeriod', 'GET']        
+    ],
     'addClassroom' => [
         'title'         => '添加课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
@@ -35,6 +40,11 @@ return [
         'title'         => '保存课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/teacher/saveTeacher', 'POST']        
+    ],
+    'savePeriod' => [
+        'title'         => '保存课程',
+        'description'   => '用户登陆前和登陆后的form表单显示',
+        'value'         => ['/period/savePeriod', 'POST']        
     ],
     'saveKlass' => [
         'title'         => '保存课程',
@@ -75,6 +85,11 @@ return [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/teacher/editTeacher', 'GET']        
+    ],
+    'editPeriod' => [
+        'title'         => '删除课程',
+        'description'   => '用户登陆前和登陆后的form表单显示',
+        'value'         => ['/period/editPeriod', 'GET']        
     ],
     'editKlass' => [
         'title'         => '删除课程',

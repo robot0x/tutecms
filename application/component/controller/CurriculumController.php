@@ -270,6 +270,15 @@ class CurriculumController extends ComponentController
 	}
 
 	public function periodAction(){
+		$name = input('get.name');
+		$ChuhangPeriodModel = new ChuhangPeriodModel;
+		$ChuhangPeriodModels = $ChuhangPeriodModel->where('name', 'like', '%' . $name . '%')->paginate($this->config['count']['value']);
+		$this->assign('ChuhangPeriodModels', $ChuhangPeriodModels);
+		$this->assign('period', 'active');
+		return $this->fetch('period');
+	}
+
+	public function addPeriodAction(){
 		//获取周期表信息
 		$ChuhangPeriodModel = ChuhangPeriodModel::find()->getData();
 		$this->assign('ChuhangPeriodModel', $ChuhangPeriodModel);
@@ -322,8 +331,34 @@ class CurriculumController extends ComponentController
 			$ChuhangDayModel->setData('id', $i+1);
 			$ChuhangDayModel->save();
 		}
-		return $this->success('保存成功');
+		return $this->success('保存成功', url('@curriculum/period'));
 
+	}
+
+	public function savePeriodAction(){
+		$data = Request::instance()->param();
+		//将日期转化为时间戳
+		$$data['start_time'] = strtotime($data['start_time']);
+		$$data['end_time'] = strtotime($data['end_time']);
+
+		$ChuhangPeriodModel = new ChuhangPeriodModel;
+		$ChuhangPeriodModel->setData('name', $data['name']);
+		$ChuhangPeriodModel->setData('start_time', $data['start_time']);
+		$ChuhangPeriodModel->setData('end_time', $data['end_time']);
+		$ChuhangPeriodModel->setData('is_create', $data['is_create']);
+		$ChuhangPeriodModel->setData('time', $data['time']);
+		$ChuhangPeriodModel->setData('day', $data['day']);
+		if (false === $ChuhangPeriodModel->save()) {
+			return $this->error($ChuhangPeriodModel->getError());
+		}
+		return $this->success('保存成功', url('@curriculum/period'));
+
+	}
+
+	public function editPeriodAction($id){
+		$ChuhangPeriodModel = ChuhangPeriodModel::get(id);
+		$this->assign('ChuhangPeriodModel', $ChuhangPeriodModel);
+		return $this->fetch();
 	}
 
 

@@ -7,6 +7,7 @@
 	    <label class="col-md-3 text-right">课程信息</label>
 	    <div class="col-md-3">
 	        <select class="form-control" name="course">
+	        <option value="no">请选择</option>
 	        {volist name="ChuhangCourseModels" id="ChuhangCourseModel"}
 	        	<option value="{$ChuhangCourseModel->getData('id')}">{$ChuhangCourseModel->getData('name')}</option>
         	{/volist}
@@ -20,6 +21,7 @@
 	    <label class="col-md-3 text-right">教师</label>
 	    <div class="col-md-3">
 	        <select class="form-control" name="teacher">
+	        <option value="no">请选择</option>
 	        {volist name="ChuhangTeacherModels" id="ChuhangTeacherModel"}
 	        	<option value="{$ChuhangTeacherModel->getData('id')}">{$ChuhangTeacherModel->getData('name')}</option>
         	{/volist}
@@ -33,6 +35,7 @@
 	    <label class="col-md-3 text-right" for="_name">教室</label>
 	    <div class="col-md-3">
 	        <select class="form-control" name="classroom">
+	        <option value="no">请选择</option>
 		        {volist name="ChuhangClassroomModels" id="ChuhangClassroomModel"}
 		        	<option value="{$ChuhangClassroomModel->getData('id')}">{$ChuhangClassroomModel->getData('name')}</option>
 	        	{/volist}
@@ -53,7 +56,7 @@
 	<label class="col-md-3 text-right">节次</label>
 	<div class="col-md-5">
 		{volist name="ChuhangTimeModels" id="ChuhangTimeModel" key="key"}
-		<input type="checkbox" type="text" id="_time{$key}" name="time[]" value="{$ChuhangTimeModel->getData('id')}" placeholder="姓名" /><label for="_time{$key}">第{$ChuhangTimeModel->getTime($ChuhangTimeModel->getData('time'))}节</label>
+		<input type="checkbox" type="text" id="_time{$key}" name="time[]" {eq name="data['ve']" value="$key - 1" } checked="checked" {/eq} value="{$ChuhangTimeModel->getData('id')}" placeholder="姓名" /><label for="_time{$key}">第{$ChuhangTimeModel->getTime($ChuhangTimeModel->getData('time'))}节</label>
 		{/volist}
 	</div>
 </div>	
@@ -61,7 +64,7 @@
 	<label class="col-md-3 text-right">星期</label>
 	<div class="col-md-5">
 		{volist name="ChuhangDayModels" id="ChuhangDayModel" key="key"}
-		<input type="checkbox" type="text" id="_day{$key}" name="day[]" value="{$ChuhangDayModel->getData('id')}" placeholder="姓名" /><label for="_day{$key}">星期{$ChuhangDayModel->getDay($ChuhangDayModel->getData('day'))}</label>
+		<input type="checkbox" type="text" id="_day{$key}" name="day[]" {eq name="data['id']" value="$key - 1" } checked="checked" {/eq} value="{$ChuhangDayModel->getData('id')}" placeholder="姓名" /><label for="_day{$key}">星期{$ChuhangDayModel->getDay($ChuhangDayModel->getData('day'))}</label>
 		{/volist}
 	</div>
 </div>
