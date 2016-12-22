@@ -7,9 +7,10 @@ use app\model\ChuhangDayModel;
 use app\model\ChuhangCourseModel;
 use app\model\ChuhangClassroomModel;
 use app\model\ChuhangKlassModel;
-use app\model\ChuhangPeriodModel;
+use app\model\ChuhangTermModel;
 use app\model\ChuhangTimeModel;
 use app\model\ChuhangTeacherModel;
+use app\model\ChuhangCurriculumModel;
 use app\model\UserModel;  
 
 
@@ -269,19 +270,20 @@ class CurriculumController extends ComponentController
         return $this->success('操作成功', url('@curriculum/classroom'));
 	}
 
-	public function periodAction(){
+	public function termAction(){
 		$name = input('get.name');
-		$ChuhangPeriodModel = new ChuhangPeriodModel;
-		$ChuhangPeriodModels = $ChuhangPeriodModel->where('name', 'like', '%' . $name . '%')->paginate($this->config['count']['value']);
-		$this->assign('ChuhangPeriodModels', $ChuhangPeriodModels);
-		$this->assign('period', 'active');
-		return $this->fetch('period');
+		$ChuhangTermModel = new ChuhangTermModel;
+		$map['is_delete'] = 0;
+		$ChuhangTermModels = $ChuhangTermModel->where('name', 'like', '%' . $name . '%')->where($map)->paginate($this->config['count']['value']);
+		$this->assign('ChuhangTermModels', $ChuhangTermModels);
+		$this->assign('term', 'active');
+		return $this->fetch('term');
 	}
 
-	public function addPeriodAction(){
+	public function addTermAction(){
 		//获取周期表信息
-		$ChuhangPeriodModel = ChuhangPeriodModel::find()->getData();
-		$this->assign('ChuhangPeriodModel', $ChuhangPeriodModel);
+		$ChuhangTermModel = ChuhangTermModel::find()->getData();
+		$this->assign('ChuhangTermModel', $ChuhangTermModel);
 		//获取节次表信息
 		$ChuhangTimeModel = ChuhangTimeModel::all();
 		$count = count($ChuhangTimeModel);
@@ -292,73 +294,110 @@ class CurriculumController extends ComponentController
 		$countDay = count($ChuhangDayModel);
 		$this->assign('countDay', $countDay);
 
-		$this->assign('period', 'active');
+		$this->assign('term', 'active');
 		return $this->fetch();
 	}
 
-	public function updatePeriodAction(){
+	public function updateTermAction($id){
 		$data = Request::instance()->param();
+
 		//将数据存入周期表中
-		$start_time = strtotime($data['start_time']);
-		$end_time = strtotime($data['end_time']);
-		$ChuhangPeriodModel = ChuhangPeriodModel::find();
-		$ChuhangPeriodModel->setData('start_time', $start_time);
-		$ChuhangPeriodModel->setData('end_time', $end_time);
-		$ChuhangPeriodModel->setData('is_create', $data['is_create']);
-		if (false === $ChuhangPeriodModel->save()) {
-			return $this->error($ChuhangPeriodModel->getError());
+		$data['start_time'] = strtotime($data['start_time']);
+		$data['end_time'] = strtotime($data['end_time']);
+		$ChuhangTermModel = ChuhangTermModel::get($id);
+		//使所有学期status值为0
+		if ($data['status'] == 1) {
+			$ChuhangTermModel->makeAllTermStatusZero($data);
 		}
-		//将数据存入节次表中
-		$ChuhangTimeModel = new ChuhangTimeModel;
-		//删除所有数据
-		$ChuhangTimeModel->where('1')->delete();
-		$counts = array();
-		for ($i=0; $i<$data['time']; $i++) {
-			$ChuhangTimeModel = new ChuhangTimeModel;
-			$ChuhangTimeModel->setData('time', $i+1);
-			$ChuhangTimeModel->setData('id', $i+1);
-			$ChuhangTimeModel->save();
+		$ChuhangTermModel->setData('start_time', $data['start_time']);
+		$ChuhangTermModel->setData('end_time', $data['end_time']);
+		$ChuhangTermModel->setData('status', $data['status']);
+		if (false === $ChuhangTermModel->isUpdate()->save($data)) {
+			return $this->error($ChuhangTermModel->getError());
 		}
-
-		//将数据存入天数表中
-		$ChuhangDayModel = new ChuhangDayModel;
-		//删除所有数据
-		$ChuhangDayModel->where('1')->delete();
-		$counts = array();
-		for ($i=0; $i<$data['day']; $i++) {
-			$ChuhangDayModel = new ChuhangDayModel;
-			$ChuhangDayModel->setData('day', $i+1);
-			$ChuhangDayModel->setData('id', $i+1);
-			$ChuhangDayModel->save();
-		}
-		return $this->success('保存成功', url('@curriculum/period'));
+		//删除本学期对应的time和day表中的信息
+		$ChuhangTermModel->deleteTimeDayInfo($id);
+		//保存节次表和天数表中对应该学期对应的信息
+		$ChuhangTermModel->saveTimeDay($data);
+		
+		return $this->success('保存成功', url('@curriculum/term'));
 
 	}
 
-	public function savePeriodAction(){
+	public function saveTermAction(){
 		$data = Request::instance()->param();
-		//将日期转化为时间戳
-		$$data['start_time'] = strtotime($data['start_time']);
-		$$data['end_time'] = strtotime($data['end_time']);
 
-		$ChuhangPeriodModel = new ChuhangPeriodModel;
-		$ChuhangPeriodModel->setData('name', $data['name']);
-		$ChuhangPeriodModel->setData('start_time', $data['start_time']);
-		$ChuhangPeriodModel->setData('end_time', $data['end_time']);
-		$ChuhangPeriodModel->setData('is_create', $data['is_create']);
-		$ChuhangPeriodModel->setData('time', $data['time']);
-		$ChuhangPeriodModel->setData('day', $data['day']);
-		if (false === $ChuhangPeriodModel->save()) {
-			return $this->error($ChuhangPeriodModel->getError());
+		//将日期转化为时间戳
+		$data['start_time'] = strtotime($data['start_time']);
+		$data['end_time'] = strtotime($data['end_time']);
+
+		$ChuhangTermModel = new ChuhangTermModel;
+
+		//使所有学期status值为0
+		if ($data['status'] == 1) {
+			$ChuhangTermModel->makeAllTermStatusZero($data);
 		}
-		return $this->success('保存成功', url('@curriculum/period'));
+
+		$ChuhangTermModel->setData('name', $data['name']);
+		$ChuhangTermModel->setData('start_time', $data['start_time']);
+		$ChuhangTermModel->setData('end_time', $data['end_time']);
+		$ChuhangTermModel->setData('status', $data['status']);
+		$ChuhangTermModel->setData('time', $data['time']);
+		$ChuhangTermModel->setData('day', $data['day']);
+		if (false === $ChuhangTermModel->save()) {
+			return $this->error($ChuhangTermModel->getError());
+		}
+		//保存节次表和天数表中对应该学期对应的信息
+		$ChuhangTermModel->saveTimeDay($data);
+			
+
+		return $this->success('保存成功', url('@curriculum/term'));
 
 	}
 
-	public function editPeriodAction($id){
-		$ChuhangPeriodModel = ChuhangPeriodModel::get(id);
-		$this->assign('ChuhangPeriodModel', $ChuhangPeriodModel);
+	public function editTermAction($id){
+		$ChuhangTermModel = ChuhangTermModel::get($id);
+		$this->assign('ChuhangTermModel', $ChuhangTermModel);
+		$this->assign('term', 'active');
 		return $this->fetch();
+	}
+
+	public function frozenAction($id){
+		$ChuhangTermModel = ChuhangTermModel::get($id);
+		if ($ChuhangTermModel->getData('status') == 1) {
+			$ChuhangTermModel->setData('status', 0);
+			if (false !== $ChuhangTermModel->save()) {
+				return $this->success('冻结成功');
+			}
+		} else {
+			//使所有学期status值为0
+			$ChuhangTermModel->makeAllTermStatusZero();
+			$ChuhangTermModel->setData('status', 1);
+			if (false !== $ChuhangTermModel->save()) {
+				return $this->success('解冻成功');
+			}
+		}
+	}
+
+
+	public function deleteTermAction($id){
+		//判断本学期是否有课程
+		$ChuhangCurriculumModel = new ChuhangCurriculumModel;
+		$map['term_id'] = (int)$id;
+		$ChuhangCurriculumModels = $ChuhangCurriculumModel->where($map)->select();
+		if (!empty($ChuhangCurriculumModels)) {
+			return $this->error('本学期含有课程');
+		}
+
+		//删除学期表中对应的信息
+		$ChuhangTermModel = ChuhangTermModel::get($id);
+		$ChuhangTermModel->setData('is_delete', 1);
+		if (false === $ChuhangTermModel->save()) {
+			return $ChuhangTermModel->getError();
+		}
+		//删除本学期对应的time和day表中的信息
+		$ChuhangTermModel->deleteTimeDayInfo($id);
+		return $this->success('删除成功');
 	}
 
 

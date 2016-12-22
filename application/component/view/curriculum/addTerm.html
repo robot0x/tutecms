@@ -1,10 +1,10 @@
 {layout name="index" /}
-<div class="row clearfix" ng-app="period">
+<div class="row clearfix" ng-app="term">
     <div class="col-md-3 column">
         {include file="./left" }
     </div>
 
-    <form action="{:url('@curriculum/period/savePeriod')}" method="post">
+    <form action="{:url('@curriculum/term/saveTerm')}" method="post">
     <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12 column">
@@ -30,7 +30,7 @@
     		<div class="control-group">
     		    <label class="col-md-3 text-right" for="_name">起始日期</label>
     		    <div class="col-md-3">
-    		        <input type="date" name="start_time" value="{$ChuhangPeriodModel['start_time'] | $filterModels['date']->filter}" class="form-control" />
+    		        <input type="date" name="start_time" value="{$ChuhangTermModel['start_time'] | $filterModels['date']->filter}" class="form-control" />
     		    </div>
     		</div>
     	</div>
@@ -39,7 +39,7 @@
     		<div class="control-group">
     		    <label class="col-md-3 text-right" for="_name">终止日期</label>
     		    <div class="col-md-3">
-    		        <input type="date" name="end_time" value="{$ChuhangPeriodModel['end_time'] | $filterModels['date']->filter}" class="form-control" />
+    		        <input type="date" name="end_time" value="{$ChuhangTermModel['end_time'] | $filterModels['date']->filter}" class="form-control" />
     		    </div>
     		</div>
     	</div>
@@ -48,8 +48,8 @@
             <div class="control-group">
                 <label class="col-md-3 text-right" for="_name">启&nbsp;&nbsp;用</label>
                 <div class="col-md-3">
-                    <input type="radio" name="is_create" value="0" id="sex0" {eq name="ChuhangPeriodModel['is_create']" value="0"}checked="checked"{/eq}/><label for="sex0">是</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="is_create" value="1" id="sex1" {eq name="ChuhangPeriodModel['is_create']" value="1"}checked="checked"{/eq}/><label for="sex1">否</label>
+                    <input type="radio" name="status" value="1" id="sex0" /><label for="sex0">是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="status" value="0" id="sex1" checked="checked" /><label for="sex1">否</label>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
             <div class="control-group">
                 <label class="col-md-3 text-right" for="_name">节次/天</label>
                 <div class="col-md-3">
-                    <input type="number" name="time" value="{$count}" class="form-control" />
+                    <input type="number" min="1" max="10" name="time" value="4" class="form-control" />
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
             <div class="control-group">
                 <label class="col-md-3 text-right" for="_name">天数/周</label>
                 <div class="col-md-3">
-                    <input type="number" name="day" value="{$countDay}" class="form-control" />
+                    <input type="number" min="1" max="7" name="day" value="5" class="form-control" />
                 </div>
             </div>
         </div>

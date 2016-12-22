@@ -16,10 +16,10 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/klass/addKlass', 'GET']        
     ],
-    'addPeriod' => [
+    'addTerm' => [
         'title'         => '添加课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
-        'value'         => ['/period/addPeriod', 'GET']        
+        'value'         => ['/term/addTerm', 'GET']        
     ],
     'addClassroom' => [
         'title'         => '添加课程',
@@ -41,10 +41,10 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/teacher/saveTeacher', 'POST']        
     ],
-    'savePeriod' => [
+    'saveTerm' => [
         'title'         => '保存课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
-        'value'         => ['/period/savePeriod', 'POST']        
+        'value'         => ['/term/saveTerm', 'POST']        
     ],
     'saveKlass' => [
         'title'         => '保存课程',
@@ -71,6 +71,11 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/klass/deleteKlass/:id/', 'GET']        
     ],
+    'deleteTerm' => [
+        'title'         => '删除课程',
+        'description'   => '用户登陆前和登陆后的form表单显示',
+        'value'         => ['/term/deleteTerm/:id', 'GET']        
+    ],
     'editCourse' => [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
@@ -86,10 +91,10 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/teacher/editTeacher', 'GET']        
     ],
-    'editPeriod' => [
+    'editTerm' => [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
-        'value'         => ['/period/editPeriod', 'GET']        
+        'value'         => ['/term/editTerm', 'GET']        
     ],
     'editKlass' => [
         'title'         => '删除课程',
@@ -100,6 +105,11 @@ return [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/course/:id/updateCourse', 'POST']        
+    ],
+    'updateTerm' => [
+        'title'         => '删除课程',
+        'description'   => '用户登陆前和登陆后的form表单显示',
+        'value'         => ['/term/:id/updateTerm', 'POST']        
     ],
     'updateTeacher' => [
         'title'         => '删除课程',
@@ -116,11 +126,6 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/classroom/:id/updateClassroom', 'POST']        
     ],
-    'updatePeriod' => [
-        'title'         => '删除课程',
-        'description'   => '用户登陆前和登陆后的form表单显示',
-        'value'         => ['/period/updatePeriod', 'POST']        
-    ],
     'teacher' => [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
@@ -136,14 +141,19 @@ return [
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/classroom', 'GET']        
     ],
-    'period' => [
+    'term' => [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
-        'value'         => ['/period', 'GET']        
+        'value'         => ['/term', 'GET']        
     ],
     'addTeacher' => [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
         'value'         => ['/teacher/addTeacher', 'GET']        
+    ],
+    'frozen' => [
+        'title'         => '删除课程',
+        'description'   => '用户登陆前和登陆后的form表单显示',
+        'value'         => ['/term/frozen', 'GET']        
     ],
 ];
