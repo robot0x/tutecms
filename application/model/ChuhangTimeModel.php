@@ -31,4 +31,18 @@ class ChuhangTimeModel extends ModelModel
 	    if($retval == "一十") $retval = "十";
 	    return $retval;
 	}
+
+	/**
+	 * 获取当前学期每天含有的节次数
+	 * @param  int $currentTermId 当前学期id
+	 * @return array                当前学期的节次信息
+	 */
+	static public function getCurrentTermTimes($currentTermId){
+		$self = new self;
+		$map['term_id'] = $currentTermId;
+		$map['is_delete'] = 0;
+		$results = $self->where($map)->select();
+		return $results;
+
+	}
 }
