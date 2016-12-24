@@ -304,21 +304,34 @@ class CurriculumController extends ComponentController
 		//将数据存入周期表中
 		$data['start_time'] = strtotime($data['start_time']);
 		$data['end_time'] = strtotime($data['end_time']);
-		$ChuhangTermModel = ChuhangTermModel::get($id);
+		$ChuhangTermModel = new ChuhangTermModel;
+		
 		//使所有学期status值为0
 		if ($data['status'] == 1) {
-			$ChuhangTermModel->makeAllTermStatusZero($data);
+			$ChuhangTermModel->makeAllTermStatusZero();
 		}
+
+		$ChuhangTermModel = ChuhangTermModel::get($id);
+
+		//更新本学期对应的time表中的信息
+		if ($ChuhangTermModel->updateTimeInfo($data) === false) {
+			return $this->error($ChuhangTermModel->getError());
+		}
+		//更新本学期对应的day表中的信息
+		if ($ChuhangTermModel->updateDayInfo($data) === false)	 {
+			return $this->error($ChuhangTermModel->getError());
+		}
+
 		$ChuhangTermModel->setData('start_time', $data['start_time']);
 		$ChuhangTermModel->setData('end_time', $data['end_time']);
 		$ChuhangTermModel->setData('status', $data['status']);
-		if (false === $ChuhangTermModel->isUpdate()->save($data)) {
+		$ChuhangTermModel->setData('name', $data['name']);
+		$ChuhangTermModel->setData('time', $data['time']);
+		$ChuhangTermModel->setData('day', $data['day']);
+		if (false === $ChuhangTermModel->save()) {
 			return $this->error($ChuhangTermModel->getError());
 		}
-		//删除本学期对应的time和day表中的信息
-		$ChuhangTermModel->deleteTimeDayInfo($id);
-		//保存节次表和天数表中对应该学期对应的信息
-		$ChuhangTermModel->saveTimeDay($data);
+		
 		
 		return $this->success('保存成功', url('@curriculum/term'));
 
@@ -337,7 +350,6 @@ class CurriculumController extends ComponentController
 		if ($data['status'] == 1) {
 			$ChuhangTermModel->makeAllTermStatusZero($data);
 		}
-
 		$ChuhangTermModel->setData('name', $data['name']);
 		$ChuhangTermModel->setData('start_time', $data['start_time']);
 		$ChuhangTermModel->setData('end_time', $data['end_time']);

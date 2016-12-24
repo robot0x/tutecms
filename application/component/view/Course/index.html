@@ -1,20 +1,22 @@
 {layout name="index" /}
-{eq name="User->getData('user_group_name')" value="public"}
+{eq name="currentUserGroupModel" value="public"}
  <div class="row">
      <div class="col-md-10">
          <form class="form-inline" action="{:app\\Common::url('/')}" method="get">
          <div class="col-md-6">
             <label>教室</label>
             <select class="form-control" style="width:130px;" name="classroom_id">
-            {volist name="ChuhangCurriculumModel->getAllClassroom()" id="_classroom"}
-            <option value="{$_classroom->getData('id')}">{$_classroom->getData('name')}</option>
+            <?php $classrooms = app\model\ChuhangClassroomModel::all(); ?>
+            {volist name="classrooms" id="_classroom"}
+            <option value="{$_classroom->getData('id')}" {notempty name="getData"} {eq name="getData['classroom_id']" value="$_classroom->getData('id')" } selected="selected" {/eq}{/notempty} >{$_classroom->getData('name')}</option>
             {/volist}
             </select>
           </div>
           <div class="col-md-3">
             <select class="form-control" style="width:130px;" name="week_id">
-            {volist name="ChuhangCurriculumModel->getAllWeek()" id="weeks"}
-            <option value="{$key+1}" {eq name="week" value="$key+1" } selected="selected" {/eq} >第{$ChuhangCurriculumModel->getChineseName($key)}周</option>
+             <?php $ChuhangCurriculumModel = new app\model\ChuhangCurriculumModel;?>
+            {volist name="ChuhangCurriculumModel->getAllweeks()" id="week"}
+            <option value="{$key+1}" {notempty name="getData"} {eq name="getData['week_id']" value="$key+1" } selected="selected" {/eq}{/notempty} {empty name="getData"} {eq name="currentWeek" value="$key+1"} selected="selected" {/eq} {/empty} >第{$ChuhangCurriculumModel->getChineseName($key)}周</option>
             {/volist}
             </select>
           </div>
@@ -27,13 +29,14 @@
   <thead>
       <tr>
           <th width="20px;"></th>
-      {foreach name="ChuhangDayModel" id="result" key="key"}
-          <th width="228px;" class="text-center">周{$ChuhangCurriculumModel->getChineseName($key)}</th>
+          <?php $ChuhangDayModel = new app\model\ChuhangDayModel; ?>
+      {foreach name="ChuhangDayModel->getCurrentTermDays()" id="result" key="key"}
+          <th width="228px;"  class="text-center">周{$ChuhangCurriculumModel::getChineseName($key)}</th>
       {/foreach}
       </tr>
   </thead>
   <tbody>
-         {foreach name="results" id="result" key="k"}
+         {foreach name="ChuhangCurriculumModels" id="result" key="k"}
          <tr>
           <td>第{$ChuhangCurriculumModel->getChineseName($k)}节</td>
           {foreach name="result" id="_res" key="key"}
@@ -69,23 +72,26 @@
 
 </table>
  {/eq}
- {eq name="User->getData('user_group_name')" value="editor"}
+
+ {eq name="currentUserGroupModel" value="editor"}
  <div class="row">
      <div class="col-md-10">
          <form class="form-inline" action="{:app\\Common::url('/')}" method="get">
          <div class="col-md-6">
             <label>教室</label>
             <select class="form-control" style="width:130px;" name="classroom_id">
-            {volist name="ChuhangCurriculumModel->getAllClassroom()" id="_classroom"}
-            <option value="{$_classroom->getData('id')}">{$_classroom->getData('name')}</option>
+            <?php $classrooms = app\model\ChuhangClassroomModel::all(); ?>
+            {volist name="classrooms" id="_classroom"}
+            <option value="{$_classroom->getData('id')}" {notempty name="getData"} {eq name="getData['classroom_id']" value="$_classroom->getData('id')" } selected="selected" {/eq}{/notempty} >{$_classroom->getData('name')}</option>
             {/volist}
             </select>
           </div>
           <div class="col-md-3">
             <select class="form-control" style="width:130px;" name="week_id">
-             <option value="100">全选</option>
-            {volist name="ChuhangCurriculumModel->getAllWeek()" id="week"}
-            <option value="{$key+1}">第{$ChuhangCurriculumModel->getChineseName($key)}周</option>
+             <option value="0" {notempty name="getData"} {eq name="getData['week_id']" value="0" } selected="selected" {/eq}{/notempty}>全选</option>
+             <?php $ChuhangCurriculumModel = new app\model\ChuhangCurriculumModel;?>
+            {volist name="ChuhangCurriculumModel->getAllweeks()" id="week"}
+            <option value="{$key+1}" {notempty name="getData"} {eq name="getData['week_id']" value="$key+1" } selected="selected" {/eq}{/notempty} {empty name="getData"} {eq name="currentWeek" value="$key+1"} selected="selected" {/eq} {/empty} >第{$ChuhangCurriculumModel->getChineseName($key)}周</option>
             {/volist}
             </select>
           </div>
@@ -101,13 +107,14 @@
   <thead>
       <tr>
           <th width="20px;"></th>
-      {foreach name="ChuhangDayModel" id="result" key="key"}
-          <th width="228px;"  class="text-center">周{\\app\aaa\ssChuhangCurriculumModel->getChineseName($key)}</th>
+          <?php $ChuhangDayModel = new app\model\ChuhangDayModel; ?>
+      {foreach name="ChuhangDayModel->getCurrentTermDays()" id="result" key="key"}
+          <th width="228px;"  class="text-center">周{$ChuhangCurriculumModel::getChineseName($key)}</th>
       {/foreach}
       </tr>
   </thead>
   <tbody>
-         {foreach name="results" id="result" key="k"}
+         {foreach name="ChuhangCurriculumModels" id="result" key="k"}
          <tr>
           <td>第{$ChuhangCurriculumModel->getChineseName($k)}节</td>
           {foreach name="result" id="_res" key="key"}
@@ -118,7 +125,7 @@
                 <div class="row">
                   <div class="text-center">
                      {$ChuhangCurriculumModel->getCourseName($_res->getData('course_id'))}
-                     <a href="{:url('@course/edit/' . $_res->getData('id'))}" style="maigin"><i class="glyphicon glyphicon-edit"></i></a><a href="{:url('@course/delete/' . $_res->getData('id') . '/isAll/' . $isAll)}" style="maigin">&nbsp;<i class="glyphicon glyphicon-trash"></i></a>
+                     <a href="{:url('@course/edit/' . $_res->getData('id') . '/isAll/' . $isAllWeeksSelected)}" style="maigin"><i class="glyphicon glyphicon-edit"></i></a><a href="{:url('@course/delete/' . $_res->getData('id') . '/isAll/' . $isAllWeeksSelected)}" style="maigin">&nbsp;<i class="glyphicon glyphicon-trash"></i></a>
                    </div>
                    <div class="text-center">
                      {$ChuhangCurriculumModel->getTeacherName($_res->getData('teacher_id'))}

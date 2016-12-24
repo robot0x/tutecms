@@ -31,4 +31,18 @@ class ChuhangDayModel extends ModelModel
 	    if($retval == "一十") $retval = "十";
 	    return $retval;
 	}
+
+
+	/**
+	 * 获取当前学期每周含有的天数
+	 * @return array           当前学期每周含有的天数信息     
+	 */
+	static public function getCurrentTermDays() {
+		$currentTermId = ChuhangTermModel::getCurrentTerm();
+		$self = new self;
+		$map['term_id'] = $currentTermId;
+		$map['is_delete'] = 0;
+		$results = $self->where($map)->select();
+		return $results;
+	}
 }

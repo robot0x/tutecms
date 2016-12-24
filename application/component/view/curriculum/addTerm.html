@@ -6,17 +6,6 @@
 
     <form action="{:url('@curriculum/term/saveTerm')}" method="post">
     <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-12 column">
-                    <div class="alert alert-danger">
-                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4>
-                            注意!
-                        </h4>
-                        学期信息添加后将不能删除，请慎重添加！
-                    </div>
-                </div>
-            </div>
     	<div class="row">
             <div class="control-group">
                 <label class="col-md-3 text-right" for="_name">学期名称</label>
@@ -30,7 +19,7 @@
     		<div class="control-group">
     		    <label class="col-md-3 text-right" for="_name">起始日期</label>
     		    <div class="col-md-3">
-    		        <input type="date" name="start_time" value="{$ChuhangTermModel['start_time'] | $filterModels['date']->filter}" class="form-control" />
+    		        <input type="date" name="start_time" {notempty name="ChuhangTermModel"} value="{$ChuhangTermModel['start_time'] | $filterModels['date']->filter}" {/notempty} class="form-control" />
     		    </div>
     		</div>
     	</div>
@@ -39,7 +28,7 @@
     		<div class="control-group">
     		    <label class="col-md-3 text-right" for="_name">终止日期</label>
     		    <div class="col-md-3">
-    		        <input type="date" name="end_time" value="{$ChuhangTermModel['end_time'] | $filterModels['date']->filter}" class="form-control" />
+    		        <input type="date" name="end_time" {notempty name="ChuhangTermModel" } value="{$ChuhangTermModel['end_time'] | $filterModels['date']->filter}" {/notempty} class="form-control" />
     		    </div>
     		</div>
     	</div>
