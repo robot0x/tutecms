@@ -49,8 +49,9 @@ class FieldDataAttachmentModel extends FieldModel
         $map['sha1'] = $sha1 = $file->sha1();
         $map['md5'] = $md5 = $file->md5();
 
-        // 使用new self() 避免了其它类继承本类后，仍然可以对应找到正确的数据表名。
-        $Object = new self();
+        // 使用new self() 其它类继承本类后，将对attachment本数据表进行操作。
+        // 使用new static() 其它类继承本类后，将对其它类对应的数据表进行操作。
+        $Object = new static();
         $data = $Object::get($map);
 
         // 文件存在，则去除field_id 及key_id后复制一份进入数据库
@@ -138,7 +139,8 @@ class FieldDataAttachmentModel extends FieldModel
      */
     static public function updateList($fieldId, $keyId, $id)
     {
-        $self = new self();
+        // 由于被继承使用了，使用static而非self，使其正确对应数据表
+        $self = new static();
         $Object = $self::get(['id' => $id]);
         if ( '' !== $Object->getData('id')) {
             // 如果存在历史信息，先删除历史信息
