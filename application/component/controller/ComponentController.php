@@ -97,7 +97,13 @@ class ComponentController extends Controller
         {   
             $template = $themeTemplate;
         }
-        trace('可以在这里进行调试的输入与输出');
+
+        // 非开发模式下，打印当前MCA触发信息
+        if (Config::get('app_debug')) {
+            trace('当前调用:' . implode(Request::instance()->dispatch()['module'], '->'));
+            trace('当前模板：' . ($template ? $template : '默认模板'));
+        }
+
         // 获取当前主题
         return $this->view->fetch($template, $vars, $replace, $config);
     }
