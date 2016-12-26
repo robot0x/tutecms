@@ -13,6 +13,11 @@ class YunzhiModel extends Model
             $this->name = basename(str_replace('\\', '/', $name));
         }
 
+        // 使用默认数据进行项目初始化
+        if (empty($data)) {
+            $data = $this->data;
+        }
+
         parent::__construct($data);
     }
 
