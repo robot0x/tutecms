@@ -7,9 +7,10 @@
                 <div class="mu-contact-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{:app\\Common::getUpdateUrl('/update')}" method="post">
+                            <form action="{yz:url action='update' }" method="post">
                             <div>
                                 <label>标题:</label>
+                                <input type="hidden" name="id" value="{$ContentModel->getData('id')}" />
                                 <input type="text" class="form-control" name="title" value="{$ContentModel->getData('title')}" style="width:260px;" />
                             </div>
                                 {foreach name="ContentModel->FieldXXXXModels()" id="_FieldModel"}
