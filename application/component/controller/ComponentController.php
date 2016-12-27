@@ -58,6 +58,7 @@ class ComponentController extends Controller
         // 配置信息，过滤器信息送入V层
         $this->assign('config', $this->config);
         $this->assign('filterModels', $this->filterModels);
+        $this->assign('currentMenuModel', $this->currentMenuModel);
     }
 
     /**
