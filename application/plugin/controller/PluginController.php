@@ -91,6 +91,7 @@ class PluginController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
+        // 当前插件的CA信息
         $controller = Common::getControllerName(get_called_class());
         $action = debug_backtrace()[1]['function'];
 
@@ -112,7 +113,7 @@ class PluginController extends Controller
             $template = 'plugin@' . $controller . DS . $action;
         }
 
-        // 非开发模式下，打印当前插件模板调用信息
+        // 开发模式下，打印当前插件模板调用信息
         if (Config::get('app_debug')) {
             trace('当前调用插件：' . $controller . '->' . $action, 'block');
             trace('调用插件模板：' . $template, 'plugin');
