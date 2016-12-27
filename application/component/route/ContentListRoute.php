@@ -21,7 +21,7 @@ return [
     'update' => [
         'title'         => '保存（更新）',
         'description'   => '保存数据',
-        'value'         => ['/:id', 'POST'],
+        'value'         => ['/update', 'POST'],
     ],
     'delete' => [
         'title'         => '删除',
