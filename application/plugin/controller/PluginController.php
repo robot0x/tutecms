@@ -91,6 +91,9 @@ class PluginController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
+        $controller = Common::getControllerName(get_called_class());
+        $action = debug_backtrace()[1]['function'];
+
         // 拼接主题模板信息
         $themeTemplate = APP_PATH . 
             'theme' . DS . 
@@ -105,6 +108,14 @@ class PluginController extends Controller
         if (false !== $themeTemplate)
         {   
             $template = $themeTemplate;
+        } else {
+            $template = 'plugin@' . $controller . DS . $action;
+        }
+
+        // 非开发模式下，打印当前插件模板调用信息
+        if (Config::get('app_debug')) {
+            trace('当前调用插件：' . $controller . '->' . $action, 'block');
+            trace('调用插件模板：' . $template, 'plugin');
         }
 
         // 获取当前主题

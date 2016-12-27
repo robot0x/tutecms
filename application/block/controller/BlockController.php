@@ -2,12 +2,15 @@
 namespace app\block\controller;
 
 use think\Controller;
+use think\Config;
+use think\Request;
 
 use app\Common;
 use app\model\BlockModel;                       // 区块 模型
 use app\model\BlockMenuModel;                   // 区块-菜单 模型
 use app\model\MenuModel;                        // 菜单模型
 use app\model\ThemeModel;                       // 主题
+
 
 class BlockController extends Controller
 {
@@ -130,6 +133,12 @@ class BlockController extends Controller
 
         // 初始化html css js字符串
         $html = $css = $js = '';
+
+        // 非开发模式下，打印当前区块模板调用信息
+        if (Config::get('app_debug')) {
+            trace('当前调用区块：' . $controller . '->' . $action, 'block');
+            trace('调用区块模板：' . $template, 'block');
+        }
 
         // 渲染html
         $html = parent::fetch($template);

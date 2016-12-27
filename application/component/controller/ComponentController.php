@@ -96,12 +96,19 @@ class ComponentController extends Controller
         if (false !== $themeTemplate)
         {   
             $template = $themeTemplate;
+        } else {
+            /**
+             * $MCA = array(0 => 'module', 1 => 'controller', 2 => 'action');
+             * @var [type]
+             */
+            $MCA = Request::instance()->dispatch()['module']; 
+            $template = $MCA[0] . '@' . $MCA[1] . DS . $MCA[2];
         }
 
         // 非开发模式下，打印当前MCA触发信息
         if (Config::get('app_debug')) {
-            trace('当前调用:' . implode(Request::instance()->dispatch()['module'], '->'));
-            trace('当前模板：' . ($template ? $template : '默认模板'));
+            trace('当前调用组件：' . $MCA[1] . '->' . $MCA[2], 'component');
+            trace('当前组件模板：' . $template, 'component');
         }
 
         // 获取当前主题

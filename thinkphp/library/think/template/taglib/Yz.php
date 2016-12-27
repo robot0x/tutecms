@@ -18,6 +18,7 @@ class Yz extends Taglib
         'block'         => ['attr' => 'position', 'close' => 0],
         'plugin'        => ['attr' => 'position,object', 'close' => 0],
         'access'        => ['attr' => 'action', 'close' => 1],
+        'url'           => ['attr' => 'action', 'close' => 0],
     ];
 
     /**
@@ -92,6 +93,27 @@ class Yz extends Taglib
         }
 
         $parseStr .= '?>';
+        return $parseStr;
+    }
+
+    /**
+     * 通过ACTION生成当前菜单对应的URL信息
+     * @param    array                   $tag 传入标签
+     * @return   php code                        php语句
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T09:30:08+0800
+     */
+    public function tagUrl($tag) {
+        // 获取参数
+        $action     = !empty($tag['action']) ? $tag['action'] : null;
+        $parseStr = '<?php ';
+
+        // 对当前用户是否拥有权限进行判断
+        $parseStr .= 'echo app\Common::url("';
+        $parseStr .= $action;
+        $parseStr .= '");';
+
+        $parseStr .= ' ?>';
         return $parseStr;
     }
 }
