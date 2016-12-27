@@ -38,7 +38,7 @@
                         {$key}
                     </td>
                     <td>
-                        <a href="{$ContentModel->id | $filterModels['href']->filter}">{$ContentModel->title | $filterModels['title']->filter}</a>
+                        <a href="{yz:url action='read' param='$ContentModel->id'}">{$ContentModel->title | $filterModels['title']->filter}</a>
                     </td>
                     <td>{$ContentModel->hit}</td>
                     <td>
