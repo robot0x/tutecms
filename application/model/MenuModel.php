@@ -1,7 +1,10 @@
 <?php
 namespace app\model;
 use think\Request;
+use think\Url;
+
 use app\Common;
+
 
 class MenuModel extends ModelModel
 {
@@ -63,6 +66,11 @@ class MenuModel extends ModelModel
         return $this->filter;  
     }
 
+    /**
+     * 对应的 组件
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T12:37:24+0800
+     */
     public function ComponentModel()
     {
         if (null === $this->ComponentModel) {
@@ -74,6 +82,12 @@ class MenuModel extends ModelModel
         return $this->ComponentModel;
     }
 
+    /**
+     * 配置信息
+     * @return   [type]                   [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T12:37:34+0800
+     */
     public function getConfig()
     {
         if (null === $this->config)
@@ -262,6 +276,42 @@ class MenuModel extends ModelModel
             $MenuModel = $MenuModel->fatherMenuModel();
         } while ('' !== $MenuModel->getData('id'));
         return array_reverse($tree);
+    }
+
+    /**
+     * 通过传入的 action 与 参数 生成对应的URL
+     * @param    string                   $action 触发器 -- 与路由表相对应
+     * @param    array                    $params  参数 与路由表GET信息相对应
+     * @return   string
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T10:43:12+0800
+     */
+    public function getUrlByActionParams($action = '', $params = []) {
+        // 获取菜单对应的组件的路由信息
+        $sampleRoute = $this->ComponentModel()->getSampleRoute();
+
+        // 当前action是否存在于路由表中, 按路由表规则生成路由
+        if (array_key_exists($action, $sampleRoute)) {
+            $route = $sampleRoute[$action][0];     // 获取路由值
+
+            // 使用传入的参数对路由表中对应的 :xxx 字段进行替换
+            $pattern = '/:[a-z]+/';
+            $matches = [];
+            
+            foreach ($params as $param) {
+                $route = preg_replace($pattern, $param, $route,  1);
+            }
+            
+            // 取当前菜单的url信息，拼接当前路由信息，再拼接GET信息后返回
+            $menuUrl = $this->getData('url');
+            $getDataString = htmlspecialchars_decode(Request::instance()->server('REDIRECT_QUERY_STRING'));
+            $url = Url::build('@' . $menuUrl . $route) . '?' . $getDataString;
+            return $url;
+
+        // 当前action并不存在于路由表中，返回 ''
+        } else {
+            return '';
+        }
     }
 
     /**
