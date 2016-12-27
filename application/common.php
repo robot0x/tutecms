@@ -475,7 +475,8 @@ class Common{
         }
 
         // 传入参数为字符串，则转化为数组
-        if (is_string($param)) {
+        if (is_string($param) || is_numeric($param)) {
+            $param = (string)$param;
             $param = explode(',', $param); 
 
         // 传入参数非字符串，非数组，则置空
