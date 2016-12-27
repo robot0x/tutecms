@@ -2,6 +2,7 @@
 namespace think\template\taglib;
 
 use think\template\TagLib;
+use app\Model\MenuModel;
 
 /**
  * Yz标签库解析类
@@ -99,21 +100,50 @@ class Yz extends Taglib
     /**
      * 通过ACTION生成当前菜单对应的URL信息
      * @param    array                   $tag 传入标签
+     * @param   $menuId 菜单ID
+     * @param string $action 触发器（路由）
+     * @param string $param 传入的参数，以 , 分隔的字符串，比如：'3,4,12'
      * @return   php code                        php语句
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2016-12-27T09:30:08+0800
      */
     public function tagUrl($tag) {
+
         // 获取参数
         $action     = !empty($tag['action']) ? $tag['action'] : null;
+        $menuId     = !empty($tag['menu_id']) ?  $tag['menu_id'] : '';
+        $param      = !empty($tag['param']) ? $tag['param'] : '';
+
+        // 接接开始
         $parseStr = '<?php ';
 
-        // 对当前用户是否拥有权限进行判断
-        $parseStr .= 'echo app\Common::url("';
-        $parseStr .= $action;
-        $parseStr .= '");';
+        // 调用Common::makeUrlByMenuIdActionParam方法
+        $parseStr .= 'echo app\Common::makeUrlByMenuIdActionParam(';
 
+        // 对menuId判空，给默认值
+        if (!empty($menuId)) {
+            $parseStr .= $menuId ;
+        } else {
+            $parseStr .= '0';
+        }
+
+        $parseStr .= ', "';
+        $parseStr .= $action;
+        $parseStr .= '", ';
+
+        // 对param判空，给默认值
+        if (!empty($param)) {
+            $parseStr .= $param;
+        } else {
+            $parseStr .= '[]';
+        }
+        
+        $parseStr .= ');';
+
+        // 接结结束
         $parseStr .= ' ?>';
+
+        // return 
         return $parseStr;
     }
 }
