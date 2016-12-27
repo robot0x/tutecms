@@ -8,7 +8,7 @@
                     <!-- start title -->
                     <div class="mu-title">
                         <div class="text-right">
-                            <a href="{:app\\Common::getEditUrl()}">编辑</a>
+                            {yz:access action="edit"}<a href="{:app\\Common::getEditUrl()}">编辑</a>{/yz:access}
                         </div>
                         <h2>{$ContentModel->title}</h2>
                         <div class="mu-meta">
