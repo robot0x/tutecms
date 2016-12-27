@@ -421,34 +421,15 @@ class Common{
      */
     static public function getControllerName($calledClass)
     {
-        $calledClassArray = explode('\\', $calledClass);
+        return self::getClassNameByClassFullNameSuffix($calledClass, 'Controller');
+    }
+
+    static public function getClassNameByClassFullNameSuffix($classFullName, $suffix) {
+        $calledClassArray = explode('\\', $classFullName);
         $calledClass = array_pop($calledClassArray);
-        return substr($calledClass, 0, -strlen('Controller'));
+        return substr($calledClass, 0, -strlen($suffix));
     }
 
-    /**
-     * 根据用户当前访问的URL信息，生成 编辑URL
-     * 当前访问URL为：http://127.0.0.1/yunzhicms/public/news/school/1.html?p=2
-     * 则生成的URL为：http://127.0.0.1/yunzhicms/public/news/school/1/edit.html?p=2
-     * @return string 
-     * @author panjie
-     */
-    static public function getEditUrl()
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        return str_replace('.html', '/edit.html', $requestUri);
-    }
-
-    /**
-     * 生成创建URL地址
-     * @return string 
-     * @author panjie
-     */
-    static public function getCreateUrl()
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        return str_replace('.html', '/create.html', $requestUri);
-    }
 
     /**
      * 生成子地址，用于同一组件下，生成下一级路由
@@ -461,41 +442,6 @@ class Common{
     {
         $requestUri = $_SERVER['REQUEST_URI'];
         return str_replace('.html', '/' . $subAction . '.html', $requestUri);
-    }
-
-    /**
-     * 生成 保存 URL地址
-     * @return string 
-     * @author panjie
-     */
-    static public function getSaveUrl()
-    {
-        $requestUris = explode('/', $_SERVER['REQUEST_URI']);
-        array_pop($requestUris);
-        return implode('/', $requestUris) . '.html'; 
-    }
-
-    /**
-     * 生成更新地址
-     * @return   string                   
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-02T09:21:00+0800
-     */
-    static public function getUpdateUrl()
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        return str_replace('/edit', '', $requestUri);
-    }
-
-    /**
-     * 检测当前用户触发的权限
-     * @return   bool                   
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-05T12:23:44+0800
-     */
-    static public function checkAccess()
-    {
-        
     }
 
     /**
@@ -512,26 +458,25 @@ class Common{
     }
 
     /**
-     * 用于注销的url
-     * @return string 
-     * @author chuhang
+     * 生成 某菜单 某个action 带有 相关参数的 链接地址
+     * @param    integer                  $menuId 菜单ID
+     * @param    string                   $action 触发器名
+     * @param    string                   $param  参数：传入以 , 相隔的字符串 比如'3,4,5'
+     * @return   string                           前台可供用户点击的URL信息
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T14:36:49+0800
      */
-    static public function logOutUrl($route = '')
-    {
-        $url = MenuModel::getCurrentMenuModel()->getData('url');
-        return url('../login/' . $route);
+    static public function makeUrlByMenuIdActionParam($menuId = 0, $action = '', $param = '' ) {
+        $MenuModel = MenuModel::get($menuId);
+
+        // 如果未找到传入的菜单ID，则取用户激活的当前菜单
+        if (0 === $MenuModel->getData('id')) {
+            $MenuModel = MenuModel::getCurrentMenuModel();
+        }
+
+        return $MenuModel->getUrlByActionParam($action, $param);
     }
 
-    /**
-     * 用于登录的url
-     * @return string 
-     * @author chuhang
-     */
-    static public function login($route = '')
-    {
-        $url = MenuModel::getCurrentMenuModel()->getData('url');
-        return url('../login/' . $route);
-    }
     /**
      * 通过token获取对应的menuModel
      * @param    string                   $token 
