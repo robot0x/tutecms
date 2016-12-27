@@ -2,9 +2,22 @@
 <html lang="zh-hans">
 {include file="../head"}
 
-<body ng-app="body" class="container" style="width: 1330px;">
-    
-    {yz:block position="menu" /} {yz:block position="slider" /} {yz:block position="breadCrumb" /}
+<body ng-app="body" class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <h1>
+            <span>天职师大上机管理系统1</span>
+            <span class="badge">Version 1.0</span>
+        </h1>
+        </div>
+        <div class="col-md-1 text-right">
+            <a href="" role="button"></a>
+            <a href=""></a>
+        </div>
+    </div>
+    {yz:block position="menu" /} 
+    {yz:block position="slider" /} 
+    {yz:block position="breadCrumb" /}
     <!-- Start service  -->
     {__CONTENT__}
     <!-- End service  -->
