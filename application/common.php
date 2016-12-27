@@ -461,20 +461,30 @@ class Common{
      * 生成 某菜单 某个action 带有 相关参数的 链接地址
      * @param    integer                  $menuId 菜单ID
      * @param    string                   $action 触发器名
-     * @param    string                   $param  参数：传入以 , 相隔的字符串 比如'3,4,5'
+     * @param    mix| string array                   $param  参数：传入以 , 相隔的字符串 比如'3,4,5'
      * @return   string                           前台可供用户点击的URL信息
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2016-12-27T14:36:49+0800
      */
-    static public function makeUrlByMenuIdActionParam($menuId = 0, $action = '', $param = '' ) {
+    static public function makeUrlByMenuIdActionParam($menuId = 0, $action = '', $param = null ) {
         $MenuModel = MenuModel::get($menuId);
 
         // 如果未找到传入的菜单ID，则取用户激活的当前菜单
-        if (0 === $MenuModel->getData('id')) {
+        if ('' === $MenuModel->getData('id')) {
             $MenuModel = MenuModel::getCurrentMenuModel();
         }
 
-        return $MenuModel->getUrlByActionParam($action, $param);
+        // 传入参数为字符串，则转化为数组
+        if (is_string($param)) {
+            $param = explode(',', $param); 
+
+        // 传入参数非字符串，非数组，则置空
+        } else if (!is_array($param)) {
+            $param = [];
+        } 
+
+        // 方法调用
+        return $MenuModel->getUrlByActionParams($action, $param);
     }
 
     /**
