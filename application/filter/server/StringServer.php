@@ -18,12 +18,20 @@ class StringServer
         $etc = '...';
         if (array_key_exists('length', $param))
         {
-            $length = (int)$param['length']['value'];
+            if (isset($param['length']['value'])) {
+                $length = (int)$param['length']['value'];
+            } else {
+                $length = (int)$param['length'];
+            }
         }
 
         if (array_key_exists('etc', $param))
         {
-            $etc = (string)$param['etc']['value'];
+            if (isset($param['etc']['value'])) {
+                $etc = (string)$param['etc']['value'];
+            } else {
+                $etc = (string)$param['etc'];
+            }
         }
 
         $result = '';
@@ -46,6 +54,39 @@ class StringServer
         if ($i < $strlen) {
             $result .= $etc;
         }
+
         return $result;
+    }
+
+    /**
+     * 去除html代码中的标记后截断 用于在在列表页显示文章的内容,避免了内容中有格式时，对版本的干扰
+     * @param    string                   $htmlString html代码
+     * @param    array                    $param      参数 
+     * @return   [type]                               [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-28T16:01:48+0800
+     */
+    static public function subHtmlString($htmlString, $param = array()) {
+        $length = '10';
+        $etc = '...';
+        $decodeHtmlSpecialChars = true;
+        if (array_key_exists('length', $param)) {
+            $length = (int)$param['length'];
+        }
+
+        if (array_key_exists('etc', $param)) {
+            $etc = (string)$param['etc'];
+        }
+
+        if (array_key_exists('decodeHtmlSpecialChars', $param)) {
+            $decodeHtmlSpecialChars = (boolean)$param['decodeHtmlSpecialChars'];
+        }
+
+        if ($decodeHtmlSpecialChars) {
+            $htmlString = htmlspecialchars_decode($htmlString);
+        }
+
+        $htmlString = strip_tags($htmlString);
+        return self::substr($htmlString, ['length' => $length, 'etc' => $etc]);
     }
 }
