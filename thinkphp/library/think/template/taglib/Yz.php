@@ -20,6 +20,7 @@ class Yz extends Taglib
         'plugin'        => ['attr' => 'position,object', 'close' => 0],
         'access'        => ['attr' => 'action', 'close' => 1],
         'url'           => ['attr' => 'action', 'close' => 0],
+        'filter'        => ['attr' => 'input,class,function', 'close' => 0],
     ];
 
     /**
@@ -82,7 +83,7 @@ class Yz extends Taglib
 
         // 未传入参数 ，则返回空字符串
         if (!$action) {
-            $parseStr = '';
+            $parseStr .= '';
         } else {
 
             // 对当前用户是否拥有权限进行判断
@@ -110,9 +111,9 @@ class Yz extends Taglib
     public function tagUrl($tag) {
 
         // 获取参数
-        $action     = !empty($tag['action']) ? $tag['action'] : null;
-        $menuId     = !empty($tag['menu_id']) ?  $tag['menu_id'] : '';
-        $param      = !empty($tag['param']) ? $tag['param'] : '';
+        $action     = !empty($tag['action']) ? $tag['action'] : null;       // 触发器
+        $menuId     = !empty($tag['menu_id']) ?  $tag['menu_id'] : '';      // 菜单 ID
+        $param      = !empty($tag['param']) ? $tag['param'] : '';           // 传入参数
 
         // 接接开始
         $parseStr = '<?php ';
@@ -144,6 +145,46 @@ class Yz extends Taglib
         $parseStr .= ' ?>';
 
         // return 
+        return $parseStr;
+    }
+
+    /**
+     * 过滤器标签
+     * @param    array                   $tag
+     * @return   [type]                        [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-28T14:59:39+0800
+     */
+    public function tagfilter($tag)
+    {
+
+        // 获取参数
+        $input     = !empty($tag['input']) ? $tag['input'] : null;          // 输入
+        $class     = !empty($tag['class']) ? $tag['class'] : null;          // 类名
+        $function  = !empty($tag['function']) ?  $tag['function'] : '';     // 方法名
+        $param     = !empty($tag['param']) ? $tag['param'] : '';            // 传入参数
+
+        $parseStr = '<?php ';
+        $parseStr .= 'echo app\filter\\' . $class . '::' . $function . '(';
+
+        // 按输入类型是否为 $ 打头的变量进行区分
+        if ('$' === substr($input, 0, 1)) {
+            $parseStr .= $input;
+        } else {
+            $parseStr .= '"' . $input . '"';
+        }
+        
+        $parseStr .= ',';
+
+        // 按输入类型是否为 $ 进行区分写入
+        if ('$' === substr($input, 0, 1)) {
+            $parseStr .= $param;
+        } else {
+            $parseStr .= '"' . $param . '"';
+        }
+        
+        $parseStr .= ');';
+        $parseStr .= ' ?>';
         return $parseStr;
     }
 }
