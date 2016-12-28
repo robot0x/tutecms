@@ -31,7 +31,10 @@ class ComponentController extends Controller
         // 获取当前主题信息
         $this->currentThemeModel = ThemeModel::getCurrentThemeModel();
         // 设置视图输出的__THEME__ 该操作，必须在父类初始化以前，因为父类在初始化时，会自动调用config中的信息
-        Config::set('view_replace_str.__THEME__', Config::get('view_replace_str.__PUBLIC__') . DS . 'theme' . DS . $this->currentThemeModel->getData('name'));
+        define('__THEME__', __PUBLIC__ . DS . 'theme' . DS . $this->currentThemeModel->getData('name'));
+
+        // 在进行assign操作前进行父类初始化
+        parent::__construct();
 
         // 获取当前请求信息
         $this->Request = Request::instance();
@@ -46,8 +49,6 @@ class ComponentController extends Controller
         // 清空原来的tokens.有了安全性，同时也要求我们不能出现多余的默认请求。
         Common::clearTokens();
 
-        // 在进行assign操作前进行父类初始化
-        parent::__construct();
 
         // 传Common供前台使用
         $this->assign('Common', new Common);
