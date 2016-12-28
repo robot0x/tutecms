@@ -22,6 +22,7 @@ return [
     'password'       => '',
     // 端口
     'hostport'       => '',
+
     // 连接dsn
     'dsn'            => '',
     // 数据库连接参数
