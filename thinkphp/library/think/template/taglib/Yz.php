@@ -19,7 +19,7 @@ class Yz extends Taglib
         'block'         => ['attr' => 'position', 'close' => 0],
         'plugin'        => ['attr' => 'position,object', 'close' => 0],
         'access'        => ['attr' => 'action', 'close' => 1],
-        'url'           => ['attr' => 'action', 'close' => 0],
+        'url'           => ['attr' => 'action,menu_id,menu_id,append_query_string', 'close' => 0],
         'filter'        => ['attr' => 'input,class,function', 'close' => 0],
     ];
 
@@ -111,9 +111,10 @@ class Yz extends Taglib
     public function tagUrl($tag) {
 
         // 获取参数
-        $action     = !empty($tag['action']) ? $tag['action'] : null;       // 触发器
+        $action     = !empty($tag['action']) ? $tag['action'] : 'index';       // 触发器
         $menuId     = !empty($tag['menu_id']) ?  $tag['menu_id'] : '';      // 菜单 ID
         $param      = !empty($tag['param']) ? $tag['param'] : '';           // 传入参数
+        $appendQueryQtring = !empty($tag['append_query_string']) ? 'true' : 'false';     // 是否带入url中的query信息   
 
         // 接接开始
         $parseStr = '<?php ';
@@ -139,7 +140,9 @@ class Yz extends Taglib
             $parseStr .= '[]';
         }
         
-        $parseStr .= ');';
+        // 是否带入url中的query信息
+        $parseStr .= ',' . $appendQueryQtring;
+        $parseStr .= ');'; 
 
         // 接结结束
         $parseStr .= ' ?>';

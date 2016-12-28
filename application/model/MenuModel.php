@@ -282,11 +282,12 @@ class MenuModel extends ModelModel
      * 通过传入的 action 与 参数 生成对应的URL
      * @param    string                   $action 触发器 -- 与路由表相对应
      * @param    array                    $params  参数 与路由表GET信息相对应
+     * @param  string $appendQueryString 追加查询的URL信息
      * @return   string
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2016-12-27T10:43:12+0800
      */
-    public function getUrlByActionParams($action = '', $params = []) {
+    public function getUrlByActionParams($action = '', $params = [], $appendQueryString = true) {
         // 获取菜单对应的组件的路由信息
         $sampleRoute = $this->ComponentModel()->getSampleRoute();
 
@@ -304,8 +305,14 @@ class MenuModel extends ModelModel
             
             // 取当前菜单的url信息，拼接当前路由信息，再拼接GET信息后返回
             $menuUrl = $this->getData('url');
-            $getDataString = htmlspecialchars_decode(Request::instance()->server('REDIRECT_QUERY_STRING'));
-            $url = Url::build('@' . $menuUrl . $route) . '?' . $getDataString;
+            $url = Url::build('@' . $menuUrl . $route) . '?';
+
+            // 加入追加的查询语义
+            if ($appendQueryString) {
+                $getDataString = htmlspecialchars_decode(Request::instance()->server('REDIRECT_QUERY_STRING'));
+                $url .= $getDataString;
+            }
+
             return $url;
 
         // 当前action并不存在于路由表中，返回 ''
