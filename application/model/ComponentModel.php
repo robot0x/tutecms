@@ -1,6 +1,8 @@
 <?php
 namespace app\model;
 
+use app\Common;
+
 class ComponentModel extends ModelModel
 {
     protected $pk           = 'name';
@@ -8,26 +10,31 @@ class ComponentModel extends ModelModel
     private $filter         = null;         // 过滤器
     private $route          = null;         // 路由
     private $sampleRoute    = null;         // 简单路由
+    private $componentName  = null;         // 组件名
 
-    static public function getCurrentComponent($component)
+    static public function getCurrentComponent($classFullName)
     {
-        $arr = explode('\\', $component);
-        $componentName = array_pop($arr);
-        $componentName = substr($componentName, 0, -strlen('Controller'));
+        $componentName = Common::getClassNameByClassFullNameSuffix($classFullName, 'Controller');
         $map = ['name'=>$componentName];
         return ComponentModel::get($map);
     }
 
+    /**
+     * 获取路由信息
+     * @return   array                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T11:14:14+0800
+     */
     public function getRoute() 
     {
         if (null === $this->route) {
             $this->route = [];
-
+            $componentName = $this->getData('name');
             // 本看是否存在其它路由参数，有的话，依次进行注册
             $routeFilePath = realpath(APP_PATH . 
                 'component' . DS . 
                 'route' . DS . 
-                $componentName . 'Route.php');
+                 $componentName . 'Route.php');
             if (false !== $routeFilePath) {
                 $this->route = include $routeFilePath;
             }

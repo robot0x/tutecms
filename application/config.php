@@ -71,5 +71,21 @@ return [
     'trace'                  => [
         // 内置Html Console 支持扩展
         'type' => 'console',
+        'trace_tabs' =>  [
+            'base'=>'基本',
+            'file'=>'文件',
+            'info'=>'流程',
+            'error'=>'错误',
+            'sql'=>'SQL',
+            'debug'=>'调试',
+            'component' => '组件',
+            'block'     => '区块',
+            'plugin'    => '插件',
+        ]
+    ],
+
+    // 视图输出字符串内容替换
+    'view_replace_str'       => [
+        '__PUBLIC__' => dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']),
     ],
 ];

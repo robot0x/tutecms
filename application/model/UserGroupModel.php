@@ -21,7 +21,7 @@ class UserGroupModel extends ModelModel
         $map['user_group_name'] = $this->getData('name');
         $map['action']          = $action;
         $AccessUserGroupMenuModel = AccessUserGroupMenuModel::get($map);
-        if ('' !== $AccessUserGroupMenuModel->getData('menu_id'))
+        if ('' === $AccessUserGroupMenuModel->getData('menu_id'))
         {
             // 返回非默认值，有权限
             return true;

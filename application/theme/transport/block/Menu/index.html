@@ -1,0 +1,5 @@
+<ul class="res">
+    {volist name="menuModels" id="_MenuModel" key="key"}
+        <li><a class="{eq name='_MenuModel->isActive()' value='1'}active{/eq}" href="{:url('@' . $_MenuModel->getData('url'))}">{$_MenuModel->getData('title')}</a></li>
+    {/volist}
+</ul>
