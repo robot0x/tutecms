@@ -23,9 +23,9 @@
 <div class="mechanize">
     <div class="container">
         <div class="mechanize-main">
-            <div class="col-md-6 industrial-right">
+            <div class="col-md-4 industrial-right">
                
-                <h3>Recent News</h3>
+                <h3>Recent News<a style="float:right;" href="{yz:url menu_id='2' append_query_string='false'}"><small>more....</small></a></h3>
                 {volist name="ContentModels" key="key" id="_ContentModel"}
                 <div class="news-grid">
                     <div class="new-lft-main">
@@ -35,15 +35,15 @@
                         </div>
                     </div>
                     <div class="news-right">
-                        <h6>{yz:filter input="$_ContentModel->getData('title')" class="server\StringServer" function="substr" param='["length" => 20]'}</h6>
-                        <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 52]'}</p>
+                        <a href="{yz:url menu_id='2' action='read' param='$_ContentModel->id'}"><h6>{yz:filter input="$_ContentModel->getData('title')" class="server\StringServer" function="substr" param='["length" => 20]'}</h6></a>
+                        <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 28]'}</p>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
                 {/volist}
 
             </div>
-            <div class="col-md-6 mechani-right">
+            <div class="col-md-8 mechani-right">
                 <div class="mechanize-grid">
                     <div class="col-md-4 mechanical-bott-left view view-sixth">
                         <img src="__THEME__/images/w3.jpg" alt="" class="img-responsive">
