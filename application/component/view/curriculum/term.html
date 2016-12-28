@@ -49,7 +49,7 @@
                     <td>
                       {$ChuhangTermModel['end_time'] | $filterModels['Date']->filter}
                     </td>
-                    <td>{eq name="1" value="$ChuhangTermModel->getData('status')"} <a href="{:url('@curriculum/term/frozen?id=' . $ChuhangTermModel->getData('id'))}" class="btn btn-danger" title="点击冻结" >冻结</a> {else /}<a href="{:url('@curriculum/term/frozen?id=' . $ChuhangTermModel->getData('id'))}" title="点击解冻" class="btn btn-default">解冻</a> {/eq}</td>
+                    <td>{eq name="1" value="$ChuhangTermModel->getData('status')"} <a href="{:url('@curriculum/term/frozen?id=' . $ChuhangTermModel->getData('id'))}" class="badge span_backgroud_color" title="点击冻结" >进行中</a> {else /}<a href="{:url('@curriculum/term/frozen?id=' . $ChuhangTermModel->getData('id'))}" title="点击解冻" class="badge">已结束</a> {/eq}</td>
                     <td>
                         <a href="{:url('@curriculum/term/editTerm?id=' . $ChuhangTermModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-edit"></i> 编辑</a> <a href="{:url('@curriculum/term/deleteTerm/' . $ChuhangTermModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
                     </td>
@@ -60,3 +60,8 @@
         {$ChuhangTermModels->render()}
     </div>
 </div>
+<style>
+  .span_backgroud_color{
+      background-color: green;
+  }
+</style>
