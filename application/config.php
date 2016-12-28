@@ -81,6 +81,11 @@ return [
             'component' => '组件',
             'block'     => '区块',
             'plugin'    => '插件',
-     ]
+        ]
+    ],
+
+    // 视图输出字符串内容替换
+    'view_replace_str'       => [
+        '__PUBLIC__' => dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']),
     ],
 ];
