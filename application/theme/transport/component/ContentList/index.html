@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="news-right">
-                    <a href="{yz:url menu_id='2' action='read' param='$_ContentModel->id'}"><h6>{$_ContentModel->getData('title')}</h6></a>
+                    <a href="{yz:url action='read' param='$_ContentModel->id'}"><h6>{$_ContentModel->getData('title')}</h6></a>
                     <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 135]'}</p>
                 </div>
                 <div class="clearfix"> </div>

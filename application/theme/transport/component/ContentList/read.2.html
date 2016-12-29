@@ -1,12 +1,20 @@
 {layout name="index" /}
 <div class="container">
     <div class="row clearfix">
+        <div class="col-md-12 text-right">
+            {yz:access action='edit'}
+            <a href="{yz:url action='edit' param='$ContentModel->id'}"><i class="glyphicon glyphicon-pencil"></i></a> {/yz:access} {yz:access action='delete'} &nbsp;&nbsp;
+            <a href="{yz:url action='delete' param='$ContentModel->id'}"><i class="glyphicon glyphicon-trash"></i></a> {/yz:access}
+        </div>
         <div class="col-md-12 single-content">
-            <h3>{$ContentModel->getData('title')}</h3>
+            <h3>{$ContentModel->getData('title')}&nbsp;&nbsp;<small>{:date('Y-m-d', (int)$ContentModel->getData('create_time'))}</small></h3>
             <img />
             <div>
                 {$ContentModel->getContent() | htmlspecialchars_decode}
             </div>
+        </div>
+        <div class="col-md-12 single-content preNextContent">
+            {yz:plugin position="afterContent" object='ContentModel' /}
         </div>
         <div class="clearfix"> </div>
     </div>

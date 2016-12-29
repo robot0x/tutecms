@@ -81,6 +81,7 @@ return [
             'component' => '组件',
             'block'     => '区块',
             'plugin'    => '插件',
+            'field'     => '字段',
         ]
     ],
 

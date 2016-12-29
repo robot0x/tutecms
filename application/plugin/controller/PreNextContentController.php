@@ -7,7 +7,7 @@ use app\model\ContentModel;                 // 文章
  */
 class PreNextContentController extends PluginController
 {
-    public function fetchHtml(ContentModel $ContentModel)
+    public function index(ContentModel $ContentModel)
     {
         // 获取上一条新闻
         $preContentModel = $ContentModel->getPreContentModel();
@@ -19,6 +19,6 @@ class PreNextContentController extends PluginController
         $this->assign('nextContentModel', $nextContentModel);
 
         // 取V层
-        return $this->fetch('plugin@PreNextContent/fetchHtml');
+        return $this->fetch();
     }
 }

@@ -63,7 +63,7 @@ class PluginController extends Controller
                
                 // 实例化类 并调用
                 $class = new $className($pluginModel);
-                $result = call_user_func_array([$class, 'fetchHtml'], [$object]); 
+                $result = call_user_func_array([$class, 'index'], [$object]); 
                 if ($result)
                 {
                     $resultHtml .= $result;
@@ -91,7 +91,7 @@ class PluginController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        $module = 'block';
+        $module = 'plugin';
         $controller = Common::getControllerName(get_called_class());
         $action = debug_backtrace()[1]['function'];
         

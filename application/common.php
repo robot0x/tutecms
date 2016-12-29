@@ -783,20 +783,24 @@ class Common{
             $themeTemplateJs = realpath($themeTemplateJs);
         } 
         
-        // 主题文件存在，则调用主题文件进行渲染
+        // 主题文件存在，则调用主题文件进行渲染，CSS,JS同样处理
+        $actionBasePath = APP_PATH . $module .  DS . 'view' . DS . $controller . DS . $action . '.';
+
         if (false !== $themeTemplate)
         {   
             $template = $themeTemplate;
         } else {
-            $template = $module . '@' . $controller . DS . $action;
+            $template = $actionBasePath . $viewSuffix;;
         }
+
+
 
         //  CSS
         if (false !== $themeTemplateCss)
         {   
             $templateCss = $themeTemplateCss;
         } else {
-            $templateCss = $module . '@' . $controller . DS . $action . '.css';
+            $templateCss = $actionBasePath . 'css.' . $viewSuffix;
         }
 
         // JS
@@ -804,25 +808,31 @@ class Common{
         {   
             $templateJs = $themeTemplateJs;
         } else {
-            $templateJs = $module . '@' . $controller . DS . $action . '.js';
+            $templateJs = $actionBasePath . 'js.' . $viewSuffix;
         }
 
         // 非开发模式下，打印当前MCA触发信息
         if (Config::get('app_debug')) {
             trace('当前调用：' . $controller . '->' . $action, $module);
-            trace('当前组件模板：' . $template, $module);
+            trace('当前模板：' . realpath($template), $module);
         }
 
         // 尝试渲染js及css
         $css = $js = '';
         try {
             $css = $View->fetch($templateCss);
-            trace('当前组件CSS模板：' . $templateCss, $module);
+            if (Config::get('app_debug')) {
+                trace('当前CSS模板：' . realpath($templateCss), $module); 
+            }
+        } catch (\Exception $e) {}
+
+        try {
             $js = $View->fetch($templateJs);
-            trace('当前组件JS模板：' . $templateJs, $module);
-        } catch (\Exception $e) {
-            
-        }
+            if (Config::get('app_debug')) {
+                trace('当前JS模板：' . realpath($templateJs), $module); 
+            }
+        } catch (\Exception $e) {}
+         
 
         // 获取当前主题
         return $View->fetch($template, $vars, $replace, $config) . $css . $js;

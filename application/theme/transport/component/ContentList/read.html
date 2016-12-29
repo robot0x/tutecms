@@ -1,6 +1,11 @@
 {layout name="index" /}
 <div class="container">
     <div class="row clearfix">
+        <div class="col-md-12 text-right">
+            {yz:access action='edit'}
+            <a href="{yz:url action='edit' param='$ContentModel->id'}"><i class="glyphicon glyphicon-pencil"></i></a> {/yz:access} {yz:access action='delete'} &nbsp;&nbsp;
+            <a href="{yz:url action='delete' param='$ContentModel->id'}"><i class="glyphicon glyphicon-trash"></i></a> {/yz:access}
+        </div>
         <div class="col-md-3 column">
             <ul class="nav nav-pills nav-stacked">
                 {volist name="ContentModels" id="_ContentModel" key="key"}
@@ -10,11 +15,8 @@
                 {/volist}
             </ul>
         </div>
-        <div class="col-md-9 column">
-            <img alt="140x140" src="bootstrap-3.3.5-dist/image/city.jpg" />
-            <div>
-                {$ContentModel->getContent() | htmlspecialchars_decode}
-            </div>
+        <div class="col-md-9 content">
+            {$ContentModel->getContent() | htmlspecialchars_decode}
         </div>
         <div class="col-md-12 text-center">
             {$ContentModels->render()}

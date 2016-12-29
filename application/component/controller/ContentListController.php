@@ -34,7 +34,7 @@ class ContentListController extends ComponentController
         if ('' === $ContentModel->getData('id')) {
             return $this->error('数据不存在或已删除');
         }
-        $ContentModel->FieldXXXXModels();
+
         $this->assign('ContentModel', $ContentModel);
 
         $ContentModels = $this->getContentModels();
