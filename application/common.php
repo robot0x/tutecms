@@ -56,10 +56,13 @@ class Common{
         }
         define('__ROOT__', $root);
 
-        // 定义常量__PUBLIC__
-        $publicPath = dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']);
+        // 定义常量PUBLIC_PATH 相对于服务器的绝对路径
+        $publicPath = realpath(ROOT_PATH) . DS . 'public';
+        define('PUBLIC_PATH', $publicPath);
 
-        define('__PUBLIC__' , $publicPath);
+        // 定义常量__PUBLIC__ 相对于站点的相对路径
+        $public = dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']);
+        define('__PUBLIC__' , $public);
     }
 
     /**
