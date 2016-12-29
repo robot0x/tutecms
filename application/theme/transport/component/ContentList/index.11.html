@@ -1,0 +1,29 @@
+{layout name="index" /}
+<div class="container">
+    <div class="row clearfix">
+        {yz:access action="add"}
+        <div class="col-md-12">
+            <div class="text-right">
+                <div class="text-right" style="padding-right:15px;">
+                    <a class="btn btn-default" href="{yz:url action='add'}"><i class="glyphicon glyphicon-plus">新增</i></a>
+                </div>
+            </div>
+        </div>
+        {/yz:access}
+        <div class="col-md-3 column">
+            <ul class="nav nav-pills nav-stacked">
+                {volist name="ContentModels" id="ContentModel" key="key"}
+                <li {eq name="1" value="$key" } class="active" {/eq}>
+                    <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title | $filterModels['title']->filter}</a>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+        <div class="col-md-9 column">
+            <img alt="140x140" src="bootstrap-3.3.5-dist/image/city.jpg" />
+            <div>
+                {$ContentModels[0]->getContent()}
+            </div>
+        </div>
+    </div>
+</div>
