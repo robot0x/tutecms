@@ -5,7 +5,7 @@
             <ul class="nav nav-pills nav-stacked">
                 {volist name="ContentModels" id="_ContentModel" key="key"}
                 <li {eq name="$ContentModel->getData('id')" value="$_ContentModel->getData('id')" } class="active" {/eq}>
-                    <a href="{$_ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$_ContentModel->title | $filterModels['title']->filter}</a>
+                    <a href="{yz:url action='read' param='$_ContentModel->id' append_query_string='true'}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$_ContentModel->title | $filterModels['title']->filter}</a>
                 </li>
                 {/volist}
             </ul>
@@ -15,6 +15,9 @@
             <div>
                 {$ContentModel->getContent() | htmlspecialchars_decode}
             </div>
+        </div>
+        <div class="col-md-12 text-center">
+            {$ContentModels->render()}
         </div>
     </div>
 </div>
