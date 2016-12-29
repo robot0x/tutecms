@@ -24,7 +24,6 @@
     <div class="container">
         <div class="mechanize-main">
             <div class="col-md-4 industrial-right">
-               {yz:block position="menu" /}
                 <h3>Recent News<a style="float:right;" href="{yz:url menu_id='2' append_query_string='false'}"><small>more....</small></a></h3>
                 {volist name="ContentModels" key="key" id="_ContentModel"}
                 <div class="news-grid">
@@ -44,35 +43,7 @@
 
             </div>
             <div class="col-md-8 mechani-right">
-
-                <div class="mechanize-grid">
-                    <div class="col-md-4 mechanical-bott-left view view-sixth">
-                        <img src="{:__THEME__}/images/w3.jpg" alt="" class="img-responsive">
-                        <div class="mask">
-                            <h3>Mechanize</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-8 mechanical-bott-rit">
-                        <h5>Denouncing pleasure</h5>
-                        <p>denouncing pleasure and praising pain was born andI will give you a complete</p>
-                        <a href="single.html">Read More</a>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="mechanize-grid">
-                    <div class="col-md-4 mechanical-bott-left  view view-sixth">
-                        <img src="{:__THEME__}/images/w4.jpg" alt="" class="img-responsive">
-                        <div class="mask">
-                            <h3>Mechanize</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-8 mechanical-bott-rit">
-                        <h5>Denouncing pleasure</h5>
-                        <p>denouncing pleasure and praising pain was born and I will give you a complete</p>
-                        <a href="single.html">Read More</a>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
+                {yz:block position="home_right" /}
             </div>
             <div class="clearfix"> </div>
         </div>

@@ -1,10 +1,9 @@
 {layout name="index" /}
-<?php if ($Url === 'news' || $User->getData('user_group_name') === 'editor'): ?>
 <div class="row clearfix">
     <div class="text-right">
         {yz:access action="add"}
         <div class="text-right" style="padding-right:15px;">
-            <a class="btn btn-default" href="{:url("@$Url/add")}" ><i class="glyphicon glyphicon-plus">新增</i></a>
+            <a class="btn btn-default" href="{:url("@Url/add")}" ><i class="glyphicon glyphicon-plus">新增</i></a>
         </div>
         {/yz:access}
     </div>
@@ -16,9 +15,7 @@
                         编号
                     </th>
                     <th>
-                       {eq name="$Url" value="news"}
-                       新闻通知{else /}操作说明
-                       {/eq}
+                       新闻通知
                     </th>
                     <th>
                         点击量
@@ -26,9 +23,7 @@
                     <th>
                         发布时间
                     </th>
-                    {eq name="User->getData('user_group_name')" value="editor"}
-                    <th>操作</th>
-                    {/eq}
+                  
                 </tr>
             </thead>
             <tbody>
@@ -44,11 +39,7 @@
                     <td>
                         {$ContentModel->create_time | $filterModels['date']->filter}
                     </td>
-                    {eq name="User->getData('user_group_name')" value="editor"}
-                    <td>
-                        <a href="{:url("@$Url/delete?id=" . $ContentModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
-                    </td>
-                    {/eq}
+                    
                 </tr>
             {/volist}
             </tbody>
@@ -56,23 +47,3 @@
         {$ContentModels->render()}
     </div>
 </div>
-<?php endif; ?>  
-<?php if ($Url === 'inductive' && $User->getData('user_group_name') === 'public'): ?>
-    <div class="row clearfix">
-        <div class="col-md-3 column">
-            <ul class="nav nav-pills nav-stacked">
-            {volist name="ContentModels" id="ContentModel" key="key"}
-                <li {eq name="1" value="$key" } class="active" {/eq} >
-                    <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title | $filterModels['title']->filter}</a>
-                </li>
-            {/volist}
-            </ul>
-        </div>
-        <div class="col-md-9 column">
-            <img alt="140x140" src="bootstrap-3.3.5-dist/image/city.jpg" />
-            <div>
-            {$ContentModels[0]->getContent()}
-        </div>
-        </div>
-    </div>
-<?php endif; ?>  

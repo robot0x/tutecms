@@ -1,0 +1,20 @@
+{layout name="index" /}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-3 column">
+            <ul class="nav nav-pills nav-stacked">
+                {volist name="ContentModels" id="_ContentModel" key="key"}
+                <li {eq name="$ContentModel->getData('id')" value="$_ContentModel->getData('id')" } class="active" {/eq}>
+                    <a href="{$_ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$_ContentModel->title | $filterModels['title']->filter}</a>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+        <div class="col-md-9 column">
+            <img alt="140x140" src="bootstrap-3.3.5-dist/image/city.jpg" />
+            <div>
+                {$ContentModel->getContent() | htmlspecialchars_decode}
+            </div>
+        </div>
+    </div>
+</div>

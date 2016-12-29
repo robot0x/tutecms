@@ -1,0 +1,16 @@
+{foreach name="contentModels" item="_ContentModel"}
+<div class="mechanize-grid">
+    <div class="col-md-4 mechanical-bott-left view view-sixth">
+        <img src="{:__THEME__}/images/w3.jpg" alt="" class="img-responsive">
+        <div class="mask">
+            <h3>Hello tuter!</h3>
+        </div>
+    </div>
+    <div class="col-md-8 mechanical-bott-rit">
+        <h5>{$_ContentModel->getData('title')}</h5>
+        <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 70]'}</p>
+        <a href="{yz:url menu_id='$menuId' action='read' param='$_ContentModel->id' /}" >Read More</a>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{/foreach}
