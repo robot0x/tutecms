@@ -6,7 +6,7 @@
             <div id="nivo-lightbox-demo">
                 <div class="ih-item square effect3 bottom_to_top">
                     <a href="{yz:url action='read' param='$_ContentModel->id' /}" data-lightbox-gallery="gallery1" id="nivo-lightbox-demo">
-                        <div class="img"><img src="{:__THEME__}/images/g1.jpg" alt="img"></div>
+                        <div class="img"><img src="{$_ContentModel->FieldXXXXModel('image')->getUrl()}" alt="img"></div>
                         <div class="info">
                             <h3>{$_ContentModel->getData('title')}</h3>
                             <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 20]'}</p>
