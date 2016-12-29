@@ -117,8 +117,8 @@
                                     <ul>
                                         {foreach name="route" item="message" key="action" }
                                         <li>
-                                            <label for="">
-                                                <input type="checkbox" name="access[{$_UserGroupModel->getData('name')}][{$action}]" {eq name="_UserGroupModel->isAllowedByMenuModelAction($MenuModel, $action)" value="true" }checked="checked" {/eq} />{$message.title}</label>
+                                            <label>
+                                                <input type="checkbox" name="access[{$_UserGroupModel->getData('name')}][{$action}]" {eq name="_UserGroupModel->isAllowedByMenuModelAction($MenuModel, $action)" value="true" }checked="checked" {/eq} />&nbsp;&nbsp;{$message.title}</label>
                                         </li>
                                         {/foreach}
                                     </ul>
