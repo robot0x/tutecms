@@ -26,6 +26,12 @@ class ComponentController extends Controller
     {
         // 取组件对应的当前菜单。及组件的配置、过滤器信息.
         $this->currentMenuModel = MenuModel::getCurrentMenuModel();
+
+        // 开发模式下，输出当前菜单信息
+        if (Config::get('app_debug')) {
+            trace('当前调用菜单ID：' . $this->currentMenuModel->getData('id'), 'debug');
+        }
+
         // 取当前登陆用户信息
         $this->currentFrontUserModel = UserModel::getCurrentFrontUserModel();
         // 获取当前主题信息
