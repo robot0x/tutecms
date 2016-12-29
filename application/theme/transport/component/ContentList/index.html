@@ -6,43 +6,29 @@
                 {yz:access action="add"}
                 <div class="text-right" style="padding-right:15px;">
                     <a class="btn btn-default" href="{yz:url action='add'}"><i class="glyphicon glyphicon-plus">新增</i></a>
-                </div> 
+                </div>
                 {/yz:access}
             </div>
         </div>
         <div class="col-md-12 column">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="info">
-                        <th width="80%">
-                            标题
-                        </th>
-                        <th width="10%" class="text-right">
-                            点击量
-                        </th>
-                        <th width="10%">
-                            发布时间
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {volist name="ContentModels" id="ContentModel" key="key"}
-                    <tr>
-                        <td>
-                            <a href="{yz:url action='read' param='$ContentModel->id'}">{$ContentModel->getData('title')}</a>
-                        </td>
-                        <td class="text-right">{$ContentModel->hit}</td>
-                        <td>
-                            {$ContentModel->create_time | $filterModels['date']->filter}
-                        </td>
-                    </tr>
-                    {/volist}
-                </tbody>
-            </table>
+            {volist name="ContentModels" key="key" id="_ContentModel"}
+            <div class="news-grid">
+                <div class="new-lft-main">
+                    <div class="news-left">
+                        <h4>{:date("d", $_ContentModel->getData('create_time'))}</h4>
+                        <h5>{:date("Y M", $_ContentModel->getData('create_time'))}</h5>
+                    </div>
+                </div>
+                <div class="news-right">
+                    <a href="{yz:url menu_id='2' action='read' param='$_ContentModel->id'}"><h6>{$_ContentModel->getData('title')}</h6></a>
+                    <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 135]'}</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            {/volist}
             <div class="text-center">
                 {$ContentModels->render()}
             </div>
-           
         </div>
     </div>
 </div>
