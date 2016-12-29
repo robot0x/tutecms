@@ -2,11 +2,11 @@
 <?php if ($Url === 'news' || $User->getData('user_group_name') === 'editor'): ?>
 <div class="row clearfix">
     <div class="text-right">
-        {eq name="User->getData('user_group_name')" value="editor"}
+        {yz:access action="add"}
         <div class="text-right" style="padding-right:15px;">
             <a class="btn btn-default" href="{:url("@$Url/add")}" ><i class="glyphicon glyphicon-plus">新增</i></a>
         </div>
-        {/eq}
+        {/yz:access}
     </div>
     <div class="col-md-12 column">
         <table class="table table-hover">
