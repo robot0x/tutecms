@@ -68,6 +68,10 @@ class ChuhangCurriculumModel extends ModelModel
 			//获取每个节次对应的课程信息
 			$results[$i] = $selfs;
 		}
+		//如果该学期无节次信息时，给$results赋值为空数组
+		if (empty($ChuhangTimeModels)) {
+			$results = [];
+		}
 		return $results;
 	}
 
@@ -133,6 +137,7 @@ class ChuhangCurriculumModel extends ModelModel
 			//获取每个节次对应的课程信息
 			$results[$i] = $selfs;
 		}
+
 		return $results;
 
 	}
@@ -209,7 +214,7 @@ class ChuhangCurriculumModel extends ModelModel
 	    return $retval;
 	}
 
-	//找出数组中不重复的数字和重复的数字，如{A,a,B}，分为{A,B}、{a},此函数中，curriculum表中的三条数据，其中A、a两条数据除周次外，其他信息均相同，则此时只需要显示A、a两条数据中的一条。并将a的元素的周次信息放在A的配置信息中,即返回{A、B}。$result = {a}, $new = {A、B}
+	//找出数组中不重复的数字和重复的数字，如{A,a,B}，分为{A,B}、{a},此函数中，curriculum表中的三条数据，其中A、a两条数据除周次外，其他信息均相同，则此时只需要显示A、a两条数据中的一条。并将a的元素的周次信息放在A的配置信息中,即返回{A、B}。$result = {a}, $new = {A、B}。对应前台效果：一条数据仅周次不同时，将第一周、第二周、第四周，合并为第一、二、四周，不再多次重复显示
 	static public function getCourseInfo($arr){
 		$count = count($arr);
 
