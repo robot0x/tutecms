@@ -1,0 +1,24 @@
+{layout name="index" /}
+<div class="row clearfix">
+    <div class="col-md-3 column">
+        {include file="./left" }
+    </div>
+    <form action="{:url('@curriculum/teacher/' .$ChuhangTeacherModel->getData('id'). '/updateTeacher')}" method="post">
+    <input type="hidden" value="{$ChuhangTeacherModel->getData('id')}">
+    <div class="col-md-9">
+    	<div class="row">
+    		<div class="control-group">
+    		    <label class="col-md-3 text-right" for="_name">教师名称</label>
+    		    <div class="col-md-3">
+    		        <input type="text" name="name" value="{$ChuhangTeacherModel->getData('name')}" class="form-control" />
+    		    </div>
+    		</div>
+    	</div>
+    </div>
+    <br><br>
+    <div class="row">
+    	<div class="col-md-6 text-center">
+    		<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i> 提交</button>
+    	</div>
+    </div>
+</div>
