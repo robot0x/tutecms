@@ -49,7 +49,7 @@ return [
     //分页配置
     'paginate'               => [
         'type'      => 'bootstrap',
-        'var_page'  => '5',
+        'var_page'  => 'page',
         'list_rows' => 20,
     ],
 

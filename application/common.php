@@ -13,8 +13,11 @@ use think\Route;
 use think\Db;
 use think\Request;
 use think\Session;
+use think\View;
+use think\Config;
 use app\model\MenuModel;
 use app\model\UserModel;
+use app\model\ThemeModel;
 
 // 初始化
 Common::init();
@@ -741,6 +744,88 @@ class Common{
             ';
         }
         return $html;
+    }
+
+    static public function fetchByMCA(View $View, $module, $controller, $action, $template, $vars, $replace, $config) {
+        // 获取配置信息的模板后缀
+        $viewSuffix = Config::get('template.view_suffix');
+        $currentMenuModel = MenuModel::getCurrentMenuModel();
+        $currentThemeModel = ThemeModel::getCurrentThemeModel();
+        // 获取主题模板路径
+        $themeTemplatePath = APP_PATH . 
+            'theme' . DS . 
+            $currentThemeModel->getData('name') . DS .
+            $module . DS .
+            $controller . DS . $action . '.';
+
+        
+        // 判断是否对当前菜单进行了重写
+        $themeTemplate      = $themeTemplatePath . $currentMenuModel->getData('id') . '.' . $viewSuffix;
+        $themeTemplateCss   = $themeTemplatePath . $currentMenuModel->getData('id') . '.css.' . $viewSuffix;
+        $themeTemplateJs    = $themeTemplatePath . $currentMenuModel->getData('id') . '.js.' . $viewSuffix;
+
+        // 路径格式化，如果文件不存在，则返回false
+        $themeTemplate      = realpath($themeTemplate);
+        $themeTemplateCss   = realpath($themeTemplateCss);
+        $themeTemplateJs    = realpath($themeTemplateJs);
+
+        // 未对菜单进行重写，则尝试获取当前组件的重写模板
+        if (false === $themeTemplate) {
+            $themeTemplate = $themeTemplatePath . $viewSuffix;
+            $themeTemplate = realpath($themeTemplate);
+        }
+        if (false === $themeTemplateCss) {
+            $themeTemplateCss = $themeTemplatePath . 'css.' . $viewSuffix;
+            $themeTemplateCss = realpath($themeTemplateCss);
+        }
+        if (false === $themeTemplateJs) {
+            $themeTemplateJs = $themeTemplatePath . 'js.' . $viewSuffix;
+            $themeTemplateJs = realpath($themeTemplateJs);
+        } 
+        
+        // 主题文件存在，则调用主题文件进行渲染
+        if (false !== $themeTemplate)
+        {   
+            $template = $themeTemplate;
+        } else {
+            $template = $module . '@' . $controller . DS . $action;
+        }
+
+        //  CSS
+        if (false !== $themeTemplateCss)
+        {   
+            $templateCss = $themeTemplateCss;
+        } else {
+            $templateCss = $module . '@' . $controller . DS . $action . '.css';
+        }
+
+        // JS
+        if (false !== $themeTemplateJs)
+        {   
+            $templateJs = $themeTemplateJs;
+        } else {
+            $templateJs = $module . '@' . $controller . DS . $action . '.js';
+        }
+
+        // 非开发模式下，打印当前MCA触发信息
+        if (Config::get('app_debug')) {
+            trace('当前调用：' . $controller . '->' . $action, $module);
+            trace('当前组件模板：' . $template, $module);
+        }
+
+        // 尝试渲染js及css
+        $css = $js = '';
+        try {
+            $css = $View->fetch($templateCss);
+            trace('当前组件CSS模板：' . $templateCss, $module);
+            $js = $View->fetch($templateJs);
+            trace('当前组件JS模板：' . $templateJs, $module);
+        } catch (\Exception $e) {
+            
+        }
+
+        // 获取当前主题
+        return $View->fetch($template, $vars, $replace, $config) . $css . $js;
     }
 
 }
