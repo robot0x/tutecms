@@ -93,49 +93,11 @@ class FieldController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        // 未传入模板值，则调用当前 action 对应模板
-        if ('' === $template) {
-            $template = debug_backtrace()[1]['function'];
-        }
-
-        // 获取模板扩展名
-        $viewSuffix = Config::get('template.view_suffix');
-
-        // 获取调用此方法的控制器名及方法名
+        $module = 'field';
         $controller = Common::getControllerName(get_called_class());
-
-        // 拼接主题路径
-        $themeTemplatePath = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'field' . DS .
-            $controller . DS . 
-            $template . '.';
-
-        // 查看字段对象是否被重写
-        $themeTemplate = $themeTemplatePath . $this->FieldDataXXXModel->getData('field_id') . '.' . $viewSuffix;
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate = realpath($themeTemplate);
-
-        // 查看字段模型是否被重写
-        if (false === $themeTemplate) {
-            $themeTemplate = $themeTemplatePath . $viewSuffix;
-            // 路径格式化，如果文件不存在，则返回false
-            $themeTemplate = realpath($themeTemplate);
-        }
+        $action = debug_backtrace()[1]['function'];
         
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-
-        // 不存在，则进行同模块VIEW规则渲染
-        } else {
-            $template = 'field@' . $controller . '/' . $template;
-        }
-
-        // 渲染html
-        return parent::fetch($template);
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config);
     }
 
 

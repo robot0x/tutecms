@@ -21,7 +21,8 @@ class ContentListController extends ComponentController
         $map['content_type_name'] = $this->config['contentTypeName']['value'];
         $map['is_freezed'] = '0';
         $map['is_delete'] = '0';
-        $ContentModels = $ContentModel->where($map)->paginate(10);
+        $count = $this->getSampleConfig()['count'];
+        $ContentModels = $ContentModel->where($map)->order('id desc')->paginate($count);
         $this->assign('ContentModels', $ContentModels);
         
         //获取当前用户信息
