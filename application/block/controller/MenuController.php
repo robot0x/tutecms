@@ -12,7 +12,6 @@ use app\model\BlockModel;                   // 区块
  */
 class MenuController extends BlockController
 {
-    protected $token;
 	public function index()
 	{
         // 取当前菜单信息
@@ -33,7 +32,7 @@ class MenuController extends BlockController
         //获取当前用户信息
         $User = UserModel::getCurrentFrontUserModel();
         $this->assign('User', $User);
-		return $this->fetch('block@Menu/fetchHtml');
+		return $this->fetch();
 	}
 
     /**
@@ -43,8 +42,7 @@ class MenuController extends BlockController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-08T18:41:54+0800
      */
-    static public function edit($param = [])
-    {
+    static public function edit($param = []) {
 
     }
 }

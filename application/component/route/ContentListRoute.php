@@ -19,8 +19,8 @@ return [
         'value'         => ['', 'GET']        
     ],
     'update' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
+        'title'         => '更新',
+        'description'   => '更新数据',
         'value'         => ['/update', 'POST'],
     ],
     'delete' => [
@@ -34,7 +34,7 @@ return [
         'value'         => ['/add', 'GET'],
     ],
     'save' => [
-        'title'         => '保存（更新）',
+        'title'         => '保存',
         'description'   => '保存数据',
         'value'         => ['/save', 'POST'],
     ],

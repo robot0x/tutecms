@@ -21,11 +21,18 @@ class ComponentController extends Controller
     protected $currentFrontUserModel    = null;         // 当前前台登陆用户
     protected $Request                  = null;         // 请求信息
     protected $currentThemeModel        = null;         // 当前主题
+    protected $sampleConfig;                            // 配置（简）
 
     public function __construct(Request $request = null)
     {
         // 取组件对应的当前菜单。及组件的配置、过滤器信息.
         $this->currentMenuModel = MenuModel::getCurrentMenuModel();
+
+        // 开发模式下，输出当前菜单信息
+        if (Config::get('app_debug')) {
+            trace('当前调用菜单ID：' . $this->currentMenuModel->getData('id'), 'debug');
+        }
+
         // 取当前登陆用户信息
         $this->currentFrontUserModel = UserModel::getCurrentFrontUserModel();
         // 获取当前主题信息
@@ -64,6 +71,16 @@ class ComponentController extends Controller
         $this->assign('currentMenuModel', $this->currentMenuModel);
     }
 
+    public function getSampleConfig() {
+        if (null === $this->sampleConfig) {
+            $this->sampleConfig = [];
+            foreach ($this->config as $key => $config) {
+                $this->sampleConfig[$key] =  $config['value'];
+            }
+        }
+
+        return $this->sampleConfig;
+    }
     /**
      * 重写 加载模板输出
      * @access protected
@@ -75,88 +92,15 @@ class ComponentController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        // 获取配置信息的模板后缀
-        $viewSuffix = Config::get('template.view_suffix');
-
-        // 获取主题模板路径
-        $themeTemplatePath = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'component' . DS .
-            $this->Request->controller() . DS . $this->Request->action() . '.';
-
-        // 判断是否对当前菜单进行了重写
-        $themeTemplate      = $themeTemplatePath . $this->currentMenuModel->getData('id') . '.' . $viewSuffix;
-        $themeTemplateCss   = $themeTemplatePath . $this->currentMenuModel->getData('id') . '.css.' . $viewSuffix;
-        $themeTemplateJs    = $themeTemplatePath . $this->currentMenuModel->getData('id') . '.js.' . $viewSuffix;
-
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate      = realpath($themeTemplate);
-        $themeTemplateCss   = realpath($themeTemplateCss);
-        $themeTemplateJs    = realpath($themeTemplateJs);
-
-        // 未对菜单进行重写，则尝试获取当前组件的重写模板
-        if (false === $themeTemplate) {
-            $themeTemplate = $themeTemplatePath . $viewSuffix;
-            $themeTemplate = realpath($themeTemplate);
-        }
-        if (false === $themeTemplateCss) {
-            $themeTemplateCss = $themeTemplatePath . 'css.' . $viewSuffix;
-            $themeTemplateCss = realpath($themeTemplateCss);
-        }
-        if (false === $themeTemplateJs) {
-            $themeTemplateJs = $themeTemplatePath . 'js.' . $viewSuffix;
-            $themeTemplateJs = realpath($themeTemplateJs);
-        }
-
         /**
          * $MCA = array(0 => 'module', 1 => 'controller', 2 => 'action');
          * @var [type]
          */
-        $MCA = Request::instance()->dispatch()['module'];         
+        $MCA = Request::instance()->dispatch()['module'];  
+        $module = 'component';
+        $controller = $MCA[1];
+        $action = $MCA[2];
         
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-        } else {
-            $template = $MCA[0] . '@' . $MCA[1] . DS . $MCA[2];
-        }
-
-        //  CSS
-        if (false !== $themeTemplateCss)
-        {   
-            $templateCss = $themeTemplateCss;
-        } else {
-            $templateCss = $MCA[0] . '@' . $MCA[1] . DS . $MCA[2] . '.css';
-        }
-
-        // JS
-        if (false !== $themeTemplateJs)
-        {   
-            $templateJs = $themeTemplateJs;
-        } else {
-            $templateJs = $MCA[0] . '@' . $MCA[1] . DS . $MCA[2] . '.js';
-        }
-
-        // 非开发模式下，打印当前MCA触发信息
-        if (Config::get('app_debug')) {
-            trace('当前调用组件：' . $MCA[1] . '->' . $MCA[2], 'component');
-            trace('当前组件模板：' . $template, 'component');
-        }
-
-        // 尝试渲染js及css
-        $css = $js = '';
-        try {
-            $css = $this->view->fetch($templateCss);
-            trace('当前组件CSS模板：' . $templateCss, 'component');
-            $js = $this->view->fetch($templateJs);
-            trace('当前组件JS模板：' . $templateJs, 'component');
-        } catch (\Exception $e) {
-            
-        }
-
-        // 获取当前主题
-        return $this->view->fetch($template, $vars, $replace, $config) . $css . $js;
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config);
     }
 }

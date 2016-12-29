@@ -1,0 +1,10 @@
+    <div class="col-md-6 text-left">
+        {neq name="preContentModel->getData('id')" value=""}
+        <a href="{$preContentModel | $filterModels['href']->filter}"><i class="glyphicon glyphicon-hand-left"></i>&nbsp;{$preContentModel->getData('title')}</a>
+        {/neq}
+    </div>
+    <div class="col-md-6 text-right">
+        {neq name="nextContentModel->getData('id')" value=""}
+        <a href="{$nextContentModel | $filterModels['href']->filter}">{$nextContentModel->getData('title')}&nbsp;<i class="glyphicon glyphicon-hand-right"></i></a>
+        {/neq}
+    </div>

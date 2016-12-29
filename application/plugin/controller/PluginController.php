@@ -63,7 +63,7 @@ class PluginController extends Controller
                
                 // 实例化类 并调用
                 $class = new $className($pluginModel);
-                $result = call_user_func_array([$class, 'fetchHtml'], [$object]); 
+                $result = call_user_func_array([$class, 'index'], [$object]); 
                 if ($result)
                 {
                     $resultHtml .= $result;
@@ -91,35 +91,10 @@ class PluginController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        // 当前插件的CA信息
+        $module = 'plugin';
         $controller = Common::getControllerName(get_called_class());
         $action = debug_backtrace()[1]['function'];
-
-        // 拼接主题模板信息
-        $themeTemplate = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'plugin' . DS .
-            Common::getControllerName(get_called_class()) . DS .
-            'fetchHtml.html';
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate = realpath($themeTemplate);  
         
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-        } else {
-            $template = 'plugin@' . $controller . DS . $action;
-        }
-
-        // 开发模式下，打印当前插件模板调用信息
-        if (Config::get('app_debug')) {
-            trace('当前调用插件：' . $controller . '->' . $action, 'block');
-            trace('调用插件模板：' . $template, 'plugin');
-        }
-
-        // 获取当前主题
-        return $this->view->fetch($template, $vars, $replace, $config);
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config);
     }
 }

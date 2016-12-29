@@ -5,5 +5,6 @@ namespace app\model;
  */
 class AccessMenuBlockModel extends ModelModel
 {
-    
+    // 关闭自动写入时间戳
+    protected $autoWriteTimestamp = false;
 }

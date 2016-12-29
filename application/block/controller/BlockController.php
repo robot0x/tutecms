@@ -107,51 +107,10 @@ class BlockController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
+        $module = 'block';
         $controller = Common::getControllerName(get_called_class());
         $action = debug_backtrace()[1]['function'];
-
-        // 拼接主题模板信息
-        $themeTemplate = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'block' . DS .
-            $controller . DS .
-            $action . '.html';
-
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate = realpath($themeTemplate);
-
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-
-        // 不存在，则进行同模块VIEW规则渲染
-        } else {
-            $template = 'block@' . $controller . DS . $action;
-        }
-
-        // 初始化html css js字符串
-        $html = $css = $js = '';
-
-        // 非开发模式下，打印当前区块模板调用信息
-        if (Config::get('app_debug')) {
-            trace('当前调用区块：' . $controller . '->' . $action, 'block');
-            trace('调用区块模板：' . $template, 'block');
-        }
-
-        // 渲染html
-        $html = parent::fetch($template);
-
-        // 尝试渲染js及css
-        try {
-            $js = parent::fetch('block@' . $controller . DS . $action . 'Javascript');
-        } catch (\Exception $e) {}
-
-        try {
-            $css = parent::fetch('block@' . $controller . DS . $action . 'Css');
-        } catch (\Exception $e) {}
-
-        return $html . $js . $css;
+        
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config);
     }
 }

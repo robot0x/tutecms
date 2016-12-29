@@ -1,0 +1,23 @@
+{layout name="index" /}
+<div class="container">
+    {volist name="ContentModels" key="key" id="_ContentModel"}
+    <div class="col-md-4 gallery-grid">
+        <div class="gallery-grid-effects">
+            <div id="nivo-lightbox-demo">
+                <div class="ih-item square effect3 bottom_to_top">
+                    <a href="{yz:url action='read' param='$_ContentModel->id' /}" data-lightbox-gallery="gallery1" id="nivo-lightbox-demo">
+                        <div class="img"><img src="{$_ContentModel->FieldXXXXModel('image')->getUrl()}" alt="img"></div>
+                        <div class="info">
+                            <h3>{$_ContentModel->getData('title')}</h3>
+                            <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 20]'}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/volist}
+    <div class="text-center">
+        {$ContentModels->render()}
+    </div>
+</div>

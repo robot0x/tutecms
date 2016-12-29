@@ -13,8 +13,11 @@ use think\Route;
 use think\Db;
 use think\Request;
 use think\Session;
+use think\View;
+use think\Config;
 use app\model\MenuModel;
 use app\model\UserModel;
+use app\model\ThemeModel;
 
 // 初始化
 Common::init();
@@ -56,10 +59,13 @@ class Common{
         }
         define('__ROOT__', $root);
 
-        // 定义常量__PUBLIC__
-        $publicPath = dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']);
+        // 定义常量PUBLIC_PATH 相对于服务器的绝对路径
+        $publicPath = realpath(ROOT_PATH) . DS . 'public';
+        define('PUBLIC_PATH', $publicPath);
 
-        define('__PUBLIC__' , $publicPath);
+        // 定义常量__PUBLIC__ 相对于站点的相对路径
+        $public = dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']);
+        define('__PUBLIC__' , $public);
     }
 
     /**
@@ -738,6 +744,98 @@ class Common{
             ';
         }
         return $html;
+    }
+
+    static public function fetchByMCA(View $View, $module, $controller, $action, $template, $vars, $replace, $config) {
+        // 获取配置信息的模板后缀
+        $viewSuffix = Config::get('template.view_suffix');
+        $currentMenuModel = MenuModel::getCurrentMenuModel();
+        $currentThemeModel = ThemeModel::getCurrentThemeModel();
+        // 获取主题模板路径
+        $themeTemplatePath = APP_PATH . 
+            'theme' . DS . 
+            $currentThemeModel->getData('name') . DS .
+            $module . DS .
+            $controller . DS . $action . '.';
+
+        
+        // 判断是否对当前菜单进行了重写
+        $themeTemplate      = $themeTemplatePath . $currentMenuModel->getData('id') . '.' . $viewSuffix;
+        $themeTemplateCss   = $themeTemplatePath . $currentMenuModel->getData('id') . '.css.' . $viewSuffix;
+        $themeTemplateJs    = $themeTemplatePath . $currentMenuModel->getData('id') . '.js.' . $viewSuffix;
+
+        // 路径格式化，如果文件不存在，则返回false
+        $themeTemplate      = realpath($themeTemplate);
+        $themeTemplateCss   = realpath($themeTemplateCss);
+        $themeTemplateJs    = realpath($themeTemplateJs);
+
+        // 未对菜单进行重写，则尝试获取当前组件的重写模板
+        if (false === $themeTemplate) {
+            $themeTemplate = $themeTemplatePath . $viewSuffix;
+            $themeTemplate = realpath($themeTemplate);
+        }
+        if (false === $themeTemplateCss) {
+            $themeTemplateCss = $themeTemplatePath . 'css.' . $viewSuffix;
+            $themeTemplateCss = realpath($themeTemplateCss);
+        }
+        if (false === $themeTemplateJs) {
+            $themeTemplateJs = $themeTemplatePath . 'js.' . $viewSuffix;
+            $themeTemplateJs = realpath($themeTemplateJs);
+        } 
+        
+        // 主题文件存在，则调用主题文件进行渲染，CSS,JS同样处理
+        $actionBasePath = APP_PATH . $module .  DS . 'view' . DS . $controller . DS . $action . '.';
+
+        if (false !== $themeTemplate)
+        {   
+            $template = $themeTemplate;
+        } else {
+            $template = $actionBasePath . $viewSuffix;;
+        }
+
+
+
+        //  CSS
+        if (false !== $themeTemplateCss)
+        {   
+            $templateCss = $themeTemplateCss;
+        } else {
+            $templateCss = $actionBasePath . 'css.' . $viewSuffix;
+        }
+
+        // JS
+        if (false !== $themeTemplateJs)
+        {   
+            $templateJs = $themeTemplateJs;
+        } else {
+            $templateJs = $actionBasePath . 'js.' . $viewSuffix;
+        }
+
+        // 非开发模式下，打印当前MCA触发信息
+        if (Config::get('app_debug')) {
+            trace('当前调用：' . $controller . '->' . $action, $module);
+            trace('当前模板：' . realpath($template), $module);
+        }
+
+        // 尝试渲染js及css
+        $css = $js = '';
+        try {
+            $css = $View->fetch($templateCss);
+            if (Config::get('app_debug')) {
+                trace('当前CSS模板：' . realpath($templateCss), $module); 
+            }
+        } catch (\Exception $e) {}
+
+        try {
+            $js = $View->fetch($templateJs);
+            if (Config::get('app_debug')) {
+                trace('当前JS模板：' . realpath($templateJs), $module); 
+            }
+        } catch (\Exception $e) {}
+         
+
+        // 获取当前主题
+        return $View->fetch($template, $vars, $replace, $config) . $css . $js;
     }
 
 }

@@ -7,6 +7,14 @@ class ContentModel extends ModelModel
     protected $preContentModel      = null;             // 上一篇文章
     protected $nextContentModel     = null;             // 下一篇文章
     private $FieldXXXXModels        = null;
+
+    public function __construct($data = [], $getFieldXXXXModels = true) {
+        parent::__construct($data);
+        if ($getFieldXXXXModels) {
+            $this->FieldXXXXModels();
+        }
+    }
+
     /**
      * 内容类型 n:1
      * @author panjie panjie@mengyunzhi.com
@@ -74,13 +82,10 @@ class ContentModel extends ModelModel
      * 获取 上一篇 文章
      * @return 文章 ContentModel
      */
-    public function getPreContentModel()
+    public function getPreContentModel($orderField = 'create_time', $order = 'desc')
     {
         if (null === $this->preContentModel) {
-            $map = [];
-            $map['id'] = ['<', $this->getData('id')];
-            $map['content_type_name'] = $this->getData('content_type_name');
-            $this->preContentModel = $this->where($map)->order('id desc')->find(); 
+            $this->preContentModel = $this->getNeighborContentModel($orderField, $order, 'pre');
         }
         return $this->preContentModel;
     }
@@ -89,15 +94,27 @@ class ContentModel extends ModelModel
      * 获取 下一篇 文章
      * @return 文章 ContentModel
      */
-    public function getNextContentModel()
+    public function getNextContentModel($orderField = 'create_time', $order = 'desc')
     {
         if (null === $this->nextContentModel) {
-            $map = [];
-            $map['id'] = ['>', $this->getData('id')];
-            $map['content_type_name'] = $this->getData('content_type_name');
-            $this->nextContentModel = $this->where($map)->order('id asc')->find();
+            $this->nextContentModel = $this->getNeighborContentModel($orderField, $order, 'next');
         }
         return $this->nextContentModel;
+    }
+    
+    public function getNeighborContentModel($orderField = 'create_time', $order = 'desc', $type = 'pre') {
+        $map = [];
+        if ('pre' === $type) {
+            $map['id'] = ['>', $this->getData('id')];
+            $order = ($order === 'desc') ? 'asc' : 'desc';
+        } else {
+            $map['id'] = ['<', $this->getData('id')];
+        }
+        $orderBy = $orderField . ' ' . $order;
+        $map['is_delete'] = 0;
+        $map['content_type_name'] = $this->getData('content_type_name');
+
+        return $this->where($map)->order($orderBy)->find(); 
     }
 
     /**

@@ -16,12 +16,7 @@ class ContentListController extends ComponentController
 {
     public function indexAction()
     {
-        $ContentModel = new ContentModel();
-        $map = [];
-        $map['content_type_name'] = $this->config['contentTypeName']['value'];
-        $map['is_freezed'] = '0';
-        $map['is_delete'] = '0';
-        $ContentModels = $ContentModel->where($map)->paginate(10);
+        $ContentModels = $this->getContentModels();
         $this->assign('ContentModels', $ContentModels);
         
         //获取当前用户信息
@@ -39,15 +34,10 @@ class ContentListController extends ComponentController
         if ('' === $ContentModel->getData('id')) {
             return $this->error('数据不存在或已删除');
         }
-        $ContentModel->FieldXXXXModels();
+
         $this->assign('ContentModel', $ContentModel);
-        //获取操作说明的列表
-        $ContentModel = new ContentModel();
-        $map = [];
-        $map['content_type_name'] = $this->config['contentTypeName']['value'];
-        $map['is_freezed'] = '0';
-        $map['is_delete'] = '0';
-        $ContentModels = $ContentModel->where($map)->paginate(10);
+
+        $ContentModels = $this->getContentModels();
         $this->assign('ContentModels', $ContentModels);
 
         // 增加一个点击量
@@ -115,6 +105,9 @@ class ContentListController extends ComponentController
     }
 
     public function addAction() {
+        $ContentModel = new ContentModel;
+        $ContentModel->FieldXXXXModels();
+        $this->assign('ContentModel', $ContentModel);
         return $this->fetch();
     }
 
@@ -155,5 +148,26 @@ class ContentListController extends ComponentController
         }
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
+    }
+
+    /**
+     * 获取当前页文章
+     * @return   array                   ContentModels
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-29T13:41:08+0800
+     */
+    private function getContentModels() {
+        $ContentModel = new ContentModel();
+        $map = [];
+        $map['content_type_name'] = $this->config['contentTypeName']['value'];
+        $map['is_freezed'] = '0';
+        $map['is_delete'] = '0';
+        $count = $this->getSampleConfig()['count'];
+        $ContentModels = $ContentModel->where($map)->order('id desc')->paginate($count);
+
+        unset($ContentModel);
+        unset($map);
+        unset($count);
+        return $ContentModels;
     }
 }

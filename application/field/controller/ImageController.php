@@ -54,6 +54,6 @@ class ImageController extends FieldController
     {
         $token  = $this->FieldDataXXXModel->makeToken('upload');
         $this->assign('token', $token);
-        return $this->fetch() . $this->fetch('editCss') . $this->fetch('editJs');
+        return $this->fetch();
     }
 }

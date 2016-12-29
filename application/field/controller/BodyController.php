@@ -47,6 +47,6 @@ class BodyController extends FieldController
     {
         $this->assign('token', $this->FieldDataXXXModel->makeToken('upload'));
         
-        return $this->fetch() . $this->fetch('editJs');
+        return $this->fetch();
     }
 }

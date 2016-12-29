@@ -81,11 +81,11 @@ class MenuController extends AdminController
             $MenuModel->setData('config', json_encode($data['config']));
         }
         
-        // 过滤器信息
-        if (array_key_exists('filter', $data)) {
-            $filter = Common::makeFliterArrayFromPostArray($data['filter']);
-            $MenuModel->setData('filter', json_encode($filter));
-        }
+        // // 过滤器信息
+        // if (array_key_exists('filter', $data)) {
+        //     $filter = Common::makeFliterArrayFromPostArray($data['filter']);
+        //     $MenuModel->setData('filter', json_encode($filter));
+        // }
 
         // 验证
         $result = $this->validate(
@@ -109,18 +109,9 @@ class MenuController extends AdminController
         $map = ['menu_id' => $id];
         $AccessUserGroupMenuModel->where($map)->delete();
 
-
         // 更新 菜单 用户组 权限
-        // 拼接user_group_name menu_id 存入其中间表
         if (array_key_exists('access', $data)) {
-            $datas = array();
-            foreach ($data['access'] as $key => $value) {
-                foreach ($data['access'][$key] as  $key1 => $value1) {
-                    array_push($datas, ['user_group_name' => $key, 'menu_id' => $id, 'action' => $key1]);
-                }
-            }
-
-            $AccessUserGroupMenuModel->saveAll($datas);
+            AccessUserGroupMenuModel::updateAccessByMenuModelGroupsActions($MenuModel, $data['access']);
         }
 
         return $this->success('操作成功', url('MenuType/read', ['name' => $menuType]));
