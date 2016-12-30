@@ -108,6 +108,15 @@ class ContentModel extends ModelModel
         return $this->nextContentModel;
     }
     
+    /**
+     * 获取相邻的内容
+     * @param    string                   $orderField 排序字段
+     * @param    string                   $order      排序方式
+     * @param    string                   $type       pre:取上一条记录；next:取下一条记录
+     * @return   ContentModel                               $this
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-30T09:53:47+0800
+     */
     public function getNeighborContentModel($orderField = 'create_time', $order = 'desc', $type = 'pre') {
         $map = [];
         if ('pre' === $type) {
