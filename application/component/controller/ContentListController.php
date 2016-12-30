@@ -8,6 +8,8 @@ use app\model\UserModel;
 use app\model\ContentFrontpageModel;
 use app\model\ContentModel;                 // 文章
 use app\model\FieldModel;                   // 扩展字段
+use app\model\MenuModel;                    // 菜单
+use app\model\ContentTypeModel;             // 内容类别
 
 /**
  * todo:权限判断。即当前新闻，是否属于当前这个菜单对应的那个 新闻类别
@@ -65,7 +67,6 @@ class ContentListController extends ComponentController
 
     public function updateAction($id)
     {
-        
         // 更新当前新闻信息
         $ContentModel = ContentModel::get(['id' => $id]);
 
@@ -75,10 +76,12 @@ class ContentListController extends ComponentController
         // 更新当前新闻信息
         $ContentModel->setData('title', $data['title']);
         $ContentModel->save();
+
         // 更新扩展数据字段
-        if (isset($data['field_'])) {
+        if (array_key_exists('field_', $data)) {
             FieldModel::updateLists($data['field_'], $ContentModel->getData('id'));
         }
+
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
     }
@@ -105,19 +108,32 @@ class ContentListController extends ComponentController
     }
 
     public function addAction() {
+        // 获取当前菜单，及当前菜单对应的内容类型
+        $MenuModel = MenuModel::getCurrentMenuModel();
+        $ContentTypeModel = ContentTypeModel::getContentTypeModelByMenuId($MenuModel->getData('id'));
+        if ('' === $ContentTypeModel->getData('name')) {
+            $this->error('当前菜单下未绑定内容类型，不能执行添加操作');
+            return;
+        }
+
+        // 获取内容 并设置内容的类型
         $ContentModel = new ContentModel;
-        $ContentModel->FieldXXXXModels();
+        $ContentModel->setContentTypeModel($ContentTypeModel);
+
         $this->assign('ContentModel', $ContentModel);
         return $this->fetch();
     }
 
     //保存信息
     public function saveAction() {
+        $UserModel = UserModel::getCurrentUserModel();
+
         //将标题信息保存到content表中
         $data = Request::instance()->param();
         $ContentModel = new ContentModel();
         $ContentModel->setData('title', $data['title']);
         $ContentModel->setData('content_type_name', $this->config['contentTypeName']['value']);
+        $ContentModel->setData('user_name', $UserModel->getData('user_name'));
         if (false === $ContentModel->save()) {
             return $this->error($ContentModel->getError());
         }

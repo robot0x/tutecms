@@ -45,6 +45,30 @@ class ContentTypeModel extends ModelModel
      */
     public function getMenu($menu_id)
     {
-        return MenuModel::get($menu_id);
+        return $this->getMenuModelByMenuId($menu_id);
+    }
+
+    /**
+     * 重构getMenu 该方法不应该写在这.... 用menuId获取MenuModel应该直接调用MenuModel的get()方法
+     * @param    int                   $menuId 菜单id
+     * @return   MennModel                           
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-30T09:45:52+0800
+     */
+    public function getMenuModelByMenuId($menuId) {
+        return MenuModel::get((int)$menuId);
+    }
+
+    /**
+     * 通过菜单ID获取对应的内容类型
+     * @param    int                   $menuId 菜单id
+     * @return   $this                           
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-30T09:49:30+0800
+     */
+    static public function getContentTypeModelByMenuId($menuId) {
+        $map = [];
+        $map['menu_id'] = (int)$menuId;
+        return self::get($map);
     }
 }

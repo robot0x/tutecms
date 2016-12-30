@@ -6,20 +6,18 @@
             <a href="{yz:url action='edit' param='$ContentModel->id'}"><i class="glyphicon glyphicon-pencil"></i></a> {/yz:access} {yz:access action='delete'} &nbsp;&nbsp;
             <a href="{yz:url action='delete' param='$ContentModel->id'}"><i class="glyphicon glyphicon-trash"></i></a> {/yz:access}
         </div>
-        <div class="col-md-3 column">
-            <ul class="nav nav-pills nav-stacked">
-                {volist name="ContentModels" id="_ContentModel" key="key"}
-                <li {eq name="$ContentModel->getData('id')" value="$_ContentModel->getData('id')" } class="active" {/eq}>
-                    <a href="{yz:url action='read' param='$_ContentModel->id' append_query_string='true'}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$_ContentModel->title | $filterModels['title']->filter}</a>
-                </li>
-                {/volist}
-            </ul>
+        <div class="col-md-12 single-content">
+            <h3>{$ContentModel->getData('title')}&nbsp;&nbsp;<small>{:date('Y-m-d', (int)$ContentModel->getData('create_time'))}</small></h3>
+            <div class="image">
+                <img src="{$ContentModel->FieldXXXXModel('image')->getUrl()}" />
+            </div>
+            <div>
+                {$ContentModel->getContent() | htmlspecialchars_decode}
+            </div>
         </div>
-        <div class="col-md-9 content">
-            {$ContentModel->getContent() | htmlspecialchars_decode}
+        <div class="col-md-12 preNextContent">
+            {yz:plugin position="afterContent" object='ContentModel' /}
         </div>
-        <div class="col-md-12 text-center">
-            {$ContentModels->render()}
-        </div>
+        <div class="clearfix"> </div>
     </div>
 </div>

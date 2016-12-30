@@ -54,6 +54,7 @@ class BlockController extends Controller
 
         // 送配置 过滤器至V层
         $Object->assign('config', $Object->config);
+        $Object->assign('BlockModel', $BlockModel);
 
         return $Object;
     }

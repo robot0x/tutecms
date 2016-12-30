@@ -143,9 +143,10 @@ class FieldDataAttachmentModel extends FieldModel
         $self = new static();
         $Object = $self::get(['id' => $id]);
         if ( '' !== $Object->getData('id')) {
+
             // 如果存在历史信息，先删除历史信息
             $oldObject = $self::get(['field_id' => $fieldId, 'key_id' => $keyId]);
-            if ( empty($oldObject) && ($oldObject->getData('id') !== $Object->getData('id'))) {
+            if ( ('' !== $oldObject->getData('id')) && ($oldObject->getData('id') !== $Object->getData('id'))) {
                 $oldObject->delete();
             }
 
