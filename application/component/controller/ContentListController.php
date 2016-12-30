@@ -8,6 +8,8 @@ use app\model\UserModel;
 use app\model\ContentFrontpageModel;
 use app\model\ContentModel;                 // 文章
 use app\model\FieldModel;                   // 扩展字段
+use app\model\MenuModel;                    // 菜单
+use app\model\ContentTypeModel;             // 内容类别
 
 /**
  * todo:权限判断。即当前新闻，是否属于当前这个菜单对应的那个 新闻类别
@@ -106,8 +108,18 @@ class ContentListController extends ComponentController
     }
 
     public function addAction() {
+        // 获取当前菜单，及当前菜单对应的内容类型
+        $MenuModel = MenuModel::getCurrentMenuModel();
+        $ContentTypeModel = ContentTypeModel::getContentTypeModelByMenuId($MenuModel->getData('id'));
+        if ('' === $ContentTypeModel->getData('name')) {
+            $this->error('当前菜单下未绑定内容类型，不能执行添加操作');
+            return;
+        }
+
+        // 获取内容 并设置内容的类型
         $ContentModel = new ContentModel;
-        $ContentModel->FieldXXXXModels();
+        $ContentModel->setContentTypeModel($ContentTypeModel);
+
         $this->assign('ContentModel', $ContentModel);
         return $this->fetch();
     }
