@@ -65,7 +65,6 @@ class ContentListController extends ComponentController
 
     public function updateAction($id)
     {
-        
         // 更新当前新闻信息
         $ContentModel = ContentModel::get(['id' => $id]);
 
@@ -75,10 +74,12 @@ class ContentListController extends ComponentController
         // 更新当前新闻信息
         $ContentModel->setData('title', $data['title']);
         $ContentModel->save();
+
         // 更新扩展数据字段
-        if (isset($data['field_'])) {
+        if (array_key_exists('field_', $data)) {
             FieldModel::updateLists($data['field_'], $ContentModel->getData('id'));
         }
+
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
     }
