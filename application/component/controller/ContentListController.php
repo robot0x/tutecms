@@ -114,11 +114,14 @@ class ContentListController extends ComponentController
 
     //保存信息
     public function saveAction() {
+        $UserModel = UserModel::getCurrentUserModel();
+
         //将标题信息保存到content表中
         $data = Request::instance()->param();
         $ContentModel = new ContentModel();
         $ContentModel->setData('title', $data['title']);
         $ContentModel->setData('content_type_name', $this->config['contentTypeName']['value']);
+        $ContentModel->setData('user_name', $UserModel->getData('user_name'));
         if (false === $ContentModel->save()) {
             return $this->error($ContentModel->getError());
         }
