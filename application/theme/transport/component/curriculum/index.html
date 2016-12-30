@@ -32,7 +32,11 @@
                 </tr>
             </thead>
             <tbody>
+
             {volist name="ChuhangCourseModels" id="ChuhangCourseModel" key="key"}
+             {php}
+                $menuId = $currentMenuModel->getData('id');
+             {/php}
                 <tr>
                     <td>
                         {$key}
@@ -41,7 +45,6 @@
                       {$ChuhangCourseModel->name}
                     </td>
                     <td>
-                        <a href="{:url('@curriculum/course/editCourse?id=' . $ChuhangCourseModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-edit"></i> 编辑</a>
                         <a href="{:url('@curriculum/course/deleteCourse?id=' . $ChuhangCourseModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
                     </td>
                 </tr>
