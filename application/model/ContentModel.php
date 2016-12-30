@@ -8,11 +8,8 @@ class ContentModel extends ModelModel
     protected $nextContentModel     = null;             // 下一篇文章
     private $FieldXXXXModels        = null;
 
-    public function __construct($data = [], $getFieldXXXXModels = true) {
+    public function __construct($data = []) {
         parent::__construct($data);
-        if ($getFieldXXXXModels) {
-            $this->FieldXXXXModels();
-        }
     }
 
     /**
@@ -29,6 +26,16 @@ class ContentModel extends ModelModel
         return $this->ContentTypeModel;
     }
 
+    /**
+     * 设置内容类别
+     * @param    ContentTypeModel         $ContentTypeModel 内容类型
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-30T09:50:10+0800
+     */
+    public function setContentTypeModel(ContentTypeModel $ContentTypeModel) {
+        $this->ContentTypeModel = $ContentTypeModel;
+        return $this;
+    }
 
     /**
      * 通过扩展字段的 字段名 来获取字段内容
@@ -72,7 +79,6 @@ class ContentModel extends ModelModel
             foreach ($FieldModels as $FieldModel) {
                 array_push($this->FieldXXXXModels, $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id')));
             } 
-            
         }
         
         return $this->FieldXXXXModels;
