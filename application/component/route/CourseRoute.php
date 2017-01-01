@@ -7,33 +7,28 @@ return [
         'value'         => ['', 'GET']        
     ],
     'add' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
-        'value'         => ['/add', 'GET'],
-    ],
-    'addCourse' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
-        'value'         => ['/addCourse/:id', 'GET'],
+        'title'         => '新增',
+        'description'   => '新增数据',
+        'value'         => ['/add/:id', 'GET'],
     ],
     'save' => [
-        'title'         => '保存（更新）',
+        'title'         => '保存',
         'description'   => '保存数据',
         'value'         => ['/save', 'POST'],
     ],
     'edit' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
+        'title'         => '编辑',
+        'description'   => '编辑数据',
         'value'         => ['/edit/:id', 'GET'],
     ],
     'delete' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
+        'title'         => '删除',
+        'description'   => '删除数据',
         'value'         => ['/delete/:id', 'GET'],
     ],
     'update' => [
-        'title'         => '保存（更新）',
-        'description'   => '保存数据',
+        'title'         => '更新',
+        'description'   => '更新数据',
         'value'         => ['/:id/isAll/:isAll/update', 'POST'],
     ],
 

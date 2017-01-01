@@ -79,7 +79,7 @@ return [
     'editCourse' => [
         'title'         => '删除课程',
         'description'   => '用户登陆前和登陆后的form表单显示',
-        'value'         => ['/course/editCourse', 'GET']        
+        'value'         => ['/course/editCourse/:id', 'GET']        
     ],
     'editClassroom' => [
         'title'         => '删除课程',

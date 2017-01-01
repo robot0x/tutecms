@@ -82,9 +82,9 @@ class CourseController extends ComponentController
     public function addAction(){
         $data = Request::instance()->param();
         //判断是否有课程的位置信息
-        if (empty($data)){
-            $data['ve'] = 10;
-            $data['id'] = 10;
+        if (!isset($data['ve'])) {
+            $data['id'] = -1;
+            $data['ve'] = -1;
         }
         $this->assign('data', $data);
 
@@ -94,25 +94,6 @@ class CourseController extends ComponentController
         
         return $this->fetch('add');
     }
-
-
-    //在固定的节次、天增加课程
-    public function addCourseAction(){
-        $data = Request::instance()->param();
-        //判断是否有课程的位置信息
-        if (empty($data)){
-            $data['ve'] = 10;
-            $data['id'] = 10;
-        }
-        $this->assign('data', $data);
-
-        //获取本学期的课程、教室、班级、教师、节次/天、天数/周、周次等信息
-        $allInfo = ChuhangCurriculumModel::getAllInfo();
-        $this->assign('allInfo', $allInfo);
-        
-        return $this->fetch('add');
-    }
-
 
     //保存课程信息
     public function saveAction(){
