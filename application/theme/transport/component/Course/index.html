@@ -39,7 +39,7 @@
           <th width="2%"></th>
           <?php $ChuhangDayModel = new app\model\ChuhangDayModel; ?>
       {foreach name="ChuhangDayModel->getCurrentTermDays()" id="result" key="key"}
-          <th width="18%"  class="text-center">周{$ChuhangCurriculumModel::getChineseName($key)}</th>
+          <th width="14%"  class="text-center">周{$ChuhangCurriculumModel::getChineseName($key)}</th>
       {/foreach}
       </tr>
   </thead>
