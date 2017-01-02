@@ -13,4 +13,13 @@ class ChuhangKlassModel extends ModelModel
 		}
 		return false;
 	}
+
+	//获取班级信息
+	static public function getKlass() {
+		$map = [];
+		$map['is_delete'] = 0;
+		$self = new self;
+		$selfs = $self->where($map)->select();
+		return $selfs;
+	}
 }

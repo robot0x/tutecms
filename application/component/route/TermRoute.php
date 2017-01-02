@@ -31,5 +31,9 @@ return [
         'description'   => '编辑',
         'value'         => ['/edit/:id', 'GET']        
     ],
-   
+    'frozen' => [
+        'title'         => '冻结',
+        'description'   => '冻结',
+        'value'         => ['/frozen/:id', 'GET']        
+    ],
 ];

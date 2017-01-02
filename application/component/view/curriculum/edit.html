@@ -1,15 +1,16 @@
 {layout name="index" /}
-<div class="row clearfix">
+<div class="row clearfix curricula-top page-responsive">
     <div class="col-md-3 column">
         {include file="./left" }
     </div>
-    <form action="{:app\\Common::url('/klass/saveKlass')}" method="post">
+    <form action="{:url("@$url/update/" .$ChuhangXXXModel->getData('id'))}" method="post">
+    <input type="hidden" value="{$ChuhangXXXModel->getData('id')}">
     <div class="col-md-9">
     	<div class="row">
     		<div class="control-group">
-    		    <label class="col-md-3 text-right" for="_name">班级名称</label>
+    		    <label class="col-md-3 text-right" for="_name">{$chineseName}名称</label>
     		    <div class="col-md-3">
-    		        <input type="text" name="name" class="form-control" />
+    		        <input type="text" name="name" value="{$ChuhangXXXModel->getData('name')}" class="form-control" />
     		    </div>
     		</div>
     	</div>
@@ -20,4 +21,5 @@
     		<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i> 提交</button>
     	</div>
     </div>
+    </form>
 </div>

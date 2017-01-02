@@ -144,7 +144,7 @@ class ChuhangCurriculumModel extends ModelModel
 
 	//获取课程名称
 	public function getCourseName($courseId) {
-		$CourseName = ChuhangCourseModel::get($courseId)->getData('name');
+		$CourseName = ChuhangCurriculaModel::get($courseId)->getData('name');
 		return $CourseName;
 	}
 
@@ -392,12 +392,13 @@ class ChuhangCurriculumModel extends ModelModel
 	//获取本学期的课程、教室、班级、教师、节次/天、天数/周、周次等信息
 	static public function getAllInfo(){
 		$allInfo = [];
-		$allInfo['course'] = ChuhangCourseModel::all();
-		$allInfo['teacher'] = ChuhangTeacherModel::all();
-		$allInfo['classroom'] = ChuhangClassroomModel::all();
-		$allInfo['klass'] = ChuhangKlassModel::all();
+		$allInfo['course'] = ChuhangCurriculaModel::getCourse();
+		$allInfo['teacher'] = ChuhangTeacherModel::getTeacher();
+		$allInfo['classroom'] = ChuhangClassroomModel::getClassroom();
+		$allInfo['klass'] = ChuhangKlassModel::getKlass();
 		//获取本学期的节次信息
 		$currentTermId = ChuhangTermModel::getCurrentTerm();
+		$map['is_delete'] = 0;
 		$map['term_id'] = $currentTermId;
 		$map['is_delete'] = 0;
 		$ChuhangTimeModels = new ChuhangTimeModel;

@@ -5,13 +5,7 @@ use think\Request;
 
 use app\model\UserModel;  
 use app\model\ChuhangCurriculumModel; 
-use app\model\ChuhangDayModel;
-use app\model\ChuhangCourseModel;
-use app\model\ChuhangClassroomModel;
-use app\model\ChuhangKlassModel;
 use app\model\ChuhangTermModel;
-use app\model\ChuhangTimeModel;
-use app\model\ChuhangTeacherModel;
 
 
 class CourseController extends ComponentController
