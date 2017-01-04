@@ -5,13 +5,7 @@ use think\Request;
 
 use app\model\UserModel;  
 use app\model\ChuhangCurriculumModel; 
-use app\model\ChuhangDayModel;
-use app\model\ChuhangCourseModel;
-use app\model\ChuhangClassroomModel;
-use app\model\ChuhangKlassModel;
 use app\model\ChuhangTermModel;
-use app\model\ChuhangTimeModel;
-use app\model\ChuhangTeacherModel;
 
 
 class CourseController extends ComponentController
@@ -82,9 +76,9 @@ class CourseController extends ComponentController
     public function addAction(){
         $data = Request::instance()->param();
         //判断是否有课程的位置信息
-        if (empty($data)){
-            $data['ve'] = 10;
-            $data['id'] = 10;
+        if (!isset($data['ve'])) {
+            $data['id'] = -1;
+            $data['ve'] = -1;
         }
         $this->assign('data', $data);
 
@@ -94,13 +88,6 @@ class CourseController extends ComponentController
         
         return $this->fetch('add');
     }
-
-
-    //在固定的节次、天增加课程
-    public function addCourseAction(){
-        $this->addAction();
-    }
-
 
     //保存课程信息
     public function saveAction(){

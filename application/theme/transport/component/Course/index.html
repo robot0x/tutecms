@@ -5,7 +5,7 @@
          <div class="col-md-3 text-left">
             <label>教室</label>
             <select class="form-control" style="width:130px;" name="classroom_id">
-            <?php $classrooms = app\model\ChuhangClassroomModel::getClassroomm(); ?>
+            <?php $classrooms = app\model\ChuhangClassroomModel::getClassroom(); ?>
             {volist name="classrooms" id="_classroom"}
             <option value="{$_classroom->getData('id')}" {notempty name="getData"} {eq name="getData['classroom_id']" value="$_classroom->getData('id')" } selected="selected" {/eq}{/notempty} >{$_classroom->getData('name')}</option>
             {/volist}
@@ -39,7 +39,7 @@
           <th width="2%"></th>
           <?php $ChuhangDayModel = new app\model\ChuhangDayModel; ?>
       {foreach name="ChuhangDayModel->getCurrentTermDays()" id="result" key="key"}
-          <th width="18%"  class="text-center">周{$ChuhangCurriculumModel::getChineseName($key)}</th>
+          <th width="14%"  class="text-center">周{$ChuhangCurriculumModel::getChineseName($key)}</th>
       {/foreach}
       </tr>
   </thead>
@@ -85,4 +85,3 @@
 
 </table>
   </div>
-

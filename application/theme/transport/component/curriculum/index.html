@@ -6,7 +6,7 @@
     <div class="col-md-9 column">
         <div class="row">
           <div class="col-md-10">
-              <form class="form-inline" action="{:app\\Common::url('/index')}" method="get">
+              <form class="form-inline" action="{yz:url action='index'}" method="get">
               <div class="col-md-8">
                  <label>名称</label>
                  <input class="form-control" name="name" type="text" value="{:input('get.name')}" />
@@ -48,8 +48,8 @@
                       {$ChuhangXXXModel->name}
                     </td>
                     <td>
-                        <a href="{:url("@$url/edit/" . $ChuhangXXXModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-edit"></i> 编辑</a>
-                        <a href="{:url("@$url/delete/" . $ChuhangXXXModel->id)}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
+                        <a href="{yz:url action='edit' param='$ChuhangXXXModel->id'}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-edit"></i> 编辑</a>
+                        <a href="{yz:url action='delete' param='$ChuhangXXXModel->id'}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</a>
                     </td>
                 </tr>
                 {/volist}

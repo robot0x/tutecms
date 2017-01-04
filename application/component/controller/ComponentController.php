@@ -38,7 +38,9 @@ class ComponentController extends Controller
         // 获取当前主题信息
         $this->currentThemeModel = ThemeModel::getCurrentThemeModel();
         // 设置视图输出的__THEME__ 该操作，必须在父类初始化以前，因为父类在初始化时，会自动调用config中的信息
-        define('__THEME__', __PUBLIC__ . DS . 'theme' . DS . $this->currentThemeModel->getData('name'));
+        if (!defined ( '__THEME__' )) {
+            define('__THEME__', __PUBLIC__ . DS . 'theme' . DS . $this->currentThemeModel->getData('name'));
+        }
 
         // 在进行assign操作前进行父类初始化
         parent::__construct();
