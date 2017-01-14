@@ -31,6 +31,11 @@ return [
         'description'   => '更新数据',
         'value'         => ['/:id/isAll/:isAll/update', 'POST'],
     ],
+    'data' => [
+        'title'         => '',
+        'description'   => '',
+        'value'         => ['/data', 'GET'],
+    ],
 
 
 ];

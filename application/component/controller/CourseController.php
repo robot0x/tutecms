@@ -219,5 +219,11 @@ class CourseController extends ComponentController
 
         return $this->success('保存成功', url('@course'));
     }
+
+    public function dataAction(){
+        $results = ChuhangCurriculumModel::getAllInfo();
+        return json_encode($results);
+    }
+
 }
 ?> 

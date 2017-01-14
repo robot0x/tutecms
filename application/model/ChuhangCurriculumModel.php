@@ -60,8 +60,12 @@ class ChuhangCurriculumModel extends ModelModel
 					//删除复合查询条件的数据的配置信息
 					$count = count($selfs[$m]);
 					for ($c=0; $c<$count; $c++) {
-						$selfs[$m][$c]->setData('config', '');
-						$selfs[$m][$c]->save();
+						//增加判断条件，减少对数据库的操作，以节约时间
+						if ($selfs[$m][$c]->getData('config') !== '') {
+							$selfs[$m][$c]->setData('config', '');
+							$selfs[$m][$c]->save();
+						}
+						
 					}
 				}
 			}
@@ -274,8 +278,12 @@ class ChuhangCurriculumModel extends ModelModel
 			//将config信息保存在表中
 			if (isset(${"config_".$x})){
 				${"config_".$x} = json_encode(${"config_".$x});
-				$new[$x]->setData('config', ${"config_".$x});
-				$new[$x]->save();
+				//增加判断条件，减少对数据库的操作，以节约时间
+				if (${"config_".$x} !== $new[$x]->getData('config')) {
+					$new[$x]->setData('config', ${"config_".$x});
+					$new[$x]->save();
+				}
+				
 			}
 		}
 		return $new;

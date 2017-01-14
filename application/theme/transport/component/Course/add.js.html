@@ -1,0 +1,27 @@
+<script>
+app.
+controller('courseController', function ($scope, $http) {
+	var self = this;
+	//获取课程基本信息
+	$http.get("{:url("/Course/data")}")
+       .success(function(data){
+       		self.allInfo = data;
+        })
+       .error(function(data){
+            alert("系统或网络错误");
+       });
+
+  //定义数组
+  self.timeChecked = [];
+
+  self.toggleSelection = function toggleSelection(ChuhangTimeModel) {
+    var idx = self.timeChecked.indexOf(ChuhangTimeModel.id);
+    if (idx > -1) {
+      self.timeChecked.splice(idx, 1);
+    } else {
+      self.timeChecked.push(ChuhangTimeModel.id);
+    }
+    console.log(self.timeChecked);
+  }
+});
+</script>
