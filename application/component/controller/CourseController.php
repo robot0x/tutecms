@@ -220,9 +220,24 @@ class CourseController extends ComponentController
         return $this->success('保存成功', url('@course'));
     }
 
-    public function dataAction(){
-        $results = ChuhangCurriculumModel::getAllInfo();
-        return json_encode($results);
+    //获取用户选择的教室、当前时间段已有的课程的周次信息
+    public function isHaveCourseAction() {
+        $data = Request::instance()->param();
+        //当用户未选择节次、天数、教室时返回''
+        if ($data['time'] === '') {
+            return '';
+        }
+        if ($data['day'] === '') {
+            return '';
+        }
+        if ($data['classroom'] === '') {
+            return '';
+        }
+        //获取当前学期、节次、天数、教室的课程信息的周次信息
+        $ChuhangCurriculumModel = new ChuhangCurriculumModel;
+        $isHaveCourseWeeks = $ChuhangCurriculumModel->getIsHaveCourseWeeks($this->currentTermId, $data);
+
+        return $isHaveCourseWeeks;
     }
 
 }

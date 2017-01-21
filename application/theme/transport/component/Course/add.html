@@ -34,11 +34,8 @@
 	<div class="control-group">
 	    <label class="col-md-3 text-right" for="_name">教室</label>
 	    <div class="col-md-3">
-	        <select class="form-control" name="classroom_id">
-	        <option value="no">请选择</option>
-		        {volist name="allInfo['classroom']" id="ChuhangClassroomModel"}
-		        	<option value="{$ChuhangClassroomModel->getData('id')}">{$ChuhangClassroomModel->getData('name')}</option>
-	        	{/volist}
+	        <select class="form-control" name="classroom_id" ng-options="classroom.name for classroom in vm.allInfo.classroom" ng-change="vm.toggleSelectionClassroom()" ng-model="vm.selected" ng-controller="fooCtrl">
+	        	<option value="">请选择</option>
 	        </select>
 	    </div>
 	</div>
@@ -54,36 +51,22 @@
 </div>
 <div class="form-group row">
 	<label class="col-md-3 text-right">节次</label>
-	<?php $xiao = [1,3,5]; var_dump($xiao); ?>
-	<label ng-repeat="ChuhangTimeModel in vm.allInfo.time track by $index">
-		{php} 
-			$timeId = "{{ChuhangTimeModel.id}}";
-		{/php}
-		<input type="checkbox" type="text" name="time_id[]" value="{$timeId}" ng-click="vm.toggleSelection(ChuhangTimeModel)" ng-checked="vm.timeChecked.indexOf(ChuhangTimeModel.id) > -1"/>第一节
+	<label ng-repeat="ChuhangTimeModel in vm.allInfo.time" ng-controller="fooCtrl">&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" type="text" name="time_id[]" value="{{ChuhangTimeModel.id}}" ng-click="vm.toggleSelectionTimes(ChuhangTimeModel)" ng-checked="vm.timeChecked.indexOf(ChuhangTimeModel.id) > -1" ng-model="time"/>第<span ng-bind="vm.nzhcn.encodeS($index + 1)"></span>节
 	</label>
 </div>
 
 <div class="form-group row">
-	<label class="col-md-3 text-right">节次</label>
-	<div class="col-md-5">
-		{volist name="allInfo['time']" id="ChuhangTimeModel" key="key"}
-		<input type="checkbox" type="text" id="_time{$key}" name="time_id[]" {eq name="data['ve']" value="$key - 1" } checked="checked"  {/eq} value="{$ChuhangTimeModel->getData('id')}" /><label for="_time{$key}">第{$ChuhangTimeModel->getTime($ChuhangTimeModel->getData('time'))}节</label>
-		{/volist}
-	</div>
-</div>	
-<div class="form-group row">
 	<label class="col-md-3 text-right">星期</label>
-	<div class="col-md-5">
-		{volist name="allInfo['day']" id="ChuhangDayModel" key="key"}
-		<input type="checkbox" type="text" id="_day{$key}" name="day_id[]" {eq name="data['id'] + 1" value="$key" } checked="checked" {/eq} value="{$ChuhangDayModel->getData('id')}" placeholder="姓名" /><label for="_day{$key}">星期{$ChuhangDayModel->getDay($ChuhangDayModel->getData('day'))}</label>
-		{/volist}
-	</div>
+	<label ng-repeat="ChuhangDayModel in vm.allInfo.day" ng-controller="fooCtrl">&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" type="text" name="day_id[]" value="{{ChuhangDayModel.id}}" ng-click="vm.toggleSelectionDays(ChuhangDayModel)" ng-checked="vm.dayChecked.indexOf(ChuhangDayModel.id) > -1" ng-model="day"/>星期<span ng-bind="vm.nzhcn.encodeS($index + 1)"></span>
+	</label>
 </div>
-<div class="form-group row">
+<div class="form-group row" ng-controller="fooCtrl as chu">
 	<label class="col-md-3 text-right">周次</label>
 	<div class="col-md-5">
 	{volist name="allInfo['week']" id="week" key="key"}
-	<input type="checkbox" type="text" id="_week{$key}" disabled="disabled" name="week[]" placeholder="姓名" value="{$key}" /><label for="_week{$key}">第{$week}周</label>
+	<input type="checkbox" type="text" id="_week{$key}" ng-disabled="chu.week.includes(4)" name="week[]" placeholder="姓名" value="{$key}" /><label for="_week{$key}">第{$week}周</label>
 	{/volist}
 	</div>
 </div><br>

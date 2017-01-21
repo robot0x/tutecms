@@ -521,10 +521,33 @@ class ChuhangCurriculumModel extends ModelModel
 		return false;
 	}
 
-	// static public function isHaveAssociateCurriculum($data, $currentTermId) {
-	// 	var_dump($data);var_dump($currentTermId);die();
-
-	// }
+	//从ChuhangCurriculumModel表中找出time_id/day_id/term_id/classroom_id字段对应的课程信息的周次信息
+	public function getIsHaveCourseWeeks($currentTermId, $data) {
+		$map['term_id'] = $currentTermId;
+        $map['classroom_id'] = (int)$data['classroom'];
+        //对json字符串进行解码
+        $times = json_decode($data['time']);
+        $days = json_decode($data['day']);
+        $result = [];
+        //对time、day进行遍历
+        foreach ($times as $time) {
+        	$map['time_id'] = $time;
+        	foreach ($days as $day) {
+        		$map['day_id'] = $day;
+        		$self = new self;
+        		//找出符合查询条件的信息
+        		$selfs = $self->where($map)->select();
+        		//获取每一条数据的周次信息
+        		foreach ($selfs as $self) {
+        			$result[] = $self->getData('week');
+        		}
+        	}
+        }
+        //去除数组中相同的元素
+        $result = array_unique($result);
+        $result = array_values($result);
+        return json_encode($result);
+	}
 
 
 }

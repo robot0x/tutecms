@@ -31,11 +31,10 @@ return [
         'description'   => '更新数据',
         'value'         => ['/:id/isAll/:isAll/update', 'POST'],
     ],
-    'data' => [
-        'title'         => '',
-        'description'   => '',
-        'value'         => ['/data', 'GET'],
+    'isHaveCourse' => [
+        'title'         => 'js请求',
+        'description'   => 'js请求',
+        'value'         => ['/:id', 'GET'],
     ],
-
 
 ];

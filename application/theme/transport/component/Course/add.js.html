@@ -1,27 +1,93 @@
 <script>
+app.factory('Data', function() {
+  return {
+    time: "",
+    day: "",
+    classroom: ""
+  }
+});
+
+
 app.
-controller('courseController', function ($scope, $http) {
+controller('courseController', function ($scope, $http, Data) {
 	var self = this;
-	//获取课程基本信息
-	$http.get("{:url("/Course/data")}")
-       .success(function(data){
-       		self.allInfo = data;
-        })
-       .error(function(data){
-            alert("系统或网络错误");
-       });
+  //将阿拉伯数字转化为简体中文
+  self.nzhcn = Nzh.cn; 
 
-  //定义数组
-  self.timeChecked = [];
+  //将php变量转化为js变量，获取节次、周次、教室等基本信息
+  self.allInfo = <?php echo json_encode($allInfo); ?>;
+  //定义节次信息，并判断是否存在
+  self.timeChecked = [];console.log(1);
+  var currentTime = "<?php echo $data['ve']; ?>";
+  if (currentTime !== '-1') {
+    self.timeChecked.push(self.allInfo.time[currentTime].id);
+  }
 
-  self.toggleSelection = function toggleSelection(ChuhangTimeModel) {
+
+  //获取用户选择的节次
+  self.toggleSelectionTimes = function toggleSelectionTimes(ChuhangTimeModel) {
     var idx = self.timeChecked.indexOf(ChuhangTimeModel.id);
+
     if (idx > -1) {
       self.timeChecked.splice(idx, 1);
     } else {
       self.timeChecked.push(ChuhangTimeModel.id);
     }
-    console.log(self.timeChecked);
+    Data.time = self.timeChecked;
   }
+  
+
+
+  //定义星期信息，并判断是否存在
+  self.dayChecked = [];
+  var currentDay = "<?php echo $data['id']; ?>";
+  if (currentDay !== '-1') {
+    self.dayChecked.push(self.allInfo.day[currentDay].id);
+  }
+  //获取用户选择的天数
+  self.toggleSelectionDays = function toggleSelectionDays(ChuhangDayModel) {
+    var idx = self.dayChecked.indexOf(ChuhangDayModel.id);
+
+    if (idx > -1) {
+      self.dayChecked.splice(idx, 1);
+    } else {
+      self.dayChecked.push(ChuhangDayModel.id);
+    }
+    Data.day = self.dayChecked;
+  }
+  //获取用户选择的交涉
+  self.toggleSelectionClassroom = function toggleSelectionClassroom() {
+    self.classroomSelected = self.selected.id;
+    Data.classroom = self.classroomSelected;
+  }
+  
+  
+})
+.controller('fooCtrl', function ($scope, $http, Data) {
+  var self = this;
+  self.week = [];
+  $scope.$watch('vm.selected + time + day', function (newValue, oldValue) {
+      console.log(1);
+      setTimeout(function () {
+    　　$scope.$apply(function () {
+          //根据用户选择的教室、星期几、节次，判断当前教室的当前时间段是否有其他课程安排
+          var getData = {params: {time: [Data.time], day: [Data.day], classroom: Data.classroom}};
+          $http
+          .get('{:url("@Course/isHaveCourse")}', getData)
+          .success(function(data){
+            self.week = data;
+            console.log(data.includes(4));
+          })
+          .error(function(data){
+              alert("系统或网络错误");
+         });
+        });
+      }, 1); 
+  });
+   
+
 });
+
+
+
 </script>
