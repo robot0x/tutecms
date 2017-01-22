@@ -17,7 +17,7 @@ controller('courseController', function ($scope, $http, Data) {
   //将php变量转化为js变量，获取节次、周次、教室等基本信息
   self.allInfo = <?php echo json_encode($allInfo); ?>;
   //定义节次信息，并判断是否存在
-  self.timeChecked = [];console.log(1);
+  self.timeChecked = [];
   var currentTime = "<?php echo $data['ve']; ?>";
   if (currentTime !== '-1') {
     self.timeChecked.push(self.allInfo.time[currentTime].id);
@@ -66,8 +66,8 @@ controller('courseController', function ($scope, $http, Data) {
 .controller('fooCtrl', function ($scope, $http, Data) {
   var self = this;
   self.week = [];
+
   $scope.$watch('vm.selected + time + day', function (newValue, oldValue) {
-      console.log(1);
       setTimeout(function () {
     　　$scope.$apply(function () {
           //根据用户选择的教室、星期几、节次，判断当前教室的当前时间段是否有其他课程安排
@@ -76,7 +76,8 @@ controller('courseController', function ($scope, $http, Data) {
           .get('{:url("@Course/isHaveCourse")}', getData)
           .success(function(data){
             self.week = data;
-            console.log(data.includes(4));
+            $scope.week = data;
+            console.log($scope.week);
           })
           .error(function(data){
               alert("系统或网络错误");
