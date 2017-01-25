@@ -1,6 +1,5 @@
 {layout name="index" /}
-<br>
-<br>
+
 <div class="row clearfix">
     <div class="col-md-3">
         <div class="text-right read-more-wrap">
@@ -9,7 +8,7 @@
         {volist name="ContentModels" key="key" id="ContentModel"}
         <ul class="nav nav-list">
             <li>
-                <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title}<span style="float: right;">{$ContentModel->update_time}</span></a>
+                <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title}<span style="float:right;">{$ContentModel->update_time}</span></a>
             </li>
         </ul>
         {/volist}
