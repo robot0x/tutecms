@@ -1,0 +1,29 @@
+<!-- Start Slider -->
+<div class="row clearfix" style="padding-bottom:0px;">
+    <div class="col-md-12 column">
+        <section id="mu-slider" style="height: 500px;">
+            <?php for ($key=0; $key < $totalCount; $key++) : ?>
+                <!-- Start single slider item -->
+                <div class="mu-slider-single" style="height: 500px;">
+                    <div class="mu-slider-img">
+                        <figure>
+                            <img src="{$images[$key]}" style="height: 500px;">
+                        </figure>
+                    </div>
+                    <div class="mu-slider-content">
+                        <h4>{$titles[$key]}</h4>
+                        <span></span>
+                        <h2>{$headers[$key]}</h2>
+                        <p>{$descriptions[$key]}</p>
+                        {neq name="token" value=""}
+                            <a target="_blank" class="mu-read-more-btn" href="{:url('api/api/index?token=' . $token)}">编辑</a>
+                        {/neq} 
+                    </div>
+                </div>
+                <!-- Start single slider item -->
+            <?php endfor; ?>
+        </section>
+    </div>
+</div>
+
+          
