@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : test
+Source Server         : bendi
 Source Server Version : 50625
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : yunzhicms
 
 Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-01-02 16:56:53
+Date: 2017-02-11 10:59:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -117,7 +117,6 @@ CREATE TABLE `tutelib_access_user_group_menu` (
 -- ----------------------------
 -- Records of tutelib_access_user_group_menu
 -- ----------------------------
-INSERT INTO `tutelib_access_user_group_menu` VALUES ('public', '12', 'index');
 
 -- ----------------------------
 -- Table structure for tutelib_access_user_group_plugin
@@ -264,23 +263,23 @@ CREATE TABLE `tutelib_chuhang_curriculum` (
   `update_time` int(11) unsigned NOT NULL,
   `term_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=293 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tutelib_chuhang_curriculum
 -- ----------------------------
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('238', '2', '[3,1,5]', '2', '[\"1\",\"2\"]', '2', '6', '2', '6', '0', '1483014156', '1483344172', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('238', '2', '[3,1,5]', '2', '[\"1\",\"2\"]', '2', '6', '2', '6', '0', '1483014156', '1484268672', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('240', '2', '', '2', '[\"1\",\"2\"]', '2', '6', '3', '6', '0', '1483014156', '1483065812', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('242', '2', '[3]', '2', '[\"1\",\"2\"]', '2', '6', '2', '7', '0', '1483014313', '1483344172', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('242', '2', '[3]', '2', '[\"1\",\"2\"]', '2', '6', '2', '7', '0', '1483014313', '1484268672', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('244', '2', '', '2', '[\"1\",\"2\"]', '2', '6', '3', '7', '0', '1483014313', '1483065812', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('246', '2', '', '2', '[\"1\",\"2\"]', '2', '6', '1', '6', '0', '1483014375', '1483014375', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('246', '2', '', '2', '[\"1\",\"2\"]', '2', '6', '1', '6', '0', '1483014375', '1484268460', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('247', '2', '', '2', '[\"1\",\"2\"]', '2', '6', '5', '6', '0', '1483014375', '1483019687', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('248', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '4', '9', '0', '1483016010', '1483020270', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('253', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '7', '4', '6', '0', '1483342951', '1483344098', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('254', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '8', '4', '6', '0', '1483342951', '1483344098', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('255', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '7', '4', '7', '0', '1483342951', '1483344098', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('257', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '7', '4', '8', '0', '1483342951', '1483344098', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('258', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '8', '4', '8', '0', '1483342951', '1483344098', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('253', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '7', '4', '6', '0', '1483342951', '1484269656', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('254', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '8', '4', '6', '0', '1483342951', '1484269656', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('255', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '7', '4', '7', '0', '1483342951', '1484269656', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('257', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '7', '4', '8', '0', '1483342951', '1484269656', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('258', '1', '[5,13,19,20]', '2', '[\"7\",\"8\"]', '4', '8', '4', '8', '0', '1483342951', '1484269656', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('259', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '5', '6', '0', '1483342951', '1483342951', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('260', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '5', '6', '0', '1483342951', '1483342951', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('261', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '5', '7', '0', '1483342951', '1483342951', '33');
@@ -291,26 +290,32 @@ INSERT INTO `tutelib_chuhang_curriculum` VALUES ('266', '1', '', '2', '[\"7\",\"
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('267', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '13', '7', '0', '1483342951', '1483342951', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('269', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '13', '8', '0', '1483342951', '1483342951', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('270', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '13', '8', '0', '1483342951', '1483342951', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('271', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '19', '6', '0', '1483342951', '1483346538', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('272', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '19', '6', '0', '1483342951', '1483346538', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('273', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '19', '7', '0', '1483342951', '1483346538', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('275', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '19', '8', '0', '1483342951', '1483346538', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('276', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '19', '8', '0', '1483342951', '1483346538', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('277', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '20', '6', '0', '1483342951', '1483342951', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('278', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '20', '6', '0', '1483342951', '1483342951', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('279', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '20', '7', '0', '1483342951', '1483342951', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('281', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '20', '8', '0', '1483342951', '1483342951', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('282', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '20', '8', '0', '1483342951', '1483342951', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('283', '1', '[5,12,13,14,15,19,20]', '2', '[\"7\",\"8\"]', '4', '8', '4', '7', '0', '1483342981', '1483344098', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('271', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '19', '6', '0', '1483342951', '1483791386', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('272', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '19', '6', '0', '1483342951', '1483791386', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('273', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '19', '7', '0', '1483342951', '1483791386', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('275', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '19', '8', '0', '1483342951', '1483791386', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('276', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '19', '8', '0', '1483342951', '1483791386', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('277', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '20', '6', '0', '1483342951', '1484269271', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('278', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '20', '6', '0', '1483342951', '1484269271', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('279', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '20', '7', '0', '1483342951', '1484269271', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('281', '1', '', '2', '[\"7\",\"8\"]', '4', '7', '20', '8', '0', '1483342951', '1484269271', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('282', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '20', '8', '0', '1483342951', '1484269271', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('283', '1', '[5,12,13,14,15,19,20]', '2', '[\"7\",\"8\"]', '4', '8', '4', '7', '0', '1483342981', '1484269656', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('284', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '5', '7', '0', '1483342981', '1483342981', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('285', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '12', '7', '0', '1483342981', '1483342981', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('286', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '13', '7', '0', '1483342981', '1483342981', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('287', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '14', '7', '0', '1483342981', '1483342981', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('288', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '15', '7', '0', '1483342981', '1483342981', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('289', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '19', '7', '0', '1483342981', '1483346538', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('290', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '20', '7', '0', '1483342981', '1483342981', '33');
-INSERT INTO `tutelib_chuhang_curriculum` VALUES ('291', '1', '[9]', '4', '[\"1\",\"2\"]', '2', '8', '1', '7', '0', '1483343095', '1483344098', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('288', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '15', '7', '0', '1483342981', '1484268448', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('289', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '19', '7', '0', '1483342981', '1483791386', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('290', '1', '', '2', '[\"7\",\"8\"]', '4', '8', '20', '7', '0', '1483342981', '1484269271', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('291', '1', '', '4', '[\"1\",\"2\"]', '2', '8', '1', '7', '0', '1483343095', '1485131623', '33');
 INSERT INTO `tutelib_chuhang_curriculum` VALUES ('292', '1', '', '4', '[\"1\",\"2\"]', '2', '8', '9', '7', '0', '1483343095', '1483343095', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('293', '0', '', '2', '[\"1\",\"2\"]', '2', '8', '11', '6', '0', '1485084512', '1485084512', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('294', '0', '', '2', '[\"1\",\"2\"]', '2', '8', '11', '7', '0', '1485084512', '1485084512', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('295', '0', '', '2', '[\"1\",\"2\"]', '2', '8', '12', '6', '0', '1485084512', '1485084512', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('296', '0', '', '2', '[\"1\",\"2\"]', '2', '8', '12', '7', '0', '1485084512', '1485084512', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('297', '0', '', '2', '[\"1\",\"2\"]', '2', '8', '13', '6', '0', '1485084512', '1485084512', '33');
+INSERT INTO `tutelib_chuhang_curriculum` VALUES ('298', '0', '', '2', '[\"1\",\"2\"]', '2', '8', '13', '7', '0', '1485084512', '1485084512', '33');
 
 -- ----------------------------
 -- Table structure for tutelib_chuhang_day
@@ -1598,9 +1603,9 @@ CREATE TABLE `tutelib_theme` (
 -- ----------------------------
 -- Records of tutelib_theme
 -- ----------------------------
-INSERT INTO `tutelib_theme` VALUES ('default', '默认主题', '', '0', '梦云智', '', '1475064567', '0');
+INSERT INTO `tutelib_theme` VALUES ('default', '默认主题', '', '1', '梦云智', '', '1475064567', '0');
 INSERT INTO `tutelib_theme` VALUES ('exmachina', 'exmachina', '', '0', 'panjie@yunzhiclub.com', '', '0', '0');
-INSERT INTO `tutelib_theme` VALUES ('transport', 'transport', '', '1', 'panjie@yunzhiclub.com', '', '0', '0');
+INSERT INTO `tutelib_theme` VALUES ('transport', 'transport', '', '0', 'panjie@yunzhiclub.com', '', '0', '0');
 INSERT INTO `tutelib_theme` VALUES ('theory', 'theory', '', '0', 'panjie@yunzhiclub.com', '', '0', '0');
 INSERT INTO `tutelib_theme` VALUES ('tute', 'test', '', '0', '', '', '0', '0');
 
@@ -1657,3 +1662,881 @@ INSERT INTO `tutelib_user_group` VALUES ('editor', '站点编辑人员', '对站
 INSERT INTO `tutelib_user_group` VALUES ('register', '注册用户', '注册用户，拥有对权限新闻的查看权限', '0', '0', '0');
 INSERT INTO `tutelib_user_group` VALUES ('public', '公共用户', '浏览网站的用户', '0', '0', '0');
 
+-- ----------------------------
+-- Table structure for yunzhi_access_menu_block
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_access_menu_block`;
+CREATE TABLE `yunzhi_access_menu_block` (
+  `menu_id` int(11) NOT NULL DEFAULT '0' COMMENT 'fk menu',
+  `block_id` int(11) NOT NULL DEFAULT '0' COMMENT 'fk block',
+  PRIMARY KEY (`menu_id`,`block_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT COMMENT='菜单-区块 权限表';
+
+-- ----------------------------
+-- Records of yunzhi_access_menu_block
+-- ----------------------------
+INSERT INTO `yunzhi_access_menu_block` VALUES ('1', '1');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('1', '2');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('1', '3');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('1', '8');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('1', '9');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('2', '1');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('2', '9');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('3', '1');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('3', '7');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('4', '1');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('4', '9');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('5', '1');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('5', '7');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('6', '1');
+INSERT INTO `yunzhi_access_menu_block` VALUES ('6', '7');
+
+-- ----------------------------
+-- Table structure for yunzhi_access_menu_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_access_menu_plugin`;
+CREATE TABLE `yunzhi_access_menu_plugin` (
+  `menu_id` int(11) unsigned NOT NULL,
+  `plugin_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`menu_id`,`plugin_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='菜单-插件 权限表';
+
+-- ----------------------------
+-- Records of yunzhi_access_menu_plugin
+-- ----------------------------
+INSERT INTO `yunzhi_access_menu_plugin` VALUES ('3', '1');
+
+-- ----------------------------
+-- Table structure for yunzhi_access_user_group_block
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_access_user_group_block`;
+CREATE TABLE `yunzhi_access_user_group_block` (
+  `user_group_name` varchar(40) NOT NULL COMMENT 'fk user_group 用户组外键',
+  `block_id` int(11) unsigned NOT NULL COMMENT 'fk block 区块外键',
+  `action` varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_group_name`,`block_id`,`action`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户组-菜单 权限表。权限设置(LCURD)';
+
+-- ----------------------------
+-- Records of yunzhi_access_user_group_block
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_access_user_group_field
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_access_user_group_field`;
+CREATE TABLE `yunzhi_access_user_group_field` (
+  `user_group_name` varchar(40) NOT NULL COMMENT 'fk user_group 用户组外键',
+  `field_id` int(11) unsigned NOT NULL COMMENT 'fk field 字段外键',
+  PRIMARY KEY (`user_group_name`,`field_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户组 字段 权限设置';
+
+-- ----------------------------
+-- Records of yunzhi_access_user_group_field
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_access_user_group_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_access_user_group_menu`;
+CREATE TABLE `yunzhi_access_user_group_menu` (
+  `user_group_name` varchar(40) NOT NULL COMMENT 'fk user_group 用户组外键',
+  `menu_id` int(11) unsigned NOT NULL COMMENT 'fk menu 菜单外键',
+  `action` varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_group_name`,`menu_id`,`action`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组-菜单 权限表。权限设置(LCURD)';
+
+-- ----------------------------
+-- Records of yunzhi_access_user_group_menu
+-- ----------------------------
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '42', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '43', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '44', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '45', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '46', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '47', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '48', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '49', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '50', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '51', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '52', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '53', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '54', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '55', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '56', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '57', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '58', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '59', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '60', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '61', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '62', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '63', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '64', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '65', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '66', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '67', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '68', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '69', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '70', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '71', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '72', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '73', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '74', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '75', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '76', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '77', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '78', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '79', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '80', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '81', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '82', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '83', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '84', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '85', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '86', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '87', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '88', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '89', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '90', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '91', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '92', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '93', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '94', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '95', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '96', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '97', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '98', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '99', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '100', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '101', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '102', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '103', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '104', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '105', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '106', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '107', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '108', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '109', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '110', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '111', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '112', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '113', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '114', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '115', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '116', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '117', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '118', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '119', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '120', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '121', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '122', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '123', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '124', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '125', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '126', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '127', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '128', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '129', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '130', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '131', 'index');
+INSERT INTO `yunzhi_access_user_group_menu` VALUES ('public', '132', 'index');
+
+-- ----------------------------
+-- Table structure for yunzhi_access_user_group_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_access_user_group_plugin`;
+CREATE TABLE `yunzhi_access_user_group_plugin` (
+  `user_group_name` varchar(40) NOT NULL,
+  `plugin_id` int(11) unsigned NOT NULL,
+  `action` varchar(40) NOT NULL,
+  `update_time` int(11) unsigned DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`user_group_name`,`plugin_id`,`action`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of yunzhi_access_user_group_plugin
+-- ----------------------------
+INSERT INTO `yunzhi_access_user_group_plugin` VALUES ('admin', '1', '', '1474704189', '1474704189');
+INSERT INTO `yunzhi_access_user_group_plugin` VALUES ('admin', '3', '', '1474709149', '1474709149');
+INSERT INTO `yunzhi_access_user_group_plugin` VALUES ('editor', '1', '', '1474704189', '1474704189');
+INSERT INTO `yunzhi_access_user_group_plugin` VALUES ('editor', '3', '', '1474709149', '1474709149');
+INSERT INTO `yunzhi_access_user_group_plugin` VALUES ('register', '1', '', '1474704189', '1474704189');
+
+-- ----------------------------
+-- Table structure for yunzhi_block
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_block`;
+CREATE TABLE `yunzhi_block` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `block_type_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk block_type',
+  `menu_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk menu 菜单FK。模块如果想实现LCURD，则必然需要组件支持。而组件则需要菜单支持。所以关系是区块对应菜单，菜单对应组件。',
+  `position_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk position',
+  `title` varchar(40) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0启用 1禁用',
+  `weight` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '权重',
+  `config` varchar(255) NOT NULL DEFAULT '[]' COMMENT '配置信息json',
+  `filter` varchar(255) NOT NULL DEFAULT '[]' COMMENT '过滤器信息json',
+  `update_time` smallint(6) unsigned NOT NULL,
+  `create_time` smallint(6) unsigned NOT NULL,
+  `delete_time` smallint(6) unsigned NOT NULL,
+  `is_delete` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `'is_delete'` (`is_delete`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='区块表';
+
+-- ----------------------------
+-- Records of yunzhi_block
+-- ----------------------------
+INSERT INTO `yunzhi_block` VALUES ('1', 'Menu', '0', 'menu', '主菜单', '显示在页面上方', '0', '0', '{\"menu_type_name\":\"main\",\"id\":\"cssmenu\"}', '[]', '65535', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('2', 'Slider', '0', 'slider', '幻灯片', '', '0', '0', '[]', '[]', '0', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('3', 'ContentVideo', '0', 'main', '文字视频介绍', '', '0', '2', '[]', '[]', '0', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('4', 'DataCounter', '0', 'main', '数据统计', '', '0', '0', '[]', '[]', '0', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('5', 'CaseShow', '0', 'main', '案例展示', '', '0', '0', '[]', '[]', '0', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('6', 'ShowCaseSlider', '0', 'main', '动态案例展示', '', '0', '0', '[]', '[]', '0', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('7', 'BreadCrumb', '0', 'breadCrumb', '面包屑', '', '0', '0', '[]', '[]', '65535', '0', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('9', 'Footer', '0', 'main', '页脚', '', '0', '0', '[]', '[]', '0', '78', '0', '0');
+INSERT INTO `yunzhi_block` VALUES ('8', 'PictureNews', '0', 'main', '图文列表', '', '0', '1', '[]', '[]', '0', '0', '0', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_block_type
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_block_type`;
+CREATE TABLE `yunzhi_block_type` (
+  `name` varchar(40) NOT NULL,
+  `title` varchar(40) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='区块类型表';
+
+-- ----------------------------
+-- Records of yunzhi_block_type
+-- ----------------------------
+INSERT INTO `yunzhi_block_type` VALUES ('Menu', '菜单', '显示菜单');
+INSERT INTO `yunzhi_block_type` VALUES ('BreadCrumb', '面包屑', '');
+INSERT INTO `yunzhi_block_type` VALUES ('Slider', '幻灯片', '');
+INSERT INTO `yunzhi_block_type` VALUES ('ContentVideo', '文字视频介绍', '通常用于首页的关于我们');
+INSERT INTO `yunzhi_block_type` VALUES ('DataCounter', '数据统计', '数据统计');
+INSERT INTO `yunzhi_block_type` VALUES ('CaseShow', '案例展示', '');
+INSERT INTO `yunzhi_block_type` VALUES ('ShowCaseSlider', '动态案例展示', '');
+
+-- ----------------------------
+-- Table structure for yunzhi_component
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_component`;
+CREATE TABLE `yunzhi_component` (
+  `name` varchar(40) NOT NULL DEFAULT '' COMMENT '类名',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  `author` varchar(255) NOT NULL DEFAULT '' COMMENT '作者',
+  `version` varchar(255) NOT NULL DEFAULT '' COMMENT '版本',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='组件（类型）表';
+
+-- ----------------------------
+-- Records of yunzhi_component
+-- ----------------------------
+INSERT INTO `yunzhi_component` VALUES ('Home', '首页', '用于显示首页', 'panjie', '1.0.0');
+INSERT INTO `yunzhi_component` VALUES ('ContentList', '新闻列表', '新闻列表页，显示新闻列表及展示新闻详情', 'panjie', '1.0.0');
+INSERT INTO `yunzhi_component` VALUES ('Content', '新闻', '显示一篇新闻', '', '');
+INSERT INTO `yunzhi_component` VALUES ('Login', '登陆注销', '用于用户的登陆与注销', 'mengyunzhi', '1.0.0');
+
+-- ----------------------------
+-- Table structure for yunzhi_content
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_content`;
+CREATE TABLE `yunzhi_content` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'FK 用户名',
+  `content_type_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'FK 类别名',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `create_time` int(5) unsigned NOT NULL DEFAULT '0',
+  `update_time` int(5) unsigned NOT NULL DEFAULT '0',
+  `delete_time` int(5) unsigned NOT NULL DEFAULT '0',
+  `is_freezed` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否冻结',
+  `weight` smallint(6) NOT NULL,
+  `hit` int(11) NOT NULL,
+  `is_delete` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `category_name` (`content_type_name`),
+  KEY `is_freezed` (`is_freezed`),
+  KEY `is_deleted` (`is_delete`)
+) ENGINE=MyISAM AUTO_INCREMENT=271 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文章表';
+
+-- ----------------------------
+-- Records of yunzhi_content
+-- ----------------------------
+INSERT INTO `yunzhi_content` VALUES ('1', '', 'news', '这是一条新闻', '1232323111', '1485250115', '0', '0', '0', '456', '0');
+INSERT INTO `yunzhi_content` VALUES ('2', '', 'news', '这是另一条新闻', '1232323111', '1485249845', '0', '0', '0', '144', '0');
+INSERT INTO `yunzhi_content` VALUES ('3', '', 'products', ' 这是一个产品的新闻', '0', '1472446012', '0', '0', '0', '43', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_content_frontpage
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_content_frontpage`;
+CREATE TABLE `yunzhi_content_frontpage` (
+  `content_id` int(11) NOT NULL,
+  `weight` smallint(6) unsigned NOT NULL COMMENT '0',
+  `create_time` int(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`content_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='首页文章表';
+
+-- ----------------------------
+-- Records of yunzhi_content_frontpage
+-- ----------------------------
+INSERT INTO `yunzhi_content_frontpage` VALUES ('1', '0', '0');
+INSERT INTO `yunzhi_content_frontpage` VALUES ('2', '2', '0');
+INSERT INTO `yunzhi_content_frontpage` VALUES ('3', '1', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_content_type
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_content_type`;
+CREATE TABLE `yunzhi_content_type` (
+  `name` varchar(40) NOT NULL,
+  `menu_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk 菜单。用于被区块调用后，生成LCURD的信息。',
+  `pname` varchar(40) NOT NULL COMMENT '上级name',
+  `title` varchar(40) NOT NULL,
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `weight` smallint(6) NOT NULL DEFAULT '0' COMMENT '权重',
+  `hits` int(11) NOT NULL DEFAULT '0' COMMENT '点击数',
+  `fileds` varchar(255) NOT NULL DEFAULT '[]' COMMENT '字段',
+  PRIMARY KEY (`name`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='类别(文章类型)表';
+
+-- ----------------------------
+-- Records of yunzhi_content_type
+-- ----------------------------
+INSERT INTO `yunzhi_content_type` VALUES ('news', '3', '', '新闻通知', '新闻通知', '0', '0', '[]');
+INSERT INTO `yunzhi_content_type` VALUES ('products', '2', '', '产品列表', '', '0', '0', '[]');
+
+-- ----------------------------
+-- Table structure for yunzhi_field
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field`;
+CREATE TABLE `yunzhi_field` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) NOT NULL DEFAULT '' COMMENT '机读字段',
+  `field_type_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk filed',
+  `relate_type` varchar(40) NOT NULL DEFAULT '' COMMENT '关联的实体类型',
+  `relate_value` varchar(40) NOT NULL DEFAULT '' COMMENT '关联实体类型的具体值',
+  `title` varchar(40) NOT NULL DEFAULT '' COMMENT '后台 编辑 添加 时显示的信息',
+  `weight` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '权重',
+  `config` varchar(4096) NOT NULL DEFAULT '[]' COMMENT '字段配置信息 json',
+  `filter` varchar(4096) NOT NULL DEFAULT '[]' COMMENT '过滤器，用于前台的输出. 使用字段与实体类型绑定的方法实现过滤器后的输出',
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`),
+  KEY `relate_type` (`relate_type`),
+  KEY `relate_value` (`relate_value`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='字段表 各个实体与字段的对应关系写在这里';
+
+-- ----------------------------
+-- Records of yunzhi_field
+-- ----------------------------
+INSERT INTO `yunzhi_field` VALUES ('1', 'body', 'body', 'Content', 'news', '内容', '0', '[]', '{\"type\":\"System\",\"function\":\"htmlspecialchars_decode\",\"param\":{\"length\":\"6\",\"ext\":\"...\"}}');
+INSERT INTO `yunzhi_field` VALUES ('2', 'image', 'image', 'Content', 'news', '新闻图片', '1', '[]', '[]');
+INSERT INTO `yunzhi_field` VALUES ('3', 'body', 'body', 'Content', 'products', '新闻内容', '0', '[]', '[]');
+INSERT INTO `yunzhi_field` VALUES ('4', 'titles', 'json', 'Block', 'Slider', '标题', '0', '[]', '[]');
+INSERT INTO `yunzhi_field` VALUES ('6', 'urls', 'json', 'Block', 'Slider', '链接地址', '0', '[]', '[]');
+INSERT INTO `yunzhi_field` VALUES ('5', 'images', 'images', 'Block', 'Slider', '图片链接', '0', '[]', '[]');
+INSERT INTO `yunzhi_field` VALUES ('7', 'headers', 'json', 'Block', 'Slider', '副标题', '0', '[]', '[]');
+INSERT INTO `yunzhi_field` VALUES ('8', 'descriptions', 'json', 'Block', 'Slider', '描述信息', '0', '{\"type\":\"textarea\"}', '[]');
+INSERT INTO `yunzhi_field` VALUES ('10', 'attachment', 'Attachment', 'Content', 'news', '附件', '0', '[]', '[]');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_config
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_config`;
+CREATE TABLE `yunzhi_field_config` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `field_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk filed',
+  `type` varchar(40) NOT NULL DEFAULT '' COMMENT '绑定的实体类型',
+  `value` varchar(40) NOT NULL DEFAULT '' COMMENT '绑定实体类型的具体值',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0启用 1禁用',
+  `is_one` tinyint(2) NOT NULL DEFAULT '1' COMMENT '是否唯一. 1: 1对1 ；2：1对多',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='字段配置表（各个实体的扩展字段配置）';
+
+-- ----------------------------
+-- Records of yunzhi_field_config
+-- ----------------------------
+INSERT INTO `yunzhi_field_config` VALUES ('1', 'body', 'Content', 'news', '0', '1');
+INSERT INTO `yunzhi_field_config` VALUES ('2', 'field_image', 'Content', 'news', '0', '1');
+INSERT INTO `yunzhi_field_config` VALUES ('3', 'body', 'Content', 'products', '0', '1');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_attachment
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_attachment`;
+CREATE TABLE `yunzhi_field_data_attachment` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `field_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The entity id this data is attached to',
+  `key_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `user_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk of user_name',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '原始文件名',
+  `save_name` varchar(100) NOT NULL DEFAULT '' COMMENT '保存文件名',
+  `ext` varchar(10) NOT NULL DEFAULT '' COMMENT '扩展名',
+  `sha1` varchar(40) NOT NULL,
+  `md5` varchar(32) NOT NULL,
+  `size` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小B',
+  `mime` varchar(40) NOT NULL DEFAULT '' COMMENT 'MIME',
+  `create_time` int(11) unsigned NOT NULL,
+  `update_time` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `field_id` (`field_id`),
+  KEY `key_id` (`key_id`),
+  KEY `sha1` (`sha1`),
+  KEY `md5` (`md5`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='附件表';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_attachment
+-- ----------------------------
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('49', '0', '0', '', '3.jpg', '20160926/5f83ec7d5b66e78f7d47603bbcb5b7b2.jpg', 'jpg', '37f43a9f43a06c1da330b4f19e67155cdcbb8c5c', '58c61881873640a1f7daca1e6850cc1f', '640535', 'image/jpeg', '1474874743', '1474874743');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('50', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474874847', '1474874847');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('51', '0', '0', '', '3.jpg', '20160926/5f83ec7d5b66e78f7d47603bbcb5b7b2.jpg', 'jpg', '37f43a9f43a06c1da330b4f19e67155cdcbb8c5c', '58c61881873640a1f7daca1e6850cc1f', '640535', 'image/jpeg', '1474876630', '1474876630');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('52', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474876739', '1474876739');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('53', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474876961', '1474876961');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('54', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474877013', '1474877013');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('55', '0', '0', '', '88-20151030101118.jpg', '20160926/e56564656cc0276320362cb3ddca32a1.jpg', 'jpg', 'cca18b443fe9a6be89f9fecbd858e48767863b89', '54fe7a710948136957ae5552fa9d3d45', '75156', 'image/jpeg', '1474877065', '1474877065');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('56', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474877128', '1474877128');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('57', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474877156', '1474877156');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('58', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474936956', '1474936956');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('59', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474937080', '1474937080');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('60', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474937239', '1474937239');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('61', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474937325', '1474937325');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('62', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474937733', '1474937733');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('63', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474937810', '1474937810');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('64', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474937843', '1474937843');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('65', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474938004', '1474938004');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('66', '0', '0', '', '2016年8月行政值班表.doc', '20160926/2eaeeda274e0bc392bc398198fc1c3ea.doc', 'doc', '7fb926501cdfd81fb5bab5c3e009ba8a4fb397ad', '15338832888444e475300a92f2d4eee3', '112128', 'application/msword', '1474938019', '1474938019');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('67', '0', '0', '', '附件1：2015年度中管党费收支情况.pdf', '20160927/857583ff3054c0f223d015c480948c90.pdf', 'pdf', '1a56fe6661981cd2c3c91c3f25d71fb052120560', '931cf24dfcc29414450d1d3e59e6de01', '84433', 'application/pdf', '1474938025', '1474938025');
+INSERT INTO `yunzhi_field_data_attachment` VALUES ('68', '10', '1', '', '梦云智thinkphp入门教程02--VEIWS.ppt', '20160927/71570dd595d30dc376fca5e54f5bf455.ppt', 'ppt', 'b914cf8071a3cd2aca39363cd5cd14051b7f2d19', '8c5ca78c6e4c13f33ed277e880d43ef0', '198144', 'application/vnd.ms-powerpoint', '1474938044', '1474938567');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_body
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_body`;
+CREATE TABLE `yunzhi_field_data_body` (
+  `field_id` int(11) unsigned NOT NULL COMMENT 'fk field',
+  `key_id` int(11) unsigned NOT NULL COMMENT '对应的关键字ID',
+  `value` longtext NOT NULL,
+  `update_time` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`key_id`,`field_id`),
+  KEY `entity_id` (`key_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Data storage for field 2 (body)';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_body
+-- ----------------------------
+INSERT INTO `yunzhi_field_data_body` VALUES ('1', '1', '   &lt;p&gt;    &lt;p&gt;    &lt;p&gt;    &lt;p&gt;    &lt;p&gt;    &lt;p&gt;    &lt;p&gt;    &lt;p&gt; 这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题这里是关于我们的主题&lt;img src=&quot;/yunzhicms/public/upload/20160907/fecddd331f269a93b55fc16c7c742121.png&quot; alt=&quot;个人真实性核验单 (1)&quot; style=&quot;line-height: 1; max-width: 100%;&quot;&gt;&lt;br style=&quot;line-height: 1;&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;/p&gt;\r\n&lt;/p&gt;\r\n&lt;/p&gt;\r\n&lt;/p&gt;\r\n&lt;/p&gt;\r\n&lt;/p&gt;\r\n&lt;/p&gt;\r\n', '1474938567');
+INSERT INTO `yunzhi_field_data_body` VALUES ('1', '2', '   &lt;p&gt; 新闻通知1新闻通知1新闻通知1新闻通知1新闻通知1&lt;/p&gt;\r\n', '0');
+INSERT INTO `yunzhi_field_data_body` VALUES ('2', '3', '新闻通知2新闻通知2新闻通知2新闻通知2新闻通知2新闻通知2新闻通知2', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_comment_body
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_comment_body`;
+CREATE TABLE `yunzhi_field_data_comment_body` (
+  `entity_type` varchar(128) NOT NULL DEFAULT '' COMMENT 'The entity type this data is attached to',
+  `bundle` varchar(128) NOT NULL DEFAULT '' COMMENT 'The field instance bundle to which this row belongs, used when deleting a field instance',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'A boolean indicating whether this data item has been deleted',
+  `entity_id` int(10) unsigned NOT NULL COMMENT 'The entity id this data is attached to',
+  `revision_id` int(10) unsigned DEFAULT NULL COMMENT 'The entity revision id this data is attached to, or NULL if the entity type is not versioned',
+  `language` varchar(32) NOT NULL DEFAULT '' COMMENT 'The language for this data item.',
+  `delta` int(10) unsigned NOT NULL COMMENT 'The sequence number for this data item, used for multi-value fields',
+  `comment_body_value` longtext,
+  `comment_body_format` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`entity_type`,`entity_id`,`deleted`,`delta`,`language`),
+  KEY `entity_type` (`entity_type`),
+  KEY `bundle` (`bundle`),
+  KEY `deleted` (`deleted`),
+  KEY `entity_id` (`entity_id`),
+  KEY `revision_id` (`revision_id`),
+  KEY `language` (`language`),
+  KEY `comment_body_format` (`comment_body_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Data storage for field 1 (comment_body)';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_comment_body
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_field_image
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_field_image`;
+CREATE TABLE `yunzhi_field_data_field_image` (
+  `entity_type` varchar(128) NOT NULL DEFAULT '' COMMENT 'The entity type this data is attached to',
+  `bundle` varchar(128) NOT NULL DEFAULT '' COMMENT 'The field instance bundle to which this row belongs, used when deleting a field instance',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'A boolean indicating whether this data item has been deleted',
+  `entity_id` int(10) unsigned NOT NULL COMMENT 'The entity id this data is attached to',
+  `revision_id` int(10) unsigned DEFAULT NULL COMMENT 'The entity revision id this data is attached to, or NULL if the entity type is not versioned',
+  `language` varchar(32) NOT NULL DEFAULT '' COMMENT 'The language for this data item.',
+  `delta` int(10) unsigned NOT NULL COMMENT 'The sequence number for this data item, used for multi-value fields',
+  `field_image_fid` int(10) unsigned DEFAULT NULL COMMENT 'The test_file_managed.fid being referenced in this field.',
+  `field_image_alt` varchar(512) DEFAULT NULL COMMENT 'Alternative image text, for the image’s ’alt’ attribute.',
+  `field_image_title` varchar(1024) DEFAULT NULL COMMENT 'Image title text, for the image’s ’title’ attribute.',
+  `field_image_width` int(10) unsigned DEFAULT NULL COMMENT 'The width of the image in pixels.',
+  `field_image_height` int(10) unsigned DEFAULT NULL COMMENT 'The height of the image in pixels.',
+  PRIMARY KEY (`entity_type`,`entity_id`,`deleted`,`delta`,`language`),
+  KEY `entity_type` (`entity_type`),
+  KEY `bundle` (`bundle`),
+  KEY `deleted` (`deleted`),
+  KEY `entity_id` (`entity_id`),
+  KEY `revision_id` (`revision_id`),
+  KEY `language` (`language`),
+  KEY `field_image_fid` (`field_image_fid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Data storage for field 4 (field_image)';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_field_image
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_field_tags
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_field_tags`;
+CREATE TABLE `yunzhi_field_data_field_tags` (
+  `entity_type` varchar(128) NOT NULL DEFAULT '' COMMENT 'The entity type this data is attached to',
+  `bundle` varchar(128) NOT NULL DEFAULT '' COMMENT 'The field instance bundle to which this row belongs, used when deleting a field instance',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'A boolean indicating whether this data item has been deleted',
+  `entity_id` int(10) unsigned NOT NULL COMMENT 'The entity id this data is attached to',
+  `revision_id` int(10) unsigned DEFAULT NULL COMMENT 'The entity revision id this data is attached to, or NULL if the entity type is not versioned',
+  `language` varchar(32) NOT NULL DEFAULT '' COMMENT 'The language for this data item.',
+  `delta` int(10) unsigned NOT NULL COMMENT 'The sequence number for this data item, used for multi-value fields',
+  `field_tags_tid` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`entity_type`,`entity_id`,`deleted`,`delta`,`language`),
+  KEY `entity_type` (`entity_type`),
+  KEY `bundle` (`bundle`),
+  KEY `deleted` (`deleted`),
+  KEY `entity_id` (`entity_id`),
+  KEY `revision_id` (`revision_id`),
+  KEY `language` (`language`),
+  KEY `field_tags_tid` (`field_tags_tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Data storage for field 3 (field_tags)';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_field_tags
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_image
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_image`;
+CREATE TABLE `yunzhi_field_data_image` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `field_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The entity id this data is attached to',
+  `key_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `user_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk of user_name',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '原始文件名',
+  `save_name` varchar(100) NOT NULL DEFAULT '' COMMENT '保存文件名',
+  `ext` varchar(10) NOT NULL DEFAULT '' COMMENT '扩展名',
+  `sha1` varchar(40) NOT NULL,
+  `md5` varchar(32) NOT NULL,
+  `size` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小B',
+  `mime` varchar(40) NOT NULL DEFAULT '' COMMENT 'MIME',
+  PRIMARY KEY (`id`),
+  KEY `field_id` (`field_id`),
+  KEY `key_id` (`key_id`),
+  KEY `sha1` (`sha1`),
+  KEY `md5` (`md5`)
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Data storage for field 4 (field_image)';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_image
+-- ----------------------------
+INSERT INTO `yunzhi_field_data_image` VALUES ('47', '2', '1', '', 'Girl fashion beauty.jpg', '20160907/819029973ba3b6d987748accff729b76.jpg', 'jpg', '7a3b581096d4a97e9ea73bbf10e37723dead9284', '3b3cac76b6d7901de8688bded8b9b37d', '450782', 'image/jpeg');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_images
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_images`;
+CREATE TABLE `yunzhi_field_data_images` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk field',
+  `key_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk ...',
+  `user_name` varchar(40) NOT NULL COMMENT 'fk user',
+  `value` varchar(4096) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='多图片字段.使用json格式进行存储';
+
+-- ----------------------------
+-- Records of yunzhi_field_data_images
+-- ----------------------------
+INSERT INTO `yunzhi_field_data_images` VALUES ('2', '5', '2', '', '[\"\\/yunzhicms\\/public\\/upload\\/20160912\\/53b68492cfa0c681e9a7d54f74d3fecb.jpg\",\"\\/yunzhicms\\/public\\/upload\\/20160912\\/4816be8aab31bc3dd96a068babf7b3f1.jpg\"]');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_json
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_json`;
+CREATE TABLE `yunzhi_field_data_json` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk field',
+  `key_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk ...',
+  `user_name` varchar(40) NOT NULL COMMENT 'fk user',
+  `value` varchar(4096) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of yunzhi_field_data_json
+-- ----------------------------
+INSERT INTO `yunzhi_field_data_json` VALUES ('1', '4', '2', '', '[\"\\u8fd9\\u662f\\u4e3b\\u6807\\u9898\",\"\\u8fd9\\u662f\\u4e3b\\u6807\\u9898\"]');
+INSERT INTO `yunzhi_field_data_json` VALUES ('2', '5', '2', '', '[\"\\u94fe\\u63a51\",\"\\u5730\\u57404\",\"\"]');
+INSERT INTO `yunzhi_field_data_json` VALUES ('3', '6', '2', '', '[\"http:\\/\\/www.mengyunzhi.com\",\"http:\\/\\/www.scse.hebut.edu.cn\"]');
+INSERT INTO `yunzhi_field_data_json` VALUES ('4', '7', '2', '', '[\"\\u8fd9\\u662f\\u526f\\u6807\\u98981\",\"\\u8fd9\\u662f\\u526f\\u6807\\u98982\"]');
+INSERT INTO `yunzhi_field_data_json` VALUES ('5', '8', '2', '', '[\"\\u8fd9\\u91cc\\u662f\\u63cf\\u8ff0\\u4fe1\\u606f\\uff1a\\u56fe\\u7247\\u4e0a\\u4f20\\u7684\\u89c4\\u683c\\u4e3a1920*500, \\u975e\\u8be5\\u89c4\\u683c\\u4f1a\\u8fdb\\u884c\\u81ea\\u52a8\\u7684\\u62c9\\u4f38\\u3002\\u5982\\u679c\\u56fe\\u7247\\u4e0a\\u4f20\\u540e\\u6709\\u4e9b\\u6697\\uff0c\\u662f\\u6b63\\u5e38\\u73b0\\u8c61\\u3002\\u8bf7\\u589e\\u52a0\\u4eae\\u5ea6\\u540e\\u91cd\\u65b0\\u4e0a\\u4f20\\u3002\",\"\\u7531\\u4e8e\\u5b57\\u4f53\\u4e3a\\u767d\\u8272\\uff0c\\u6240\\u4ee5\\u6211\\u4eec\\u5bf9\\u56fe\\u7247\\u8fdb\\u884c\\u4e86\\u8499\\u677f\\u5904\\u7406\\u3002\\u4e0a\\u4f20\\u56fe\\u7247\\u540e\\uff0c\\u5c06\\u4f1a\\u770b\\u5230\\u56fe\\u7247\\u4e0a\\u65b9\\u6709\\u4e00\\u5c42\\u534a\\u900f\\u660e\\u7684\\u8499\\u677f\\uff0c\\u8fd9\\u662f\\u6b63\\u5e38\\u7684\\u73b0\\u8c61\\u3002\\u5f53\\u7136\\u4e86\\uff0c\\u5373\\u4f7f\\u662f\\u8fd9\\u6837\\uff0c\\u6211\\u4eec\\u4e5f\\u5e76\\u4e0d\\u63a8\\u8350\\u4f7f\\u7528\\u767d\\u8272\\u7684\\u80cc\\u666f\\u56fe\\u7247\\u3002\"]');
+
+-- ----------------------------
+-- Table structure for yunzhi_field_data_text
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_data_text`;
+CREATE TABLE `yunzhi_field_data_text` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk field',
+  `key_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'fk ...',
+  `user_name` varchar(40) NOT NULL COMMENT 'fk user',
+  `value` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of yunzhi_field_data_text
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_field_type
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_field_type`;
+CREATE TABLE `yunzhi_field_type` (
+  `name` varchar(40) NOT NULL,
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0启用，1禁用',
+  `title` varchar(40) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `author` varchar(40) NOT NULL,
+  `version` varchar(40) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='字段类型表';
+
+-- ----------------------------
+-- Records of yunzhi_field_type
+-- ----------------------------
+INSERT INTO `yunzhi_field_type` VALUES ('body', '0', '富文本', '', '', '', '');
+INSERT INTO `yunzhi_field_type` VALUES ('image', '0', '图片', '', '', '', '');
+INSERT INTO `yunzhi_field_type` VALUES ('text', '0', '文本', '', '', '', '');
+INSERT INTO `yunzhi_field_type` VALUES ('attachment', '0', '附件', '', '', '', '');
+INSERT INTO `yunzhi_field_type` VALUES ('images', '0', '多图片', '', '', '', '');
+INSERT INTO `yunzhi_field_type` VALUES ('json', '0', 'json存的数组数据', '', '', '', '');
+
+-- ----------------------------
+-- Table structure for yunzhi_filter
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_filter`;
+CREATE TABLE `yunzhi_filter` (
+  `type` varchar(40) NOT NULL COMMENT '类型（对应过滤器的类名）',
+  `function` varchar(40) NOT NULL COMMENT '方法名',
+  `param` varchar(4096) NOT NULL COMMENT '参数及参数的说明、默认值（json）',
+  `title` varchar(40) NOT NULL COMMENT '标题',
+  `description` varchar(100) NOT NULL COMMENT '描述',
+  `author` varchar(40) NOT NULL COMMENT '作者',
+  `version` varchar(40) NOT NULL COMMENT '版本号',
+  `website` varchar(100) NOT NULL COMMENT '网址',
+  `demo_url` varchar(100) NOT NULL COMMENT '示例站点URL',
+  `email` varchar(100) NOT NULL COMMENT '作者邮箱',
+  PRIMARY KEY (`type`,`function`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='过滤器表';
+
+-- ----------------------------
+-- Records of yunzhi_filter
+-- ----------------------------
+INSERT INTO `yunzhi_filter` VALUES ('System', 'makeFrontpageContentUrl', '[]', '首页新闻链接', '直接生成首页新闻链接（直接链接到 Content组件）', '梦云智', '1.0.0', 'http://www.mengyunzhi.com', 'http://www.mengyunzhi.com', '3792535@qq.com');
+INSERT INTO `yunzhi_filter` VALUES ('System', 'makeCurrentMenuReadUrl', '[]', '生成菜单URL', '生成菜单对应的路由URL信息', '', '', '', '', '');
+INSERT INTO `yunzhi_filter` VALUES ('String', 'substr', '{\"length\":{\"value\":20,\"title\":\"\\u622a\\u53d6\\u957f\\u5ea6\",\"type\":\"text\",\"description\":\"\\u622a\\u53d6\\u7684UTF8\\u7f16\\u7801\\u7684\\u957f\\u5ea6\"},\"ext\":{\"value\":\"...\",\"title\":\"\\u540e\\u7f00\",\"type\":\"text\",\"description\":\"\\u5c06\\u53d1\\u751f\\u622a\\u53d6\\u64cd\\u4f5c\\u540e\\uff0c\\u586b\\u5145\\u5728\\u6807\\u9898\\u540e\\u9762\\u7684\\u540e\\u7f00\\u4fe1\\u606f\"}}', '标题截取', '对UTF8编码的标题进行截取', '', '', '', '', '');
+INSERT INTO `yunzhi_filter` VALUES ('Date', 'format', '{\"dateFormat\":{\"value\":\"Y-m-d\",\"title\":\"\\u65f6\\u95f4\\u6233\\u683c\\u5f0f\\u5316\",\"description\":\"\\u5bf9\\u65f6\\u95f4\\u6233\\u8fdb\\u884c\\u683c\\u5f0f\\u5316\",\"type\":\"text\"}}', '时间戳格式化', '时间戳格式化', '', '', '', '', '');
+INSERT INTO `yunzhi_filter` VALUES ('System', 'makeContentReadUrl', '[]', '生成新闻读链接', '根据新闻对应的类别信息，取类别的URL信息，生成LCURD路由', '', '', '', '', '');
+
+-- ----------------------------
+-- Table structure for yunzhi_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_menu`;
+CREATE TABLE `yunzhi_menu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `menu_type_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'FK(menu_type)菜单类型',
+  `component_name` varchar(40) NOT NULL DEFAULT '' COMMENT '组件组',
+  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '标题，用于直接显示在前台中',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The parent link ID (plid) is the mlid of the link above in the hierarchy, or zero if the link is at the top level in its menu.',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '在前台中显示的路径，即URL',
+  `is_hidden` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否隐藏',
+  `is_deleted` smallint(11) unsigned NOT NULL DEFAULT '0' COMMENT '0未删除,1删除',
+  `weight` int(11) NOT NULL DEFAULT '0' COMMENT '权重',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  `config` varchar(255) NOT NULL DEFAULT '[]' COMMENT '配置参数（json）',
+  `filter` varchar(255) NOT NULL DEFAULT '[]' COMMENT '过滤器参数',
+  `is_home` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否首页',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0启用，1禁用',
+  `update_time` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `create_time` smallint(6) NOT NULL DEFAULT '0',
+  `is_delete` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `path_menu` (`url`(128),`title`),
+  KEY `menu_plid_expand_child` (`title`,`pid`),
+  KEY `menu_parents` (`title`),
+  KEY `router_path` (`component_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='菜单表（每一个菜单对应唯一的一个组件）';
+
+-- ----------------------------
+-- Records of yunzhi_menu
+-- ----------------------------
+INSERT INTO `yunzhi_menu` VALUES ('1', 'main', 'Home', '首页', '0', '/', '0', '0', '9999', '首页', '{\"count\":\"3\"}', '{\"title\":{\"type\":\"String\",\"function\":\"substr\",\"param\":{\"length\":\"6\",\"ext\":\"...\"}},\"href\":{\"type\":\"System\",\"function\":\"makeFrontpageContentUrl\",\"param\":[]}}', '1', '0', '65535', '0', '0');
+INSERT INTO `yunzhi_menu` VALUES ('2', 'main', 'ContentList', '新闻通', '0', 'news', '0', '0', '963', '这里是描述信息', '{\"contentTypeName\":\"news\",\"count\":\"6\",\"order\":\"weight desc, id desc\"}', '{\"title\":{\"type\":\"String\",\"function\":\"substr\",\"param\":{\"length\":\"30\",\"ext\":\"...\"}},\"href\":{\"type\":\"System\",\"function\":\"makeCurrentMenuReadUrl\",\"param\":[]},\"date\":{\"type\":\"Date\",\"function\":\"format\",\"param\":{\"dateFormat\":\"Y-m-d\"}}}', '0', '0', '65535', '0', '0');
+INSERT INTO `yunzhi_menu` VALUES ('3', 'main', 'ContentList', '院级新闻', '2', 'news/school', '0', '0', '5', '', '{\"contentTypeName\":\"news\",\"count\":\"1\",\"order\":\"weight desc, id desc\"}', '{\"date\":{\"type\":\"Date\",\"function\":\"format\",\"param\":{\"dateFormat\":\"m-d\"}},\"href\":{\"type\":\"System\",\"function\":\"makeCurrentMenuReadUrl\",\"param\":[]}}', '0', '0', '65535', '0', '0');
+INSERT INTO `yunzhi_menu` VALUES ('4', 'main', 'Content', '关于我们', '0', 'aboutus', '0', '0', '1', '测试', '{\"id\":\"1\"}', '{\"date\":{\"type\":\"Date\",\"function\":\"format\",\"param\":{\"dateFormat\":\"Y-m-d\"}}}', '0', '0', '65535', '0', '0');
+INSERT INTO `yunzhi_menu` VALUES ('5', 'main', 'ContentList', '热点新闻', '0', 'hotnews', '1', '0', '0', '用于显示首页链接过来的新闻', '{\"contentType\":\"news\",\"count\":\"1\",\"order\":\"weight desc, id desc\"}', '{\"date\":{\"type\":\"Date\",\"function\":\"format\",\"param\":{\"dateFormat\":\"m-d\"}},\"href\":{\"type\":\"System\",\"function\":\"makeCurrentMenuReadUrl\",\"param\":[]}}', '0', '0', '65535', '0', '0');
+INSERT INTO `yunzhi_menu` VALUES ('6', 'main', 'ContentList', '热点新闻', '3', 'hotnews1', '0', '0', '0', '', '{\"contentType\":\"news\",\"count\":\"1\",\"order\":\"weight desc, id desc\"}', '[]', '0', '0', '0', '0', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_menu_type
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_menu_type`;
+CREATE TABLE `yunzhi_menu_type` (
+  `name` varchar(40) NOT NULL,
+  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '标题',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  `is_delete` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单类型表（主要为了可以使用区块进行菜单的调用）';
+
+-- ----------------------------
+-- Records of yunzhi_menu_type
+-- ----------------------------
+INSERT INTO `yunzhi_menu_type` VALUES ('main', '主菜单', '主菜单', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_plugin`;
+CREATE TABLE `yunzhi_plugin` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `plugin_type_name` varchar(40) NOT NULL COMMENT 'fk plugin_type 插件类型',
+  `position_name` varchar(40) NOT NULL COMMENT 'fk of plugin_position',
+  `title` varchar(40) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `status` tinyint(2) unsigned NOT NULL,
+  `config` varchar(4096) NOT NULL DEFAULT '[]',
+  `filter` varchar(4096) NOT NULL DEFAULT '[]',
+  `weight` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '权重',
+  `is_delete` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='插件表';
+
+-- ----------------------------
+-- Records of yunzhi_plugin
+-- ----------------------------
+INSERT INTO `yunzhi_plugin` VALUES ('1', 'PreNextContent', 'afterContent', '文章后', '', '0', '', '{\"href\":{\"type\":\"System\",\"function\":\"makeContentReadUrl\"}}', '0', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_plugin_type
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_plugin_type`;
+CREATE TABLE `yunzhi_plugin_type` (
+  `name` varchar(40) NOT NULL,
+  `title` varchar(40) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='插件类型表';
+
+-- ----------------------------
+-- Records of yunzhi_plugin_type
+-- ----------------------------
+INSERT INTO `yunzhi_plugin_type` VALUES ('PreNextContent', '上一篇、下一篇文章', '');
+
+-- ----------------------------
+-- Table structure for yunzhi_position
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_position`;
+CREATE TABLE `yunzhi_position` (
+  `name` varchar(40) NOT NULL,
+  `title` varchar(40) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `type` varchar(40) NOT NULL DEFAULT 'blcok' COMMENT '类型: block 区块，plugin 插件',
+  `theme_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk of theme',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='位置表，记录着某个主题(theme)下的插件(plugin)及区块(block)位置信息';
+
+-- ----------------------------
+-- Records of yunzhi_position
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for yunzhi_theme
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_theme`;
+CREATE TABLE `yunzhi_theme` (
+  `name` varchar(40) NOT NULL,
+  `title` varchar(40) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `is_current` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否激活. 0未激活，1已激活',
+  `author` varchar(40) NOT NULL DEFAULT '',
+  `version` varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='主题表';
+
+-- ----------------------------
+-- Records of yunzhi_theme
+-- ----------------------------
+INSERT INTO `yunzhi_theme` VALUES ('default', '默认主题', '', '1', '梦云智', '');
+INSERT INTO `yunzhi_theme` VALUES ('zhenjie', '汤师兄', '', '0', '汤师兄', '');
+INSERT INTO `yunzhi_theme` VALUES ('liuyanzhao', 'young', '', '0', '刘艳招', '');
+INSERT INTO `yunzhi_theme` VALUES ('huangtheme', '二斌', '', '0', '二斌', '');
+INSERT INTO `yunzhi_theme` VALUES ('liming', '高黎明', '', '0', '高黎明', '');
+INSERT INTO `yunzhi_theme` VALUES ('Chutheme', '楚航', '', '0', '楚航', '');
+INSERT INTO `yunzhi_theme` VALUES ('Fantheme', '小范儿师姐', '', '0', '小范儿师姐', '');
+
+-- ----------------------------
+-- Table structure for yunzhi_user
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_user`;
+CREATE TABLE `yunzhi_user` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) NOT NULL DEFAULT '',
+  `qq_open_id` varchar(40) NOT NULL DEFAULT '' COMMENT 'qq 认证openid',
+  `password` varchar(40) NOT NULL DEFAULT '',
+  `name` varchar(40) NOT NULL DEFAULT '' COMMENT '真实姓名',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '0正常 1冻结',
+  `user_group_name` varchar(40) NOT NULL DEFAULT '' COMMENT 'fk user_group',
+  `create_time` smallint(6) unsigned NOT NULL,
+  `update_time` smallint(6) unsigned NOT NULL,
+  `is_deleted` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '1已删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+
+-- ----------------------------
+-- Records of yunzhi_user
+-- ----------------------------
+INSERT INTO `yunzhi_user` VALUES ('1', 'admin@admin.com', '', '', '梦云智', '1', 'admin', '0', '0', '0');
+
+-- ----------------------------
+-- Table structure for yunzhi_user_group
+-- ----------------------------
+DROP TABLE IF EXISTS `yunzhi_user_group`;
+CREATE TABLE `yunzhi_user_group` (
+  `name` varchar(40) NOT NULL,
+  `title` varchar(40) NOT NULL DEFAULT '' COMMENT '名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  `create_time` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `update_time` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户组（用户类型）表';
+
+-- ----------------------------
+-- Records of yunzhi_user_group
+-- ----------------------------
+INSERT INTO `yunzhi_user_group` VALUES ('admin', '超级管理员', '拥有开发权限', '0', '0', '0');
+INSERT INTO `yunzhi_user_group` VALUES ('editor', '站点编辑人员', '对站点进行管理', '0', '0', '0');
+INSERT INTO `yunzhi_user_group` VALUES ('register', '注册用户', '注册用户，拥有对权限新闻的查看权限', '0', '0', '0');
+INSERT INTO `yunzhi_user_group` VALUES ('public', '公共用户', '浏览网站的用户', '0', '0', '0');
