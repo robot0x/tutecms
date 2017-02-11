@@ -1,0 +1,49 @@
+body {
+    background-color: #ddd;
+}
+
+#headerlinks {
+    background-color: #31429b;
+    color:white;
+        font-weight: bold;
+}
+
+#headerlinks .separators {
+    padding: 4px 0px;
+    font-size:18px;
+    font-weight: bold;
+}
+#headerlinks a{
+    display: inline-block;
+    color: white;
+    padding: 4px 10px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#logo {
+    background-image: url("./../../../image/head.jpg");
+    background-repeat: no-repeat;
+    height: 234px;
+}
+
+.clear {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height: 0px;
+    clear: both;
+}
+
+#menu {
+    background: #31429b;
+}
+
+#menu a {
+    color: white;
+    display: block;
+    padding: 6px 0px;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
