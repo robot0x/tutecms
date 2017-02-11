@@ -7,7 +7,7 @@ body {
     color:white;
         font-weight: bold;
 }
-
+    
 #headerlinks .separators {
     padding: 4px 0px;
     font-size:18px;
@@ -24,7 +24,7 @@ body {
 #logo {
     background-image: url("./../../../image/head.jpg");
     background-repeat: no-repeat;
-    height: 234px;
+    height: 171px;
 }
 
 .clear {
@@ -47,3 +47,18 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+#mu-footer .mu-footer-top {
+  background-color: #333;
+  display: inline;
+  float: left;
+  padding: 50px 0;
+  width: 1170px; 
+}
+#mu-footer .mu-footer-bottom {
+    background-color: #222;
+    display: inline;
+    float: left;
+    padding: 25px 0;
+    width: 1170px;
+}
+
