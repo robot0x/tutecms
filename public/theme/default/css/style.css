@@ -4,17 +4,17 @@ body {
 
 #headerlinks {
     background-color: #31429b;
-    color:white;
+    color: white;
     font-weight: bold;
 }
 
 #headerlinks .separators {
     padding: 4px 0px;
-    font-size:18px;
+    font-size: 18px;
     font-weight: bold;
 }
 
-#headerlinks a{
+#headerlinks a {
     display: inline-block;
     color: white;
     padding: 4px 10px;
@@ -48,28 +48,24 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
 #mu-footer {
     position: relative;
     right: 15px;
 }
+
 #mu-footer .mu-footer-top {
-  background-color: #333;
-  display: inline;
-  float: left;
-  padding: 50px 0;
-  width: 1170px; 
+    background-color: #333;
+    display: inline;
+    float: left;
+    padding: 50px 0;
+    width: 1170px;
 }
+
 #mu-footer .mu-footer-bottom {
     background-color: #222;
     display: inline;
     float: left;
     padding: 25px 0;
     width: 1170px;
-}
-#mu-pictureNews { 
-    background-color:#f4ffcf;
-}
-
-#mu-pictureNews .pics img{
-    float:left;
 }
