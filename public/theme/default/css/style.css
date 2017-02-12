@@ -5,7 +5,7 @@ body {
 #headerlinks {
     background-color: #31429b;
     color:white;
-        font-weight: bold;
+    font-weight: bold;
 }
     
 #headerlinks .separators {
@@ -47,6 +47,10 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+#mu-footer {
+    position: relative;
+    right: 15px;
+}
 #mu-footer .mu-footer-top {
   background-color: #333;
   display: inline;
@@ -61,4 +65,7 @@ body {
     padding: 25px 0;
     width: 1170px;
 }
-
+#mu-pictureNews {
+    position: relative;
+    right: 15px;
+}
