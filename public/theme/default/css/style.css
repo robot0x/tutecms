@@ -22,7 +22,7 @@ body {
 }
 
 #logo {
-    background-image: url("./../../../image/head.jpg");
+    background-image: url("./../image/head.jpg");
     background-repeat: no-repeat;
     height: 171px;
 }
