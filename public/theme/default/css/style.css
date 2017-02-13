@@ -22,12 +22,6 @@ body {
     text-decoration: none;
 }
 
-#logo {
-    background-image: url("./../image/head.jpg");
-    background-repeat: no-repeat;
-    height: 171px;
-}
-
 .clear {
     margin: 0px;
     padding: 0px;
@@ -55,17 +49,24 @@ body {
 }
 
 #mu-footer .mu-footer-top {
-    background-color: #333;
+    background-color: #111B4E;
     display: inline;
     float: left;
     padding: 50px 0;
-    width: 1170px;
 }
 
 #mu-footer .mu-footer-bottom {
-    background-color: #222;
+    background-color: #0B1234;
     display: inline;
     float: left;
     padding: 25px 0;
-    width: 1170px;
 }
+
+#mu-slider .mu-slider-single .mu-slider-img {
+    height: auto;
+}
+
+.bg_white {
+    background-color: white;
+}
+

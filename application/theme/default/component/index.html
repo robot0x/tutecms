@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-hans">
 {include file="../head"}
-<body class="container">	
-	
+<body>	
+	{yz:block position="header" /}
+    {yz:block position="logo" /}
     {yz:block position="menu" /} 
     {yz:block position="slider" /} 
     {yz:block position="breadCrumb" /} 
     <!-- Start service  -->
     {__CONTENT__}
     <!-- End service  -->
+
     {yz:block position="main" /}
     {include file="../footer"}
     
