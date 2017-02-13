@@ -8,13 +8,10 @@ class ContentTypeController extends AdminController
 {
     public function indexAction()
     {
-        //从配置信息中获取分页的信息
-        $PageSize = config('paginate.var_page');
-
         $ContentTypeModel = new ContentTypeModel;
         $map = array('is_delete' => 0);
 
-        $ContentTypeModels =$ContentTypeModel->where($map)->paginate($PageSize);
+        $ContentTypeModels =$ContentTypeModel->where($map)->paginate();
         $this->assign('ContentTypeModels', $ContentTypeModels);
         return $this->fetch('ContentType/index');
     }
