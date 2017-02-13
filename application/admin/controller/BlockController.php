@@ -153,7 +153,7 @@ class BlockController extends AdminController
 
         //取type为block的postion传入
         $PositionModel = new PositionModel;
-        $map = array('type' => 'blcok');
+        $map = array('type' => 'block');
         $Positions = $PositionModel->where($map)->select();
         $this->assign('Positions', $Positions);
 
