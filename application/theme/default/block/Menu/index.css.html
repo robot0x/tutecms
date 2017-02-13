@@ -1,13 +1,11 @@
 <style type="text/css">
-#search {
-
-}
+#search {}
 
 #search input[type="text"] {
-    background: url({:__ROOT__}/image/images.png)  no-repeat 10px 6px #fcfcfc;
+    background: url({:__ROOT__}/image/images.png) no-repeat 10px 6px #fcfcfc;
     background-size: 20px 20px;
     border: 1px solid #d1d1d1;
-    font: bold 12px Arial,Helvetica,Sans-serif;
+    font: bold 12px Arial, Helvetica, Sans-serif;
     width: 150px;
     margin-top: 5px;
     padding: 6px 15px 6px 35px;
@@ -22,9 +20,33 @@
     -moz-transition: all 0.7s ease 0s;
     -o-transition: all 0.7s ease 0s;
     transition: all 0.7s ease 0s;
-    }
+}
 
 #search input[type="text"]:focus {
     width: 200px;
-    }
+}
+
+#logo {
+    background-color: #fff;
+}
+#logo img{
+    visibility: hidden;
+}
+
+#logo .left {
+    background-image: url({:__THEME__}/image/logo_left.jpg);
+    background-repeat: no-repeat;
+}
+
+#logo .middle {
+    background-image: url({:__THEME__}/image/logo_middle.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#logo .right {
+    background-image: url({:__THEME__}/image/logo_right.jpg);
+    background-position: right;
+    background-repeat: no-repeat; 
+}
 </style>

@@ -1,8 +1,56 @@
 {layout name="index" /}
-
+<div id="home_main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="news">新闻</h2>
+                <div class="row">
+                    <?php for($i = 0; $i < 3; $i++) : ?>
+                    <div class="col-md-4">
+                        <img src="{:__THEME__}/image/img.jpg" class="img-rounded" />
+                        <p class="small">新闻类别</p>
+                        <h4>这里是新闻标题<span></span></h4>
+                        <p>这里是新闻内容</p>
+                        <p class="small text-right">[2016-02-10]</p>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+                <h2 class="info">通知</h2>
+                <?php for($i = 0; $i < 4; $i++) : ?>
+                <div class="col-md-6 day">
+                    <div class="row bg_white">
+                        <div class="col-md-3 day_info text-center">
+                            <div class="header">
+                                周三
+                            </div>
+                            <div class="footer">
+                                12月3日
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h4>这是标题</h4>
+                            <p>这是内容,这是内容这是内容这是内容这是内容这是内容这是内容</p>
+                        </div>
+                    </div>
+                </div>
+                <?php endfor; ?>
+            </div>
+            <div class="col-md-4">
+                <h2 class="links">快速链接</h2>
+                <div class="row link_lists bg_white">
+                    <?php for($i = 0; $i < 12; $i++) : ?>
+                    <div class="col-md-6 text-center list">
+                        <img src="{:__THEME__}/image/eg.png">
+                        <p>公示专区</p>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row clearfix">
     <div class="col-md-3">
-        
         {volist name="ContentModels" key="key" id="ContentModel"}
         <ul class="nav nav-list">
             <li>
