@@ -66,10 +66,9 @@ class ContentTypeController extends AdminController
         $this->assign('ContentTypeModel', $ContentTypeModel);
 
         //取出所有的菜单
-        $map = array('is_delete' => 0);
-        $MenuModel  = new MenuModel;
-        $MenuModels = $MenuModel->where($map)->select();
-        $this->assign('MenuModels', $MenuModels);
+        $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
+        $this->assign('ContentTypeModels', $ContentTypeModels);
+        
         return $this->fetch('ContentType/edit');
     }
 
@@ -84,7 +83,7 @@ class ContentTypeController extends AdminController
         $data = input('param.');
         $ContentTypeModel = new ContentTypeModel;
         $ContentTypeModel->setData('title', $data['title']);
-        $ContentTypeModel->setData('menu_id', $data['menu_id']);
+        $ContentTypeModel->setData('pname', $data['pname']);
         $ContentTypeModel->setData('name', $data['name']);
         $ContentTypeModel->setData('weight', $data['weight']);
         $ContentTypeModel->setData('description', $data['description']);
@@ -107,8 +106,9 @@ class ContentTypeController extends AdminController
         //取出所有的菜单
         $map = array('is_delete' => 0);
         $MenuModel  = new MenuModel;
-        $MenuModels = $MenuModel->where($map)->select();
-        $this->assign('MenuModels', $MenuModels);
+        $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
+ 
+        $this->assign('ContentTypeModels', $ContentTypeModels);
 
         //返回模板
         return $this->fetch('ContentType/create');
@@ -124,7 +124,8 @@ class ContentTypeController extends AdminController
         $data = input('param.');
         $ContentTypeModel = new ContentTypeModel;
         $ContentTypeModel->setData('title', $data['title']);
-        $ContentTypeModel->setData('menu_id', $data['menu_id']);
+        // $ContentTypeModel->setData('menu_id', $data['menu_id']);
+        $ContentTypeModel->setData('pname', $data['pname']);
         $ContentTypeModel->setData('name', $data['name']);
         $ContentTypeModel->setData('weight', $data['weight']);
         $ContentTypeModel->setData('description', $data['description']);
