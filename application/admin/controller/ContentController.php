@@ -5,20 +5,23 @@ use app\model\ContentTypeModel;         // 文章类别
 
 class ContentController extends AdminController
 {
-    // public function indexAction($category_id)
-    // {
-    //     $map = [];
+    public function indexAction($contentType = 0)
+    {
 
-    //     // 按列表取值
-    //     if ($category_id != 0)
-    //     {
-    //         $map['category_name'] = $category_id;
-    //     }
+        $map = [];
 
-    //     $ContentModels = ContentModel::all($map);
-    //     $this->assign('ContentModels', $ContentModels);
-    //     return $this->fetch();
-    // }
+        // 按列表取值
+        if ($contentType != 0)
+        {
+            $map['contentTypeName'] = $contentType;
+        }
+
+        $ContentModels = ContentModel::all($map);
+        $this->assign('ContentModels', $ContentModels);
+
+        $this->getAndassignContentTypeTree();
+        return $this->fetch();
+    }
 
     public function createAction()
     {
@@ -95,5 +98,19 @@ class ContentController extends AdminController
         //返回成功
         $contentType = $ContentModel->content_type_name;
         return $this->success('更新成功', url('ContentType/read', ['name' => $contentType]  ));
+    }
+
+    /**
+     * 获取类别树并传至V层 
+     * @return   [type]                   [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-14T11:46:54+0800
+     */
+    private function getAndassignContentTypeTree() {
+        //取出所有的菜单树
+        $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
+        $this->assign('ContentTypeModels', $ContentTypeModels);
+
+        $this->assign('currentContentTypeName', $this->request->param('contentTypeName'));
     }
 }

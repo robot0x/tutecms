@@ -3,6 +3,8 @@ namespace app\model;
 
 class ContentModel extends ModelModel
 {
+    private $isShowinFrontpage      = null;             // 是否在首页显示
+    private $UserModel              = null;             // 用户模型
     private $ContentTypeModel       = null;             // 文章类型模型
     protected $preContentModel      = null;             // 上一篇文章
     protected $nextContentModel     = null;             // 下一篇文章
@@ -24,6 +26,19 @@ class ContentModel extends ModelModel
             $this->ContentTypeModel = ContentTypeModel::get($map);
         }
         return $this->ContentTypeModel;
+    }
+
+    /**
+     * 作者
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-14T11:23:39+0800
+     */
+    public function UserModel() {
+        if (null === $this->UserModel) {
+            $map = ['id' => $this->getData('user_id')];
+            $this->UserModel = UserModel::get($map);
+        }
+        return $this->UserModel;
     }
 
     /**
@@ -165,6 +180,40 @@ class ContentModel extends ModelModel
         }
     }
 
+    /**
+     * 新闻是否为推荐新闻。原则上，推荐新闻才会显示在首页上
+     * @return   boolean                  [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-14T11:38:04+0800
+     */
+    public function isShowinFrontpage() {
+        if (null === $this->isShowinFrontpage) {
+            $map = ['content_id' => $this->getData('id')];
+            $ContentFrontPageModel = ContentFrontPageModel::get($map);
+            if ($ContentFrontPageModel->getData('content_id') === 0) {
+                $this->isShowinFrontpage = false;
+            } else {
+                $this->isShowinFrontpage = true;
+            }
+        }
+
+        return $this->isShowinFrontpage;
+    }
+
+    /**
+     * 新闻是否为推荐新闻。用于前台进行EQ判断
+     * @return   string
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-14T11:44:39+0800
+     */
+    public function isShowinFrontpageForView () {
+        if ($this->isShowinFrontpage()) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+    
     /**
      * 获取文章内容
      * @return string 文章字符串
