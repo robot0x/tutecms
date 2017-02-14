@@ -34,15 +34,6 @@ body {
     background: #31429b;
 }
 
-#menu a {
-    color: white;
-    display: block;
-    padding: 6px 0px;
-    font-size: 20px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 #mu-footer {
     position: relative;
     right: 15px;
@@ -52,14 +43,14 @@ body {
     background-color: #111B4E;
     display: inline;
     float: left;
-    padding: 50px 0;
+    padding: 15px 0;
 }
 
 #mu-footer .mu-footer-bottom {
     background-color: #0B1234;
     display: inline;
     float: left;
-    padding: 25px 0;
+    padding: 10px 0;
 }
 
 #mu-slider .mu-slider-single .mu-slider-img {
@@ -68,5 +59,9 @@ body {
 
 .bg_white {
     background-color: white;
+}
+
+.mu-footer-bottom-area p {
+    font-size:12px;
 }
 

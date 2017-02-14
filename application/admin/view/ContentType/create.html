@@ -15,12 +15,15 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="_pid">对应的菜单</label>
+                        <label class="control-label" for="_pid">父类别</label>
                         <div class="controls">
-                            <select class="form-control" name="menu_id" id="_pid">
-                                {volist name="MenuModels" id="MenuModel"}
-                                    <option value="{$MenuModel->id}">{$MenuModel->title}</option>
-                                {/volist}
+                            <select class="form-control" name="pname" id="_pid">
+                            <option value="">根类别</option>
+                                {foreach name="ContentTypeModels" id="_ContentTypeModel"}
+                                    <option value="{$_ContentTypeModel['name']}"><?php 
+                                    for($i = 0; $i < $_ContentTypeModel['_depth']; $i ++) echo '--';
+                                    ?>{$_ContentTypeModel['title']}</option>
+                                {/foreach}
                             </select>
                         </div>
                     </div>

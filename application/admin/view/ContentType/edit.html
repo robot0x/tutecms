@@ -16,12 +16,15 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="_pid">对应的菜单</label>
+                        <label class="control-label" for="_pid">父级类别</label>
                         <div class="controls">
-                            <select class="form-control" name="menu_id" id="_pid">
-                                {volist name="MenuModels" id="_MenuModel"}
-                                    <option value="{$_MenuModel->id}" {eq value="$_MenuModel->id" name="$ContentTypeModel->menu_id"}selected="selected"{/eq}>{$_MenuModel->title}</option>
-                                {/volist}
+                            <select class="form-control" name="pname" id="_pid">
+                                <option value="">根类别</option>
+                                {foreach name="ContentTypeModels" id="_ContentTypeModel"}
+                                    <option value="{$_ContentTypeModel['name']}" {eq value="$_ContentTypeModel['name']" name="$ContentTypeModel['name']"}selected="selected"{/eq}><?php 
+                                    for($i = 0; $i < $_ContentTypeModel['_depth']; $i ++) echo '--';
+                                    ?>{$_ContentTypeModel['title']}</option>
+                                {/foreach}
                             </select>
                         </div>
                     </div>

@@ -1,6 +1,9 @@
 <?php
 namespace app\model;
 
+use app\Common;
+
+
 class ContentTypeModel extends ModelModel
 {
     private $MenuModel = null;                     // 对应的菜单模型
@@ -70,5 +73,29 @@ class ContentTypeModel extends ModelModel
         $map = [];
         $map['menu_id'] = (int)$menuId;
         return self::get($map);
+    }
+
+    /**
+     * 获取菜单类平铺式的树状结果
+     * @return   array                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-13T16:59:19+0800
+     */
+    static public function getContentTypeModelTree() {
+        $map = array("is_delete" => 0);
+        // 获取所有的数据
+        $ContentTypes = $ContenTypeModels = self::all($map);
+
+        // 获取字段数据
+        $datas = [];
+        foreach($ContentTypes as $value) {
+            array_push($datas, $value->getData());
+        }
+
+        // 转化树，再转回来
+        $tree = Common::listToTree($datas, $pk = 'name', $pid = 'pname', $child = '_child', $root = '');
+        $lists = Common::treeToList($tree);
+
+        return $lists;
     }
 }
