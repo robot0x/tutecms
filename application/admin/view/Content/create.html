@@ -18,23 +18,20 @@
                         <label class="control-label" for="_pid">内容类型</label>
                         <div class="controls">
                             <select class="form-control" name="content_type_name" id="_pid">
-                                {volist name="ContentTypeModels" id="_ContentTypeModel"}
-                                    <option value="{$_ContentTypeModel->name}">{$_ContentTypeModel->title}</option>
-                                {/volist}
+                                <option value="">根类别</option>
+                                {foreach name="ContentTypeModels" id="_ContentTypeModel"}
+                                <option value="{$_ContentTypeModel['name']}" {eq name="contentTypeName" value="$_ContentTypeModel['name']" }selected="selected" {/eq}>
+                                    <?php 
+                                    for($i = 0; $i < $_ContentTypeModel['_depth']; $i ++) echo '--';
+                                    ?>{$_ContentTypeModel['title']}</option>
+                                {/foreach}
                             </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="_url">是否冻结</label>
-                         <div class="controls" class="row">
-                             <input type="radio" name="is_freezed" value="1" /> 是&nbsp;&nbsp;&nbsp;&nbsp;
-                             <input type="radio" name="is_freezed" value="0" /> 否
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_weight">权重</label>
                         <div class="controls">
-                            <input type="text" name="weight" id="_weight" />
+                            <input type="text" name="weight" id="_weight" value="0"/>
                         </div>
                     </div>
                     <div class="control-group">

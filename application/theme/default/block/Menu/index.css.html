@@ -1,115 +1,74 @@
 <style type="text/css">
-/* Menu General Styles */
-
-.menuBackground {
-    background: brown;
+#main_menu {
+    background: #31429b;
+    border-radius: 0px;
+    margin-bottom: 0px;
+    border:none;
 }
-
-.dropDownMenu a {
-    color: red;
-}
-
-.dropDownMenu,
-.dropDownMenu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.dropDownMenu li {
+/*level 1 **/
+#main_menu ul li{
+    display: inline-block;
     position: relative;
 }
 
-.dropDownMenu a {
-    padding: 10px 20px;
-    display: block;
+#main_menu ul li:first-child{
+    margin-left:20px;
+}
+
+#main_menu ul li ul li:first-child{
+    margin-left:0px;
+}
+
+#main_menu ul li a{
+    color: white;
+    display:block;
+    font-size: 20px;
     text-decoration: none;
+    font-weight: bold;
+    line-height: 40px;
+    padding-left:20px;
+    padding-right:20px;
 }
 
-.dropDownMenu a:hover {
-    background: #FFB300;
+#main_menu ul li a:hover{
+    color: #B8C4CC;
+    background-color:#2F67B2;
 }
 
-
-/* Level 1 Drop Down Menu */
-
-.dropDownMenu > li {
-    vertical-align: top;
-    margin-left: -4px;
-    /* solve the 4 pixels spacing between list-items */
+#main_menu ul li:hover > ul{
+    display: block;
 }
 
-.dropDownMenu > li:first-child {
-    margin-left: 0;
+/** level 2 */
+#main_menu ul li ul {
+    display:none;
+    margin:0px;
 }
 
-.dropDownMenu > li > a {}
-
-.dropDownMenu > li > a:hover {
-    background: #21470D;
+#main_menu ul li ul li{
+    margin:0px;
+    min-width: 150px;
+    border-bottom: 1px dotted #ccc;
 }
 
+#main_menu ul li ul li a{
+    color: black;
 
-/* Level 2 */
-
-.dropDownMenu > li > ul {
-    text-align: left;
-    width: 133px;
-    /* change auto value with 200px if you want a bigger menu */
-    display: none;
-    background: #2F67B2;
+}
+#main_menu ul li ul{
     position: absolute;
-    padding-right: 0px;
     top: 100%;
     left: 0;
     z-index: 9999999;
-    /* if you have YouTube iframes, is good to have a bigger z-index so the video can appear above the video */
-    text-align: center
+    background-color: white;
 }
 
-.dropDownMenu > li:hover > ul {
-    display: block;
-}
-
-.dropDownMenu ul li a {}
-
-.dropDownMenu ul li a:hover {}
-
-
-/* Level 3 */
-
-.dropDownMenu > li > ul > li > ul {
-    text-align: center;
-    display: none;
-    background: #530FAD;
+/** level3  */
+#main_menu ul li ul li ul{
     position: absolute;
     left: 100%;
     top: 0;
     z-index: 9999999;
-    width: 130px;
-}
-
-.dropDownMenu > li > ul > li:hover > ul {
-    display: block;
-}
-
-.dropDownMenu ul ul li {}
-
-.dropDownMenu ul ul li a {}
-
-.dropDownMenu ul ul li a:hover {}
-
-#menu a {
-    color: white;
-    display: block;
-    padding: 6px 0px;
-    font-size: 20px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-#menu a:hover {
-    color: #B8C4CC;
-    background-color:#2F67B2;
+    background-color: white;
 }
 </style>

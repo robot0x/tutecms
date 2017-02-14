@@ -27,9 +27,8 @@ class ContentController extends AdminController
     {
         //取出内容类型
         $map = array('is_delete' => 0);
-        $ContentTypeModel  = new ContentTypeModel;
-        $ContentTypeModels = $ContentTypeModel->where($map)->select();
-        $this->assign('ContentTypeModels', $ContentTypeModels);
+        
+        $this->getAndassignContentTypeTree();
         return $this->fetch('Content/create');
     }
 
@@ -39,7 +38,7 @@ class ContentController extends AdminController
         $ContentModel = new ContentModel;
         $ContentModel->setData('title', $data['title']);
         $ContentModel->setData('content_type_name', $data['content_type_name']);
-        $ContentModel->setData('is_freezed', $data['is_freezed']);
+        // $ContentModel->setData('is_freezed', $data['is_freezed']);
         $ContentModel->setData('weight', $data['weight']);
 
         //验证并保存
@@ -111,6 +110,6 @@ class ContentController extends AdminController
         $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
         $this->assign('ContentTypeModels', $ContentTypeModels);
 
-        $this->assign('currentContentTypeName', $this->request->param('contentTypeName'));
+        $this->assign('contentTypeName', $this->request->param('contentTypeName'));
     }
 }

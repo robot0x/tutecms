@@ -15,7 +15,6 @@
                             <th>名称</th>
                             <th>机读字段</th>
                             <th>权重</th>
-                            <th>描述</th>
                             <th class="td-actions">操作</th>
                         </tr>
                     </thead>
@@ -27,10 +26,9 @@
                                     ?>{$_ContentTypeModel['title']}</td>
                             <td>{$_ContentTypeModel['name']}</td>
                             <td>{$_ContentTypeModel['weight']}</td>
-                            <td>{$_ContentTypeModel['description']}</td>
                             <td class="td-actions">
                                 <a href="{:url('read?name=' . $_ContentTypeModel['name'])}" class="btn btn-small btn-info">
-                                    <i class="btn-icon-only icon-ok"></i> 查看
+                                    <i class="btn-icon-only icon-ok"></i> 管理新闻
                                 </a>
                                 <a href="{:url('edit?name=' . $_ContentTypeModel['name'])}" class="btn btn-small btn-info">
                                     <i class="btn-icon-only icon-edit"></i> 编辑
