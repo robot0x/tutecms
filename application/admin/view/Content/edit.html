@@ -20,16 +20,18 @@
                         <div class="controls">
                             <select class="form-control" name="content_type_name" id="_pid">
                                 {volist name="ContentTypeModels" id="_ContentTypeModel"}
-                                    <option value="{$_ContentTypeModel->name}" {eq value="$ContentModel->content_type_name" name="$_ContentTypeModel->name"} selected="selected"{/eq}>{$_ContentTypeModel->title}</option>
+                                <option value="{$_ContentTypeModel->name}" {eq value="$ContentModel->content_type_name" name="$_ContentTypeModel->name" } selected="selected" {/eq}>{$_ContentTypeModel->title}</option>
                                 {/volist}
                             </select>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_url">是否冻结</label>
-                         <div class="controls" class="row">
-                             <input type="radio" name="is_freezed" value="1" {eq value="1" name="$ContentModel->getData('is_freezed')" }checked="checked"{/eq} /> 是&nbsp;&nbsp;&nbsp;&nbsp;
-                             <input type="radio" name="is_freezed" value="0" {eq value="0" name="$ContentModel->getData('is_freezed')" }checked="checked"{/eq} /> 否
+                        <div class="controls" class="row">
+                            <label>
+                                <input type="radio" name="is_freezed" value="1" {eq value="1" name="$ContentModel->getData('is_freezed')" }checked="checked" {/eq} /> 是</label>
+                            <label>
+                                <input type="radio" name="is_freezed" value="0" {eq value="0" name="$ContentModel->getData('is_freezed')" }checked="checked" {/eq} /> 否</label>
                         </div>
                     </div>
                     <div class="control-group">

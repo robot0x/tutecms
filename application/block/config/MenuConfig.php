@@ -11,4 +11,9 @@ return [
         'value' => 'cssmenu',
         'title' => '菜单ID前缀',
     ],
+
+    'count' => [
+        'value' => '5',
+        'title' => '显示一级菜单的数量',
+    ],
 ];

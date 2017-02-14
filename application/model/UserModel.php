@@ -12,7 +12,7 @@ class UserModel extends ModelModel
     private $UserGroupModel = null;           // 用户组
 
     protected $pk = 'id';
-    protected $data = ['user_group_name' => 'public'];
+    protected $data = ['user_group_name' => 'public', 'name' => '匿名'];
 
     public function UserGroupModel()
     {

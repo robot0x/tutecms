@@ -1,34 +1,34 @@
-<div class="container-fluid">
-    <div class="row" id="menu">
-        <div class="col-md-2 col-md-offset-1 text-center">
-            <a href="./">首页</a>
-        </div>
-        <div class="col-md-2 text-center">
-            <a href="./news.html">学院概况</a>
-        </div>
-        <div class="col-md-2 text-center">
-            <a href="./aboutus.html">学院新闻</a>
-        </div>
-        <div class="col-md-2 text-center">
-            <ul class="dropDownMenu">
-                <li><a href="#">人才培养</a>
+<!-- Start menu -->
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <nav id="main_menu">
+            <ul class="">
+                {volist name="menuModels" id="menuModel" key="index"} {eq name="menuModel->isHaveAvailableSonMenus()" value="1"}
+                <li class="{eq name="menuModel->isActive()" value="1"}active"{/eq} {gt name="index" value="8"}hidden-md{/gt}" > {eq name="menuModel->isHaveAvailableSonMenus()" value="1"}
+                    <a href="javascript:void(0);"><span>{$menuModel->title}</span></a>
                     <ul>
-                        <li><a href="#">校园招聘</a></li>
-                        <li><a href="#">本科生</a>
+                        {volist name="menuModel->getAvailableSonMenuModels()" id="sonMenuModel"}
+                        <li class="has-sub">
+                            {eq name="sonMenuModel->isHaveAvailableSonMenus()" value="1"}
+                            <a href="javascript:void(0);"><span>{$sonMenuModel->title}</span></a>
                             <ul>
-                                <li><a href="#">本科生</a></li>
-                                <li><a href="#">本科生</a></li>
-                                <li><a href="#">本科生</a></li>
+                                {volist name="sonMenuModel->getAvailableSonMenuModels()" id="_sonMenuModel"}
+                                <li><a href="{:url('@' . $_sonMenuModel->url)}"><span>{$_sonMenuModel->title}</span></a></li>
+                                {/volist}
                             </ul>
+                            {else /}
+                            <a href="{:url('@' . $sonMenuModel->url)}"><span>{$sonMenuModel->title}</span></a> {/eq}
                         </li>
-                        <li><a href="#">本科生</a></li>
-                        <li><a href="#">本科生</a></li>
+                        {/volist}
                     </ul>
+                    {else /}
+                    <a href="{:url('@' . $menuModel->url)}"><span>{$index}{$menuModel->title}</span></a> {/eq}
                 </li>
+                {else /}
+                <li class="{eq name="menuModel->isActive()" value="1" }active {/eq} {gt name="index" value="8"}hidden-md{/gt}"><a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</a></span>
+                </li>
+                {/eq} {/volist}
             </ul>
-        </div>
-        <div class="col-md-2 text-center">
-            <a href="#">科技新闻</a>
-        </div>
+        </nav>
     </div>
 </div>
