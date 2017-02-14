@@ -13,7 +13,6 @@
                     <thead>
                         <tr>
                             <th>名称</th>
-                            <th>对应的菜单</th>
                             <th>机读字段</th>
                             <th>权重</th>
                             <th>描述</th>
@@ -23,19 +22,20 @@
                     <tbody>
                         {volist name="ContentTypeModels" id="_ContentTypeModel"}
                         <tr>
-                            <td>{$_ContentTypeModel->title}</td>
-                            <td>{$_ContentTypeModel->getMenu($_ContentTypeModel->menu_id)->title}</td>
-                            <td>{$_ContentTypeModel->name}</td>
-                            <td>{$_ContentTypeModel->weight}</td>
-                            <td>{$_ContentTypeModel->description}</td>
+                            <td><?php 
+                                    for($i = 0; $i < $_ContentTypeModel['_depth']; $i ++) echo '----';
+                                    ?>{$_ContentTypeModel['title']}</td>
+                            <td>{$_ContentTypeModel['name']}</td>
+                            <td>{$_ContentTypeModel['weight']}</td>
+                            <td>{$_ContentTypeModel['description']}</td>
                             <td class="td-actions">
-                                <a href="{:url('read?name=' . $_ContentTypeModel->name)}" class="btn btn-small btn-info">
+                                <a href="{:url('read?name=' . $_ContentTypeModel['name'])}" class="btn btn-small btn-info">
                                     <i class="btn-icon-only icon-ok"></i> 查看
                                 </a>
-                                <a href="{:url('edit?name=' . $_ContentTypeModel->name)}" class="btn btn-small btn-info">
+                                <a href="{:url('edit?name=' . $_ContentTypeModel['name'])}" class="btn btn-small btn-info">
                                     <i class="btn-icon-only icon-edit"></i> 编辑
                                 </a>
-                                <a href="{:url('delete?name=' . $_ContentTypeModel->name)}" class="btn btn-small btn-danger">
+                                <a href="{:url('delete?name=' . $_ContentTypeModel['name'])}" class="btn btn-small btn-danger">
                                     <i class="btn-icon-only icon-remove"></i> 删除
                                 </a>
                             </td>

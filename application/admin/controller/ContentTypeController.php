@@ -8,11 +8,10 @@ class ContentTypeController extends AdminController
 {
     public function indexAction()
     {
-        $ContentTypeModel = new ContentTypeModel;
-        $map = array('is_delete' => 0);
-
-        $ContentTypeModels =$ContentTypeModel->where($map)->paginate();
+        //取出所有的菜单树
+        $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
         $this->assign('ContentTypeModels', $ContentTypeModels);
+
         return $this->fetch('ContentType/index');
     }
 
@@ -65,7 +64,7 @@ class ContentTypeController extends AdminController
         $ContentTypeModel = ContentTypeModel::get($name);
         $this->assign('ContentTypeModel', $ContentTypeModel);
 
-        //取出所有的菜单
+        //取出所有的菜单树
         $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
         $this->assign('ContentTypeModels', $ContentTypeModels);
         
