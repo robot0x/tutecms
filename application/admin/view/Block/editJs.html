@@ -1,0 +1,52 @@
+<script type="text/javascript">
+    app.controller('blockEdit', function($scope) {
+        var MenuModels = [
+            {foreach name="MenuModels" id="_MenuModel"}
+            {
+                id:{$_MenuModel->id}, 
+                isShow: {eq name="BlockModel->checkIsShow($_MenuModel)" value="true" }true{else /}false{/eq},
+                title: '{$_MenuModel->title}',
+                depth: {$_MenuModel->getDepth()}
+            },
+            {/foreach}
+        ];
+
+        var checkAllStatus = true;
+        var checkAll = function () {
+
+            angular.forEach(MenuModels, function(value, key) {
+                MenuModels[key].isShow = checkAllStatus;
+            });
+            checkAllStatus = !checkAllStatus;
+        };
+
+        $scope.MenuModels = MenuModels;
+        $scope.checkAll = checkAll;
+                                    
+    });
+
+
+/**
+ * @ngdoc filter
+ * @name webAppApp.filter:sexFilter
+ * @function
+ * @description
+ * # sexFilter
+ * Filter in the webAppApp.
+ */
+    app.filter('depthFilter', function() {
+        var getTitleByDepth = function(input, depth) {
+            var i = 0;
+            var prefix = '';
+            for (i=0; i <depth; i++) {
+                prefix += '|----';
+            }
+            return prefix + input;
+        };
+        
+        return function(input, depth) {
+            return getTitleByDepth(input, depth);
+        };
+    });
+
+</script>
