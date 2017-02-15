@@ -8,6 +8,8 @@ use app\model\PositionModel;                            // 位置
 use app\model\AccessUserGroupBlockModel;                // 权限：用户组-区块
 use app\model\AccessMenuBlockModel;                     // 权限：菜单-区块
 
+use app\Common;
+
 class BlockController extends AdminController
 {
     public function indexAction()
@@ -38,9 +40,10 @@ class BlockController extends AdminController
         $PositionModels = PositionModel::where($map)->select();
         $this->assign('PositionModels', $PositionModels);
 
-        $MenuModels = MenuModel::getTreeList(0, 2);
+        $MenuModels = MenuModel::getTreeList(0, 3);
         $this->assign('MenuModels', $MenuModels);
-        return $this->fetch();
+
+        return $this->fetch() . $this->fetch('editJs');
     }
 
     public function updateAction($id)

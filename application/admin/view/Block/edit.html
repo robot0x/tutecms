@@ -1,5 +1,5 @@
 {layout name="index" /}
-<div class="row">
+<div class="row" ng-controller="blockEdit">
     <div class="span16">
         <div class="box pattern pattern-sandstone">
             <div class="box-header">
@@ -65,24 +65,14 @@
                                 </div>
                                 <div>
                                     <label for="">对哪些菜单显示</label>
+                                    <label><input type="checkbox" ng-click="checkAll()"/>全选/返选</label>
                                     <ul>
-                                        {foreach name="MenuModels" id="_MenuModel"}
-                                        
-                                        <li>
-                                           
-                                            <label> 
-                                            <input type="checkbox" name="menuids[{$_MenuModel->id}]" {eq name="BlockModel->checkIsShow($_MenuModel)" value="true" } checked="checked" {/eq} />
-                                            <?php
-                                                for ($depth = 0; $depth < $_MenuModel->getDepth(); $depth++)
-                                                {
-                                                  echo '|--';
-                                                }
-                                            ?>
-                                            {$_MenuModel->title}
-                                            </label>
+                                        <li ng-repeat="(key, MenuModel) in MenuModels">
+                                        <label><input type="checkbox" name="menuids[{{MenuModel.id}}]" ng-checked="MenuModel.isShow"/> {{MenuModel.title | depthFilter:MenuModel.depth}}
+                                        </label>
                                         </li>
-                                        {/foreach}
                                     </ul>
+                                    
                                 </div>
                                 <div>
                                     <label for="">对哪些用户组可见</label>
