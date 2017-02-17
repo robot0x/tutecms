@@ -256,4 +256,13 @@ class ContentModel extends ModelModel
         }
         return $result;
     }
+
+    /**
+     * 点击数加1
+     */
+    public function addHits() {
+        $this->setData('hit', $this->data['hit'] + 1);
+        $this->save();
+        return $this;
+    }
 }

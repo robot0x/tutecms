@@ -17,7 +17,16 @@ class FieldDataBodyModel extends FieldModel
      */
     static public function updateList($fieldId, $keyId, $value)
     {
+        // 获取对象信息
         $Object = self::get(['field_id' => $fieldId, 'key_id' => $keyId]);
+
+        // 如果为第一次添加数据，则进行初始化
+        if ('' === $Object->getData('field_id')) {
+            $Object = new self;
+            $Object->setData('field_id', $fieldId);
+            $Object->setData('key_id', $keyId);
+        }
+
         $Object->setData('value', $value);
         return $Object->save();
     }

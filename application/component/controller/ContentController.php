@@ -53,6 +53,7 @@ class ContentController extends ComponentController
 
     public function indexAction()
     {
+        $this->ContentModel->addHits();
         $this->assign('ContentModel', $this->ContentModel);
         return $this->fetch();
     }
