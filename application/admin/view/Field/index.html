@@ -23,7 +23,7 @@
                             <td>{$_FieldModel->relate_type}</td>
                             <td>{$_FieldModel->relate_value}</td>
                             <td class="td-actions">
-                                <a href="{:url('read?relate_value=' . $_FieldModel->relate_value)}" class="btn btn-small btn-info">
+                                <a href="{:url('read?relateValue=' . $_FieldModel->relate_value . '&relateType=' . $_FieldModel->relate_type)}" class="btn btn-small btn-info">
                                     <i class="btn-icon-only icon-ok"></i> 查看
                                 </a>
                             </td>

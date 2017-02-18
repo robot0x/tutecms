@@ -3,6 +3,7 @@ namespace app\admin\controller;
 use app\model\ContentTypeModel;                // 类别
 use app\model\ContentModel;                    //内容类型
 use app\model\MenuModel;                       //菜单
+use app\model\FieldModel;                       // 字段
 
 class ContentTypeController extends AdminController
 {
@@ -60,11 +61,11 @@ class ContentTypeController extends AdminController
      */
     public function editAction($name)
     {
-        //当前内容类型
+        // 当前内容类型
         $ContentTypeModel = ContentTypeModel::get($name);
         $this->assign('ContentTypeModel', $ContentTypeModel);
 
-        //取出所有的菜单树
+        // 取出所有的 内容类别 树
         $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
         $this->assign('ContentTypeModels', $ContentTypeModels);
         
@@ -111,7 +112,7 @@ class ContentTypeController extends AdminController
 
         //返回模板
         return $this->fetch('ContentType/create');
-    }
+    }  
 
     /**
      * 保存信息

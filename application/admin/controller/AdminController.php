@@ -8,6 +8,7 @@ use think\Session;
 class AdminController extends Controller
 {
     protected $currentUserModel = null;
+    protected $backUrl = null;
 
     /**
      * 后台模块统一加登录验证
@@ -17,6 +18,12 @@ class AdminController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        // 将请求信及当URL信息息传入V层
+        $this->assign('Request', Request::instance());
+        $this->assign('url', urlencode(Request::instance()->url()));
+        $this->backUrl = Request::instance()->param('backUrl');
+        $this->assign('backUrl', urlencode($this->backUrl));
 
         //获取用户登录时间
         $loginTime = session('loginTime');

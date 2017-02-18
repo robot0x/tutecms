@@ -1,0 +1,20 @@
+{layout name="index" /}
+<div class="row">
+    <form method="post" action="{:url($submitAction)}?backUrl={$backUrl}">
+    <input type="hidden" name="id" value="{$FieldModel->getData('id')}" />
+    标题:<input name="title" type="text" value="{$FieldModel->getData('title')}" /> 
+    <br />
+    字段类型:<select name="field_type_name">
+        {volist name="$FieldModel->FieldTypeModel()->all()" id="_FieldTypeModel"}
+            <option value="{$_FieldTypeModel->getData('name')}" {eq name="_FieldTypeModel->getData('name')" value="$FieldModel->FieldTypeModel()->getData('name')"}selected="selected"{/eq}>{$_FieldTypeModel->getData('title')}</option>
+        {/volist}
+    </select>
+    <br />
+    <input type="hidden" name="relate_type" value="{:input('relateType')}" />
+    <input type="hidden" name="relate_value" value="{:input('relateValue')}" />
+    权重: <input type="text" name="weight" value="{$FieldModel->getData('weight')}" />
+    <br />
+    配置信息：
+    <button type="submit">submit</button>
+    </form>
+</div>
