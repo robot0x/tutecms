@@ -17,7 +17,7 @@ class Yz extends Taglib
     protected $tags = [
         // 标签定义： attr 属性列表 close 是否闭合（0自闭合 或者1非自闭合（要有另一半） 默认1） alias 标签别名 level 嵌套层次
         'block'         => ['attr' => 'position', 'close' => 0],
-        'plugin'        => ['attr' => 'position,object', 'close' => 0],
+        'plugin'        => ['attr' => 'position,action,object', 'close' => 0],
         'access'        => ['attr' => 'action', 'close' => 1],
         'url'           => ['attr' => 'action,menu_id,menu_id,append_query_string', 'close' => 0],
         'filter'        => ['attr' => 'input,class,function', 'close' => 0],
@@ -53,14 +53,15 @@ class Yz extends Taglib
     {
         $position   = !empty($tag['position']) ? $tag['position'] : '';
         $object     = !empty($tag['object']) ? $tag['object'] : '';
+        $action     = !empty($tag['action']) ? $tag['action'] : 'index';
 
         $parseStr = '<?php ';
         if (empty($object))
         {
-            $parseStr .= 'call_user_func("app\plugin\controller\PluginController::init", "' . $position . '");';
-        } else {
-            $parseStr .= 'call_user_func_array("app\plugin\controller\PluginController::init", ["' . $position . '", $' . $object . ']);';
+            $object = 'ContentModel';
         }
+         
+        $parseStr .= 'call_user_func_array("app\plugin\controller\PluginController::init", ["' . $position . '", "' . $action .'", $' . $object . ']);';
         
         $parseStr .= ' ?>';
         return $parseStr; 

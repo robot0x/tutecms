@@ -48,7 +48,7 @@ class PluginController extends AdminController
 		$MenuModels = MenuModel::getTreeList(0, 2);
         $this->assign('MenuModels', $MenuModels);
         
-		return $this->fetch();
+		return $this->fetch() . $this->fetch('editJs');
 	}
 
 	public function updateAction($id)
@@ -97,11 +97,14 @@ class PluginController extends AdminController
 
 		$datas = array();
 		if (array_key_exists('usergroupname', $param)) {
-			foreach ($param['usergroupname'] as $key => $value) {
+			foreach ($param['usergroupname'] as $userGroupName => $actions) {
 				$data = array();
 				$data['plugin_id'] = $id;
-				$data['user_group_name'] = $key;
-				array_push($datas, $data);
+				$data['user_group_name'] = $userGroupName;
+				foreach ($actions as $action => $value) {
+					$data['action'] = $action;
+					array_push($datas, $data);
+				}
 			}
 
 			$AccessUserGroupPluginModel->saveAll($datas);
@@ -121,8 +124,8 @@ class PluginController extends AdminController
 		$this->assign('UserGroupModels', $UserGroupModels);
 
 		//将菜单信息传入
-		$MenuModels = MenuModel::all();
-		$this->assign('MenuModels', $MenuModels);
+		$MenuModels = MenuModel::getTreeList(0, 3);
+        $this->assign('MenuModels', $MenuModels);
 
 		//取出type为plugin的position传入
 		$PositionModel = new PositionModel;

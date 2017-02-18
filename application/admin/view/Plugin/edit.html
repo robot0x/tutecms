@@ -1,5 +1,5 @@
 {layout name="index" /}
-<div class="row">
+<div class="row" ng-controller="pluginEdit">
     <div class="span16">
         <div class="box pattern pattern-sandstone">
             <div class="box-header">
@@ -58,36 +58,32 @@
                                     </ol>
                                 </div>
                                 <div>
-                                    <label for="">过滤器信息</label>
-                                    <ol>
-                                        {foreach name="$PluginModel->getFilterModels()" key="key" id="_FilterModel"} {include file="../editFilter" /} {/foreach}
-                                    </ol>
-                                </div>
-                                <div>
                                     <label for="">对哪些菜单显示</label>
+                                    <label><input type="checkbox" ng-click="checkAll()"/>全选/返选</label>
                                     <ul>
-                                        {foreach name="MenuModels" id="_MenuModel"}
-                                        <input type="checkbox" name="menuids[{$_MenuModel->id}]" {eq name="PluginModel->checkIsShow($_MenuModel)" value="true" } checked="checked" {/eq} />
-                                        <li>
-                                            <?php
-                                               for ($depth = 0; $depth < $_MenuModel->getDepth(); $depth++)
-                                              {
-                                                  echo '|--';
-                                              }
-                                          ?>
-                                                {$_MenuModel->title}
+                                        <li ng-repeat="(key, MenuModel) in MenuModels">
+                                        <label><input type="checkbox" name="menuids[{{MenuModel.id}}]" ng-checked="MenuModel.isShow"/> {{MenuModel.title | depthFilter:MenuModel.depth}}
+                                        </label>
                                         </li>
-                                        {/foreach}
                                     </ul>
+                                    
                                 </div>
                                 <div>
                                     <label for="">对哪些用户组可见</label>
                                     <ul>
                                         {foreach name="UserGroupModels" id="_UserGroupModel"}
-                                        <input type="checkbox" name="usergroupname[{$_UserGroupModel->getData('name')}]" {eq name="PluginModel->checkIsHave($_UserGroupModel)" value="true" }checked="checked" {/eq} />
                                         <li>
-                                            {$_UserGroupModel->title}
+                                        {$_UserGroupModel->title}
+                                        {volist name="PluginModel->getRoute()" id="_route"}
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                <input type="checkbox" name="usergroupname[{$_UserGroupModel->getData('name')}][{$_route['action']}]" {eq name="_UserGroupModel->isAllowedByPluginModelActionForView($PluginModel, $_route['action'])" value="true" }checked="checked"{/eq}>
+                                                {$_route['title']}</label>
+                                            </li>
+                                        </ul>
                                         </li>
+                                        {/volist}
                                         {/foreach}
                                     </ul>
                                 </div>

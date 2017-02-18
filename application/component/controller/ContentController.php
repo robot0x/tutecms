@@ -7,6 +7,7 @@ use app\Common;
 use app\model\ContentModel;                 // 文章
 use app\model\CategoryModel;                // 类别
 use app\model\FieldModel;                   // 扩展字段类别
+use app\model\PluginModel;                  // 插件
 
 
 class ContentController extends ComponentController
@@ -45,6 +46,11 @@ class ContentController extends ComponentController
         // 更新扩展数据字段
         if (isset($data['field_'])) {
             FieldModel::updateLists($data['field_'], $this->ContentModel->getData('id'));
+        }
+
+        // 更新插件信息
+        if (isset($data['_plugin_'])) {
+            PluginModel::initi($this->ContentModel, $data['_plugin_'], 'save');
         }
 
         // 成功返回

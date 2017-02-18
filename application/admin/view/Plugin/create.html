@@ -46,36 +46,6 @@
                                     <label for="">权重</label>
                                     <input type="text" name="weight" />
                                 </div>
-                               
-                                
-                                <div>
-                                    <label for="">对哪些菜单显示</label>
-                                    <ul>
-                                        {foreach name="MenuModels" id="_MenuModel"}
-                                        <input type="checkbox" name="menuids[{$_MenuModel->id}]"/>
-                                        <li>
-                                            <?php
-                                               for ($depth = 0; $depth < $_MenuModel->getDepth(); $depth++)
-                                              {
-                                                  echo '|--';
-                                              }
-                                          ?>
-                                                {$_MenuModel->title}
-                                        </li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
-                                <div>
-                                    <label for="">对哪些用户组可见</label>
-                                    <ul>
-                                        {foreach name="UserGroupModels" id="_UserGroupModel"}
-                                        <input type="checkbox" name="usergroupname[{$_UserGroupModel->getData('name')}]">
-                                        <li>
-                                            {$_UserGroupModel->title}
-                                        </li>
-                                        {/foreach}
-                                    </ul>
-                                </div>
                                 <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
                             </form>
                         </div>

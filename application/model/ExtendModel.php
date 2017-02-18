@@ -12,6 +12,7 @@ class ExtendModel {
         } else if ($extendType === 'block') {
             $model = BlockTypeModel::get($map);
         } else if ($extendType === 'plugin') {
+            echo 'hi';
             $model = PluginTypeModel::get($map);
         } else if ($extendType === 'theme') {
             $model = ThemeModel::get($map);

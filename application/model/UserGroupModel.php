@@ -54,6 +54,31 @@ class UserGroupModel extends ModelModel
         }       
     }
 
+    public function isAllowedByPluginModelAction(PluginModel &$PluginModel, $action) {
+        //查找是否存在当前权限值
+        $map = [];
+        $map['plugin_id']       = $PluginModel->getData('id');
+        $map['user_group_name'] = $this->getData('name');
+        $map['action']          = $action;
+        $AccessUserGroupPluginModel = AccessUserGroupPluginModel::get($map);
+        
+        if ('' !== $AccessUserGroupPluginModel->getData('plugin_id')) {
+            //返回非默认值有权限
+            return false;
+        } else {
+            return true;
+        }   
+    }
+
+    public function isAllowedByPluginModelActionForView(PluginModel &$PluginModel, $action) {
+        if ($this->isAllowedByPluginModelAction($PluginModel, $action)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+
     /**
      * 是否当前菜单的的 列表(10000) 权限
      * @param  MenuModel &$MenuModel 菜单
