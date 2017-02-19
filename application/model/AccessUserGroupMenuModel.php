@@ -51,7 +51,7 @@ class AccessUserGroupMenuModel extends ModelModel
         // 取出所有的用户组信息
         $userGroupModels = UserGroupModel::all(['is_delete' => 0]);
 
-        // 使用 用户组信息与action信息，拼接二维数组，并在接拼过程中，去除传groupsActions已存在的信息
+        // 使用 用户组信息与action信息，拼接二维数组，并在接拼过程中，去除 groupsActions 已存在的键值
         $accesses = [];
         foreach ($userGroupModels as $_userGroupModel) {
             $groupName = $_userGroupModel->getData('name');
@@ -66,5 +66,6 @@ class AccessUserGroupMenuModel extends ModelModel
 
         // 保存
         $self = new self();
+        $self->saveAll($accesses);
     }
 }
