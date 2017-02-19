@@ -9,7 +9,7 @@ body {
 .main {
     background-image: url(./../image/bg01.jpg);
     background-repeat: repeat;
-    padding: 20px 0px;
+    padding: 20px 15px;
 }
 
 /* 首页 */
@@ -129,5 +129,26 @@ body {
 
 .mu-footer-bottom-area p {
     font-size:12px;
+}
+
+/** 正文下方的说明文字 */
+.mu-meta {
+    color: #555;
+}
+
+
+/* blog列表 */
+.blog-container img {
+    width: 100%;
+}
+
+.blog-container {
+    padding: 0px 15px;
+}
+
+.blog-container article {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ccc;
 }
 

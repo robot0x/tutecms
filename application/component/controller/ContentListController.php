@@ -82,6 +82,11 @@ class ContentListController extends ComponentController
             FieldModel::updateLists($data['field_'], $ContentModel->getData('id'));
         }
 
+        // 更新插件信息
+        if (isset($data['_plugin_'])) {
+            PluginModel::initi($this->ContentModel, $data['_plugin_'], 'save');
+        }
+
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
     }

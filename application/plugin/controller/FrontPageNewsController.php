@@ -14,7 +14,16 @@ class FrontPageNewsController extends PluginController
         return $this->fetch();
     }
 
+    /**
+     * 编辑 
+     * @param    ContentModel             $ContentModel 上下文
+     * @return   html                                 
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-18T19:35:26+0800
+     */
     public function edit(ContentModel $ContentModel) {
+        $map = ['content_id' => $ContentModel->getData('id')];
+        $this->assign('PluginDataFrontPageNewsModel', PluginDataFrontPageNewsModel::get($map));
         // 取V层
         return $this->fetch();
     }

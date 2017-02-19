@@ -6,7 +6,7 @@
             {volist name="MenuModels" key="key" id="menuModel"}
             <li><a href="{:url('@' . $menuModel->url)}">{$menuModel->title}</a></li>
             {/volist}
-            <li><a href="{:url('@'.$currentMenuModel->url)}" class="active">{$currentMenuModel->title}</a></li>
+            <li class="active"><a href="{:url('@' . $currentMenuModel->url)}">{$currentMenuModel->title}</a></li>
         </ol>
     </div>
 </section>
