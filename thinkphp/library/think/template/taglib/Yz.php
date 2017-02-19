@@ -19,8 +19,8 @@ class Yz extends Taglib
         'block'         => ['attr' => 'position', 'close' => 0],
         'plugin'        => ['attr' => 'position,action,object', 'close' => 0],
         'access'        => ['attr' => 'action', 'close' => 1],
-        'url'           => ['attr' => 'action,menu_id,menu_id,append_query_string', 'close' => 0],
-        'filter'        => ['attr' => 'input,class,function', 'close' => 0],
+        'url'           => ['attr' => 'action,menu_id,append_query_string', 'close' => 0],
+        'filter'        => ['attr' => 'name,package,function', 'close' => 0],
     ];
 
     /**
@@ -163,25 +163,33 @@ class Yz extends Taglib
     {
 
         // 获取参数
-        $input     = !empty($tag['input']) ? $tag['input'] : null;          // 输入
-        $class     = !empty($tag['class']) ? $tag['class'] : null;          // 类名
+        $name     = !empty($tag['name']) ? $tag['name'] : null;          // 输入
+        $package   = !empty($tag['package']) ? $tag['package'] : null;          // 类名
         $function  = !empty($tag['function']) ?  $tag['function'] : '';     // 方法名
-        $param     = !empty($tag['param']) ? $tag['param'] : '';            // 传入参数
+        $param     = !empty($tag['param']) ? $tag['param'] : '[]';            // 传入参数
+        if (null === $package) {
+            throw new \Exception("未接收到package", 1);
+        }
+
+        if (null === $function) {
+            throw new \Exception("未接收到function", 1);
+            
+        }
 
         $parseStr = '<?php ';
-        $parseStr .= 'echo app\filter\\' . $class . '::' . $function . '(';
+        $parseStr .= 'echo app\filter\\' . $package . '::' . $function . '(';
 
         // 按输入类型是否为 $ 打头的变量进行区分
-        if ('$' === substr($input, 0, 1)) {
-            $parseStr .= $input;
+        if ('$' === substr($name, 0, 1)) {
+            $parseStr .= $name;
         } else {
-            $parseStr .= '"' . $input . '"';
+            $parseStr .= '"' . $name . '"';
         }
         
         $parseStr .= ',';
 
         // 按输入类型是否为 $ 进行区分写入
-        if ('$' === substr($input, 0, 1)) {
+        if ('$' === substr($name, 0, 1)) {
             $parseStr .= $param;
         } else {
             $parseStr .= '"' . $param . '"';
