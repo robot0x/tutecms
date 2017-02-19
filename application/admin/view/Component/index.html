@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {volist name="Components" id="Component"}
+                    {volist name="Components" id="Component"}
                         <tr>
                             <td>{$Component->getData('title')}</td>
                             <td>{$Component->getData('name')}</td>
@@ -32,18 +32,15 @@
                                 <a href="{:url('Component/edit?name=' . $Component->getData('name'))}" class="btn btn-small btn-info">
                                     <i class="btn-icon-only icon-edit"></i> 编辑
                                 </a>
-                                <a href="{:url('field/read?relateValue=' . $Component->getData('name') . '&relateType=component')}" class="btn btn-small btn-info">
-                                    <i class="btn-icon-only icon-edit"></i> 编辑字段
-                                </a>
                                 <a href="{:url('delete?name=' . $Component->getData('name'))}" class="btn btn-small btn-danger">
                                     <i class="btn-icon-only icon-remove"></i>
                                 </a>
                             </td>
                         </tr>
-                        {/volist}
-                        <div style="text-align:right;">
-                            <a href="{:url('create')}" class="btn btn-small btn-primary">新增</a>
-                        </div>
+                    {/volist}
+                    <div style="text-align:right;">
+                        <a href="{:url('create')}" class="btn btn-small btn-primary">新增</a>
+                    </div>
                     </tbody>
                 </table>
                 {$Components->render()}

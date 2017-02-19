@@ -1,8 +1,6 @@
 <?php
 namespace app\model;
 
-use think\Loader;
-
 class ContentModel extends ModelModel
 {
     private $isShowinFrontpage      = null;             // 是否在首页显示
@@ -11,7 +9,6 @@ class ContentModel extends ModelModel
     protected $preContentModel      = null;             // 上一篇文章
     protected $nextContentModel     = null;             // 下一篇文章
     private $FieldXXXXModels        = null;
-    protected $FieldDataXXXModels   = null;             // 文章对应的数据模型
 
     public function __construct($data = []) {
         parent::__construct($data);
@@ -80,64 +77,6 @@ class ContentModel extends ModelModel
         }
 
         throw new \Exception('not found fieldName:' . $name . ' of ContentModel:' . $this->getData('id'), 1);
-    }
-
-    /**
-     * [getFieldXXXModelByName description]
-     * @param    string                  $name 字段名称
-     * @return   Object
-     * @author 梦云智 http://www.mengyunzhi.com
-     * @DateTime 2017-02-19T12:49:38+0800
-     */
-    public function getFieldXXXModelByName($name) {
-        // 首字母大写
-        $name = ucwords(Loader::parseName($name, 1));
-        $class = 'app\model\FieldData' . $name . 'Model';
-        if (class_exists($class)) {
-            $Object = new $class;
-            // 获取当前组件名
-            $component = MenuModel::getCurrentMenuModel()->ComponentModel()->getData('name');
-
-            // 获取FieldId
-            $map = ['relate_type' => 'component', 'relate_value' => $component];
-            $FieldModel = FieldModel::get($map);
-
-            // 获取字段模型
-            $map = ['field_id' => $FieldModel->getData('id'), 'key_id' => $this->getData('id')];
-            $FieldXXXModel = $Object::get($map);
-        } else {
-            throw new \Exception('未能找到与' . $name . '相对应的字段', 1);
-        }
-
-        return $FieldXXXModel;
-    }
-
-    public function FieldDataXXXModels() {
-        if (null === $this->FieldDataXXXModels) {
-            // 获取当前组件名
-            $component = MenuModel::getCurrentMenuModel()->ComponentModel()->getData('name');
-
-            // 获取当前组件对应的所有的字段信息
-            // 获取FieldId
-            $map = ['relate_type' => 'component', 'relate_value' => $component];
-            $FieldModels = FieldModel::all($map);
-
-            $this->FieldDataXXXModels = [];
-            $map = [];
-            $map['key_id'] = $this->getData('id');
-            foreach ($FieldModels as $FieldModel) {
-                $class = 'app\model\FieldData' . ucwords(Loader::parseName($FieldModel->getData('field_type_name'), 1)) . 'Model';
-
-                // 获取字段模型
-                $map['field_id'] = $FieldModel->getData('id');
-                try {
-                    $FieldDataXXXModel = call_user_func_array([$class, 'get'], [$map]);
-                    array_push($this->FieldDataXXXModels, $FieldDataXXXModel);
-                } catch (\Exception $e) {}
-            }
-        }
-
-        return $this->FieldDataXXXModels;
     }
 
     /**

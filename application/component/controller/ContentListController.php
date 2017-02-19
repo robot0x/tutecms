@@ -133,10 +133,8 @@ class ContentListController extends ComponentController
     public function saveAction() {
         $UserModel = UserModel::getCurrentUserModel();
 
-        // 获取数据
+        //将标题信息保存到content表中
         $data = Request::instance()->param();
-
-        // 更新当前新闻信息
         $ContentModel = new ContentModel();
         $ContentModel->setData('title', $data['title']);
         $ContentModel->setData('content_type_name', $this->config['contentTypeName']['value']);
@@ -144,17 +142,31 @@ class ContentListController extends ComponentController
         if (false === $ContentModel->save()) {
             return $this->error($ContentModel->getError());
         }
+        $keyId = $ContentModel->getData('id');
+        //将文章信息保存到ContentFrontpageModel中
+        $ContentFrontpageModel = new ContentFrontpageModel;
+        $ContentFrontpageModel->setData('content_id', $keyId);
+        if (false === $ContentFrontpageModel->save()) {
+            return $this->error($ContentModel->getError());
+        }
 
+        //将内容信息保存到fieldDataBody表中
+        $FieldModel = new FieldModel();
+        $map['relate_value'] = $this->config['contentTypeName']['value'];
+        $fieldId = FieldModel::get($map)->getData('id');
+
+        //将文章信息存放在fieldDataBody中
+        $FieldDataBodyModel = new FieldDataBodyModel;
+        $FieldDataBodyModel->setData('field_id', $fieldId);
+        $FieldDataBodyModel->setData('key_id', $keyId);
+        $FieldDataBodyModel->setData('value', $data['content']);
+        if (false === $FieldDataBodyModel->save()) {
+            return $this->error($FieldDataBodyModel->getError());
+        }
         // 更新扩展数据字段
         if (isset($data['field_'])) {
-            FieldModel::updateLists($data['field_'], $ContentModel->getData('id'));
+            FieldModel::updateLists($data['field_'], $this->ContentModel->getData('id'));
         }
-
-        // 更新插件信息
-        if (isset($data['_plugin_'])) {
-            PluginModel::initi($ContentModel, $data['_plugin_'], 'save');
-        }
-
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
     }

@@ -18,7 +18,7 @@
                         <h4><a href="{:app\\Common::url('/read?id=' . $ContentModel->id)}">{$ContentModel->title}</a></h4>
                         <small><i class="glyphicon glyphicon-time"></i>&nbsp;&nbsp;{:date('Y-m-d', $ContentModel->getData('update_time'))}&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-eye-open"></i>&nbsp;&nbsp;{$ContentModel->getData('hit')}</small>
                         <p>
-                        {yz:filter name="$ContentModel->getFieldXXXModelByName('Body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 98]" /}
+                        {yz:filter name="$ContentModel->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 98]" /}
                         </p>
                     </div>
                 </article>
