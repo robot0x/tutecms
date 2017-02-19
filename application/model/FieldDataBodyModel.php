@@ -6,6 +6,8 @@ use app\Common;
  */
 class FieldDataBodyModel extends FieldModel
 {
+    protected $data = ['field_id' => 0, 'key_id' => 0, 'value' => ''];              // 初始化信息
+    
     /**
      * 更新字段
      * @param    int                   $fieldId 字段ID
@@ -21,7 +23,7 @@ class FieldDataBodyModel extends FieldModel
         $Object = self::get(['field_id' => $fieldId, 'key_id' => $keyId]);
 
         // 如果为第一次添加数据，则进行初始化
-        if ('' === $Object->getData('field_id')) {
+        if (0 === $Object->getData('field_id')) {
             $Object = new self;
             $Object->setData('field_id', $fieldId);
             $Object->setData('key_id', $keyId);

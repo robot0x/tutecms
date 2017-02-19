@@ -20,7 +20,6 @@ class FieldModel extends ModelModel
     private $getDataByKeyId_KeyId = null;
     private $FieldTypeModel = null;             // 字段类型模型
     private $FieldModel = null;
-    protected $data = ['id' => 0, 'weight' => 0, 'title' => ''];              // 初始化关键字
 
     /**
      * 供继承于此类的 子类 使用
