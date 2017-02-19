@@ -6,6 +6,12 @@ use app\Common;
  */
 class FieldDataBodyModel extends FieldModel
 {
+    protected $data = [
+        'field_id'  => 0,
+        'key_id'    => 0,
+        'value'     => ''
+    ];
+    
     /**
      * 更新字段
      * @param    int                   $fieldId 字段ID
