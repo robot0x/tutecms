@@ -4,6 +4,7 @@ use app\model\ContentTypeModel;                // 类别
 use app\model\ContentModel;                    //内容类型
 use app\model\MenuModel;                       //菜单
 use app\model\FieldModel;                       // 字段
+use app\model\FieldTypeModel;                   // 扩展字段类型
 
 class ContentTypeController extends AdminController
 {
@@ -61,6 +62,7 @@ class ContentTypeController extends AdminController
      */
     public function editAction($name)
     {
+
         // 当前内容类型
         $ContentTypeModel = ContentTypeModel::get($name);
         $this->assign('ContentTypeModel', $ContentTypeModel);
@@ -68,7 +70,7 @@ class ContentTypeController extends AdminController
         // 取出所有的 内容类别 树
         $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
         $this->assign('ContentTypeModels', $ContentTypeModels);
-        
+
         return $this->fetch('ContentType/edit');
     }
 
@@ -133,6 +135,23 @@ class ContentTypeController extends AdminController
         if (false === $ContentTypeModel->validate()->save($data)) {
             return $this->error("保存失败,请检查所填的内容正确与完整");
         }
+
+        // 增加两个扩展字段,1 body,2 image
+        $data = [
+            'relate_type' => 'content', 
+            'relate_value' => $ContentTypeModel->getData('name')
+        ];
+
+        $fieldTypeNames = ['body' => '新闻内容', 'image' => '新闻图片'];
+        
+        foreach ($fieldTypeNames as $fieldTypeName => $fieldTypeTitle) {
+            $data['field_type_name']    = $fieldTypeName;
+            $data['title']              = $fieldTypeTitle;
+            $FieldModel                 = new FieldModel; 
+            $FieldModel->isUpdate(false)->save($data);
+            unset($FieldModel);
+        }
+
         return $this->success('保存成功', url('ContentType/index'));
     }
 }
