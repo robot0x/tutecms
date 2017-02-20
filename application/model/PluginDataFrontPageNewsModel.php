@@ -9,7 +9,7 @@ class PluginDataFrontPageNewsModel extends ModelModel
     protected $ContentModel = null;
 
     public function ContentModel() {
-        if (null === $ContentModel) {
+        if (null === $this->ContentModel) {
             $map = ['id' => $this->getData('content_id')];
             $this->ContentModel = ContentModel::get($map);
         }
