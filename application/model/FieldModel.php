@@ -20,6 +20,7 @@ class FieldModel extends ModelModel
     private $getDataByKeyId_KeyId = null;
     private $FieldTypeModel = null;             // 字段类型模型
     private $FieldModel = null;
+    protected $data = ['field_id' => 0, 'key_id' => 0];
 
     /**
      * 供继承于此类的 子类 使用
@@ -137,7 +138,6 @@ class FieldModel extends ModelModel
             $table = 'app\model\\' . Loader::parseName('field_data_' . $this->getData('field_type_name'), 1) . 'Model';
             $FiledDataModel = new $table;
             
-
             $this->getDataByKeyId = $FiledDataModel->get($map);
             // 如果返回默认值，则将field_id, key_id传入。防止关联调用时数据不存在抛出的异常
             if (0 === $this->getDataByKeyId->getData('field_id'))
