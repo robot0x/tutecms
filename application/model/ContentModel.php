@@ -75,7 +75,15 @@ class ContentModel extends ModelModel
                 return $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id'));
             }
         }
-        throw new \Exception('not found fieldName:' . $name . ' of ContentModel:' . $this->getData('id'), 1);
+
+        // 未能遍历到字段，则返回字段类型的默认对象
+        $className = 'app\model\FieldData' . ucwords($name) . 'Model';
+        try {
+            $Object = new $className;
+            return $Object;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
