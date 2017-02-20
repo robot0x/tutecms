@@ -8,7 +8,7 @@ use think\File;
 class FieldDataAttachmentModel extends FieldModel
 {
     private $uploadPath   = null;               // 上传路径
-    private $url          = null;               // URL
+    protected $url        = null;               // URL
     protected $token      = null;               // token 
 
     /**
