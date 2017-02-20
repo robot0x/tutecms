@@ -2,6 +2,7 @@
 namespace app\model;
 use think\Request;
 use think\Url;
+use think\Cache;
 
 use app\Common;
 
@@ -422,13 +423,19 @@ class MenuModel extends ModelModel
         $currentFrontUserGroupModel = $currentFrontUserModel->UserGroupModel();
 
         $map = ['pid' => $pid, 'status' => 0, 'is_hidden' => '0', 'menu_type_name' => $menuTypeName];
-        $MenuModel = new MenuModel;
-        $availableSonMenuModels = $MenuModel->order('weight desc')->where($map)->select();
-        foreach ($availableSonMenuModels as $key => $MenuModel) {
-            if (!$currentFrontUserGroupModel->isIndexAllowedByMenuModel($MenuModel))
-            {
-                unset($availableSonMenuModels[$key]);
+        $hashKey = get_class() . '\getAvailableSonMenuModelsByPidMenuTypeName' . '.' . $pid . '.' . $menuTypeName . '.' . $currentFrontUserGroupModel->getData('name');
+
+        // 设置缓存
+        if (!$availableSonMenuModels = Cache::get($hashKey)) {
+            $MenuModel = new MenuModel;
+            $availableSonMenuModels = $MenuModel->order('weight desc')->where($map)->select();
+            foreach ($availableSonMenuModels as $key => $MenuModel) {
+                if (!$currentFrontUserGroupModel->isIndexAllowedByMenuModel($MenuModel))
+                {
+                    unset($availableSonMenuModels[$key]);
+                }
             }
+            Cache::set($hashKey, $availableSonMenuModels);
         }
         return $availableSonMenuModels;
     }
