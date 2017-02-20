@@ -140,7 +140,7 @@ class FieldModel extends ModelModel
 
             $this->getDataByKeyId = $FiledDataModel->get($map);
             // 如果返回默认值，则将field_id, key_id传入。防止关联调用时数据不存在抛出的异常
-            if ('' === $this->getDataByKeyId->getData('field_id'))
+            if (0 === $this->getDataByKeyId->getData('field_id'))
             {
                 $this->getDataByKeyId->setData('field_id', $this->getData('id'));
                 $this->getDataByKeyId->setData('key_id', $keyId);
@@ -177,6 +177,7 @@ class FieldModel extends ModelModel
         // 对扩展字段模型进行标签的渲染
         return FieldController::renderFieldDataModel($this, $action);
     }
+
 
     /**
      * 更新列表的值
