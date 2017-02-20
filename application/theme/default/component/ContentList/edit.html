@@ -7,14 +7,18 @@
                 <div class="mu-contact-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{:app\\Common::getUpdateUrl()}" method="post">
-                            <div>
-                                <label>标题:</label>
-                                <input type="text" name="title" value="{$ContentModel->getData('title')}" />
-                            </div>
+                            <form action="{yz:url action='update'}" method="post">
+                                <div>
+                                    <label>标题2:</label>
+                                    <input type="text" name="title" value="{$ContentModel->getData('title')}" />
+                                    <input type="hidden" name="id" value="{$ContentModel->getData('id')}" />
+                                </div>
+                                <div class="col-md-12">
+                                    {yz:plugin position="beforeContent" action="edit" object="ContentModel"}
+                                </div>
                                 {foreach name="ContentModel->FieldXXXXModels()" id="_FieldModel"}
                                 <div>
-                                {:$_FieldModel->render('edit')}
+                                    {:$_FieldModel->render('edit')}
                                 </div>
                                 {/foreach}
                                 <button>submit</button>
