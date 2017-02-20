@@ -70,12 +70,11 @@ class ContentModel extends ModelModel
 
         // 遍历当前 内容类型 的扩展字段信息.
         foreach ($FieldModels as $FieldModel) {
-            // 找到当字段，则返回当前字段对应的扩展字段对象
-            if ($FieldModel->getData('name') === $name) {
+            // 未找到字段，则返回当前字段对应的扩展字段对象
+            if ($FieldModel->getData('field_type_name') === $name) {
                 return $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id'));
             }
         }
-
         throw new \Exception('not found fieldName:' . $name . ' of ContentModel:' . $this->getData('id'), 1);
     }
 
