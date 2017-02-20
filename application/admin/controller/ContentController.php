@@ -27,8 +27,7 @@ class ContentController extends AdminController
     {
         //取出内容类型
         $map = array('is_delete' => 0);
-        
-        $this->getAndassignContentTypeTree();
+        $this->getAndAssignContentTypeTree();
         return $this->fetch('Content/create');
     }
 
@@ -105,7 +104,7 @@ class ContentController extends AdminController
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2017-02-14T11:46:54+0800
      */
-    private function getAndassignContentTypeTree() {
+    private function getAndAssignContentTypeTree() {
         //取出所有的菜单树
         $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
         $this->assign('ContentTypeModels', $ContentTypeModels);
