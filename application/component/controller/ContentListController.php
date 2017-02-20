@@ -10,6 +10,7 @@ use app\model\ContentModel;                 // 文章
 use app\model\FieldModel;                   // 扩展字段
 use app\model\MenuModel;                    // 菜单
 use app\model\ContentTypeModel;             // 内容类别
+use app\model\PluginModel;                  // 插件
 
 /**
  * todo:权限判断。即当前新闻，是否属于当前这个菜单对应的那个 新闻类别
@@ -58,7 +59,6 @@ class ContentListController extends ComponentController
     {
         // 更新当前新闻信息
         $ContentModel = ContentModel::get(['id' => $id]);
-
         $this->assign('ContentModel', $ContentModel);
 
         return $this->fetch();
@@ -67,11 +67,12 @@ class ContentListController extends ComponentController
 
     public function updateAction($id)
     {
-        // 更新当前新闻信息
-        $ContentModel = ContentModel::get(['id' => $id]);
-
         // 获取数据
         $data = Request::instance()->param();
+        $id = (int)$data['id'];
+
+        // 更新当前新闻信息
+        $ContentModel = ContentModel::get(['id' => $id]);
 
         // 更新当前新闻信息
         $ContentModel->setData('title', $data['title']);
@@ -84,11 +85,11 @@ class ContentListController extends ComponentController
 
         // 更新插件信息
         if (isset($data['_plugin_'])) {
-            PluginModel::initi($this->ContentModel, $data['_plugin_'], 'save');
+            PluginModel::initi($ContentModel, $data['_plugin_'], 'save');
         }
 
         // 成功返回
-        return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
+        return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url') . '/read?id=' . $id));
     }
 
     //删除数据
