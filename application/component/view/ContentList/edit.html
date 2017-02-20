@@ -13,6 +13,9 @@
                                 <input type="hidden" name="id" value="{$ContentModel->getData('id')}" />
                                 <input type="text" class="form-control" name="title" value="{$ContentModel->getData('title')}" style="width:260px;" />
                             </div>
+                            <div class="col-md-12">
+                                {yz:plugin position="beforeContent" object="ContentModel"}
+                            </div>
                                 {foreach name="ContentModel->FieldXXXXModels()" id="_FieldModel"}
                                 <div>
                                 {:$_FieldModel->render('edit')}
