@@ -119,11 +119,14 @@ class MenuController extends AdminController
 
     public function createAction()
     {
+        $param = Request::instance()->param();
+
         // 所有的pid=0的菜单
-        $map = array('pid' => 0, 'is_delete' => 0);
+        $map = array('pid' => 0, 'is_delete' => 0, 'menu_type_name' => $param['menuTypeName']);
         $MenuModel = new MenuModel;
         $MenuModels = $MenuModel->where($map)->select();
         $this->assign('MenuModels', $MenuModels);
+        $this->assign('menuTypeName', $param['menuTypeName']);
 
         // 所有菜单类型
         $MenuTypeModels = MenuTypeModel::all();

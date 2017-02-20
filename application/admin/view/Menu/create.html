@@ -46,7 +46,7 @@
                         <div class="controls">
                             <select class="form-control" name="menu_type_name" id="_menu_type_name">
                                 {volist name="MenuTypeModels" id="MenuTypeModel"}
-                                    <option value="{$MenuTypeModel->name}">{$MenuTypeModel->name}</option>
+                                    <option value="{$MenuTypeModel->name}" {eq name="MenuTypeModel->name" value="$menuTypeName"}selected="selected"{/eq}>{$MenuTypeModel->name}</option>
                                 {/volist}
                             </select>
                         </div>
