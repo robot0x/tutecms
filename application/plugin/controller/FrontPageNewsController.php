@@ -1,8 +1,8 @@
 <?php
 namespace app\plugin\controller;
 use app\model\ContentModel;                 // 文章
-use app\Model\PluginDataFrontPageNewsModel;     // 插件对应模型
-
+use app\model\PluginDataFrontPageNewsModel;     // 插件对应模型
+use app\model\MenuModel;                        // 菜单模型
 /**
  * 首页推荐新闻
  */
@@ -23,6 +23,7 @@ class FrontPageNewsController extends PluginController
      */
     public function edit(ContentModel $ContentModel) {
         $map = ['content_id' => $ContentModel->getData('id')];
+        $this->assign('menuId', MenuModel::getCurrentMenuModel()->getData('id'));
         $this->assign('PluginDataFrontPageNewsModel', PluginDataFrontPageNewsModel::get($map));
         // 取V层
         return $this->fetch();
@@ -44,10 +45,14 @@ class FrontPageNewsController extends PluginController
         // 如果为取消取操作，则删除表中数据
         if ($data['value'] === 'false') {
             $PluginDataFrontPageNewsModel->delete();
+
         } else {
             // 如果为设置为首页新闻，则按情况不同新增或更新数据
             $PluginDataFrontPageNewsModel->setData('weight', (int)$data['weight']);
             $PluginDataFrontPageNewsModel->setData('type', ($data['type'] === 'news' ? 'news' : 'info'));
+            $PluginDataFrontPageNewsModel->setData('url', $data['url']);
+
+            // 如果为新建，则给默认值，并设置UPDATE为FALSE
             if (0 === $PluginDataFrontPageNewsModel->getData('content_id')) {
                 $PluginDataFrontPageNewsModel->setData('content_id', $ContentModel->getData('id'));
                 $isUpdate = false;

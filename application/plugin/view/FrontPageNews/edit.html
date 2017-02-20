@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" >
     推荐到首页: 
     <label><input type="radio" name="_plugin_[front_page_news][value]" value="true" {eq name="PluginDataFrontPageNewsModel->isShowForView()" value="true"}checked="checked"{/eq}/> 是 </label>
     <label><input type="radio" name="_plugin_[front_page_news][value]" value="false" {eq name="PluginDataFrontPageNewsModel->isShowForView()" value="false"}checked="checked"{/eq}/> 否 </label>
@@ -11,5 +11,7 @@
     <br />
     阅读URL（相对于PUBLIC的路径）
     <input type="text" name="_plugin_[front_page_news][url]" value="{$PluginDataFrontPageNewsModel->getData('url')}" />
+
+    {:var_dump($_SERVER)}
 
 </div>

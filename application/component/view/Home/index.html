@@ -5,7 +5,7 @@
         <div class="text-right read-more-wrap">
             <a href="news.html">了解更多 » </a>
         </div>
-        {volist name="ContentModels" key="key" id="ContentModel"}
+        {volist name="newsContentModels" key="key" id="ContentModel"}
         <ul class="nav nav-list">
             <li>
                 <a href="{$ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$ContentModel->title}<span style="float:right;">{$ContentModel->update_time}</span></a>
@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-9">
         <div class="row">
-            {volist name="ContentModels" id="ContentModel" key="key"}
+            {volist name="newsContentModels" id="ContentModel" key="key"}
             <div class="col-md-4">
                 <div class="thumbnail">
                     <img alt="300x200" src="bootstrap-3.3.5-dist/image/people.jpg" />
