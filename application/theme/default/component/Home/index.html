@@ -18,24 +18,24 @@
                 {/volist}
                 </div>
                 <h2 class="info"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;通知</h2>
-                <?php for($i = 0; $i < 4; $i++) : ?>
+                {volist name="infoContentModels" id="_infoContentModel"}
                 <div class="col-md-6 day">
                     <div class="row bg_white">
                         <div class="col-md-3 day_info text-center">
                             <div class="header">
-                                周三
+                                周{yz:filter name="$_infoContentModel->ContentModel()->getData('update_time')" package="DateFilter" function="getChineseWeek" /}
                             </div>
                             <div class="footer">
-                                12月3日
+                                {:date('m', $_infoContentModel->getData('update_time'))}月{:date('d', $_infoContentModel->getData('update_time'))}日
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <h4><a href="#">这是标题</a></h4>
-                            <p>这是内容,这是内容这是内容这是内容这是内容这是内容这是内容</p>
+                            <h4><a href="{:__PUBLIC__ . $_infoContentModel->getData('url')}">{$_infoContentModel->ContentModel()->getData('title')}</a></h4>
+                            <p>{yz:filter name="$_infoContentModel->ContentModel()->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 26]" /}</p>
                         </div>
                     </div>
                 </div>
-                <?php endfor; ?>
+                {/volist}
             </div>
             <div class="col-md-4">
                 <h2 class="links"><span class="glyphicon glyphicon-search"></span>&nbsp;快速链接</h2>

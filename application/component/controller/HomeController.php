@@ -18,7 +18,7 @@ class HomeController extends ComponentController
         $infoCount = $this->getSampleConfig('infoCount');
         $map = ['type' => 'info'];
         $infoContentModels = $PluginDataFrontPageNewsModel->where($map)->limit($infoCount)->order('weight desc, create_time desc')->select();
-
+        
         $this->assign('newsContentModels', $newsContentModels);
         $this->assign('infoContentModels', $infoContentModels);
         return $this->fetch();
