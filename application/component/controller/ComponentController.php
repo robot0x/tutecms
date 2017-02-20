@@ -73,7 +73,14 @@ class ComponentController extends Controller
         $this->assign('currentMenuModel', $this->currentMenuModel);
     }
 
-    public function getSampleConfig() {
+    /**
+     * 获取简单配置
+     * @param    string                   $key 键值
+     * @return   [type]                        [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-20T12:30:36+0800
+     */
+    public function getSampleConfig($configKey = null) {
         if (null === $this->sampleConfig) {
             $this->sampleConfig = [];
             foreach ($this->config as $key => $config) {
@@ -81,7 +88,17 @@ class ComponentController extends Controller
             }
         }
 
-        return $this->sampleConfig;
+        // 传入键值，则返回具体信息，否则返回数组信息
+        if (null !== $configKey) {
+            $configKey = (string)$configKey;
+            if (array_key_exists($configKey, $this->sampleConfig)) {
+                return $this->sampleConfig[$configKey];
+            } else {
+                return '';
+            }
+        } else {
+            return $this->sampleConfig;            
+        }
     }
     /**
      * 重写 加载模板输出
