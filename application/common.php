@@ -751,12 +751,19 @@ class Common{
         $viewSuffix = Config::get('template.view_suffix');
         $currentMenuModel = MenuModel::getCurrentMenuModel();
         $currentThemeModel = ThemeModel::getCurrentThemeModel();
+
+        // 如果传入模板，则使用传个模板值来替换默认ACTION
+        if ('' !== $template) {
+            $action = $template;
+        }
+
         // 获取主题模板路径
         $themeTemplatePath = APP_PATH . 
             'theme' . DS . 
             $currentThemeModel->getData('name') . DS .
             $module . DS .
             $controller . DS . $action . '.';
+
 
         
         // 判断是否对当前菜单进行了重写
@@ -786,13 +793,13 @@ class Common{
         // 主题文件存在，则调用主题文件进行渲染，CSS,JS同样处理
         $actionBasePath = APP_PATH . $module .  DS . 'view' . DS . $controller . DS . $action . '.';
 
+        // 找不到特定模板，则调用默认模板
         if (false !== $themeTemplate)
         {   
-            $template = $themeTemplate;
+            $templateHtml = $themeTemplate;
         } else {
-            $template = $actionBasePath . $viewSuffix;;
+            $templateHtml = $actionBasePath . $viewSuffix;;
         }
-
 
 
         //  CSS
@@ -814,7 +821,7 @@ class Common{
         // 非开发模式下，打印当前MCA触发信息
         if (Config::get('app_debug')) {
             trace('当前调用：' . $controller . '->' . $action, $module);
-            trace('当前模板：' . realpath($template), $module);
+            trace('当前模板：' . realpath($templateHtml), $module);
         }
 
         // 尝试渲染js及css
@@ -835,7 +842,7 @@ class Common{
          
 
         // 获取当前主题
-        return $View->fetch($template, $vars, $replace, $config) . $css . $js;
+        return $View->fetch($templateHtml, $vars, $replace, $config) . $css . $js;
     }
 
 }
