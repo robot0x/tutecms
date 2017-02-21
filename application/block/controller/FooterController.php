@@ -7,6 +7,6 @@ class FooterController extends BlockController
 {
     public function index()
     {
-        return $this->fetch('block@Footer/fetchHtml');
+        return $this->fetch();
     }
 }
