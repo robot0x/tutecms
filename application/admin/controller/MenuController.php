@@ -70,6 +70,7 @@ class MenuController extends AdminController
         $MenuModel->setData('component_name', $data['component_name']);
         $MenuModel->setData('menu_type_name', $data['menu_type_name']);
         $MenuModel->setData('url', $data['url']);
+        $MenuModel->setData('param', $data['param']);
         $MenuModel->setData('is_hidden', $data['is_hidden']);
         $MenuModel->setData('weight', $data['weight']);
         $MenuModel->setData('description', $data['description']);
@@ -149,6 +150,7 @@ class MenuController extends AdminController
         $MenuModel->setData('component_name', $data['component_name']);
         $MenuModel->setData('menu_type_name', $data['menu_type_name']);
         $MenuModel->setData('url', $data['url']);
+        $MenuModel->setData('param', $data['param']);
         $MenuModel->setData('is_hidden', $data['is_hidden']);
         $MenuModel->setData('weight', $data['weight']);
         $MenuModel->setData('status', $data['status']);
@@ -201,7 +203,7 @@ class MenuController extends AdminController
         }
 
         //删除菜单
-        $MenuModel->setData('is_delete', 1)->save();
+        $MenuModel->delete();
 
         $menuType = $MenuModel->getData('menu_type_name');
         return $this->success('删除成功', url('MenuType/read', ['name' => $menuType]));

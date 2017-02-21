@@ -28,6 +28,7 @@ class MenuController extends BlockController
         // 取当前菜单类型下可见的菜单列表
         $menuModels = MenuModel::getAvailableSonMenuModelsByPidMenuTypeName($pid, $menuTypeName);
         $this->assign('menuModels', $menuModels);
+        $this->assign('length', count($menuModels));
 
         //获取当前用户信息
         $User = UserModel::getCurrentFrontUserModel();
