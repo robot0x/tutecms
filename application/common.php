@@ -21,7 +21,7 @@ use app\model\ThemeModel;
 
 // 初始化
 Common::init();
-Route::rule('news/:id', 'component/ContentList/read', 'GET');
+
 class Common{
     static protected $token = [];       // token 用于安全验证
     static protected $css   = [];       // css 用于模板链接css文件
