@@ -54,9 +54,9 @@ class LoginController extends ComponentController
     {
         // login or logout
         if (UserModel::logout()) {
-            return $this->success('注销成功', Common::url('/index'));
+            return $this->success('注销成功');
         } else {
-            return $this->error('操作失败',  Common::url('/index'));
+            return $this->error('操作失败');
         }
     }
 
