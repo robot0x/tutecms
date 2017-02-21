@@ -35,7 +35,7 @@ class LoginController extends ComponentController
         // 登录
         if (array_key_exists('username', $param) && array_key_exists('password', $param)) {
             if (UserModel::login($param['username'], $param['password'])) {
-                return $this->success('登录成功', url('@'));
+                return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url') . '/index'));
             } else {
                 return $this->error('用户名或密码错误');
             }
@@ -54,9 +54,9 @@ class LoginController extends ComponentController
     {
         // login or logout
         if (UserModel::logout()) {
-            return $this->success('注销成功');
+            return $this->success('注销成功', Common::url('/index'));
         } else {
-            return $this->error('操作失败');
+            return $this->error('操作失败',  Common::url('/index'));
         }
     }
 
@@ -99,10 +99,10 @@ class LoginController extends ComponentController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-13T10:39:27+0800
      */
-    public function loginInfo()
+    private function loginInfo()
     {
         // 注意，该函数虽被调用，但是触发的action是index,所以必须给出全路径
-        return $this->fetch('component@Login/loginInfo');   
+        return $this->fetch('loginInfo');   
     }
 
     /**
@@ -111,14 +111,14 @@ class LoginController extends ComponentController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-13T10:40:13+0800
      */
-    public function userInfo()
+    private function userInfo()
     {
         //取出当前用户数据
         $userModel = UserModel::getCurrentFrontUserModel();
 
         // 传入V层
         $this->assign('userModel', $userModel);
-        return $this->fetch('component@Login/userInfo'); 
+        return $this->fetch('userInfo'); 
     }
 
     /**
@@ -130,13 +130,15 @@ class LoginController extends ComponentController
     {
         $datas = Request::instance()->param();
        
-        $id = (int)$datas['id'];
-       
-        $UserModel = UserModel::get($id);
+        //取出当前用户数据
+        $UserModel = UserModel::getCurrentFrontUserModel();
         $UserModel->setData('name', $datas['name']);
-        $UserModel->setData('password', $datas['repassword']);
+        if ('' !== (String)$datas['repassword']) {
+            $UserModel->setPassword($datas['repassword']);
+        }
+        
         $UserModel->save();
-        return $this->success('更新成功', Common::url('/userInfo'));
+        return $this->success('更新成功', Common::url('/index'));
     }
 
     /**
@@ -150,13 +152,11 @@ class LoginController extends ComponentController
         $UserModel = new UserModel;
 
         //取出当前用户数据
-        $username = UserModel::getCurrentUser();
-        $map['username'] = $username;
-        $userModel = $UserModel::get($map);
+        $UserModel = UserModel::getCurrentUserModel();
 
         // 传入V层
-        $this->assign('userModel', $userModel);
-        return $this->fetch('component@Login/edit');
+        $this->assign('UserModel', $UserModel);
+        return $this->fetch('edit');
     }
 
     /**

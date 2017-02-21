@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    webApp.controller('componentLoginEdit', function ($scope) {
+        $scope.isError = false;             // 是否发生错误
+        $scope.password = '';               // 密码
+        $scope.repassword = '';             // 重复密码
+        $scope.message = '密码格式不统一';     // 提示信息
+
+        // 检测密码是否一致
+        var checkPassword = function () {
+            if ($scope.password !== $scope.repassword) {
+                $scope.isError = true;
+            } else {
+                $scope.isError = false;
+            }
+        }
+
+        $scope.checkPassword = checkPassword;
+    })
+</script>

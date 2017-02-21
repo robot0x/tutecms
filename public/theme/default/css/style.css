@@ -156,3 +156,12 @@ body {
     margin-bottom:20px;
 }
 
+/* 登录 */
+.login {
+    width:300px;
+    margin:20px auto;
+}
+
+.login input {
+    width: 260px;
+}
