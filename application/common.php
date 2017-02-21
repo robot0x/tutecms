@@ -746,7 +746,7 @@ class Common{
         return $html;
     }
 
-    static public function fetchByMCA(View $View, $module, $controller, $action, $template, $vars, $replace, $config) {
+    static public function fetchByMCA(View $View, $module, $controller, $action, $template, $vars, $replace, $config, $Object) {
         // 获取配置信息的模板后缀
         $viewSuffix = Config::get('template.view_suffix');
         $currentMenuModel = MenuModel::getCurrentMenuModel();
@@ -767,9 +767,9 @@ class Common{
 
         
         // 判断是否对当前菜单进行了重写
-        $themeTemplate      = $themeTemplatePath . $currentMenuModel->getData('id') . '.' . $viewSuffix;
-        $themeTemplateCss   = $themeTemplatePath . $currentMenuModel->getData('id') . '.css.' . $viewSuffix;
-        $themeTemplateJs    = $themeTemplatePath . $currentMenuModel->getData('id') . '.js.' . $viewSuffix;
+        $themeTemplate      = $themeTemplatePath . $Object->getData('id') . '.' . $viewSuffix;
+        $themeTemplateCss   = $themeTemplatePath . $Object->getData('id') . '.css.' . $viewSuffix;
+        $themeTemplateJs    = $themeTemplatePath . $Object->getData('id') . '.js.' . $viewSuffix;
 
         // 路径格式化，如果文件不存在，则返回false
         $themeTemplate      = realpath($themeTemplate);

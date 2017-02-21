@@ -112,6 +112,6 @@ class BlockController extends Controller
         $controller = Common::getControllerName(get_called_class());
         $action = debug_backtrace()[1]['function'];
         
-        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config);
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config, $this->BlockModel);
     }
 }

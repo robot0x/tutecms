@@ -15,6 +15,6 @@ class BreadCrumbController extends BlockController
 
         $MenuModels = $this->currentMenuModel->getFatherMenuModleTree();
         $this->assign('MenuModels', $MenuModels);
-        return $this->fetch('block@BreadCrumb/fetchHtml');
+        return $this->fetch();
     }
 }

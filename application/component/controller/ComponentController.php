@@ -120,6 +120,6 @@ class ComponentController extends Controller
         $controller = $MCA[1];
         $action = $MCA[2];
         
-        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config);
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config, $this->currentMenuModel);
     }
 }
