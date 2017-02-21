@@ -109,13 +109,26 @@ class UserModel extends ModelModel
      */
     public function checkpassword($password)
     {
-        if($this->getData('password') === $password) {
+        if($this->getData('password') === $this->encryptePassword($password)) {
             return true;
         } else {
             return false;
         }
-        
     }
+
+    /**
+     * 密码加密算法
+     * @param    string                   $password 加密前密码
+     * @return   string                             加密后密码
+     * 例：加密前admin , 加密后：87a36a542ff249c8a8a8de1282742fa86452ad13
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-21T08:59:42+0800
+     */
+    static public function encryptePassword($password) {
+        return sha1(md5($password) . 'mengyunzhi');
+    }   
+
+    
     /**
      * 用户是否登陆
      * @return   boolean                  
