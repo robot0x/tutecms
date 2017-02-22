@@ -12,7 +12,7 @@
                 <ul ng-repeat="menu in MenuModelTree">
                     <li>
                         <span ng-click="togleChildren(menu)" ng-show="menu._child.length" class="expansion">{{menu | expansion}}</span>
-                        <span class="col"><a ng-show="menu._child.length" href="{:url('index')}?pid={{menu.id}}" ng-bind="menu.title"></a><span ng-hide="menu._child.length" ng-bind="menu.title"></span></span>
+                        <span class="col"><a ng-show="menu._child.length" href="{:url('index')}?pid={{menu.id}}" ng-bind="menu.title"></a><span ng-hide="menu._child.length" ng-bind="menu.title"></span>&nbsp;&nbsp;{{menu.id}}&nbsp;&nbsp;</span>
                         <span class="col"><a href="{:url('edit')}?id={{menu.id}}">修改</a></span>
                         <span class="col"><a href="{:url('delete')}?id={{menu.id}}">删除</a></span>
                         <span class="col"><a href="{:url('create')}?pid={{menu.id}}">增加子菜单</a></span>

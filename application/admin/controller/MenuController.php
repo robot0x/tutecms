@@ -58,10 +58,11 @@ class MenuController extends AdminController
         $routePath = realpath($routePath);
         if (false === $routePath) {
             $route = [];
+        } else {
+            // 取出文件内容
+            $route = include $routePath;
         }
 
-        // 取出文件内容
-        $route = include $routePath;
         $this->assign('route', $route);
 
         return $this->fetch('menu/edit');
@@ -88,11 +89,6 @@ class MenuController extends AdminController
             $MenuModel->setData('config', json_encode($data['config']));
         }
         
-        // // 过滤器信息
-        // if (array_key_exists('filter', $data)) {
-        //     $filter = Common::makeFliterArrayFromPostArray($data['filter']);
-        //     $MenuModel->setData('filter', json_encode($filter));
-        // }
 
         // 验证
         $result = $this->validate(
@@ -104,10 +100,9 @@ class MenuController extends AdminController
             ]
         );
 
-        $menuType = $MenuModel->getData('menu_type_name');
         if(true !== $result){
             // 验证失败 输出错误信息
-            return $this->error('title不能为空', url('MenuType/read', ['name' => $menuType]));
+            return $this->error('title不能为空', url('MenuType/read'));
         }
         $MenuModel->save();
 

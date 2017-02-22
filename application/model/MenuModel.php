@@ -290,9 +290,10 @@ class MenuModel extends ModelModel
 
     /**
      * 获取当前菜单的菜单树（从根菜单开始，至本菜单结束）
+     * @param   $arrayReveerse 是否翻转数组
      * @return lists MenuModel
      */
-    public function getFatherMenuModleTree()
+    public function getFatherMenuModleTree($arrayReverse = true)
     {
         $tree = [];
         $MenuModel = $this;
@@ -300,7 +301,12 @@ class MenuModel extends ModelModel
             array_push($tree, $MenuModel);
             $MenuModel = $MenuModel->fatherMenuModel();
         } while ('' !== $MenuModel->getData('id'));
-        return array_reverse($tree);
+        if ($arrayReverse) {
+            return array_reverse($tree);
+        } else {
+            return $tree;
+        }
+        
     }
 
     /**
@@ -440,27 +446,18 @@ class MenuModel extends ModelModel
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-13T08:55:26+0800
      */
-    static public function getAvailableSonMenuModelsByPidMenuTypeName($pid, $menuTypeName)
-    {
-        // 找到当前用户组(每个用户只能有一个用户组)
-        $currentFrontUserModel = UserModel::getCurrentFrontUserModel();
-        $currentFrontUserGroupModel = $currentFrontUserModel->UserGroupModel();
-
-        $map = ['pid' => $pid, 'status' => 0, 'is_hidden' => '0', 'menu_type_name' => $menuTypeName];
-        $hashKey = get_class() . '\getAvailableSonMenuModelsByPidMenuTypeName' . '.' . $pid . '.' . $menuTypeName . '.' . $currentFrontUserGroupModel->getData('name');
-
-        // 设置缓存
-        if (!$availableSonMenuModels = Cache::get($hashKey)) {
-            $MenuModel = new MenuModel;
-            $availableSonMenuModels = $MenuModel->order('weight desc')->where($map)->select();
-            foreach ($availableSonMenuModels as $key => $MenuModel) {
-                if (!$currentFrontUserGroupModel->isIndexAllowedByMenuModel($MenuModel))
-                {
-                    unset($availableSonMenuModels[$key]);
-                }
+    static public function getAvailableSonMenuModelsByPidUserGroupModel($pid, UserGroupModel $UserGroupModel)
+    {        
+        $map = ['pid' => $pid, 'status' => 0, 'is_hidden' => '0'];
+        $MenuModel = new MenuModel;
+        $availableSonMenuModels = $MenuModel->order('weight desc')->where($map)->select();
+        foreach ($availableSonMenuModels as $key => $MenuModel) {
+            if (!$UserGroupModel->isIndexAllowedByMenuModel($MenuModel))
+            {
+                unset($availableSonMenuModels[$key]);
             }
-            Cache::set($hashKey, $availableSonMenuModels);
         }
+            
         return $availableSonMenuModels;
     }
 

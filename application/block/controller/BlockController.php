@@ -10,6 +10,7 @@ use app\model\BlockModel;                       // 区块 模型
 use app\model\BlockMenuModel;                   // 区块-菜单 模型
 use app\model\MenuModel;                        // 菜单模型
 use app\model\ThemeModel;                       // 主题
+use app\model\UserModel;                        // 用户
 
 
 class BlockController extends Controller
@@ -27,6 +28,8 @@ class BlockController extends Controller
     {
         // 取出当前主题信息，供模板渲染使用
         $this->currentThemeModel = ThemeModel::getCurrentThemeModel();
+        $this->currentUserModel = UserModel::getCurrentUserModel();
+        $this->currentMenuModel = MenuModel::getCurrentMenuModel();
         parent::__construct();
 
         // 传入Common，供模板渲染输出区块css,js使用
@@ -44,9 +47,6 @@ class BlockController extends Controller
 
         // 取配置过滤器信息
         $Object->config = $BlockModel->getSampleConfig();
-
-        // 获取当前主题信息
-        $Object->currentThemeModel = ThemeModel::getCurrentThemeModel();
 
         // 获取过滤器信息并传入V层
         $filterModels = $Object->BlockModel->getFilterModels();
