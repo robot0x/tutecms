@@ -20,11 +20,11 @@
                             <select class="form-control" name="pid" id="_pid">
                                 <option value="0">根菜单</option>
                                 {volist name="MenuModels" id="MenuModel"}
-                                    <option value="{$MenuModel->id}">{$MenuModel->title}</option>
+                                    <option value="{$MenuModel->id}" {eq name="pid" value="$MenuModel->id"}selected="selected"{/eq}>{$MenuModel->title}</option>
                                     {volist name="MenuModel->sonMenuModels()" id="MenuModel"}
-                                        <option value="{$MenuModel->id}">|----{$MenuModel->title}</option>
+                                        <option value="{$MenuModel->id}" {eq name="pid" value="$MenuModel->id"}selected="selected"{/eq}>|----{$MenuModel->title}</option>
                                         {volist name="MenuModel->sonMenuModels()" id="MenuModel"}
-                                            <option value="{$MenuModel->id}">|----|----{$MenuModel->title}</option>
+                                            <option value="{$MenuModel->id}" {eq name="pid" value="$MenuModel->id"}selected="selected"{/eq}>|----|----{$MenuModel->title}</option>
                                         {/volist}
                                     {/volist}
                                 {/volist}
@@ -42,25 +42,15 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="_menu_type_name">菜单类型</label>
-                        <div class="controls">
-                            <select class="form-control" name="menu_type_name" id="_menu_type_name">
-                                {volist name="MenuTypeModels" id="MenuTypeModel"}
-                                    <option value="{$MenuTypeModel->name}" {eq name="MenuTypeModel->name" value="$menuTypeName"}selected="selected"{/eq}>{$MenuTypeModel->name}</option>
-                                {/volist}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="_url">url</label>
                         <div class="controls">
                             <input type="text" name="url" id="_url" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="_param">其它参数</label>
+                        <label class="control-label" for="_params">其它参数</label>
                         <div class="controls">
-                            <input type="text" name="param" id="_param" />
+                            <input type="text" name="params" id="_params" />
                         </div>
                     </div>
                     <div class="control-group">

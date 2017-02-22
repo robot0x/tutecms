@@ -1,0 +1,44 @@
+
+
+<script type="text/javascript">
+    app.controller('MenuIndexCtrl', function($scope) {
+        $scope.MenuModelTree = {:json_encode($MenuModelTree)};
+
+        // 是否隐藏当前菜单
+        var isShow = function (menu) {
+            if (typeof(menu.isShow) === 'undefined') {
+                menu.isShow = true;
+            }
+
+            return menu.isShow;
+        }
+
+        var togleChildren = function (menu) {
+            if (typeof(menu.isShow) === 'undefined') {
+                menu.isShow = true;
+            }
+            menu.isShow = !menu.isShow;
+        }
+
+        $scope.togleChildren = togleChildren;
+        $scope.isShow = isShow;
+    });
+
+    app.filter('expansion', function (){
+        var getExpansionFontByMenu = function(menu) {
+            if (typeof(menu.isShow) === 'undefined') {
+                return '-';
+            } else if(menu.isShow){
+                return '-';
+            } else {
+                return '+';
+            }
+        };
+
+        return function(input) {
+            return getExpansionFontByMenu(input);
+        };
+    });
+
+
+</script>

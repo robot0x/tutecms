@@ -151,6 +151,30 @@ class MenuModel extends ModelModel
     }
 
     /**
+     * 获取某个PID下的所有列表
+     * @param    int                   $pid 父级ID
+     * @return   array
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-22T14:44:55+0800
+     */
+    static public function getListsByPid($pid) {
+        $map = ['pid' => $pid, 'is_delete' => $is_delete];
+        $MenuModels = $this->where($map)->order('weight desc')->select();
+        return $MenuModels;
+    }
+
+    static public function getTreeByPid($pid) {
+        $map = ['pid' => $pid, 'is_delete' => 0];
+        $self = new self();
+        $MenuModels = $self->where($map)->order('weight desc')->select();
+        foreach ($MenuModels as $key => $MenuModel) {
+            $childMenuModels = self::getTreeByPid($MenuModel->getData('id'));
+            $MenuModels[$key]->setData('_child', $childMenuModels);
+        }
+        unset($self);
+        return $MenuModels;
+    }
+    /**
      * 父菜单
      * @return MenuModel 
      */
