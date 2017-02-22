@@ -24,10 +24,4 @@ return [
         'description'   => '保存用户注册信息',
         'value'         => ['/update', 'POST']
     ],
-
-    'login' => [
-        'title'         => '登录',
-        'description'   => '登录',
-        'value'         => ['/login', 'POST']
-    ]
 ];

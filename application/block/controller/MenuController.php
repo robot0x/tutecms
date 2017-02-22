@@ -14,25 +14,19 @@ class MenuController extends BlockController
 {
 	public function index()
 	{
-        // 取当前菜单信息
-        $this->currentMenuModel = MenuModel::getCurrentMenuModel();
-
-        // 取当前菜单类型, 用于按类型生成目录tree
-        $menuTypeName = $this->config['menu_type_name'];
-        $pid = 0;
+        // 取配置信息中的父菜单ID
+        $pid = $this->config['pid'];
 
         // 生成token并送入V层，用于编辑该区块
         $token = $this->BlockModel->makeToken('edit');
         $this->assign('token', $token);
 
         // 取当前菜单类型下可见的菜单列表
-        $menuModels = MenuModel::getAvailableSonMenuModelsByPidMenuTypeName($pid, $menuTypeName);
+        $menuModels = MenuModel::getAvailableSonMenuModelsByPidUserGroupModel($pid, $this->currentUserModel->UserGroupModel());
         $this->assign('menuModels', $menuModels);
         $this->assign('length', count($menuModels));
-
-        //获取当前用户信息
-        $User = UserModel::getCurrentFrontUserModel();
-        $this->assign('User', $User);
+        
+        $this->assign('User', $this->currentUserModel);
         $html = $this->fetch();
         
 

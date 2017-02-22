@@ -24,9 +24,9 @@ class UserGroupModel extends ModelModel
         if ('' === $AccessUserGroupMenuModel->getData('menu_id'))
         {
             // 返回非默认值，有权限
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 

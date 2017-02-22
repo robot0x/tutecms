@@ -42,9 +42,10 @@ class AccessUserGroupMenuModel extends ModelModel
      */
     static public function updateAccessByMenuModelGroupsActions(MenuModel $MenuModel, $groupsActions) {
         // 清空关于此菜单的所有权限记录
+        $self = new self();
         $map = [];
         $map['menu_id'] = (int)$MenuModel->getData('id');
-        self::destroy($map);
+        $self->where($map)->delete();
 
         // 查找该菜单对应组件的所有的action
         $routes = $MenuModel->ComponentModel()->getSampleRoute();
@@ -53,19 +54,16 @@ class AccessUserGroupMenuModel extends ModelModel
 
         // 使用 用户组信息与action信息，拼接二维数组，并在接拼过程中，去除 groupsActions 已存在的键值
         $accesses = [];
+        $access = ['menu_id' => $MenuModel->getData('id')];
         foreach ($userGroupModels as $_userGroupModel) {
-            $groupName = $_userGroupModel->getData('name');
-            foreach ($routes as $_route => $value) {
-                if (array_key_exists($groupName, $groupsActions) && array_key_exists($_route, $groupsActions[$groupName])) {
-                    continue;
-                } else {
-                    array_push($accesses, ['user_group_name'=>$groupName, 'menu_id' => $MenuModel->getData('id'), 'action' => $_route]);
-                }
+            $access['user_group_name'] = $_userGroupModel->getData('name');
+            foreach ($routes as $action => $value) {
+                $access['action'] = $action;
+                array_push($accesses, $access);
             }
         }
 
-        // 保存
-        $self = new self();
         $self->saveAll($accesses);
+        unset($self);
     }
 }

@@ -12,12 +12,19 @@ use think\Request;                      // 请求类
 
 class MenuController extends AdminController
 {
-    // public function indexAction()
-    // {
-    //     $MenuTypeModels = MenuTypeModel::paginate();
-    //     $this->assign('MenuTypeModels', $MenuTypeModels);
-    //     return $this->fetch();
-    // }
+    public function indexAction()
+    {
+        $param = Request::instance()->param();
+
+        $pid = 0;
+        if (array_key_exists('pid', $param)) {
+            $pid = (int)$param['pid'];
+        }
+        $MenuModelTree = MenuModel::getTreeByPid($pid);
+
+        $this->assign('MenuModelTree', $MenuModelTree);
+        return $this->fetch() . $this->fetch('indexJs') . $this->fetch('indexCss');
+    }
 
     public function editAction($id)
     {
@@ -51,10 +58,11 @@ class MenuController extends AdminController
         $routePath = realpath($routePath);
         if (false === $routePath) {
             $route = [];
+        } else {
+            // 取出文件内容
+            $route = include $routePath;
         }
 
-        // 取出文件内容
-        $route = include $routePath;
         $this->assign('route', $route);
 
         return $this->fetch('menu/edit');
@@ -68,9 +76,8 @@ class MenuController extends AdminController
         $MenuModel->setData('title', $data['title']);
         $MenuModel->setData('pid', $data['pid']);
         $MenuModel->setData('component_name', $data['component_name']);
-        $MenuModel->setData('menu_type_name', $data['menu_type_name']);
         $MenuModel->setData('url', $data['url']);
-        $MenuModel->setData('param', $data['param']);
+        $MenuModel->setData('params', $data['params']);
         $MenuModel->setData('is_hidden', $data['is_hidden']);
         $MenuModel->setData('weight', $data['weight']);
         $MenuModel->setData('description', $data['description']);
@@ -82,11 +89,6 @@ class MenuController extends AdminController
             $MenuModel->setData('config', json_encode($data['config']));
         }
         
-        // // 过滤器信息
-        // if (array_key_exists('filter', $data)) {
-        //     $filter = Common::makeFliterArrayFromPostArray($data['filter']);
-        //     $MenuModel->setData('filter', json_encode($filter));
-        // }
 
         // 验证
         $result = $this->validate(
@@ -98,10 +100,9 @@ class MenuController extends AdminController
             ]
         );
 
-        $menuType = $MenuModel->getData('menu_type_name');
         if(true !== $result){
             // 验证失败 输出错误信息
-            return $this->error('title不能为空', url('MenuType/read', ['name' => $menuType]));
+            return $this->error('title不能为空', url('MenuType/read'));
         }
         $MenuModel->save();
 
@@ -115,7 +116,7 @@ class MenuController extends AdminController
             AccessUserGroupMenuModel::updateAccessByMenuModelGroupsActions($MenuModel, $data['access']);
         }
 
-        return $this->success('操作成功', url('MenuType/read', ['name' => $menuType]));
+        return $this->success('操作成功', url('index'));
     }
 
     public function createAction()
@@ -123,20 +124,16 @@ class MenuController extends AdminController
         $param = Request::instance()->param();
 
         // 所有的pid=0的菜单
-        $map = array('pid' => 0, 'is_delete' => 0, 'menu_type_name' => $param['menuTypeName']);
+        $map = array('pid' => 0, 'is_delete' => 0);
         $MenuModel = new MenuModel;
         $MenuModels = $MenuModel->where($map)->select();
         $this->assign('MenuModels', $MenuModels);
-        $this->assign('menuTypeName', $param['menuTypeName']);
-
-        // 所有菜单类型
-        $MenuTypeModels = MenuTypeModel::all();
-        $this->assign('MenuTypeModels',$MenuTypeModels);
 
         // 所有的组件
         $Components = ComponentModel::all();
         $this->assign('Components', $Components);
 
+        $this->assign('pid', (int)$param['pid']);
         return $this->fetch('menu/create');
     }
 
@@ -148,9 +145,8 @@ class MenuController extends AdminController
         $MenuModel->setData('title', $data['title']);
         $MenuModel->setData('pid', $data['pid']);
         $MenuModel->setData('component_name', $data['component_name']);
-        $MenuModel->setData('menu_type_name', $data['menu_type_name']);
         $MenuModel->setData('url', $data['url']);
-        $MenuModel->setData('param', $data['param']);
+        $MenuModel->setData('params', $data['params']);
         $MenuModel->setData('is_hidden', $data['is_hidden']);
         $MenuModel->setData('weight', $data['weight']);
         $MenuModel->setData('status', $data['status']);
@@ -205,7 +201,6 @@ class MenuController extends AdminController
         //删除菜单
         $MenuModel->delete();
 
-        $menuType = $MenuModel->getData('menu_type_name');
-        return $this->success('删除成功', url('MenuType/read', ['name' => $menuType]));
+        return $this->success('删除成功', url('index'));
     }
 }
