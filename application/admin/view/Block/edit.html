@@ -57,12 +57,7 @@
                                         {/foreach}
                                     </ol>
                                 </div>
-                                <div>
-                                    <label for="">过滤器信息</label>
-                                    <ol>
-                                        {foreach name="$BlockModel->getFilterModels()" key="key" id="_FilterModel"} {include file="../editFilter" /} {/foreach}
-                                    </ol>
-                                </div>
+
                                 <div>
                                     <label for="">对哪些菜单显示</label>
                                     <label><input type="checkbox" ng-click="checkAll()"/>全选/返选</label>

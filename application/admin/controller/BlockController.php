@@ -143,6 +143,9 @@ class BlockController extends AdminController
 
     public function createAction()
     {
+        // 初始化区块模型
+        $BlockModel = new BlockModel;
+        $this->assign('BlockModel', $BlockModel);
 
         $BlockTypeModels = BlockTypeModel::all();
         $this->assign('BlockTypeModels', $BlockTypeModels);
@@ -157,10 +160,11 @@ class BlockController extends AdminController
         //取type为block的postion传入
         $PositionModel = new PositionModel;
         $map = array('type' => 'block');
-        $Positions = $PositionModel->where($map)->select();
-        $this->assign('Positions', $Positions);
+        $PositionModels = $PositionModel->where($map)->select();
+        $this->assign('PositionModels', $PositionModels);
 
-        return $this->fetch();
+
+        return $this->fetch('edit');
     }
 
     public function saveAction()
