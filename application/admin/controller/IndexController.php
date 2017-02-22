@@ -16,7 +16,5 @@ class IndexController extends AdminController
         } else {
             return $this->error('系统发生错误');
         }
-        
-        
     }
 }

@@ -30,7 +30,7 @@ class AdminController extends Controller
 
         if (false === UserModel::isLogin() || (time() - $loginTime > 30 * 60))
         {
-            return $this->error('请登录', url('Login/index'));
+            return $this->redirect(url('Login/index'));
         } else {
             session('loginTime', time());
         }
