@@ -22,6 +22,7 @@ class BlockModel extends ModelModel
      * 用来存在放在空的数据对象中
      */
     protected $data = [
+        'id'        => 0,
         'config'    => '[]',
         'filter'    => '[]',
     ];
@@ -156,18 +157,6 @@ class BlockModel extends ModelModel
         }
     }
 
-    public function checkIsShow(MenuModel &$MenuModel)
-    {
-        $map = [];
-        $map['block_id']    = $this->data['id'];
-        $map['menu_id']     = $MenuModel->getData('id');
-        if (empty(AccessMenuBlockModel::get($map)->getData()))
-        {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     /**
      * 生成前台可以直接调用的token
@@ -248,5 +237,35 @@ class BlockModel extends ModelModel
         }
 
         return $this->route;
+    }
+
+    /**
+     * 获取菜单树的 权限 值，为于生成JSON数据
+     * @param    tree                   &$MenuModels 
+     * @return   tree                                
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-22T20:26:07+0800
+     */
+    public function getMenuModelTreeJsonData(&$MenuModels) {
+        foreach ($MenuModels as $key => $MenuModel) {
+            $map = [];
+            $map['block_id']    = $this->data['id'];
+            $map['menu_id']     = $MenuModel->getData('id');
+
+            if (empty(AccessMenuBlockModel::get($map)->getData()))
+            {
+                $access = true;
+            } else {
+                $access = false;
+            }
+
+            $MenuModels[$key]->setData('access', $access);
+            if (count($MenuModel->getData('_child'))) {
+                $child = $MenuModel->getData('_child');
+                $child = $this->getMenuModelTreeJsonData($child);
+                $MenuModel->setData('_child', $child);
+            }
+        }
+        return $MenuModels;
     }
 }
