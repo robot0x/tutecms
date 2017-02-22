@@ -254,9 +254,9 @@ class BlockModel extends ModelModel
 
             if (empty(AccessMenuBlockModel::get($map)->getData()))
             {
-                $access = true;
-            } else {
                 $access = false;
+            } else {
+                $access = true;
             }
 
             $MenuModels[$key]->setData('access', $access);

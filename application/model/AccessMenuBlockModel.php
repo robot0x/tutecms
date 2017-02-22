@@ -23,7 +23,7 @@ class AccessMenuBlockModel extends ModelModel
 
         $datas = [];
         $data = ['block_id' => $blockId];
-        foreach ($menuIds as $menuId) {
+        foreach ($menuIds as $menuId => $value) {
             $data['menu_id'] = $menuId;
             array_push($datas, $data);
         }
