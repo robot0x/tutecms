@@ -89,7 +89,7 @@ class BlockController extends AdminController
             $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
             $AccessUserGroupBlockModel->updateByBlockIdUserGroupNames($BlockModel->getData('id'), $param['usergroupname']);
         }
-        
+
         return $this->success('操作成功', url('index'));
     }
     /**
@@ -170,28 +170,18 @@ class BlockController extends AdminController
         //直接将menu数据存入表
         $id = $BlockModel->id;
 
-        $AccessMenuBlockModel = new AccessMenuBlockModel;
-        // $map = ['block_id' => $id];
-        // $AccessMenuBlockModel->where($map)->delete();
-
-        //拼接menu_id block_id 存入其中间表
-        if (array_key_exists('menuids', $param)) {
-            $datas = array();
-            foreach ($param['menuids'] as $key => $value) {
-                array_push($datas, ['block_id' => $id, 'menu_id' => $key]);
-            }
-            $AccessMenuBlockModel->saveAll($datas);
+        // 更新block-menu关联表
+        if (array_key_exists('menuids', $param))
+        {
+            $AccessMenuBlockModel = new AccessMenuBlockModel;
+            $AccessMenuBlockModel->updateByBlockIdMenuIds($BlockModel->getData('id'), $param['menuids']);
         }
-
-        $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
         
-        //拼接user_group_name block_id 存入其中间表
+        // 更新用户组 区块 权限表
         if (array_key_exists('usergroupname', $param)) {
-            $datas = array();
-            foreach ($param['usergroupname'] as $key => $value) {
-                array_push($datas, ['user_group_name' => $key, 'block_id' => $id]);
-            }
-            $AccessUserGroupBlockModel->saveAll($datas);
+            //更新user_group_block表
+            $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
+            $AccessUserGroupBlockModel->updateByBlockIdUserGroupNames($BlockModel->getData('id'), $param['usergroupname']);
         }
         
         return $this->success('添加成功', url('index'));

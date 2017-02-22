@@ -21,17 +21,11 @@ class AccessMenuBlockModel extends ModelModel
         $map = ['block_id' => (int)$blockId];
         $this->where($map)->delete();
 
-        // 取出所有的菜单
-        $MenuModels = MenuModel::all();
-
         $datas = [];
         $data = ['block_id' => $blockId];
-        foreach ($MenuModels as $key => $MenuModel) {
-            $id = (int)$MenuModel->getData('id');
-            if (!array_key_exists($id, $menuIds)) {
-                $data['menu_id'] = $id;
-                array_push($datas, $data);
-            }
+        foreach ($menuIds as $menuId) {
+            $data['menu_id'] = $menuId;
+            array_push($datas, $data);
         }
 
         $this->saveAll($datas);
