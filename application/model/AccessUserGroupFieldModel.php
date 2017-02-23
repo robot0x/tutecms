@@ -13,10 +13,10 @@ class AccessUserGroupFieldModel extends ModelModel
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-18T16:35:03+0800
      */
-    static public function checkCurrentUserIsAllowedByFieldId($fieldId = 0) 
+    static public function checkCurrentUserIsAllowedByFieldIdAction($fieldId = 0, $action = '') 
     {
         $userGroupName = UserModel::getCurrentUserModel()->getData('user_group_name');
-        return self::checkIsAllowedByUserGroupNameAndFieldId($userGroupName, $fieldId);
+        return self::checkIsAllowedByUserGroupNameAndFieldIdAction($userGroupName, $fieldId, $action);
     }
 
     /**
@@ -28,15 +28,16 @@ class AccessUserGroupFieldModel extends ModelModel
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-18T16:35:31+0800
      */
-    static public function checkIsAllowedByUserGroupNameAndFieldId($userGroupName, $fieldId)
+    static public function checkIsAllowedByUserGroupNameAndFieldIdAction($userGroupName, $fieldId, $action)
     {
         $map = [];
         $map['user_group_name'] = $userGroupName;
         $map['field_id'] = $fieldId;
+        $map['action']   = $action;
         if ('' === self::get($map)->getData('user_group_name')) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 }

@@ -14,11 +14,13 @@
                 <span></span>
                 <h2>{$headers[$key]}</h2>
                 <p>{$descriptions[$key]}</p>
-                {neq name="token" value=""}
-                <a target="_blank" class="mu-read-more-btn" href="{:url('api/api/index?token=' . $token)}">编辑</a> {/neq}
+                {yz:access type="block" action="edit" id="$BlockModel->getData('id')"}
+                <a target="_blank" class="mu-read-more-btn" href="{:url('api/api/index?token=' . $token)}">编辑</a> 
+                {/yz:access}
             </div>
         </div>
         <!-- Start single slider item -->
         <?php endfor; ?>
+
     </section>
 </div>

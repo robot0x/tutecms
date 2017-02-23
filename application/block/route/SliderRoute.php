@@ -13,4 +13,10 @@ return [
         'description'   => '保存用于数据的更新',
         'action'        => 'save',
     ],
+
+    'index' => [
+        'title'         => '浏览',
+        'description'   => '浏览幻灯片',
+        'action'        => 'index'
+    ],
 ];

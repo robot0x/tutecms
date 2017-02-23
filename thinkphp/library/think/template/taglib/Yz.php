@@ -17,10 +17,10 @@ class Yz extends Taglib
     protected $tags = [
         // 标签定义： attr 属性列表 close 是否闭合（0自闭合 或者1非自闭合（要有另一半） 默认1） alias 标签别名 level 嵌套层次
         'block'         => ['attr' => 'position', 'close' => 0],
-        'plugin'        => ['attr' => 'position,action,object', 'close' => 0],
-        'access'        => ['attr' => 'action', 'close' => 1],
-        'url'           => ['attr' => 'action,menu_id,append_query_string', 'close' => 0],
-        'filter'        => ['attr' => 'name,package,function', 'close' => 0],
+        'plugin'        => ['attr' => 'position, action, object', 'close' => 0],
+        'access'        => ['attr' => 'action, type, id', 'close' => 1],
+        'url'           => ['attr' => 'action, menu_id, append_query_string', 'close' => 0],
+        'filter'        => ['attr' => 'name, package, function', 'close' => 0],
     ];
 
     /**
@@ -80,15 +80,28 @@ class Yz extends Taglib
     {
         // 获取参数
         $action     = !empty($tag['action']) ? $tag['action'] : null;
+        $type       = !empty($tag['type']) ? $tag['type'] : 'menu'; // 类型:menu block plugin field
+        $id         = !empty($tag['id']) ? $tag['id'] : 0; // 实体ID
         $parseStr = '<?php';
 
         // 未传入参数 ，则返回空字符串
         if (!$action) {
             $parseStr .= '';
         } else {
-
-            // 对当前用户是否拥有权限进行判断
-            $parseStr .= ' if (app\model\AccessUserGroupMenuModel::checkCurrentUserCurrentMenuIsAllowedByAction("';
+            // 对当前用户是否拥有权限进行判断, 按类别进行判断
+            $parseStr .= ' if (';
+            if ($type === 'menu') {
+                $parseStr .= 'app\model\AccessUserGroupMenuModel::checkCurrentUserCurrentMenuIsAllowedByAction("';
+            } else if($type === 'block') {
+                $parseStr .= 'app\model\AccessUserGroupBlockModel::checkCurrentUserIsAllowedByBlockIdAndAction(' . $id . ',"';
+            } else if($type === 'plugin') {
+                $parseStr .= 'app\model\AccessUserGroupPluginModel::checkCurrentUserIsAllowedByPluginIdAndAction(' . $id . ',"';
+            } else if ($type === 'field') {
+                $parseStr .= 'app\model\AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldIdAction(' . $id . ',"';
+            } else {
+                return '';
+            }
+            
             $parseStr .= $action;
             $parseStr .= '")) : ?>';
             $parseStr .= $content;

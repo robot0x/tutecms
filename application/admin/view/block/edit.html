@@ -76,7 +76,7 @@
                                     <ul>
                                         {foreach name="UserGroupModels" id="_UserGroupModel"}
                                         <li>
-                                            {$_UserGroupModel->title} {volist name="BlockModel->getRoute()" id="_route" key="index"}
+                                            {$_UserGroupModel->title} {foreach name="BlockModel->getRoute()" id="_route" key="index"}
                                             <ul>
                                                 <li>
                                                     <label>
@@ -85,7 +85,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        {/volist} {/foreach}
+                                        {/foreach} {/foreach}
                                     </ul>
                                 </div>
                                 <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
