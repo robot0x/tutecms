@@ -2,6 +2,7 @@
 namespace app\block\controller;
 
 use think\Request;                          // 请求
+use think\View;
 
 use app\model\ContentModel;                 // 文章
 use app\model\ContentFrontpageModel;        //首页推荐内容
@@ -82,25 +83,8 @@ class SliderController extends BlockController
     }
 
 
-    static public function edit($data = [])
+    public function edit($data = [])
     {
-        // 检测KEY键是否传入
-        if (!array_key_exists('id', $data)) {
-            throw new \Exception("传入的参数有误", 1);
-        }
-
-        // 获取当前区块模型
-        $BlockModel = BlockModel::get(['id' => $data['id']]);
-        if ('' === $BlockModel->getData('id')) {
-            throw new \Exception("未找到对应的区块模型", 1);
-        }  
-
-        // 实例化调用当前对象（如果是继承的本类，则实例那个继承本类的类）
-        // 请学习new self()与new static()方法的区别
-        $Object = new self();
-        $Object->assign('BlockModel', $BlockModel);
-        $Object->assign('token', $BlockModel->makeToken('save'));
-
-        return $Object->fetch();
+        return $this->view->fetch('block@Slider/edit');
     }
 }

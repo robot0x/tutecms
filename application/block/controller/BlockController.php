@@ -28,8 +28,6 @@ class BlockController extends Controller
     {
         // 取出当前主题信息，供模板渲染使用
         $this->currentThemeModel = ThemeModel::getCurrentThemeModel();
-        $this->currentUserModel = UserModel::getCurrentUserModel();
-        $this->currentMenuModel = MenuModel::getCurrentMenuModel();
         parent::__construct();
 
         // 传入Common，供模板渲染输出区块css,js使用
@@ -58,6 +56,7 @@ class BlockController extends Controller
 
         return $Object;
     }
+
     /**
      * 初始化，供Cx中position标签调用
      * @param  string positionName 位置名字
@@ -96,6 +95,28 @@ class BlockController extends Controller
         // 返回拼接后的字符串
         echo $resultHtml;
     }
+
+
+    static public function call($blockId, $action, $param) {
+        $BlockModel = BlockModel::get($blockId);
+        $className = 'app\block\controller\\' . $BlockModel->getData('block_type_name') . 'Controller';
+        try 
+        {
+            // 实例化类 并调用
+            $Object = call_user_func_array([$className, 'instance'], [$BlockModel]); 
+            if (method_exists($Object, $action)) {
+                $result = $Object->$action($param); 
+            }
+            
+        } catch(\Exception $e) {
+            if (config('app_debug')) {
+                throw $e;
+            }
+        } 
+
+        return $result;
+    } 
+
 
     /**
      * 加载模板输出

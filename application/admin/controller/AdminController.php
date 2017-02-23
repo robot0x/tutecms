@@ -32,8 +32,11 @@ class AdminController extends Controller
         {
             return $this->redirect(url('Login/index'));
         } else {
+            // 判断用户是否为超级管理员
+            if (UserModel::getCurrentUserModel()->UserGroupModel()->getData('name') !== 'admin') {
+                return $this->error('您无此权限');
+            }
             session('loginTime', time());
         }
-
     }
 }

@@ -65,10 +65,10 @@ class FieldController extends Controller
      */
     static public function renderFieldDataModel(&$FieldDataXXXModel, $action)
     {
-        // 首先对权限进行判断,不存在权限，则直接返回''
-        if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldId($FieldDataXXXModel->getData('field_id'))) {
-            return '';
-        }
+        // 首先对权限进行判断,不存在权限，则直接返回'' 
+        // if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldIdAction($FieldDataXXXModel->getData('field_id'), $action)) {
+        //     return '';
+        // }
 
         $typeName = $FieldDataXXXModel->FieldModel()->getData('field_type_name');
         $className = 'app\field\controller\\' . ucfirst($typeName) . 'Controller';
