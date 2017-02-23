@@ -10,10 +10,9 @@ class JsonController extends FieldController
     public function edit()
     {
         // 增加token,用于字段个数的修改
-        $token = $this->FieldDataXXXModel->makeToken('addSubCount');
-        $this->assign('token', $token);
+        $this->assign('addSubCountAction', $this->url('addSubCount'));
 
-        return $this->fetch();
+        return $this->view->fetch('field@Json/edit');
     }
 
     /**
@@ -22,14 +21,17 @@ class JsonController extends FieldController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-09T12:13:10+0800
      */
-    static public function addSubCount($data = [])
+    public function addSubCount()
     {
         // 获取请求信息
-        $Request = Request::instance();
-        $param = $Request->param();
-
+        $param = Request::instance()->param();
+        if (!array_key_exists('id', $param)) {
+            $this->error('未传入参数id');
+        }
+        
+        $map = ['id' => $param['id']];
         // 获取当前数据字段对象
-        $FieldDataJsonModel = FieldDataJsonModel::get($data);
+        $FieldDataJsonModel = FieldDataJsonModel::get($map);
         $array = json_decode($FieldDataJsonModel->getData('value'), true);
 
         // 判断是添加还是减小
@@ -45,7 +47,6 @@ class JsonController extends FieldController
         $FieldDataJsonModel->save();
 
         // 返回到调用前的url
-        $Object = new self();
-        return $Object->success('操作成功', $Request->server('HTTP_REFERER'));
+        return $this->success('操作成功');
     }
 }

@@ -65,6 +65,7 @@ class AccessUserGroupBlockModel extends ModelModel
                 array_push($datas, $data);
             }
         } 
+
         $this->saveAll($datas);
     }
         

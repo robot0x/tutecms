@@ -28,14 +28,23 @@ class BlockController extends Controller
     {
         // 取出当前主题信息，供模板渲染使用
         $this->currentThemeModel = ThemeModel::getCurrentThemeModel();
-        $this->currentUserModel = UserModel::getCurrentUserModel();
-        $this->currentMenuModel = MenuModel::getCurrentMenuModel();
         parent::__construct();
 
         // 传入Common，供模板渲染输出区块css,js使用
         $this->assign('Common', new Common);
     }
 
+    /**
+     * 生成直接直接显示在前台的URL地址
+     * @param    string                   $action 触发器
+     * @param    array                $param  其它参数
+     * @return   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:44:59+0800
+     */
+    protected function url($action = 'index', $param = []) {
+        return url('admin/call/block?blockId=' . $this->BlockModel->getData('id') . '&action=' . $action, $param);
+    }
 
     static public function instance(BlockModel $BlockModel)
     {
@@ -48,16 +57,13 @@ class BlockController extends Controller
         // 取配置过滤器信息
         $Object->config = $BlockModel->getSampleConfig();
 
-        // 获取过滤器信息并传入V层
-        $filterModels = $Object->BlockModel->getFilterModels();
-        $Object->assign('filterModels', $filterModels);
-
         // 送配置 过滤器至V层
         $Object->assign('config', $Object->config);
         $Object->assign('BlockModel', $BlockModel);
 
         return $Object;
     }
+
     /**
      * 初始化，供Cx中position标签调用
      * @param  string positionName 位置名字
@@ -96,6 +102,28 @@ class BlockController extends Controller
         // 返回拼接后的字符串
         echo $resultHtml;
     }
+
+
+    static public function call($blockId, $action) {
+        $BlockModel = BlockModel::get($blockId);
+        $className = 'app\block\controller\\' . $BlockModel->getData('block_type_name') . 'Controller';
+        try 
+        {
+            // 实例化类 并调用
+            $Object = call_user_func_array([$className, 'instance'], [$BlockModel]); 
+            if (method_exists($Object, $action)) {
+                $result = $Object->$action(); 
+            }
+            
+        } catch(\Exception $e) {
+            if (config('app_debug')) {
+                throw $e;
+            }
+        } 
+
+        return $result;
+    } 
+
 
     /**
      * 加载模板输出

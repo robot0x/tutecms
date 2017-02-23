@@ -845,5 +845,28 @@ class Common{
         return $View->fetch($templateHtml, $vars, $replace, $config) . $css . $js;
     }
 
+    /**
+     * 通过模块名 类型名 获取路由信息
+     * @param    string                   $module   模块名:block,plugin,field
+     * @param    string                   $typeName 实体类型名称
+     * @return                                array
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T16:01:38+0800
+     */
+    static public function getRouteByModuleTypeName($module, $typeName) {
+        $routeFilePath = APP_PATH . 
+            $module . DS . 
+            'route' . DS .
+            $typeName . 'Route.php';
+        $routeFilePath = realpath($routeFilePath);
+        if (false === $routeFilePath) {
+            $route = [];
+        } else {
+            $route = include $routeFilePath;
+        }
+
+        return $route;
+    }
+
 }
 

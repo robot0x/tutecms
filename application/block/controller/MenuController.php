@@ -22,11 +22,11 @@ class MenuController extends BlockController
         $this->assign('token', $token);
 
         // 取当前菜单类型下可见的菜单列表
-        $menuModels = MenuModel::getAvailableSonMenuModelsByPidUserGroupModel($pid, $this->currentUserModel->UserGroupModel());
+        $menuModels = MenuModel::getAvailableSonMenuModelsByPidUserGroupModel($pid, UserModel::getCurrentUserModel()->UserGroupModel());
         $this->assign('menuModels', $menuModels);
         $this->assign('length', count($menuModels));
         
-        $this->assign('User', $this->currentUserModel);
+        $this->assign('User', UserModel::getCurrentUserModel());
         $html = $this->fetch();
         
 

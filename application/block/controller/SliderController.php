@@ -2,6 +2,7 @@
 namespace app\block\controller;
 
 use think\Request;                          // 请求
+use think\View;
 
 use app\model\ContentModel;                 // 文章
 use app\model\ContentFrontpageModel;        //首页推荐内容
@@ -15,12 +16,7 @@ use app\model\AccessUserGroupBlockModel;    // 用户组区块权限
  */
 class SliderController extends BlockController
 {
-    public function index()
-    {
-        // 生成token并送入V层，用于编辑该区块.首先进行权限的判断
-        $token = $this->BlockModel->makeToken('edit');
-        $this->assign('token', $token);
-
+    public function index() {
         // 获取扩展字段列表, 并传入V层
         $this->assign('titles',         $this->BlockModel->FieldModel('titles')->filter());
         $this->assign('urls',           $this->BlockModel->FieldModel('urls')->filter());
@@ -52,6 +48,7 @@ class SliderController extends BlockController
         unset($ContentModels);
         unset($ContentModel);
 
+        $this->assign('editAction', $this->url('edit'));
         return $this->fetch();
     }
     
@@ -82,25 +79,8 @@ class SliderController extends BlockController
     }
 
 
-    static public function edit($data = [])
+    public function edit($data = [])
     {
-        // 检测KEY键是否传入
-        if (!array_key_exists('id', $data)) {
-            throw new \Exception("传入的参数有误", 1);
-        }
-
-        // 获取当前区块模型
-        $BlockModel = BlockModel::get(['id' => $data['id']]);
-        if ('' === $BlockModel->getData('id')) {
-            throw new \Exception("未找到对应的区块模型", 1);
-        }  
-
-        // 实例化调用当前对象（如果是继承的本类，则实例那个继承本类的类）
-        // 请学习new self()与new static()方法的区别
-        $Object = new self();
-        $Object->assign('BlockModel', $BlockModel);
-        $Object->assign('token', $BlockModel->makeToken('save'));
-
-        return $Object->fetch();
+        return $this->view->fetch('block@Slider/edit');
     }
 }

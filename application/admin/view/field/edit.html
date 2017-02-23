@@ -1,20 +1,50 @@
 {layout name="index" /}
 <div class="row">
     <form method="post" action="{:url($submitAction)}?backUrl={$backUrl}">
-    <input type="hidden" name="id" value="{$FieldModel->getData('id')}" />
-    标题:<input name="title" type="text" value="{$FieldModel->getData('title')}" /> 
-    <br />
-    字段类型:<select name="field_type_name">
-        {volist name="$FieldModel->FieldTypeModel()->all()" id="_FieldTypeModel"}
-            <option value="{$_FieldTypeModel->getData('name')}" {eq name="_FieldTypeModel->getData('name')" value="$FieldModel->FieldTypeModel()->getData('name')"}selected="selected"{/eq}>{$_FieldTypeModel->getData('title')}</option>
-        {/volist}
-    </select>
-    <br />
-    <input type="hidden" name="relate_type" value="{:input('relateType')}" />
-    <input type="hidden" name="relate_value" value="{:input('relateValue')}" />
-    权重: <input type="text" name="weight" value="{$FieldModel->getData('weight')}" />
-    <br />
-    配置信息：
-    <button type="submit">submit</button>
+        <input type="hidden" name="id" value="{$FieldModel->getData('id')}" /> 标题:
+        <input name="title" type="text" value="{$FieldModel->getData('title')}" />
+        <br />
+        机读字段:
+        <input name="name" type="text" value="{$FieldModel->getData('name')}" />
+        <br /> 字段类型:
+        <select name="field_type_name">
+            {volist name="$FieldModel->FieldTypeModel()->all()" id="_FieldTypeModel"}
+            <option value="{$_FieldTypeModel->getData('name')}" {eq name="_FieldTypeModel->getData('name')" value="$FieldModel->FieldTypeModel()->getData('name')" }selected="selected" {/eq}>{$_FieldTypeModel->getData('title')}</option>
+            {/volist}
+        </select>
+        <br />
+        <input type="hidden" name="relate_type" value="{:input('relateType')}" />
+        <input type="hidden" name="relate_value" value="{:input('relateValue')}" /> 权重:
+        <input type="text" name="weight" value="{$FieldModel->getData('weight')}" />
+        <br />
+        <div>
+            <label for="">配置信息</label>
+            <ol>
+                {foreach name="$FieldModel->getConfig()" key="key" id="_config"} {neq name="_config['type']" value="hidden"}
+                <li>
+                    <label>{$_config['title']}</label>
+                    <input type="text" name="config[{$key}]" value="{$_config['value']}">
+                </li>
+                {/neq} {/foreach}
+            </ol>
+        </div>
+        <div>
+            <label for="">用户组权限</label>
+            <ul>
+                {foreach name="UserGroupModels" id="_UserGroupModel"}
+                <li>
+                    {$_UserGroupModel->title} {foreach name="FieldModel->getRoute()" id="_route" key="index"}
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="checkbox" name="usergroupname[{$_UserGroupModel->getData('name')}][{$index}]" {eq name="_UserGroupModel->isAllowedByFieldModelActionForView($FieldModel, $index)" value="true" }checked="checked" {/eq}> {$_route['title']}
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+                {/foreach} {/foreach}
+            </ul>
+        </div>
+        <button type="submit">submit</button>
     </form>
 </div>

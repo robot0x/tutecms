@@ -186,4 +186,14 @@ class BlockController extends AdminController
         
         return $this->success('添加成功', url('index'));
     }
+
+    static public function call() {
+        $param = Request::instance()->param();
+        if (!array_key_exists('id', $param) || !array_key_exists('action', $param)) {
+            $this->error('传入的参数有误');
+        }
+
+        
+
+    }
 }

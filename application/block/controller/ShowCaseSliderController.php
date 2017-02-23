@@ -7,6 +7,6 @@ class ShowCaseSliderController extends BlockController
 {
     public function index()
     {
-        return $this->fetch('block@ShowCaseSlider/fetchHtml');
+        return $this->fetch();
     }
 }

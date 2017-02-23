@@ -7,6 +7,7 @@ use think\File;
  */
 class FieldDataImagesModel extends FieldModel 
 {
+    protected $data = ['field_id' => 0, 'key_id' => 0];
     /**
      * 字段过滤器
      * @param    为了与父类的函数格式保持一致

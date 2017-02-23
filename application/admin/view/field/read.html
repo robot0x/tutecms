@@ -15,6 +15,7 @@
                             <tr>
                                 <th>标题</th>
                                 <th>权重</th>
+                                <th>机读字段</th>
                                 <th>字段类型</th>
                                 <th>relate_type</th>
                                 <th>relate_value</th>
@@ -28,6 +29,7 @@
                                 <td>
                                     <input style="width:100px" size="4" type="text" name="weight[{$_FieldModel->id}]" value="{$_FieldModel->weight}" />
                                 </td>
+                                <td>{$_FieldModel->getData('name')}</td>
                                 <td>{$_FieldModel->getFieldTypebyfieldtypename()->title}</td>
                                 <td>{$_FieldModel->relate_type}</td>
                                 <td>{$_FieldModel->relate_value}</td>

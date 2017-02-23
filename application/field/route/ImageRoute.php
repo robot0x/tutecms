@@ -8,15 +8,15 @@ return [
         'action'        => 'edit',  
     ],
 
-    'save'  => [
-        'title'         => '保存',
-        'description'   => '保存用于数据的更新',
-        'action'        => 'save',
+    'upload'  => [
+        'title'         => '上传',
+        'description'   => '上传新的图片',
+        'action'        => 'upload',
     ],
 
     'index' => [
         'title'         => '浏览',
-        'description'   => '浏览幻灯片',
+        'description'   => '',
         'action'        => 'index'
     ],
 ];
