@@ -14,11 +14,12 @@ class FieldModel extends ModelModel
     protected $route        = null;             // 路由信息
     protected $token        = null;             // token
     protected $sampleConfig = null;             // 简单配置信息
-
-    private $getDataByKeyId = null;
-    private $getDataByKeyId_KeyId = null;
-    private $FieldTypeModel = null;             // 字段类型模型
-    private $FieldModel = null;
+    protected $FieldModel   = null;             // 字段模型
+    
+    private $getDataByKeyId         = null;
+    private $getDataByKeyId_KeyId   = null;
+    private $FieldTypeModel         = null;     // 字段类型模型
+    
 
 
     /**
@@ -35,6 +36,16 @@ class FieldModel extends ModelModel
         return $this->FieldModel;
     }
 
+    /**
+     * 设置字段模型
+     * @param    FieldModel               $FieldModel 字段模型
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:06:36+0800
+     */
+    public function setFieldModel (FieldModel $FieldModel) {
+        $this->FieldModel = $FieldModel;
+        return $this;
+    }
     /**
      * 将驼峰式写法 改完 xx_x_型
      * @return   string                   
