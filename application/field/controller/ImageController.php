@@ -20,11 +20,11 @@ class ImageController extends FieldController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-06T10:49:48+0800
      */
-    static public function upload($param = [])
+    public function upload()
     {
         $result = ['status' => 'success'];
         // todo:讲解new self()与 new ImageController()的区别
-        $FieldDataImageModel = new FieldDataImageModel;        
+        $FieldDataImageModel = new FieldDataImageModel;    
         $file = Request::instance()->file('Filedata');
 
         // 查看是否传入了文件信息
@@ -36,7 +36,8 @@ class ImageController extends FieldController
         } else {
             // 调用上传操作
             try {
-                $result['data'] = $FieldDataImageModel->upload($file);
+                // 将当前FieldModel传入字段模型，并调用上传操作.
+                $result['data'] = $FieldDataImageModel->setFieldModel($this->FieldModel)->upload($file);       
             } catch (\Exception $e) {
                 $result = [
                     'status' => 'error',
@@ -44,14 +45,14 @@ class ImageController extends FieldController
                 ];
             }
         }
-
         // 返回信息
         // var_dump(json_encode($result));
         return json_encode($result);
     }
 
+
     public function edit() {
-        $this->assign('uploadAction', url('admin/call/block?id=' . $this->FieldDataXXXModel->getData('id') . '&action=upload&isAjax=1'));
+        $this->assign('uploadAction', $this->url('upload', ['isAjax' => true]));
         return $this->fetch();
     }
 }
