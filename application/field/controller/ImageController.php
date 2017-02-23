@@ -20,7 +20,7 @@ class ImageController extends FieldController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-06T10:49:48+0800
      */
-    static public function upload()
+    static public function upload($param = [])
     {
         $result = ['status' => 'success'];
         // todo:讲解new self()与 new ImageController()的区别
@@ -52,8 +52,7 @@ class ImageController extends FieldController
 
     public function edit()
     {
-        $token  = $this->FieldDataXXXModel->makeToken('upload');
-        $this->assign('token', $token);
+        $this->assign('uploadAction', url('admin/call/block?id=' . $this->FieldDataXXXModel->getData('id') . '&action=upload&isAjax=1'));
         return $this->fetch();
     }
 }

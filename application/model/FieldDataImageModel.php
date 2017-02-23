@@ -7,8 +7,8 @@ use think\File;
  */
 class FieldDataImageModel extends FieldDataAttachmentModel 
 {   
-    protected $data = ['id' => 0];
-    /**
+    protected $data = ['id' => 0, 'field_id' => 0, 'key_id' => 0];
+    /**   
      * 获取url (相对于站点的路径)
      * @return   string                   
      * @author panjie panjie@mengyunzhi.com
