@@ -22,7 +22,7 @@ class FieldDataAttachmentModel extends FieldModel
     {
         // 配置规则初始化
         $rule = [];
-        $config = array_merge($this->getSampleConfig(), $config);
+        $config = array_merge($this->FieldModel()->getSampleConfig(), $config);
 
         // 文件大小
         if (array_key_exists('size', $config)) {
@@ -54,10 +54,10 @@ class FieldDataAttachmentModel extends FieldModel
         $Object = new static();
         $data = $Object::get($map);
 
-        // 文件存在，则去除field_id 及key_id后复制一份进入数据库
-        if ('' !== $data->getData('id')) {
+        // 文件存在，则更新field_id 及key_id后复制一份进入数据库
+        if (0 !== $data->getData('id')) {
             $Object->data = $data->getData();
-            $Object->setData('field_id', 0);
+            $Object->setData('field_id', $this->FieldModel()->getData('id'));
             $Object->setData('key_id', 0);
             unset($Object->data['id']);
 
@@ -72,10 +72,12 @@ class FieldDataAttachmentModel extends FieldModel
             $Object->setData('md5',   $md5);
             $Object->setData('size',  $info->getInfo('size'));
             $Object->setData('mime',  $info->getMime());
+            $Object->setData('field_id', $this->FieldModel()->getData('id'));
         }
 
         // 新建数据，并将当前对象返回
         $Object->save();
+        $Object->setFieldModel($this->FieldModel());
         return $Object;
     }
 
@@ -108,9 +110,9 @@ class FieldDataAttachmentModel extends FieldModel
      * @DateTime 2016-09-07T13:58:16+0800
      */
     public function getUrl()
-    {
+    {   
         if (null === $this->url) {
-            $this->url = __ROOT__ . $this->getConfig()['uploadPath']['value'] . '/' . $this->getData('save_name');
+            $this->url = __ROOT__ . $this->FieldModel()->getConfig()['uploadPath']['value'] . '/' . $this->getData('save_name');
         }
         return $this->url;
     }
