@@ -38,17 +38,17 @@ class FieldController extends Controller
         $this->FieldDataXXXModel    = $FieldDataXXXModel;
 
         // 送入依赖css, 用于在footer中进行统一引用。
-        if (array_key_exists('css', $FieldDataXXXModel->getSimpleConfig())) {
-            Common::addCss($FieldDataXXXModel->getSimpleConfig()['css']);
+        if (array_key_exists('css', $FieldDataXXXModel->FieldModel()->getSampleConfig())) {
+            Common::addCss($FieldDataXXXModel->FieldModel()->getSampleConfig()['css']);
         }
 
         // 送入依赖js, 用于在footer中进行统一引用。
-        if (array_key_exists('js', $FieldDataXXXModel->getSimpleConfig())) {
-            Common::addJs($FieldDataXXXModel->getSimpleConfig()['js']);
+        if (array_key_exists('js', $FieldDataXXXModel->FieldModel()->getSampleConfig())) {
+            Common::addJs($FieldDataXXXModel->FieldModel()->getSampleConfig()['js']);
         }
 
         // 传入配置信息
-        $this->config = $FieldDataXXXModel->getSimpleConfig();
+        $this->config = $FieldDataXXXModel->FieldModel()->getSampleConfig();
         $this->assign('config', $this->config);
         $this->assign('FieldDataXXXModel', $FieldDataXXXModel);
         $this->assign('randId', rand(1,1023));    // 建立1个1023以内的随机数，防止ID重复

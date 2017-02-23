@@ -8,6 +8,30 @@ class UserGroupModel extends ModelModel
     protected $pk = 'name';
 
     protected $data = ['name' => 'public'];
+
+    public function isAllowedByFieldModelAction(FieldModel &$FieldModel, $action) {
+        // 查找是否存在当前权限值
+        $map = [];
+        $map['field_id']         = $FieldModel->getData('id');
+        $map['user_group_name'] = $this->getData('name');
+        $map['action']          = $action;
+        $AccessUserGroupFieldModel = AccessUserGroupFieldModel::get($map);
+        if ('' === $AccessUserGroupFieldModel->getData('field_id')) {
+            // 返回非默认值，有权限
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function isAllowedByFieldModelActionForView(FieldModel &$FieldModel, $action) {
+        if ($this->isAllowedByFieldModelAction($FieldModel, $action)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
     /**
      * 获取 菜单 对本用户组的权限
      * @param  MenuModel &$MenuModel [description]

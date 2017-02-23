@@ -22,7 +22,7 @@ class FieldDataAttachmentModel extends FieldModel
     {
         // 配置规则初始化
         $rule = [];
-        $config = array_merge($this->getSimpleConfig(), $config);
+        $config = array_merge($this->getSampleConfig(), $config);
 
         // 文件大小
         if (array_key_exists('size', $config)) {

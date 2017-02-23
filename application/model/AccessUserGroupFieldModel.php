@@ -6,6 +6,8 @@ namespace app\model;
  */
 class AccessUserGroupFieldModel extends ModelModel
 {   
+    protected $autoWriteTimestamp = false;              // 关闭自动时间戳
+    
     /**
      * 判断当前用户是否可以访问该字段
      * @param    integer                  $fieldId 字段id
@@ -39,5 +41,31 @@ class AccessUserGroupFieldModel extends ModelModel
         } else {
             return true;
         }
+    }
+
+    /**
+     * 更新字段用户组权限信息
+     * @param    int                   $blockId             
+     * @param    array                   $userGroupNames 用户组
+     * @return   [type]                                   [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-22T21:04:47+0800
+     */
+    public function updateByFieldIdUserGroupNames($fieldId, $userGroupNames) {
+        $map = ['field_id' => $fieldId];
+        $this->where($map)->delete();
+
+        $datas = array();
+        $data = [];
+        $data['field_id'] = $fieldId;
+        foreach ($userGroupNames as $key => $value) {
+            foreach ($userGroupNames[$key] as $key1 => $value1) {
+                $data['user_group_name'] = $key;
+                $data['action'] = $key1;
+                array_push($datas, $data);
+            }
+        } 
+
+        $this->saveAll($datas);
     }
 }

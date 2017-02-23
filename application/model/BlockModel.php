@@ -52,6 +52,7 @@ class BlockModel extends ModelModel
         {
             $this->config = Common::configMerge($this->BlockTypeModel()->getConfig(), $this->getConfigAttr());
         }
+
         return $this->config;
     }
 
@@ -224,16 +225,7 @@ class BlockModel extends ModelModel
     public function getRoute()
     {
         if (null === $this->route) {
-            $routeFilePath = APP_PATH . 
-                'block' . DS . 
-                'route' . DS .
-                $this->getData('block_type_name') . 'Route.php';
-            $routeFilePath = realpath($routeFilePath);
-            if (false === $routeFilePath) {
-                $this->route = [];
-            } else {
-                $this->route = include $routeFilePath;
-            }
+            $this->route = Common::getRouteByModuleTypeName('block', $this->getData('block_type_name'));
         }
 
         return $this->route;

@@ -50,8 +50,7 @@ class ImageController extends FieldController
         return json_encode($result);
     }
 
-    public function edit()
-    {
+    public function edit() {
         $this->assign('uploadAction', url('admin/call/block?id=' . $this->FieldDataXXXModel->getData('id') . '&action=upload&isAjax=1'));
         return $this->fetch();
     }
