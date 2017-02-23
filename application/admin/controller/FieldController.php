@@ -39,6 +39,10 @@ class FieldController extends AdminController
     public function createAction() {
         $this->assign('FieldModel', new FieldModel);
         $this->assign('submitAction', 'save');
+
+        //将用户组信息传入
+        $UserGroupModels = UserGroupModel::all();
+        $this->assign('UserGroupModels', $UserGroupModels);
         return $this->fetch('edit');
     }
     /**
@@ -102,6 +106,7 @@ class FieldController extends AdminController
         // 设置更新字段
         $FieldModel->setData('title', $data['title']);
         $FieldModel->setData('field_type_name', $data['field_type_name']);
+        $FieldModel->setData('name', $data['name']);
         $FieldModel->setData('relate_type', $data['relate_type']);
         $FieldModel->setData('relate_value', $data['relate_value']);
         $FieldModel->setData('weight', $data['weight']);
@@ -110,7 +115,7 @@ class FieldController extends AdminController
         }
 
         // 更新用户组权限
-        if (array_key_exists('usergroupname', $param)) {
+        if (array_key_exists('usergroupname', $data)) {
             $AccessUserGroupFieldModel = new AccessUserGroupFieldModel;
             $AccessUserGroupFieldModel->updateByFieldIdUserGroupNames($FieldModel->getData('id'), $param['usergroupname']);
         }
@@ -141,6 +146,7 @@ class FieldController extends AdminController
         $FieldModel->setData('title', $data['title']);
         $FieldModel->setData('field_type_name', $data['field_type_name']);
         $FieldModel->setData('weight', $data['weight']);
+        $FieldModel->setData('name', $data['name']);
         if (array_key_exists('config', $data)) {
             $FieldModel->setData('config', json_encode($data['config']));
         }
@@ -153,5 +159,19 @@ class FieldController extends AdminController
 
         $FieldModel->save();
         return $this->success('操作成功', $this->backUrl);
+    }
+
+    /**
+     * 删除
+     * @param    id                   $id 
+     * @return                          
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:31:56+0800
+     */
+    public function deleteAction($id) {
+        $map = ['id' => $id];
+        $FieldModel = new FieldModel();
+        $FieldModel->where($map)->delete();
+        return $this->success('操作成功');
     }
 }

@@ -54,7 +54,7 @@ class ContentModel extends ModelModel
 
     /**
      * 通过扩展字段的 字段名 来获取字段内容
-     * @param    string                   $fieldName 字段名
+     * @param    string                   $name 机读字段
      * @return   Object                              FieldDataXXXModel 
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-02T14:13:25+0800
@@ -71,7 +71,7 @@ class ContentModel extends ModelModel
         // 遍历当前 内容类型 的扩展字段信息.
         foreach ($FieldModels as $FieldModel) {
             // 未找到字段，则返回当前字段对应的扩展字段对象
-            if ($FieldModel->getData('field_type_name') === $name) {
+            if ($FieldModel->getData('name') === $name) {
                 return $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id'));
             }
         }

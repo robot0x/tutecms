@@ -3,6 +3,9 @@
     <form method="post" action="{:url($submitAction)}?backUrl={$backUrl}">
         <input type="hidden" name="id" value="{$FieldModel->getData('id')}" /> 标题:
         <input name="title" type="text" value="{$FieldModel->getData('title')}" />
+        <br />
+        机读字段:
+        <input name="name" type="text" value="{$FieldModel->getData('name')}" />
         <br /> 字段类型:
         <select name="field_type_name">
             {volist name="$FieldModel->FieldTypeModel()->all()" id="_FieldTypeModel"}
