@@ -7,5 +7,5 @@
 
 </div>
 {/volist}
-<a href="{:url('api/api/index?token=' . $token) . '?type=add'}">+1</a>
-<a href="{:url('api/api/index?token=' . $token) . '?type=sub'}">-1</a>
+<a href="{$addSubCountAction}?type=add&id={$FieldDataXXXModel->getData('id')}">+1</a>
+<a href="{$addSubCountAction}?type=sub&id={$FieldDataXXXModel->getData('id')}">-1</a>

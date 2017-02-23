@@ -11,9 +11,10 @@ class ImagesController extends FieldController
 {
     public function edit()
     {   
-        $this->assign('token', $this->FieldDataXXXModel->makeToken('upload'));
-        $this->assign('addSubToken', Common::makeTokenByMCAData('field', 'Images', 'addSubCount', ['id' => $this->FieldDataXXXModel->getData('id')]));
-        return $this->fetch();
+        $this->assign('uploadAction', $this->url('upload'));
+        $this->assign('addSubToken', $this->url('addSubToken'));
+        
+        return $this->view->fetch('field@Images/edit') . $this->view->fetch('field@Images/editCss') . $this->view->fetch('field@Images/editJs');
     }
 
     /**
@@ -30,7 +31,7 @@ class ImagesController extends FieldController
 
         //取出images中的配置信息
         $ImagesModel = new FieldDataImagesModel();
-        $config      = $ImagesModel->getConfig();        
+        $config      = $this->FieldModel->getConfig();        
         $file = Request::instance()->file('Filedata');
 
         // 查看是否传入了文件信息
@@ -42,7 +43,7 @@ class ImagesController extends FieldController
         } else {
             // 调用上传操作
             try {
-                $result['data'] = $FieldDataAttachmentModel->upload($file, $config);
+                $result['data'] = $FieldDataAttachmentModel->setFieldModel($this->FieldModel())->upload($file, $config);
             } catch (\Exception $e) {
                 $result = [
                     'status' => 'error',

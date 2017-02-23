@@ -39,12 +39,12 @@ class CallController extends Controller {
     /**
      * 调用字段
     **/
-    public function blockAction($id = 0, $action = 'index'){
-        if (!AccessUserGroupBlockModel::checkCurrentUserIsAllowedByBlockIdAndAction($id, $action)) {
+    public function blockAction($blockId = 0, $action = 'index'){
+        if (!AccessUserGroupBlockModel::checkCurrentUserIsAllowedByBlockIdAndAction($blockId, $action)) {
             return $this->accessNotAllow();
         }
 
-        return BlockController::call($id, $action);
+        return BlockController::call($blockId, $action);
     }
 
     public function pluginAction($id = 0, $action = 'index') {
@@ -55,11 +55,11 @@ class CallController extends Controller {
         return PluginController::call($id, $action);
     }
 
-    public function fieldAction($id = 0, $action = 'index') {
-        if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldIdAction($id, $action)) {
+    public function fieldAction($fieldId = 0, $action = 'index') {
+        if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldIdAction($fieldId, $action)) {
             return $this->accessNotAllow();
         }
 
-        return FieldController::call($id, $action);
+        return FieldController::call($fieldId, $action);
     }
 }

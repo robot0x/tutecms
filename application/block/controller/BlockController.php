@@ -34,6 +34,17 @@ class BlockController extends Controller
         $this->assign('Common', new Common);
     }
 
+    /**
+     * 生成直接直接显示在前台的URL地址
+     * @param    string                   $action 触发器
+     * @param    array                $param  其它参数
+     * @return   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:44:59+0800
+     */
+    protected function url($action = 'index', $param = []) {
+        return url('admin/call/block?blockId=' . $this->BlockModel->getData('id') . '&action=' . $action, $param);
+    }
 
     static public function instance(BlockModel $BlockModel)
     {
@@ -45,10 +56,6 @@ class BlockController extends Controller
 
         // 取配置过滤器信息
         $Object->config = $BlockModel->getSampleConfig();
-
-        // 获取过滤器信息并传入V层
-        $filterModels = $Object->BlockModel->getFilterModels();
-        $Object->assign('filterModels', $filterModels);
 
         // 送配置 过滤器至V层
         $Object->assign('config', $Object->config);
@@ -97,7 +104,7 @@ class BlockController extends Controller
     }
 
 
-    static public function call($blockId, $action, $param) {
+    static public function call($blockId, $action) {
         $BlockModel = BlockModel::get($blockId);
         $className = 'app\block\controller\\' . $BlockModel->getData('block_type_name') . 'Controller';
         try 
@@ -105,7 +112,7 @@ class BlockController extends Controller
             // 实例化类 并调用
             $Object = call_user_func_array([$className, 'instance'], [$BlockModel]); 
             if (method_exists($Object, $action)) {
-                $result = $Object->$action($param); 
+                $result = $Object->$action(); 
             }
             
         } catch(\Exception $e) {

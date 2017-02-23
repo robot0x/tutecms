@@ -1,4 +1,5 @@
 <!-- Start Slider -->
+
 <div class="row clearfix" style="padding-bottom:0px;">
     <div class="col-md-12 column">
         <section id="mu-slider" style="height: 500px;">
@@ -15,9 +16,9 @@
                         <span></span>
                         <h2>{$headers[$key]}</h2>
                         <p>{$descriptions[$key]}</p>
-                        {neq name="token" value=""}
-                            <a target="_blank" class="mu-read-more-btn" href="{:url('api/api/index?token=' . $token)}">编辑</a>
-                        {/neq} 
+                        {yz:access type="block" action="edit" id="$BlockModel->getData('id')"}
+                            <a target="_blank" class="mu-read-more-btn" href="{$editAction}">编辑</a>
+                        {/yz:access}
                     </div>
                 </div>
                 <!-- Start single slider item -->
@@ -25,5 +26,6 @@
         </section>
     </div>
 </div>
+
 
           

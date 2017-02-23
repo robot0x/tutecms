@@ -34,6 +34,9 @@
                                 <a href="{:url('edit?id=' . $_blockModel->id)}" class="btn btn-small btn-info">
                                     <i class="btn-icon-only icon-edit"></i> 编辑
                                 </a>
+                                <a href="{:url('field/read?relateValue=' . $_blockModel->BlockTypeModel()->getData('name') . '&relateType=block')}" class="btn btn-small btn-info">
+                                    <i class="btn-icon-only icon-edit"></i> 字段管理
+                                </a>
                                 <a href="{:url('delete?id=' . $_blockModel->id)}" class="btn btn-small btn-danger">
                                     <i class="btn-icon-only icon-remove"></i>
                                 </a>

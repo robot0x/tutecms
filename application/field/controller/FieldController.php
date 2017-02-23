@@ -35,8 +35,8 @@ class FieldController extends Controller
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2017-02-23T19:00:15+0800
      */
-    protected function url($action = 'index', $param) {
-        return url('admin/call/field?id=' . $this->FieldDataXXXModel->FieldModel()->getData('id') . '&action=' . $action, $param);
+    protected function url($action = 'index', $param = []) {
+        return url('admin/call/field?fieldId=' . $this->FieldDataXXXModel->FieldModel()->getData('id') . '&action=' . $action, $param);
     }
 
     /**

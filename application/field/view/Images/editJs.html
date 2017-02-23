@@ -7,7 +7,7 @@ ngApp{$randId}.controller('field_data_images_{$randId}', ['$scope', 'Upload', fu
     // upload on file select or drop
     $scope.upload = function (file, key) {
         Upload.upload({
-            url: '{:url("api/api/index?token=" . $token)}',
+            url: '{$uploadAction}',
             data: {Filedata: file}
         }).then(function (resp) {
             if (resp.data.status === 'success') {

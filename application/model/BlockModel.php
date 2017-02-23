@@ -201,7 +201,7 @@ class BlockModel extends ModelModel
             }
         }
 
-        throw new \Exception('not found fieldName:' . $name . ' of ContentModel:' . $this->getData('id'), 1);
+        throw new \Exception('not found field name: "' . $name . '" of BlockModel: ' . $this->getData('id') . '-' . $this->getData('title'), 1);
     }
 
     public function checkIsHave(UserGroupModel &$UserGroupModel)

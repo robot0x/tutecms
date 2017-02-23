@@ -16,12 +16,7 @@ use app\model\AccessUserGroupBlockModel;    // 用户组区块权限
  */
 class SliderController extends BlockController
 {
-    public function index()
-    {
-        // 生成token并送入V层，用于编辑该区块.首先进行权限的判断
-        $token = $this->BlockModel->makeToken('edit');
-        $this->assign('token', $token);
-
+    public function index() {
         // 获取扩展字段列表, 并传入V层
         $this->assign('titles',         $this->BlockModel->FieldModel('titles')->filter());
         $this->assign('urls',           $this->BlockModel->FieldModel('urls')->filter());
@@ -53,6 +48,7 @@ class SliderController extends BlockController
         unset($ContentModels);
         unset($ContentModel);
 
+        $this->assign('editAction', $this->url('edit'));
         return $this->fetch();
     }
     
