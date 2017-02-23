@@ -10,6 +10,8 @@ use app\model\AccessUserGroupPluginModel;       // 用户组插件权限
 use app\model\AccessUserGroupFieldModel;        // 用户组字段权限
 use app\model\BlockModel;                       // 区块模型
 use app\block\controller\BlockController;       // 区块根控制器
+use app\plugin\controller\PluginController;     // 插件控制器
+use app\field\controller\FieldController;      // 字段控制器
 
 class CallController extends Controller {
     protected $isAjax = false;
@@ -42,18 +44,22 @@ class CallController extends Controller {
             return $this->accessNotAllow();
         }
 
-        return BlockController::call($id, $action, Request::instance()->param());
+        return BlockController::call($id, $action);
     }
 
     public function pluginAction($id = 0, $action = 'index') {
         if (!AccessUserGroupPluginModel::checkCurrentUserIsAllowedByPluginIdAndAction($id, $action)) {
             return $this->accessNotAllow();
         }
+
+        return PluginController::call($id, $action);
     }
 
     public function fieldAction($id = 0, $action = 'index') {
         if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldIdAction($id, $action)) {
             return $this->accessNotAllow();
         }
+
+        return FieldController::call($id, $action);
     }
 }
