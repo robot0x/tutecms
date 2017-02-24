@@ -20,7 +20,7 @@ class FieldController extends AdminController
 
         //传值
         $this->assign('FieldModels', $FieldModels);
-        return $this->fetch('Field/index');
+        return $this->fetch();
     }
 
     public function readAction($relateType, $relateValue, $backUrl = '') {
@@ -33,7 +33,7 @@ class FieldController extends AdminController
         $FieldModels  = $FieldModel->where($map)->order('weight', 'desc')->select();
         $this->assign('FieldModels', $FieldModels);
 
-        return $this->fetch('Field/read');
+        return $this->fetch();
     }
 
     public function createAction() {
