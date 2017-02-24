@@ -7,7 +7,7 @@ class IndexController extends AdminController
 {
     public function indexAction()
     {
-        return $this->fetch('Index/index');
+        return $this->fetch();
     }
 
     public function cacheClearAction() {
