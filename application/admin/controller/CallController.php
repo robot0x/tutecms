@@ -47,12 +47,12 @@ class CallController extends Controller {
         return BlockController::call($blockId, $action);
     }
 
-    public function pluginAction($id = 0, $action = 'index') {
-        if (!AccessUserGroupPluginModel::checkCurrentUserIsAllowedByPluginIdAndAction($id, $action)) {
+    public function pluginAction($pluginId = 0, $action = 'index') {
+        if (!AccessUserGroupPluginModel::checkCurrentUserIsAllowedByPluginIdAndAction($pluginId, $action)) {
             return $this->accessNotAllow();
         }
 
-        return PluginController::call($id, $action);
+        return PluginController::call($pluginId, $action);
     }
 
     public function fieldAction($fieldId = 0, $action = 'index') {

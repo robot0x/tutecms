@@ -102,14 +102,9 @@ class MenuController extends AdminController
 
         if(true !== $result){
             // 验证失败 输出错误信息
-            return $this->error('title不能为空', url('MenuType/read'));
+            return $this->error('title不能为空');
         }
         $MenuModel->save();
-
-        // 更新user_group_menu表
-        $AccessUserGroupMenuModel = new AccessUserGroupMenuModel;
-        $map = ['menu_id' => $id];
-        $AccessUserGroupMenuModel->where($map)->delete();
 
         // 更新 菜单 用户组 权限
         if (array_key_exists('access', $data)) {

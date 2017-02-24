@@ -21,4 +21,10 @@ return [
         'action'        => 'upload',
     ],
 
+    'addSubCount' => [
+        'title'         => '加减个数',
+        'description'   => '上传新的图片',
+        'action'        => 'addSubCount',
+    ],
+
 ];

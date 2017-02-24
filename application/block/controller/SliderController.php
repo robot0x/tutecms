@@ -48,15 +48,13 @@ class SliderController extends BlockController
         unset($ContentModels);
         unset($ContentModel);
 
+
         $this->assign('editAction', $this->url('edit'));
         return $this->fetch();
     }
     
-    static public function save($data = [])
+    public function save()
     {
-        // 实例化
-        $Object = new self();
-
         // 得到请求信息
         $Request = Request::instance();
         $param = $Request->param();
@@ -66,21 +64,22 @@ class SliderController extends BlockController
         $count = count(array_pop($fields));
         foreach ($fields as $value) {
             if ($count !== count($value)) {
-                return $Object->error('各字段设置的参数个数不统一，请检查');
+                return $this->error('各字段设置的参数个数不统一，请检查');
             }
         }
         
         // 更新扩展数据字段
-        if (isset($param['field_'])) {
-            FieldModel::updateLists($param['field_'], $data['id']);
+        if (array_key_exists('field_', $param)) {
+            FieldModel::updateLists($param['field_'], $this->BlockModel->getData('id'));
         }
 
-        $Object->success('操作成功', $Request->server('HTTP_REFERER'));
+        $this->success('操作成功');
     }
 
 
     public function edit($data = [])
     {
+        $this->assign('saveAction', $this->url('save'));
         return $this->view->fetch('block@Slider/edit');
     }
 }

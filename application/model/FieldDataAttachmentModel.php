@@ -10,6 +10,7 @@ class FieldDataAttachmentModel extends FieldModel
     private $uploadPath   = null;               // 上传路径
     protected $url        = null;               // URL
     protected $token      = null;               // token 
+    protected $data       = ['id' => 0];        // 设置默认值
 
     /**
      * 上传文件
@@ -66,7 +67,7 @@ class FieldDataAttachmentModel extends FieldModel
             $info = $file->move($Object->getUploadPath());
             // $Object->setData('user_name', ); todo:取当前用户信息
             $Object->setData('name', $info->getInfo('name'));
-            $Object->setData('save_name', $info->getSaveName());
+            $Object->setData('save_name', $config['uploadPath'] . DS . $info->getSaveName());
             $Object->setData('ext',   $info->getExtension());
             $Object->setData('sha1',  $sha1);
             $Object->setData('md5',   $md5);
@@ -91,7 +92,7 @@ class FieldDataAttachmentModel extends FieldModel
     {
         if (null === $this->uploadPath) {
             if (isset($this->getConfig()['uploadPath'])) {
-                $uploadPath = $this->getConfig()['uploadPath']['value'];
+                $uploadPath = $this->FieldModel()->getConfig()['uploadPath']['value'];
             } else {
                 $uploadPath = '/upload';
             }
@@ -112,7 +113,7 @@ class FieldDataAttachmentModel extends FieldModel
     public function getUrl()
     {   
         if (null === $this->url) {
-            $this->url = __ROOT__ . $this->FieldModel()->getConfig()['uploadPath']['value'] . '/' . $this->getData('save_name');
+            $this->url = __ROOT__  . $this->getData('save_name');
         }
         return $this->url;
     }

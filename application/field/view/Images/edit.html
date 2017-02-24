@@ -9,5 +9,5 @@
         <button type="button" ngf-select="upload($file, key)">上传</button>
     </div>
 </div>
-<a href="{:url('api/api/index?token=' . $addSubToken) . '?type=add'}">+1</a>
-<a href="{:url('api/api/index?token=' . $addSubToken) . '?type=sub'}">-1</a>
+<a href="{$addSubAction}?type=add">+1</a>
+<a href="{$addSubAction}?type=sub">-1</a>

@@ -55,9 +55,9 @@ class AccessUserGroupMenuModel extends ModelModel
         // 使用 用户组信息与action信息，拼接二维数组，并在接拼过程中，去除 groupsActions 已存在的键值
         $accesses = [];
         $access = ['menu_id' => $MenuModel->getData('id')];
-        foreach ($userGroupModels as $_userGroupModel) {
-            $access['user_group_name'] = $_userGroupModel->getData('name');
-            foreach ($routes as $action => $value) {
+        foreach($groupsActions as $groupName => $actions) {
+            $access['user_group_name'] = $groupName;
+            foreach ($actions as $action => $on) {
                 $access['action'] = $action;
                 array_push($accesses, $access);
             }

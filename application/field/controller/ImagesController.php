@@ -12,7 +12,7 @@ class ImagesController extends FieldController
     public function edit()
     {   
         $this->assign('uploadAction', $this->url('upload'));
-        $this->assign('addSubToken', $this->url('addSubToken'));
+        $this->assign('addSubAction', $this->url('addSubCount'));
         
         return $this->view->fetch('field@Images/edit') . $this->view->fetch('field@Images/editCss') . $this->view->fetch('field@Images/editJs');
     }
@@ -23,7 +23,7 @@ class ImagesController extends FieldController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-09T13:57:50+0800
      */
-    static public function upload()
+    public function upload()
     {
         $result = ['status' => 'success'];
         // todo:讲解new self()与 new ImageController()的区别
@@ -31,7 +31,7 @@ class ImagesController extends FieldController
 
         //取出images中的配置信息
         $ImagesModel = new FieldDataImagesModel();
-        $config      = $this->FieldModel->getConfig();        
+        $config      = $this->FieldModel->getSampleConfig();        
         $file = Request::instance()->file('Filedata');
 
         // 查看是否传入了文件信息
@@ -43,7 +43,7 @@ class ImagesController extends FieldController
         } else {
             // 调用上传操作
             try {
-                $result['data'] = $FieldDataAttachmentModel->setFieldModel($this->FieldModel())->upload($file, $config);
+                $result['data'] = $FieldDataAttachmentModel->setFieldModel($this->FieldModel)->upload($file, $config);
             } catch (\Exception $e) {
                 $result = [
                     'status' => 'error',
