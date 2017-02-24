@@ -5,7 +5,11 @@
             <div class="mu-contact-area">
                 <!-- start title -->
                 <div class="mu-title">
-                    <div class="text-right"><a href="{:app\\Common::url('/edit?id=' . $ContentModel->id)}">编辑</a></div>
+                {yz:access type="menu" action="edit"}
+                    <div class="text-right"><a class="btn btn-primary" href="{:app\\Common::url('/edit?id=' . $ContentModel->id)}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a></div>
+                {/yz:access}
+                        
+                    
                     <h2>{$ContentModel->title}</h2>
                     <div class="mu-meta">
                         <span>作者：{$ContentModel->UserModel()->getData('name')}</span>

@@ -25,9 +25,9 @@ class AccessUserGroupMenuModel extends ModelModel
         $map['menu_id']         = MenuModel::getCurrentMenuModel()->getData('id');
         $map['action']          = $action;
         if ('' !== self::get($map)->getData('action')) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
