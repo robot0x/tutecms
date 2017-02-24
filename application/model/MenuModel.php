@@ -15,6 +15,7 @@ class MenuModel extends ModelModel
     private $filter             = null;         // 过滤器信息
     private $depth              = 0;            // 菜单深度
     private $ComponentModel     = null;         // 对应的组件
+    protected $sampleConfig     = null;         // 简易配置
 
     private $availableSonMenuModels = null;     // 可用的子菜单列表
     private $isHaveAvailableSonMenus = null;    // 是否存在可用的子菜单列表
@@ -98,6 +99,23 @@ class MenuModel extends ModelModel
         }
 
         return $this->config;
+    }
+
+    /**
+     * 获取简易格式的配置信息
+     * @return   array                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-24T16:09:17+0800
+     */
+    public function getSampleConfig() {
+        if (null === $this->sampleConfig) {
+            $this->sampleConfig = [];
+            foreach($this->getConfig() as $key => $value) {
+                $this->sampleConfig[$key] = $value['value'];
+            }
+        }
+
+        return $this->sampleConfig;
     }
 
     /**

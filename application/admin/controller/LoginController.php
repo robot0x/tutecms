@@ -22,9 +22,9 @@ class LoginController extends Controller
 		if (UserModel::login($username, $password)) {
 			// 验证登录用户是否为管理员
 			if (UserModel::isAdmin($username)) {
-				return $this->success('登陆成功', url('@admin/index'));
+				return $this->success('登录成功', url('@admin/index'));
 			}
-			return $this->error('该用户无此权限');
+			return $this->error('对不起，您无此权限');
 		}
 		return $this->error('用户名或密码错误');
 	}
@@ -33,7 +33,7 @@ class LoginController extends Controller
 	{
 		//调用注销方法
 		if (UserModel::logout()) {
-			return $this->success('注销成功', url('index'));
+			return $this->success('操作成功', url('index'));
 		} else {
 			return $this->error('注销失败', url('index'));
 		}

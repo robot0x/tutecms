@@ -38,6 +38,11 @@ class ContentListController extends ComponentController
             return $this->error('数据不存在或已删除');
         }
 
+        // 查看是否拥有权限
+        if (MenuModel::getCurrentMenuModel()->getSampleConfig()['contentTypeName'] !== $ContentModel->getData('content_type_name')) {
+            return $this->error('对不起，您无此权限');
+        }
+
         $this->assign('ContentModel', $ContentModel);
 
         $ContentModels = $this->getContentModels();
