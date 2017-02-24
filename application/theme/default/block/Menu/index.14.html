@@ -4,7 +4,7 @@
     <div class="row" id="headerlinks">
         <div class="col-md-11 text-right">
         {volist name="menuModels" id="_MenuModel" key="key"}
-            <a href="{:url('@' . $_MenuModel->getData('url') . $_MenuModel->getData('param'))}">{$_MenuModel->getData('title')}</a>{neq name="key" value="$length"}<span class="separators">|</span>{/neq}
+            <a href="{:url('@' . $_MenuModel->getData('url') . $_MenuModel->getData('params'))}">{$_MenuModel->getData('title')}</a>{neq name="key" value="$length"}<span class="separators">|</span>{/neq}
         {/volist}
         </div>
         <!--div class="col-md-3 col-md-offset-1">
