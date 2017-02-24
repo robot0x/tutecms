@@ -7,7 +7,7 @@ return [
     ],
 
     'index' => [
-        'title'         => '登录',
+        'title'         => '登录/个人中心',
         'description'   => '登录前显示登录form,登录后，显示个人中心',
         'value'         => ['', 'GET']        
     ],
@@ -24,4 +24,10 @@ return [
         'description'   => '保存用户注册信息',
         'value'         => ['/update', 'POST']
     ],
+
+    'login' =>         [
+        'title'         => '登录验证',
+        'description'   => '验证用户名密码是否正确',
+        'value'         => ['/login', 'POST']
+    ] 
 ];
