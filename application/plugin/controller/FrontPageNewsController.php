@@ -23,7 +23,6 @@ class FrontPageNewsController extends PluginController
      */
     public function edit(ContentModel $ContentModel) {
         $map = ['content_id' => $ContentModel->getData('id')];
-        $this->assign('menuId', MenuModel::getCurrentMenuModel()->getData('id'));
         $this->assign('PluginDataFrontPageNewsModel', PluginDataFrontPageNewsModel::get($map));
         // 取V层
         return $this->fetch();
@@ -50,7 +49,6 @@ class FrontPageNewsController extends PluginController
             // 如果为设置为首页新闻，则按情况不同新增或更新数据
             $PluginDataFrontPageNewsModel->setData('weight', (int)$data['weight']);
             $PluginDataFrontPageNewsModel->setData('type', ($data['type'] === 'news' ? 'news' : 'info'));
-            $PluginDataFrontPageNewsModel->setData('url', $data['url']);
 
             // 如果为新建，则给默认值，并设置UPDATE为FALSE
             if (0 === $PluginDataFrontPageNewsModel->getData('content_id')) {
