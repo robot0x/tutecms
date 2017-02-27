@@ -9,7 +9,7 @@
                 {volist name="newsContentModels" id="_newsContentModel"}
                     <div class="col-md-4">
                         <img src="{$_newsContentModel->ContentModel()->FieldXXXXModel('image')->getUrl()}" class="img-rounded" />
-                        <p class="small categroy">{$_newsContentModel->ContentModel()->ContentTypeModel()->getData('title')}</p>
+                        <p class="small categroy">{$_newsContentModel->ContentModel()->MenuModel()->getData('title')}</p>
                         <h4><a href="{:__PUBLIC__ . $_newsContentModel->getData('url')}">{$_newsContentModel->ContentModel()->getData('title')}</a></h4>
                         {yz:url action="read"}
                         <p>{yz:filter name="$_newsContentModel->ContentModel()->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 54]" /}</p>
