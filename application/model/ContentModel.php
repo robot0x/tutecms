@@ -6,6 +6,7 @@ class ContentModel extends ModelModel
     private $isShowinFrontpage      = null;             // 是否在首页显示
     private $UserModel              = null;             // 用户模型
     private $MenuModel              = null;             // 文章对应的菜单Model
+    protected $readUrl              = null;             // 阅读URL
 
     protected $url                  = null;             // 生成的文章链接
     protected $preContentModel      = null;             // 上一篇文章
@@ -284,5 +285,19 @@ class ContentModel extends ModelModel
      */
     public function getUrl($action) {
         return $this->MenuModel()->getUrlByActionParams($action, [$this->getData('id')], false);
+    }
+
+    /**
+     * 阅读URL
+     * @return   string                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-27T16:04:28+0800
+     */
+    public function getReadUrl() {
+        if (null === $this->readUrl) {
+            $this->readUrl = $this->getUrl('read');
+        }
+
+        return $this->readUrl;
     }
 }
