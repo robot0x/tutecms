@@ -21,6 +21,7 @@ class MenuModel extends ModelModel
     private $isHaveAvailableSonMenus = null;    // 是否存在可用的子菜单列表
 
     protected $fatherMenuModel  = null;
+    protected $FieldModels      = null;         // 字段类型
     /**
      * 默认的一些非 空字符串 的设置
      * 用来存在放在空的数据对象中
@@ -541,5 +542,20 @@ class MenuModel extends ModelModel
             }
         }
         return true;
+    }
+
+    /**
+     * 当前菜单类型对应的所有的字段模型 1:n
+     * @return lists FieldModel
+     * @author panjie panjie@mengyunzhi.com
+     * @DateTime 2016-09-02T12:18:22+0800
+     */
+    public function FieldModels()
+    {
+        if (null === $this->FieldModels) {
+            $this->FieldModels = FieldModel::getListsByRelateTypeRelateValue('Menu', $this->getData('id'));
+        }
+
+        return $this->FieldModels;
     }
 }

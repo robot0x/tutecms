@@ -16,8 +16,8 @@
                         <span class="col"><a href="{:url('edit')}?id={{menu.id}}">修改</a></span>
                         <span class="col"><a href="{:url('delete')}?id={{menu.id}}">删除</a></span>
                         <span class="col"><a href="{:url('create')}?pid={{menu.id}}">增加子菜单</a></span>
+                        <span class="col"><a href="{:url('field/read')}?relateValue={{menu.id}}&relateType=Menu" class="btn btn-small btn-info"><i class="btn-icon-only icon-edit"></i> 编辑字段</a></span>
                     </li>
-                    
                     <ul ng-if="menu._child.length" ng-include="'recursion'" ng-init="MenuModelTree=menu._child" ng-show="isShow(menu)"></ul>
                 </ul>
             </script>
@@ -25,5 +25,3 @@
         </div>
     </div>
 </div>
-
-

@@ -25,20 +25,6 @@ class ContentTypeModel extends ModelModel
         return $this->MenuModel;
     }
 
-    /**
-     * 当前菜单类型对应的所有的字段模型 1:n
-     * @return lists FieldModel
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-02T12:18:22+0800
-     */
-    public function FieldModels()
-    {
-        if (null === $this->FieldModels) {
-            $this->FieldModels = FieldModel::getListsByRelateTypeRelateValue('Content', $this->getData('name'));
-        }
-
-        return $this->FieldModels;
-    }
 
     /**
      * 获取对应的menu

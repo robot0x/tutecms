@@ -5,7 +5,7 @@ class ContentModel extends ModelModel
 {
     private $isShowinFrontpage      = null;             // 是否在首页显示
     private $UserModel              = null;             // 用户模型
-    private $ContentTypeModel       = null;             // 文章类型模型
+    private $MenuModel              = null;             // 文章对应的菜单Model
     protected $preContentModel      = null;             // 上一篇文章
     protected $nextContentModel     = null;             // 下一篇文章
     private $FieldXXXXModels        = null;
@@ -14,18 +14,18 @@ class ContentModel extends ModelModel
         parent::__construct($data);
     }
 
-    /**
-     * 内容类型 n:1
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-02T13:54:47+0800
-     */
-    public function ContentTypeModel()
-    {
-        if (null === $this->ContentTypeModel) {
-            $map = ['name' => $this->getData('content_type_name')];
-            $this->ContentTypeModel = ContentTypeModel::get($map);
+    public function setMenuModel(MenuModel $MenuModel) {
+        $this->MenuModel = $MenuModel;
+        return $this;
+    }
+
+    public function MenuModel() {
+        if (null === $this->MenuModel) {
+            $map = ['id' => $this->getData('menu_id')];
+            $this->MenuModel = MenuModel::get($map);
         }
-        return $this->ContentTypeModel;
+
+        return $this->MenuModel;
     }
 
     /**
@@ -66,7 +66,7 @@ class ContentModel extends ModelModel
         }
 
         // 获取对应的全部字段的信息
-        $FieldModels = $this->ContentTypeModel()->FieldModels();
+        $FieldModels = $this->MenuModel()->FieldModels();
 
         // 遍历当前 内容类型 的扩展字段信息.
         foreach ($FieldModels as $FieldModel) {
@@ -96,7 +96,7 @@ class ContentModel extends ModelModel
         if (null === $this->FieldXXXXModels) {
             $this->FieldXXXXModels = [];
             // 获取对应的全部字段的信息
-            $FieldModels = $this->ContentTypeModel()->FieldModels();
+            $FieldModels = $this->MenuModel()->FieldModels();
             // 遍历当前 内容类型 的扩展字段信息.
             foreach ($FieldModels as $FieldModel) {
                 array_push($this->FieldXXXXModels, $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id')));

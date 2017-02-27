@@ -39,7 +39,7 @@ class ContentListController extends ComponentController
         }
 
         // 查看是否拥有权限
-        if (MenuModel::getCurrentMenuModel()->getSampleConfig()['contentTypeName'] !== $ContentModel->getData('content_type_name')) {
+        if ((int)MenuModel::getCurrentMenuModel()->getData('id') !== (int)$ContentModel->getData('menu_id')) {
             return $this->error('对不起，您无此权限');
         }
 
@@ -121,15 +121,10 @@ class ContentListController extends ComponentController
     public function addAction() {
         // 获取当前菜单，及当前菜单对应的内容类型
         $MenuModel = MenuModel::getCurrentMenuModel();
-        $ContentTypeModel = ContentTypeModel::getContentTypeModelByMenuId($MenuModel->getData('id'));
-        if ('' === $ContentTypeModel->getData('name')) {
-            $this->error('当前菜单下未绑定内容类型，不能执行添加操作');
-            return;
-        }
 
         // 获取内容 并设置内容的类型
         $ContentModel = new ContentModel;
-        $ContentModel->setContentTypeModel($ContentTypeModel);
+        $ContentModel->setMenuModel($MenuModel);
 
         $this->assign('ContentModel', $ContentModel);
         return $this->fetch();
@@ -145,6 +140,7 @@ class ContentListController extends ComponentController
         $ContentModel->setData('title', $data['title']);
         $ContentModel->setData('content_type_name', $this->config['contentTypeName']['value']);
         $ContentModel->setData('user_name', $UserModel->getData('user_name'));
+        $ContentModel->setData('menu_id',  MenuModel::getCurrentMenuModel()->getData('id'));
         if (false === $ContentModel->save()) {
             return $this->error($ContentModel->getError());
         }

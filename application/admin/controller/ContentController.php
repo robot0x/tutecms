@@ -7,19 +7,10 @@ class ContentController extends AdminController
 {
     public function indexAction($contentType = 0)
     {
-
-        $map = [];
-
-        // 按列表取值
-        if ($contentType != 0)
-        {
-            $map['contentTypeName'] = $contentType;
-        }
-
-        $ContentModels = ContentModel::all($map);
+        $ContentModel = new ContentModel;
+        $ContentModels = $ContentModel->order('update_time desc')->paginate();
         $this->assign('ContentModels', $ContentModels);
 
-        $this->getAndassignContentTypeTree();
         return $this->fetch();
     }
 
@@ -96,19 +87,5 @@ class ContentController extends AdminController
         //返回成功
         $contentType = $ContentModel->content_type_name;
         return $this->success('更新成功', url('ContentType/read', ['name' => $contentType]  ));
-    }
-
-    /**
-     * 获取类别树并传至V层 
-     * @return   [type]                   [description]
-     * @author 梦云智 http://www.mengyunzhi.com
-     * @DateTime 2017-02-14T11:46:54+0800
-     */
-    private function getAndAssignContentTypeTree() {
-        //取出所有的菜单树
-        $ContentTypeModels = ContentTypeModel::getContentTypeModelTree();
-        $this->assign('ContentTypeModels', $ContentTypeModels);
-
-        $this->assign('contentTypeName', $this->request->param('contentTypeName'));
     }
 }
