@@ -2,6 +2,8 @@ body {
     background-color: #f5f5f5;
 }
 
+
+
 .breadcrumb {
     margin-bottom: 0px;
 }
@@ -60,7 +62,7 @@ body {
     color: #666;
 }
 
-#home_main h4 a{
+#home_main h4 a, .blog-container a, .blog-container a:hover, .hotNews a, .hotNews a:hover{
     color: #9B8131;
 }
 

@@ -2,6 +2,7 @@
 namespace app\model;
 
 use app\Common;
+use think\Db;
 
 class PluginDataFrontPageNewsModel extends ModelModel
 {
@@ -71,5 +72,25 @@ class PluginDataFrontPageNewsModel extends ModelModel
         } else {
             return 'false';
         }
+    }
+
+
+    static public function getAccessContentModelsByActionUserGroupNameTypeCount($action, $userGroupName, $type = 'news', $count = 5) {
+        $contents = Db::view('plugin_data_front_page_news','content_id')
+            ->view('content', 'id', 'content.id=plugin_data_front_page_news.content_id', 'LEFT')
+            ->view('access_user_group_menu','action,user_group_name','access_user_group_menu.menu_id=content.menu_id','LEFT')
+            ->where('access_user_group_menu.action','=',$action)
+            ->where('access_user_group_menu.user_group_name', '=', $userGroupName)
+            ->where('plugin_data_front_page_news.type', '=', $type)
+            ->order('plugin_data_front_page_news.weight desc, plugin_data_front_page_news.update_time desc')
+            ->limit($count)
+            ->select();
+            
+        $ContentModels = [];
+        foreach ($contents as $content) {
+            array_push($ContentModels, ContentModel::get($content['content_id']));
+        }
+
+        return $ContentModels;
     }
 }

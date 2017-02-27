@@ -8,12 +8,11 @@
                 <div class="row">
                 {volist name="newsContentModels" id="_newsContentModel"}
                     <div class="col-md-4">
-                        <img src="{$_newsContentModel->ContentModel()->FieldXXXXModel('image')->getUrl()}" class="img-rounded" />
-                        <p class="small categroy">{$_newsContentModel->ContentModel()->MenuModel()->getData('title')}</p>
-                        <h4><a href="{:__PUBLIC__ . $_newsContentModel->getData('url')}">{$_newsContentModel->ContentModel()->getData('title')}</a></h4>
-                        {yz:url action="read"}
-                        <p>{yz:filter name="$_newsContentModel->ContentModel()->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 54]" /}</p>
-                        <p class="small text-right date">[{:date('Y-m-d', $_newsContentModel->ContentModel()->getData('update_time'))}]</p>
+                        <img src="{$_newsContentModel->FieldXXXXModel('image')->getUrl()}" class="img-rounded" />
+                        <p class="small categroy">{$_newsContentModel->MenuModel()->getData('title')}</p>
+                        <h4><a href="{$_newsContentModel->getReadUrl()}">{$_newsContentModel->getData('title')}</a></h4>
+                        <p>{yz:filter name="$_newsContentModel->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 54]" /}</p>
+                        <p class="small text-right date">[{:date('Y-m-d', $_newsContentModel->getData('update_time'))}]</p>
                     </div>
                 {/volist}
                 </div>
@@ -23,15 +22,15 @@
                     <div class="row bg_white">
                         <div class="col-md-3 day_info text-center">
                             <div class="header">
-                                周{yz:filter name="$_infoContentModel->ContentModel()->getData('update_time')" package="DateFilter" function="getChineseWeek" /}
+                                周{yz:filter name="$_infoContentModel->getData('update_time')" package="DateFilter" function="getChineseWeek" /}
                             </div>
                             <div class="footer">
                                 {:date('m', $_infoContentModel->getData('update_time'))}月{:date('d', $_infoContentModel->getData('update_time'))}日
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <h4><a href="{:__PUBLIC__ . $_infoContentModel->getData('url')}">{$_infoContentModel->ContentModel()->getData('title')}</a></h4>
-                            <p>{yz:filter name="$_infoContentModel->ContentModel()->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 26]" /}</p>
+                            <h4><a href="{$_infoContentModel->getReadUrl()}">{$_infoContentModel->getData('title')}</a></h4>
+                            <p>{yz:filter name="$_infoContentModel->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 26]" /}</p>
                         </div>
                     </div>
                 </div>
