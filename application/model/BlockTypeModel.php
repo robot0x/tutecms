@@ -8,6 +8,7 @@ class BlockTypeModel extends ModelModel
     protected $pk           = 'name';
     private $config         = null;                 // 配置信息
     private $filter         = null;                 // 过滤器信息
+    protected $autoWriteTimestamp = false;
 
     /**
      * 读取相关配置文件后，得出配置信息

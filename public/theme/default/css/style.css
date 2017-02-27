@@ -165,3 +165,16 @@ body {
 .login input {
     width: 260px;
 }
+
+/**------------------------**/
+.hotNews {
+
+}
+
+.hotNews img {
+    width:100%;
+}
+
+.hotNews .news {
+    margin-top:10px;
+}

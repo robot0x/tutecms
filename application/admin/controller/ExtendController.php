@@ -46,8 +46,10 @@ class ExtendController extends AdminController
             foreach ($dir as $fileinfo) {
                 if (!$fileinfo->isDot()) {
                     $install = include $path . $fileinfo->getFilename();
-                    $install['name'] = $fileinfo->getBasename('Install.php');
-                    array_push($extends[$extendPath], $install);
+                    if (is_array($install)) {
+                        $install['name'] = $fileinfo->getBasename('Install.php');
+                        array_push($extends[$extendPath], $install);   
+                    }
                 }
             }
         }
@@ -109,6 +111,6 @@ class ExtendController extends AdminController
         } 
 
         $ExtendModelImpl->data($extend)->save();
-
+        return $this->success('操作成功');
     }
 }

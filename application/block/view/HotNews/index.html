@@ -1,0 +1,18 @@
+<!-- start sidebar -->
+<aside class="hotNews">
+    <h3>热点新闻</h3> 
+    {volist name="ContentModels" id="_ContentModel"}
+    <div class="row news">
+        <div class="col-md-3">
+            <a href="#">
+                <img class="img-rounded" src="{$_ContentModel->FieldXXXXModel('image')->getUrl()}" alt="{$_ContentModel->getData('title')}">
+            </a>
+        </div>
+        <div class="col-md-9">
+            <h4 class="header"><a href="{$_ContentModel->getUrl('read')}">{$_ContentModel->getData('title')}</a></h4>
+            <span class="date">{:date('Y-m-d', $_ContentModel->getData('update_time'))}</span>
+        </div>
+    </div>
+    {/volist}
+</aside>
+<!-- / end sidebar -->

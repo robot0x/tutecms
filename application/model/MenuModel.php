@@ -15,6 +15,7 @@ class MenuModel extends ModelModel
     private $filter             = null;         // 过滤器信息
     private $depth              = 0;            // 菜单深度
     private $ComponentModel     = null;         // 对应的组件
+    private $route              = null;         // 路由信息
     protected $sampleConfig     = null;         // 简易配置
 
     private $availableSonMenuModels = null;     // 可用的子菜单列表
@@ -38,7 +39,7 @@ class MenuModel extends ModelModel
     public function getRoute()
     {
         if (null === $this->route) {
-            
+
         }
 
         return $this->route;
@@ -341,6 +342,11 @@ class MenuModel extends ModelModel
         // 获取菜单对应的组件的路由信息
         $sampleRoute = $this->ComponentModel()->getSampleRoute();
 
+        // 未检测到路由中存在action，则使用index做为默认路由
+        if (!array_key_exists($action, $sampleRoute)) {
+            $action = 'index';
+        }
+
         // 当前action是否存在于路由表中, 按路由表规则生成路由
         if (array_key_exists($action, $sampleRoute)) {
             $route = $sampleRoute[$action][0];     // 获取路由值
@@ -355,12 +361,12 @@ class MenuModel extends ModelModel
             
             // 取当前菜单的url信息，拼接当前路由信息，再拼接GET信息后返回
             $menuUrl = $this->getData('url');
-            $url = Url::build('@' . $menuUrl . $route) . '?';
+            $url = Url::build('@' . $menuUrl . $route);
 
             // 加入追加的查询语义
             if ($appendQueryString) {
                 $getDataString = htmlspecialchars_decode(Request::instance()->server('REDIRECT_QUERY_STRING'));
-                $url .= $getDataString;
+                $url .= '?' . $getDataString;
             }
 
             return $url;
@@ -558,4 +564,5 @@ class MenuModel extends ModelModel
 
         return $this->FieldModels;
     }
+
 }

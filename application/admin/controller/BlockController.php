@@ -54,7 +54,7 @@ class BlockController extends AdminController
         $BlockModel->setData('title', $param['title']);
         $BlockModel->setData('block_type_name', $param['block_type_name']);
         $BlockModel->setData('description', $param['description']);
-        //$BlockModel->setData('position_name', $param['position_name']);
+        $BlockModel->setData('position_name', $param['position_name']);
         $BlockModel->setData('status', $param['status']);
         $BlockModel->setData('weight', $param['weight']);
 
