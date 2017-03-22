@@ -1,0 +1,254 @@
+body {
+    background-color: #f5f5f5;
+}
+
+.breadcrumb {
+    margin-bottom: 0px;
+}
+
+/* 首页 */
+#home_main h2 {
+    font-family: "KaiTi", "STKaiti";
+    font-weight: bold;
+    margin: 10px 0px;
+}
+
+#home_main .link_lists {
+    margin: 0px 20px;
+}
+
+#home_main .link_lists .list {
+    margin: 5px 0px;
+}
+
+#home_main .day {
+    margin-top: 20px;
+}
+
+#home_main .day .row {
+    margin-right: 0px;
+}
+
+#home_main .day_info {
+    border: 2px solid #1590b8;
+    padding: 0px;
+}
+
+#home_main .day_info .header {
+    background-color: #1590b8;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+
+#home_main .day_info .footer {
+    padding: 14px 0px;
+    color: #1590b8;
+}
+
+#home_main .categroy {
+    color: #1d275b;
+    font-weight: bold;
+}
+
+#home_main .date {
+    color: #666;
+}
+
+#home_main h4 a, .blog-container a, .blog-container a:hover, .hotNews a, .hotNews a:hover {
+    color: #9B8131;
+}
+
+#home_main .glyphicon {
+    color: #A85E46;
+}
+
+#home_main img {
+    width: 100%;
+}
+
+#headerlinks {
+    background-color: #31429b;
+    color: white;
+    font-weight: bold;
+}
+
+#headerlinks .separators {
+    padding: 4px 0px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#headerlinks a {
+    display: inline-block;
+    color: white;
+    padding: 4px 10px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.clear {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height: 0px;
+    clear: both;
+}
+
+#mu-footer {
+    position: relative;
+    right: 15px;
+}
+
+#mu-footer .mu-footer-top {
+    background-color: #111B4E;
+    display: inline;
+    float: left;
+    padding: 15px 0;
+}
+
+#mu-footer .mu-footer-bottom {
+    background-color: #0B1234;
+    display: inline;
+    float: left;
+    padding: 10px 0;
+}
+
+#mu-slider .mu-slider-single .mu-slider-img {
+    height: auto;
+}
+
+.bg_white {
+    background-color: white;
+}
+
+.mu-footer-bottom-area p {
+    font-size: 12px;
+}
+
+/** 正文下方的说明文字 */
+.mu-meta {
+    color: #555;
+}
+
+/* blog列表 */
+.blog-container img {
+    width: 100%;
+}
+
+.blog-container {
+    padding: 0px 15px;
+}
+
+.blog-container article {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.mu-title {
+    margin-bottom: 20px;
+}
+
+/*新闻通知*/
+#news {
+    background-image: url(./../image/bg01.jpg);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* 登录 */
+.login {
+    width: 300px;
+    margin: 20px auto;
+}
+
+.login input {
+    width: 260px;
+}
+
+/**------------------------**/
+.hotNews {
+
+}
+
+.hotNews img {
+    width: 100%;
+}
+
+.hotNews .news {
+    margin-top: 10px;
+}
+
+/*照片墙*/
+#photowall {
+    padding: 10px 0px;
+    maring-top: 10px;
+}
+
+#photowall .pic {
+    padding: 5px;
+}
+
+#photowall .header {
+    margin-bottom: 10px;
+}
+
+#photowall .header .pictrue img {
+    width: 30%;
+}
+
+#photowall .header p {
+    font-weight: bold;
+}
+
+/*快速链接 */
+#links {
+    background-color: white;
+}
+
+#links .links-item {
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height:71px;
+}
+
+#links .links-item .mask {
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    width: 95%;
+    opacity: 0.9;
+    z-index: 10;
+}
+
+#links .links-item img {
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    width: 95%;
+}
+
+
+
+#links .links-item h3 {
+    z-index: 100;
+    position: absolute;
+    width: 87%;
+    text-align: center;
+    display: table;
+    height: 48px;
+    margin: 0.5em;
+    border: 1px dotted white;
+    line-height: 48px;
+}
+
+#links .links-item h3 a {
+    color: white;
+    font-size: 0.8em;
+    display: block;
+}
+#links .links-item:hover > .mask{
+    opacity: 0.7;
+}
+

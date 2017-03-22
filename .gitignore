@@ -2,3 +2,4 @@
 .DS_Store
 
 application/runtime/cache/*
+/.idea/

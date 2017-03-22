@@ -1,0 +1,32 @@
+{layout name="index" /}
+    <div class="box-content login" ng-controller="componentLoginEdit">
+        <form action="{:app\\Common::url('/update')}" method="post" class="control-label">
+            <input type="hidden" value="{$UserModel->getData('id')}" name="id" />
+            <div class="control-group">
+                <label class="control-label" for="_name">姓名</label>
+                <div class="controls">
+                    <input type="text" id="_name" value="{$UserModel->getData('name')}" name="name" placeholder="姓名" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="_newpassword">新密码</label>
+                <div class="controls">
+                    <input type="password" ng-model="password" ng-change="checkPassword()" id="_newpassword" name="newpassword" placeholder="请输入新密码" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"  for="_repassword">确认密码</label><span ng-show="isError"  class="label label-danger" ng-bind="message"></span>
+                <div class="controls">
+                    <input type="password" ng-model="repassword" ng-change="checkPassword()" id="_repassword" name="repassword" placeholder="再次输入新密码" />
+                </div>
+            </div>
+            <br />
+            <div class="control-group" style="margin-left:95px">
+                <label class="control-label">
+                    <button ng-disabled="isError" type="submit" class="btn btn-primary">
+                        <i class="icon-ok"></i>提交
+                    </button>
+                </label>
+            </div>
+        </form>
+    </div>

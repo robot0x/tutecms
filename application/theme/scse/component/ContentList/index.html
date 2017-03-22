@@ -1,0 +1,42 @@
+{layout name="index" /}
+<section>
+    <div class="row main">
+        <div class="col-md-8">
+            <!-- start course content container -->
+            <div class="blog-container">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a href="{:app\\Common::url('/add')}" class="text-right">添加新闻</a>
+                    </div>
+                </div>
+                {volist name="ContentModels" id="ContentModel" key="key"}
+                <article class="row">
+                    <div class="col-md-4">
+                        <img src="{:__THEME__}/image/default.png" />
+                    </div>
+                    <div class="col-md-8">
+                        <h4><a href="{:app\\Common::url('/read?id=' . $ContentModel->id)}">{$ContentModel->title}</a></h4>
+                        <small><i class="glyphicon glyphicon-time"></i>&nbsp;&nbsp;{:date('Y-m-d', $ContentModel->getData('update_time'))}&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-eye-open"></i>&nbsp;&nbsp;{$ContentModel->getData('hit')}</small>
+                        <p>
+                        {yz:filter name="$ContentModel->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 98]" /}
+                        </p>
+                    </div>
+                </article>
+                {/volist}
+            </div>
+            <!-- end course content container -->
+            <!-- start course pagination -->
+            <div class="row">
+                <div class="mu-pagination col-md-11 col-md-offset-1">
+                    <nav>
+                        {$ContentModels->render()}
+                    </nav>
+                </div>
+            </div>
+            <!-- end course pagination -->
+        </div>
+        <div class="col-md-4">
+            {yz:block position="listRight" /}
+        </div>
+    </div>
+</section>

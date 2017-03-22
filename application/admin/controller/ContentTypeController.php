@@ -57,8 +57,9 @@ class ContentTypeController extends AdminController
 
     /**
      * 编辑内容类型
-     * @param string  $name 
+     * @param string $name
      * @author gaoliming
+     * @return mixed
      */
     public function editAction($name)
     {
@@ -76,8 +77,8 @@ class ContentTypeController extends AdminController
 
     /**
      * 更新信息
-     * @param  string $name 
-     * @return  tempalate 
+     * @return tempalate
+     * @internal param string $name
      * @author gaoliming
      */
     public function updateAction()

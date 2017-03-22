@@ -1,0 +1,164 @@
+{layout name="index" /}
+<div id="home_main" class="main">
+    <!--新闻通知-->
+    <div class="container-fiuld" id="news">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="news"><span class="glyphicon glyphicon-tasks
+" aria-hidden="true"></span>&nbsp;新闻</h2>
+                    <div class="row">
+                        {volist name="newsContentModels" id="_newsContentModel"}
+                        <div class="col-md-4">
+                            <img src="{$_newsContentModel->FieldXXXXModel('image')->getUrl()}" class="img-rounded"/>
+                            <p class="small categroy">{$_newsContentModel->MenuModel()->getData('title')}</p>
+                            <h4><a href="{$_newsContentModel->getReadUrl()}">{$_newsContentModel->getData('title')}</a>
+                            </h4>
+                            <p>{yz:filter name="$_newsContentModel->FieldXXXXModel('body')->getData('value')"
+                                package="server\StringServer" function="subHtmlString" param="['length' => 54]" /}</p>
+                            <p class="small text-right date">[{:date('Y-m-d',
+                                $_newsContentModel->getData('update_time'))}]</p>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="info"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;通知</h2>
+                    {volist name="infoContentModels" id="_infoContentModel"}
+                    <div class="col-md-12 day">
+                        <div class="row bg_white">
+                            <div class="col-md-3 day_info text-center">
+                                <div class="header">
+                                    周{yz:filter name="$_infoContentModel->getData('update_time')" package="DateFilter"
+                                    function="getChineseWeek" /}
+                                </div>
+                                <div class="footer">
+                                    {:date('m', $_infoContentModel->getData('update_time'))}月{:date('d',
+                                    $_infoContentModel->getData('update_time'))}日
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <h4>
+                                    <a href="{$_infoContentModel->getReadUrl()}">{$_infoContentModel->getData('title')}</a>
+                                </h4>
+                                <p>{yz:filter name="$_infoContentModel->FieldXXXXModel('body')->getData('value')"
+                                    package="server\StringServer" function="subHtmlString" param="['length' => 26]"
+                                    /}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--新闻通知 end -->
+    <!-- 快速链接 -->
+    <div class="container-fiuld" id="links">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="links-header"><span class="glyphicon glyphicon-search"></span>&nbsp;快速链接</h2>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="links-item">
+                                <img src="{:__THEME__}/image/20170215154324843153.jpeg">
+                                <div class="mask" style="background-color: #a91010"></div>
+                                <h3><a href="">河北工业大学</a></h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="links-item">
+                                <img src="{:__THEME__}/image/20170215154324843153.jpeg">
+                                <div class="mask" style="background-color: #c3d9ff"></div>
+                                <h3><a href="">河北工业大学</a></h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="links-item">
+                                <img src="{:__THEME__}/image/20170215154324843153.jpeg">
+                                <div class="mask" style="background-color: #c3d9ff"></div>
+                                <h3><a href="">河北工业大学</a></h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="links-item">
+                                <img src="{:__THEME__}/image/20170215154324843153.jpeg">
+                                <div class="mask" style="background-color: #c3d9ff"></div>
+                                <h3><a href="">河北工业大学</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--快速链接 end-->
+    <!--照片墙-->
+    <div class="container-fiuld" id="photowall">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-8 text-center pictrue">
+                    <img src="{:__THEME__}/image/index_tu01.jpeg" alt="">
+                </div>
+                <div class="col-md-4">
+                    <p>这里是照片墙的介绍这里是照片墙的介绍这里是照片墙的介绍这里是照片墙的介绍这里是照片墙的介绍这里是照片墙的介绍这里是照片墙的介绍这里是照片墙的介绍</p>
+                </div>
+            </div>
+            <!--照片墙-->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6 pic"><img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                        <div class="col-md-6 pic"><img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 pic">
+                            <img src="{:__THEME__}/image/W020170219410489374886.jpeg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+
+
+                        <div class="col-md-6 pic">
+                            <img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                        <div class="col-md-6 pic">
+                            <img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                        <div class="col-md-6 pic">
+                            <img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                        <div class="col-md-6 pic">
+                            <img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                        <div class="col-md-6 pic">
+                            <img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                        <div class="col-md-6 pic">
+                            <img src="{:__THEME__}/image/W020170201475470819752.jpeg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 pic">
+                            <img src="{:__THEME__}/image/W020170219410489374886.jpeg"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 pic">
+                            <img src="{:__THEME__}/image/W020170219413336353562.jpeg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--照片墙 end-->
+        </div>
+    </div>
+    <!--照片墙end-->
+</div>
