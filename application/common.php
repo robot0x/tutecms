@@ -820,7 +820,7 @@ class Common{
 
         // 非开发模式下，打印当前MCA触发信息
         if (Config::get('app_debug')) {
-            trace('当前调用：' . $controller . '->' . $action, $module);
+            trace('当前调用：' . $controller . '->' . $action . ':' . $Object->getData('id'), $module);
             trace('当前模板：' . realpath($templateHtml), $module);
         }
 
