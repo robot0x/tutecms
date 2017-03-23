@@ -16,13 +16,14 @@
                         {/volist}
                     </ul>
                     {else /}
-                    <a href="{:url('@' . $menuModel->url)}"><span>{$index}{$menuModel->title}</span></a>
+                    <a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</span></a>
                     {/eq}
                 </li>
                 {else /}
                 <li class="{eq name="menuModel->isActive()" value="1" }active {/eq} {gt name="index" value="8"}hidden-md{/gt}"><a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</a></span>
                 </li>
-                {/eq} {/volist}
+                {/eq}
+                {/volist}
             </ul>
         </nav>
     </div>
