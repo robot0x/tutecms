@@ -1,0 +1,29 @@
+<!-- Start menu -->
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <nav id="main_menu">
+            <ul class="">
+                {volist name="menuModels" id="menuModel" key="index"}
+                {eq name="menuModel->isHaveAvailableSonMenus()" value="1"}
+                <li class="{eq name='menuModel->isActive()' value='1'}active{/eq} {gt name='index' value='8'}hidden-md{/gt}" >
+                    {eq name='menuModel->isHaveAvailableSonMenus()' value='1'}
+                    <a href="javascript:void(0);"><span>{$menuModel->title}</span></a>
+                    <ul>
+                        {volist name="menuModel->getAvailableSonMenuModels()" id="sonMenuModel"}
+                        <li class="has-sub">
+                            <a href="{:url('@' . $sonMenuModel->url)}"><span>{$sonMenuModel->title}</span></a>
+                        </li>
+                        {/volist}
+                    </ul>
+                    {else /}
+                    <a href="{:url('@' . $menuModel->url)}"><span>{$index}{$menuModel->title}</span></a>
+                    {/eq}
+                </li>
+                {else /}
+                <li class="{eq name="menuModel->isActive()" value="1" }active {/eq} {gt name="index" value="8"}hidden-md{/gt}"><a href="{:url('@' . $menuModel->url)}"><span>{$menuModel->title}</a></span>
+                </li>
+                {/eq} {/volist}
+            </ul>
+        </nav>
+    </div>
+</div>
