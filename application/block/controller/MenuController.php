@@ -17,10 +17,6 @@ class MenuController extends BlockController
         // 取配置信息中的父菜单ID
         $pid = $this->config['pid'];
 
-        // 生成token并送入V层，用于编辑该区块
-        $token = $this->BlockModel->makeToken('edit');
-        $this->assign('token', $token);
-
         // 取当前菜单类型下可见的菜单列表
         $menuModels = MenuModel::getAvailableSonMenuModelsByPidUserGroupModel($pid, UserModel::getCurrentUserModel()->UserGroupModel());
         $this->assign('menuModels', $menuModels);
