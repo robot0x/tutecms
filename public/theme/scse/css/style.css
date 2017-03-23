@@ -100,14 +100,12 @@ body {
 }
 
 #mu-footer .mu-footer-top {
-    background-color: #111B4E;
     display: inline;
     float: left;
     padding: 15px 0;
 }
 
 #mu-footer .mu-footer-bottom {
-    background-color: #0B1234;
     display: inline;
     float: left;
     padding: 10px 0;
@@ -259,5 +257,18 @@ body {
 
 .bgf5 {
     background-color: #f5f5f5;
+}
+
+.bg111B4E {
+    background-color: #111B4E;
+}
+
+#mu-footer .mu-footer-top {
+    background-color: #111B4E;
+}
+
+/*position*/
+.positionRelative {
+    position: relative;
 }
 
