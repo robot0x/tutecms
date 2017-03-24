@@ -9,8 +9,12 @@ use app\Common;
 
 class MenuModel extends ModelModel
 {
-    static private $currentMenuModel = null;    // 当前菜单
-    
+    // 当前菜单
+    static private $currentMenuModel = null;
+    // 父菜单
+    protected $ParentMenuModel;
+    protected $RootMenuModel;
+
     private $config             = null;         // 配置信息
     private $filter             = null;         // 过滤器信息
     private $depth              = 0;            // 菜单深度
@@ -172,15 +176,46 @@ class MenuModel extends ModelModel
 
     /**
      * 获取某个PID下的所有列表
-     * @param    int                   $pid 父级ID
-     * @return   array
+     * @param    int $pid 父级ID
+     * @param int $isDelete
+     * @return array
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2017-02-22T14:44:55+0800
      */
-    static public function getListsByPid($pid) {
-        $map = ['pid' => $pid, 'is_delete' => $is_delete];
+    public function getListsByPid($pid, $isDelete = 0) {
+        $map = ['pid' => $pid, 'is_delete' => $isDelete];
         $MenuModels = $this->where($map)->order('weight desc')->select();
         return $MenuModels;
+    }
+
+    /**
+     * @return MenuModel
+     * Create by panjie@yunzhiclub.com
+     * 获取当前菜单的根菜单
+     */
+    public function getRootMenuModel() {
+        if (null === $this->RootMenuModel) {
+            $this->RootMenuModel = $this;
+            if (0 !== (int)$this->RootMenuModel->getData('pid')) {
+                do {
+                    $this->RootMenuModel = $this->RootMenuModel->getParentMenuModel();
+                } while(0 !== (int)$this->RootMenuModel->getData('pid'));
+            }
+        }
+
+        return $this->RootMenuModel;
+    }
+
+    /**
+     * @return static
+     * Create by panjie@yunzhiclub.com
+     * 获取父级菜单
+     */
+    public function getParentMenuModel() {
+        if (null === $this->ParentMenuModel) {
+            $this->ParentMenuModel = $this::get($this->getData('pid'));
+        }
+        return $this->ParentMenuModel;
     }
 
     static public function getTreeByPid($pid) {
@@ -310,10 +345,11 @@ class MenuModel extends ModelModel
 
     /**
      * 获取当前菜单的菜单树（从根菜单开始，至本菜单结束）
-     * @param   $arrayReveerse 是否翻转数组
+     * @param bool $arrayReverse
      * @return lists MenuModel
+     * @internal param 是否翻转数组 $arrayReverse
      */
-    public function getFatherMenuModleTree($arrayReverse = true)
+    public function getFatherMenuModelTree($arrayReverse = true)
     {
         $tree = [];
         $MenuModel = $this;

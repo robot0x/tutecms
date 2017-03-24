@@ -9,7 +9,7 @@ class BreadCrumbController extends BlockController
 {
     protected $currentMenuModel         = null;         // 当前菜单
     public function index() {
-        $MenuModels = MenuModel::getCurrentMenuModel()->getFatherMenuModleTree(false);
+        $MenuModels = MenuModel::getCurrentMenuModel()->getFatherMenuModelTree(false);
 
         // 获取输出的深度，从而进行数组POP
         $beginDepth = $this->config['beginDepth'];
