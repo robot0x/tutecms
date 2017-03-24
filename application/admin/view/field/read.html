@@ -19,6 +19,7 @@
                                 <th>字段类型</th>
                                 <th>relate_type</th>
                                 <th>relate_value</th>
+                                <th>过滤器</th>
                                 <th class="td-actions">操作</th>
                             </tr>
                         </thead>
@@ -33,6 +34,7 @@
                                 <td>{$_FieldModel->getFieldTypebyfieldtypename()->title}</td>
                                 <td>{$_FieldModel->relate_type}</td>
                                 <td>{$_FieldModel->relate_value}</td>
+                                <td>TODO:将字段与过滤器进行对接，一个字段可以对应多个过滤器.按先后顺序进行过滤</td>
                                 <td class="td-actions">
                                     <a href="{:url('edit?id=' . $_FieldModel->id)}?backUrl={$url}" class="btn btn-small btn-info">
                                         <i class="btn-icon-only icon-edit"></i> 编辑
