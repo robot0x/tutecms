@@ -2,10 +2,11 @@
    <label for="">
         {{title}}(点击图片进行上传):
     </label>
+    {:var_dump($FieldDataXXXModel)}
     <div ng-repeat="(key, image) in images" >
         <input type="hidden" name="field_[{:$FieldDataXXXModel->FieldModel()->getData('id')}][]" value="{{image}}" />
-        {{image}}
-        <img ng-src="{{image}}" class="field_data_images" ngf-select="upload($file, key)"/>
+        {:__PUBLIC__}{{image}}
+        <img ng-src="{:__PUBLIC__}{{image}}" class="field_data_images" ngf-select="upload($file, key)"/>
         <button type="button" ngf-select="upload($file, key)">上传</button>
     </div>
 </div>
