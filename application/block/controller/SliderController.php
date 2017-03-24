@@ -20,7 +20,11 @@ class SliderController extends BlockController
         // 获取扩展字段列表, 并传入V层
         $this->assign('titles',         $this->BlockModel->FieldModel('titles')->filter());
         $this->assign('urls',           $this->BlockModel->FieldModel('urls')->filter());
-        $this->assign('images',         $this->BlockModel->FieldModel('images')->filter());
+        $images = $this->BlockModel->FieldModel('images')->filter();
+        foreach ($images as $key => $image) {
+            $images[$key] = __PUBLIC__ . $image;
+        }
+        $this->assign('images',         $images);
         $this->assign('headers',        $this->BlockModel->FieldModel('headers')->filter());
         $this->assign('descriptions',   $this->BlockModel->FieldModel('descriptions')->filter());
         
