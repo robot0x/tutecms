@@ -19,9 +19,13 @@ class ContentListController extends ComponentController
 {
     public function indexAction()
     {
+        // 获取内容列表
         $ContentModels = $this->getContentModels();
         $this->assign('ContentModels', $ContentModels);
-        
+
+        // 获取当前菜单
+        $this->assign('currentMenuModel', MenuModel::getCurrentMenuModel());
+
         //获取当前用户信息
         $User = UserModel::getCurrentFrontUserModel();
         $this->assign('User', $User);
