@@ -1,0 +1,45 @@
+{layout name="index" /}
+<div class="container content_list_index">
+    <div class="row title">
+        <div class="col-md-9 col-md-offset-3">
+            <h3 class="text-center">学院文化</h3>
+        </div>
+    </div>
+</div>
+
+<section class="margin20-0px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {yz:block position="listLeft" /}
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+
+                    <div class="col-md-12 text-right">
+                        <a class="btn-sm btn-primary" href="{:app\\Common::url('/add')}" class="text-right"><i class="glyphicon glyphicon-plus"></i></a>
+                    </div>
+                    {volist name="ContentModels" id="ContentModel" key="key"}
+                    <div class="col-md-6">
+                        <article class="row">
+                            <div class="col-md-6 margin10-0px">
+                                <img class="img-responsive img-rounded" src="{:__THEME__}/image/default.png"/>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>
+                                    {$ContentModel->title}
+                                </h4>
+                                <p>
+                                    {yz:filter name="$ContentModel->FieldXXXXModel('body')->getData('value')"
+                                    package="server\StringServer" function="subHtmlString" param="['length' => 98]" /}
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
