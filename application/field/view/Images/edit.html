@@ -2,7 +2,6 @@
    <label for="">
         {{title}}(点击图片进行上传):
     </label>
-    {:var_dump($FieldDataXXXModel)}
     <div ng-repeat="(key, image) in images" >
         <input type="hidden" name="field_[{:$FieldDataXXXModel->FieldModel()->getData('id')}][]" value="{{image}}" />
         {:__PUBLIC__}{{image}}
