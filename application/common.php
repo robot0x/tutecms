@@ -746,6 +746,20 @@ class Common{
         return $html;
     }
 
+    /**
+     * @param View $View 视图
+     * @param $module 模块
+     * @param $controller 控制器
+     * @param $action 触发器
+     * @param $template 模板
+     * @param $vars 变量
+     * @param $replace
+     * @param $config
+     * @param $Object 传入的数据对象
+     * @return string 渲染后的HTML
+     * Create by panjie@yunzhiclub.com
+     * TODO: 将CSS,JS文件命名时，更改后缀为.css和.js，然后在此文件中，对扩展名进行处理.
+     */
     static public function fetchByMCA(View $View, $module, $controller, $action, $template, $vars, $replace, $config, $Object) {
         // 获取配置信息的模板后缀
         $viewSuffix = Config::get('template.view_suffix');
