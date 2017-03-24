@@ -1,28 +1,35 @@
 {layout name="index" /}
-<section class="main">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="mu-contact-area">
-                <!-- start title -->
-                <div class="mu-title">
-                    <div class="text-right"><a href="{:app\\Common::url('/edit?id=' . $ContentModel->id)}">编辑</a></div>
-                </div>
-                <!-- end title -->
-                <!-- start contact content -->
-                <div class="mu-contact-content">
-                    <div class="row">
-                        <div class="col-md-12">
-                            {yz:plugin position="beforeContent" object="ContentModel"}
-                        </div>
-                        <div class="col-md-12">
-                            {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"} {$_FieldXXXXModel->render('index')} {/foreach}
-                        </div>
-                        <div class="col-md-12">
-                            {yz:plugin position="afterContent" object="ContentModel"}
+<section class="margin20-0px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {yz:block position="listLeft" /}
+            </div>
+            <div class="col-md-9">
+                <div class="mu-contact-area">
+                    <!-- start title -->
+                    <div class="mu-title">
+                        <div class="text-right"><a href="{:app\\Common::url('/edit?id=' . $ContentModel->id)}">编辑</a>
                         </div>
                     </div>
+                    <!-- end title -->
+                    <!-- start contact content -->
+                    <div class="mu-contact-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {yz:plugin position="beforeContent" object="ContentModel"}
+                            </div>
+                            <div class="col-md-12">
+                                {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"}
+                                {$_FieldXXXXModel->render('index')} {/foreach}
+                            </div>
+                            <div class="col-md-12">
+                                {yz:plugin position="afterContent" object="ContentModel"}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end contact content -->
                 </div>
-                <!-- end contact content -->
             </div>
         </div>
     </div>
