@@ -15,10 +15,11 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-
+                    {yz:access action="add"}
                     <div class="col-md-12 text-right">
                         <a class="btn-sm btn-primary" href="{:app\\Common::url('/add')}" class="text-right"><i class="glyphicon glyphicon-plus"></i></a>
                     </div>
+                    {/yz:access}
                     {volist name="ContentModels" id="ContentModel" key="key"}
                     <div class="col-md-6">
                         <article class="row">

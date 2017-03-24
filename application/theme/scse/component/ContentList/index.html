@@ -8,11 +8,13 @@
             <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="blog-container">
+                    {yz:access action="add"}
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <a href="{:app\\Common::url('/add')}" class="text-right">添加新闻</a>
+                            <a href="{:app\\Common::url('/add')}" class="text-right btn btn-primary">添加新闻</a>
                         </div>
                     </div>
+                    {/yz:access}
                     {volist name="ContentModels" id="ContentModel" key="key"}
                     <article class="row">
                         <div class="col-md-4">
