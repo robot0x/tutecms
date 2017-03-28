@@ -9,17 +9,18 @@ use app\field\controller\FieldController;
  */
 class FieldModel extends ModelModel
 {
-   
-
     protected $config       = null;             // 配置信息
     protected $filter       = null;             // 过滤器信息
+    protected $route        = null;             // 路由信息
     protected $token        = null;             // token
-    protected $simpleConfig = null;             // 简单配置信息
+    protected $sampleConfig = null;             // 简单配置信息
+    protected $FieldModel   = null;             // 字段模型
+    
+    private $getDataByKeyId         = null;
+    private $getDataByKeyId_KeyId   = null;
+    private $FieldTypeModel         = null;     // 字段类型模型
+    
 
-    private $getDataByKeyId = null;
-    private $getDataByKeyId_KeyId = null;
-    private $FieldTypeModel = null;             // 字段类型模型
-    private $FieldModel = null;
 
     /**
      * 供继承于此类的 子类 使用
@@ -36,6 +37,16 @@ class FieldModel extends ModelModel
     }
 
     /**
+     * 设置字段模型
+     * @param    FieldModel               $FieldModel 字段模型
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:06:36+0800
+     */
+    public function setFieldModel (FieldModel $FieldModel) {
+        $this->FieldModel = $FieldModel;
+        return $this;
+    }
+    /**
      * 将驼峰式写法 改完 xx_x_型
      * @return   string                   
      * @author panjie panjie@mengyunzhi.com
@@ -47,69 +58,36 @@ class FieldModel extends ModelModel
     }
 
     /**
-     * 获取字段配置信息 
-     * @return   array
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-12T09:45:37+0800
-     */
-    public function getConfigAttr()
-    {
-        return json_decode($this->getData('config'), true);
-    }
-
-    /**
      * 获取合并后，可以供CV使用的配置信息   
-     * 供继承本类的XXXModel扩展字段使用
      * @return array 
      */
     public function getConfig()
     {
-        
-        if (null === $this->config) {
-            // todo:获取 数据表配置信息
-            
-            // 获取 文件配置信息 进行覆盖
-            $configName = substr($this->name, 9) ;
-
-            // 拼接主题模板信息
-            $configFilePath = APP_PATH . 
-                'field' . DS . 
-                'config' . DS .
-                $configName . 'Config.php';
-            // 路径格式化，如果文件不存在，则返回false
-            $configFilePath = realpath($configFilePath);
-
-            // 配置文件存在，则抓取
-            if (false !== $configFilePath)
-            {
-                $this->config = include $configFilePath;
-            } else {
-                $this->config = [];
-            }
-
-            // todo:合并配置信息
-            $this->config = Common::configMerge($this->config, $this->FieldModel()->getConfigAttr());
+        if (null === $this->config)
+        {
+            $this->config = Common::configMerge($this->FieldTypeModel()->getConfig(), $this->getConfigAttr());
         }
 
         return $this->config;
     }
 
     /**
-     * 获取 简单配置信息
-     * @return   array                   
+     * 获取简单配置信息
+     * @return   array                   key => value
      * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-12T09:51:36+0800
+     * @DateTime 2016-09-22T09:54:03+0800
      */
-    public function getSimpleConfig()
+    public function getSampleConfig()
     {
-        if (null === $this->simpleConfig) {
-            $this->simpleConfig = [];
-            foreach ($this->getconfig() as $key => $config) {
-                $this->simpleConfig[$key] = $config['value'];
+        if (null === $this->sampleConfig) {
+            $configs = $this->getConfig();
+            $this->sampleConfig = [];
+            foreach ($configs as $key => $config) {
+                $this->sampleConfig[$key] = $config['value'];
             }
         }
 
-        return $this->simpleConfig;
+        return $this->sampleConfig;
     }
 
     public function getFilter()
@@ -133,15 +111,13 @@ class FieldModel extends ModelModel
             $map                = [];
             $map['field_id']    = $this->getData('id');
             $map['key_id']      = $keyId;
-
             // 实例化 字段信息详情表
             $table = 'app\model\\' . Loader::parseName('field_data_' . $this->getData('field_type_name'), 1) . 'Model';
             $FiledDataModel = new $table;
-
+            
             $this->getDataByKeyId = $FiledDataModel->get($map);
-
             // 如果返回默认值，则将field_id, key_id传入。防止关联调用时数据不存在抛出的异常
-            if ('' === $this->getDataByKeyId->getData('field_id'))
+            if (0 === $this->getDataByKeyId->getData('field_id'))
             {
                 $this->getDataByKeyId->setData('field_id', $this->getData('id'));
                 $this->getDataByKeyId->setData('key_id', $keyId);
@@ -158,8 +134,7 @@ class FieldModel extends ModelModel
      */
     public function FieldTypeModel()
     {
-        if (null === $this->FieldTypeModel)
-        {
+        if (null === $this->FieldTypeModel) {
             $this->FieldTypeModel = FieldTypeModel::get(['name' => $this->getData('field_type_name')]);
         }
         
@@ -177,6 +152,21 @@ class FieldModel extends ModelModel
     {
         // 对扩展字段模型进行标签的渲染
         return FieldController::renderFieldDataModel($this, $action);
+    }
+
+
+    /**
+     * 获取route文件中信息
+     * @return array 
+     * @author huangshuaibin
+     */
+    public function getRoute()
+    {
+        if (null === $this->route) {
+            $this->route = Common::getRouteByModuleTypeName('field', $this->getData('field_type_name'));
+        }
+        
+        return $this->route;
     }
 
     /**

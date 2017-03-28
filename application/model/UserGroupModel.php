@@ -8,6 +8,30 @@ class UserGroupModel extends ModelModel
     protected $pk = 'name';
 
     protected $data = ['name' => 'public'];
+
+    public function isAllowedByFieldModelAction(FieldModel &$FieldModel, $action) {
+        // 查找是否存在当前权限值
+        $map = [];
+        $map['field_id']         = $FieldModel->getData('id');
+        $map['user_group_name'] = $this->getData('name');
+        $map['action']          = $action;
+        $AccessUserGroupFieldModel = AccessUserGroupFieldModel::get($map);
+        if ('' === $AccessUserGroupFieldModel->getData('field_id')) {
+            // 返回非默认值，有权限
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function isAllowedByFieldModelActionForView(FieldModel &$FieldModel, $action) {
+        if ($this->isAllowedByFieldModelAction($FieldModel, $action)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
     /**
      * 获取 菜单 对本用户组的权限
      * @param  MenuModel &$MenuModel [description]
@@ -21,12 +45,12 @@ class UserGroupModel extends ModelModel
         $map['user_group_name'] = $this->getData('name');
         $map['action']          = $action;
         $AccessUserGroupMenuModel = AccessUserGroupMenuModel::get($map);
-        if ('' !== $AccessUserGroupMenuModel->getData('menu_id'))
+        if ('' === $AccessUserGroupMenuModel->getData('menu_id'))
         {
             // 返回非默认值，有权限
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -53,6 +77,31 @@ class UserGroupModel extends ModelModel
             return false;
         }       
     }
+
+    public function isAllowedByPluginModelAction(PluginModel &$PluginModel, $action) {
+        //查找是否存在当前权限值
+        $map = [];
+        $map['plugin_id']       = $PluginModel->getData('id');
+        $map['user_group_name'] = $this->getData('name');
+        $map['action']          = $action;
+        $AccessUserGroupPluginModel = AccessUserGroupPluginModel::get($map);
+        
+        if ('' !== $AccessUserGroupPluginModel->getData('plugin_id')) {
+            //返回非默认值有权限
+            return false;
+        } else {
+            return true;
+        }   
+    }
+
+    public function isAllowedByPluginModelActionForView(PluginModel &$PluginModel, $action) {
+        if ($this->isAllowedByPluginModelAction($PluginModel, $action)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
 
     /**
      * 是否当前菜单的的 列表(10000) 权限

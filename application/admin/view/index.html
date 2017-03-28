@@ -3,7 +3,7 @@
 
 {include file="../head" /}
 
-<body>
+<body ng-app="app">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
@@ -74,13 +74,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{:url('admin/menuType/index')}">
+                            <a href="{:url('admin/menu/index')}">
                                 <i class="icon-calendar icon-large"></i> 菜单管理
                             </a>
                         </li>
                         <li>
-                            <a href="{:url('admin/contentType/index')}">
-                                <i class="icon-map-marker icon-large"></i> 类别管理
+                            <a href="{:url('admin/content/index')}">
+                                <i class="icon-map-marker icon-large"></i> 新闻管理
                             </a>
                         </li>
                         <li>
@@ -121,11 +121,6 @@
                         <li>
                             <a href="{:url('admin/theme/index')}">
                                 <i class="icon-briefcase icon-large"></i> 主题管理
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{:url('admin/Template/index')}">
-                                <i class="icon-bar-chart icon-large"></i> 查看模板
                             </a>
                         </li>
                         <li>

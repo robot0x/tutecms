@@ -1,0 +1,78 @@
+<style type="text/css">
+#main_menu {
+    background: #31429b;
+    border-radius: 0px;
+    margin-bottom: 0px;
+    border:none;
+}
+/*level 1 **/
+#main_menu ul li{
+    display: inline-block;
+    position: relative;
+}
+
+#main_menu ul li:first-child{
+    margin-left:20px;
+}
+
+#main_menu ul li ul li:first-child{
+    margin-left:0px;
+}
+
+#main_menu li.active {
+    background-color:#2F67B2;
+}
+
+#main_menu ul li a{
+    color: white;
+    display:block;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 40px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+#main_menu ul li a:hover{
+    color: #B8C4CC;
+    background-color:#2F67B2;
+}
+
+#main_menu ul li:hover > ul{
+    display: block;
+}
+
+/** level 2 */
+#main_menu ul li ul {
+    display:none;
+    margin:0px;
+}
+
+#main_menu ul li ul li{
+    margin:0px;
+    min-width: 150px;
+    border-bottom: 1px dotted #ccc;
+}
+
+#main_menu ul li ul li a{
+    color: black;
+
+}
+#main_menu ul li ul{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999999;
+    background-color: white;
+}
+
+/** level3  */
+#main_menu ul li ul li ul{
+    position: absolute;
+    left: 100%;
+    top: 0;
+    z-index: 9999999;
+    background-color: white;
+}
+</style>

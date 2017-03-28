@@ -15,7 +15,7 @@ class SystemServer
      */
     static public function makeFrontpageContentUrl($id, $param = [])
     {
-        return url('@hotnews/' . $id);
+        return url('@news/' . $id);
     }
 
     /**
@@ -48,5 +48,17 @@ class SystemServer
     static public function htmlspecialchars_decode($html, $param = [])
     {
         return htmlspecialchars_decode($html);
+    }
+
+    /**
+     * 生成操作说明的链接
+     * @param  int $id    新闻ID
+     * @param  array $param 参数
+     * @return string        生成的URL地址
+     * @author chuhang 
+     */
+    static public function makeInductiveContentUrl($id, $param = [])
+    {
+        return url('@inductive/' . $id);
     }
 }

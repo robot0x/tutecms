@@ -12,7 +12,7 @@ class UserModel extends ModelModel
     private $UserGroupModel = null;           // 用户组
 
     protected $pk = 'id';
-    protected $data = ['user_group_name' => 'public'];
+    protected $data = ['user_group_name' => 'public', 'name' => '匿名'];
 
     public function UserGroupModel()
     {
@@ -109,13 +109,23 @@ class UserModel extends ModelModel
      */
     public function checkpassword($password)
     {
-        if($this->getData('password') === $password) {
+        if($this->getData('password') === $this->encryptPassword($password)) {
             return true;
         } else {
             return false;
         }
-        
     }
+
+    /**
+     * 设置密码
+     * @param    String                   $password 密码
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-21T10:36:54+0800
+     */
+    public function setPassword($password) {
+        $this->setData('password', self::encryptPassword($password));
+    }
+    
     /**
      * 用户是否登陆
      * @return   boolean                  
@@ -171,7 +181,7 @@ class UserModel extends ModelModel
             return false;
         } else {
             //取出密码并保存密码
-            $this->password = config('resetPassword');
+            $this->password = self::enconfig('resetPassword');
             $this->save();
         }
     }
@@ -226,14 +236,16 @@ class UserModel extends ModelModel
     }
 
     /**
-     * 加密传进的密码
-     * @param  string $password
-     * @return string $encryptedpassword
-     * @author liuyanzhao
+     * 密码加密算法
+     * @param    string                   $password 加密前密码
+     * @return   string                             加密后密码
+     * 例：加密前admin , 加密后：87a36a542ff249c8a8a8de1282742fa86452ad13
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-21T08:59:42+0800
      */
-    public function encryptPassword($password)
+    static public function encryptPassword($password)
     {
-        $encryptedpassword = sha1(md5($password));
+        $encryptedpassword = sha1(md5($password) + 'mengyunzhi');
         return $encryptedpassword;
     }
 

@@ -1,0 +1,21 @@
+{layout name="index" /}
+<table class="table">
+<tr>
+    <th>机读字段</th>
+    <th>类别</th>
+    <th>名称</th>
+    <th>描述</th>
+    <th>操作</th>
+</tr>
+   {foreach name="extends" id="_extend" key="extendType"}
+    {foreach name="_extend" id="__extend"}
+    <tr>
+        <td>{$__extend['name']}</td>
+        <td>{$extendType}</td>
+        <td>{$__extend['title']}</td>
+        <td>{$__extend['description']}</td>
+        <td>{eq name="ExtendModel->isInstallForView($extendType, $__extend['name'])" value="false"}<a href="install?type={$extendType}&name={$__extend['name']}">安装</a>{else /}卸载{/eq}</td>
+    </tr>
+    {/foreach}
+{/foreach} 
+</table>

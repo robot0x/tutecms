@@ -1,0 +1,52 @@
+{layout name="index" /}
+<!--we are start here-->
+<div class="we-are">
+    <div class="container">
+        <div class="we-are-main">
+            <div class="col-md-6 we-are-left">
+                <h2>How we do it </h2>
+                <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system. But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound </p>
+                <a href="single.html">Read more</a>
+            </div>
+            <div class="col-md-6 we-are-rights">
+                <img src="{:__THEME__}/images/w2.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="clearfix"> </div>
+            <div class="we-are-middle">
+                <img src="{:__THEME__}/images/w5.jpg" alt="" class="img-responsive">
+            </div>
+        </div>
+    </div>
+</div>
+<!--we are end here-->
+<!--mechanize start here-->
+<div class="mechanize">
+    <div class="container">
+        <div class="mechanize-main">
+            <div class="col-md-4 industrial-right">
+                <h3>Recent News<a style="float:right;" href="{yz:url menu_id='2' append_query_string='false'}"><small>more....</small></a></h3>
+                {volist name="ContentModels" key="key" id="_ContentModel"}
+                <div class="news-grid">
+                    <div class="new-lft-main">
+                        <div class="news-left">
+                            <h4>{:date("d", $_ContentModel->getData('create_time'))}</h4>
+                            <h5>{:date("Y M", $_ContentModel->getData('create_time'))}</h5>
+                        </div>
+                    </div>
+                    <div class="news-right">
+                        <a href="{yz:url menu_id='2' action='read' param='$_ContentModel->id'}"><h6>{yz:filter input="$_ContentModel->getData('title')" class="server\StringServer" function="substr" param='["length" => 10]'}</h6></a>
+                        <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 28]'}</p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                {/volist}
+
+            </div>
+            <div class="col-md-8 mechani-right">
+                {yz:block position="home_right" /}
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!--mechanize end here-->

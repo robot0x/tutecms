@@ -208,7 +208,14 @@ class File
      */
     public function clear()
     {
-        $fileLsit = (array) glob($this->options['path'] . '*');
+        // 修正没有增加前缀而引发文件未成功删除的BUG.
+        if ('' !== $this->options['prefix']) {
+            $cachePath = $this->options['path'] . $this->options['prefix'] . DS;
+        } else {
+            $cachePath = $this->options['path'];
+        }
+        
+        $fileLsit = (array) glob($cachePath . '*');
         foreach ($fileLsit as $path) {
             is_file($path) && unlink($path);
         }

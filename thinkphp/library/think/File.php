@@ -141,10 +141,9 @@ class File extends SplFileObject
      * 获取文件类型信息
      * @return string
      */
-    public function getMime()
-    {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        return finfo_file($finfo, $this->filename);
+    public function getMime() {
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        return $finfo->file($this->filename);
     }
 
     /**

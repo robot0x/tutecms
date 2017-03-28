@@ -5,7 +5,7 @@ return [
         'type'      => 'String',
         'function'  => 'substr',
         'param'     => [
-            'length'    =>  6,
+            'length'    =>  18,
             'etc'       =>  '..',
         ],
     ], 

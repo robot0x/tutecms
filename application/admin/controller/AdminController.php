@@ -8,6 +8,7 @@ use think\Session;
 class AdminController extends Controller
 {
     protected $currentUserModel = null;
+    protected $backUrl = null;
 
     /**
      * 后台模块统一加登录验证
@@ -18,15 +19,24 @@ class AdminController extends Controller
     {
         parent::__construct();
 
+        // 将请求信及当URL信息息传入V层
+        $this->assign('Request', Request::instance());
+        $this->assign('url', urlencode(Request::instance()->url()));
+        $this->backUrl = Request::instance()->param('backUrl');
+        $this->assign('backUrl', urlencode($this->backUrl));
+
         //获取用户登录时间
         $loginTime = session('loginTime');
 
         if (false === UserModel::isLogin() || (time() - $loginTime > 30 * 60))
         {
-            return $this->error('请登录', url('Login/index'));
+            return $this->redirect(url('Login/index'));
         } else {
+            // 判断用户是否为超级管理员
+            if (UserModel::getCurrentUserModel()->UserGroupModel()->getData('name') !== 'admin') {
+                return $this->error('您无此权限');
+            }
             session('loginTime', time());
         }
-
     }
 }

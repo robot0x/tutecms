@@ -13,12 +13,15 @@ use think\Route;
 use think\Db;
 use think\Request;
 use think\Session;
+use think\View;
+use think\Config;
 use app\model\MenuModel;
 use app\model\UserModel;
+use app\model\ThemeModel;
 
 // 初始化
 Common::init();
-Route::rule('news/:id', 'component/ContentList/read', 'GET');
+
 class Common{
     static protected $token = [];       // token 用于安全验证
     static protected $css   = [];       // css 用于模板链接css文件
@@ -56,9 +59,13 @@ class Common{
         }
         define('__ROOT__', $root);
 
-        // 定义常量PUBLIC_PATH
+        // 定义常量PUBLIC_PATH 相对于服务器的绝对路径
         $publicPath = realpath(ROOT_PATH) . DS . 'public';
-        define('PUBLIC_PATH' , $publicPath);
+        define('PUBLIC_PATH', $publicPath);
+
+        // 定义常量__PUBLIC__ 相对于站点的相对路径
+        $public = dirname($_SERVER['SCRIPT_NAME']) == DS ? '' : dirname($_SERVER['SCRIPT_NAME']);
+        define('__PUBLIC__' , $public);
     }
 
     /**
@@ -421,34 +428,15 @@ class Common{
      */
     static public function getControllerName($calledClass)
     {
-        $calledClassArray = explode('\\', $calledClass);
+        return self::getClassNameByClassFullNameSuffix($calledClass, 'Controller');
+    }
+
+    static public function getClassNameByClassFullNameSuffix($classFullName, $suffix) {
+        $calledClassArray = explode('\\', $classFullName);
         $calledClass = array_pop($calledClassArray);
-        return substr($calledClass, 0, -strlen('Controller'));
+        return substr($calledClass, 0, -strlen($suffix));
     }
 
-    /**
-     * 根据用户当前访问的URL信息，生成 编辑URL
-     * 当前访问URL为：http://127.0.0.1/yunzhicms/public/news/school/1.html?p=2
-     * 则生成的URL为：http://127.0.0.1/yunzhicms/public/news/school/1/edit.html?p=2
-     * @return string 
-     * @author panjie
-     */
-    static public function getEditUrl()
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        return str_replace('.html', '/edit.html', $requestUri);
-    }
-
-    /**
-     * 生成创建URL地址
-     * @return string 
-     * @author panjie
-     */
-    static public function getCreateUrl()
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        return str_replace('.html', '/create.html', $requestUri);
-    }
 
     /**
      * 生成子地址，用于同一组件下，生成下一级路由
@@ -464,41 +452,6 @@ class Common{
     }
 
     /**
-     * 生成 保存 URL地址
-     * @return string 
-     * @author panjie
-     */
-    static public function getSaveUrl()
-    {
-        $requestUris = explode('/', $_SERVER['REQUEST_URI']);
-        array_pop($requestUris);
-        return implode('/', $requestUris) . '.html'; 
-    }
-
-    /**
-     * 生成更新地址
-     * @return   string                   
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-02T09:21:00+0800
-     */
-    static public function getUpdateUrl()
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        return str_replace('/edit', '', $requestUri);
-    }
-
-    /**
-     * 检测当前用户触发的权限
-     * @return   bool                   
-     * @author panjie panjie@mengyunzhi.com
-     * @DateTime 2016-09-05T12:23:44+0800
-     */
-    static public function checkAccess()
-    {
-        
-    }
-
-    /**
      * 生成基于当前菜单URL的正确的，可直接显示在前台，被用户点击触发的URL
      * @param    string                   $route 传入的路由地址信息
      * @return   string                          
@@ -511,6 +464,37 @@ class Common{
         return url('@' . $url . $route);
     }
 
+    /**
+     * 生成 某菜单 某个action 带有 相关参数的 链接地址
+     * @param    integer                  $menuId 菜单ID
+     * @param    string                   $action 触发器名
+     * @param    mix| string array                   $param  参数：传入以 , 相隔的字符串 比如'3,4,5'
+     * @param  string $appendQueryString 追加查询的URL信息
+     * @return   string                           前台可供用户点击的URL信息
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T14:36:49+0800
+     */
+    static public function makeUrlByMenuIdActionParam($menuId = 0, $action = '', $param = null, $appendQueryString = true) {
+        $MenuModel = MenuModel::get($menuId);
+
+        // 如果未找到传入的菜单ID，则取用户激活的当前菜单
+        if ('' === $MenuModel->getData('id')) {
+            $MenuModel = MenuModel::getCurrentMenuModel();
+        }
+
+        // 传入参数为字符串，则转化为数组
+        if (is_string($param) || is_numeric($param)) {
+            $param = (string)$param;
+            $param = explode(',', $param); 
+
+        // 传入参数非字符串，非数组，则置空
+        } else if (!is_array($param)) {
+            $param = [];
+        } 
+
+        // 方法调用
+        return $MenuModel->getUrlByActionParams($action, $param, $appendQueryString);
+    }
 
     /**
      * 通过token获取对应的menuModel
@@ -760,6 +744,142 @@ class Common{
             ';
         }
         return $html;
+    }
+
+    /**
+     * @param View $View 视图
+     * @param $module 模块
+     * @param $controller 控制器
+     * @param $action 触发器
+     * @param $template 模板
+     * @param $vars 变量
+     * @param $replace
+     * @param $config
+     * @param $Object 传入的数据对象
+     * @return string 渲染后的HTML
+     * Create by panjie@yunzhiclub.com
+     * TODO: 将CSS,JS文件命名时，更改后缀为.css和.js，然后在此文件中，对扩展名进行处理.
+     */
+    static public function fetchByMCA(View $View, $module, $controller, $action, $template, $vars, $replace, $config, $Object) {
+        // 获取配置信息的模板后缀
+        $viewSuffix = Config::get('template.view_suffix');
+        $currentMenuModel = MenuModel::getCurrentMenuModel();
+        $currentThemeModel = ThemeModel::getCurrentThemeModel();
+
+        // 如果传入模板，则使用传个模板值来替换默认ACTION
+        if ('' !== $template) {
+            $action = $template;
+        }
+
+        // 获取主题模板路径
+        $themeTemplatePath = APP_PATH . 
+            'theme' . DS . 
+            $currentThemeModel->getData('name') . DS .
+            $module . DS .
+            $controller . DS . $action . '.';
+
+
+        
+        // 判断是否对当前菜单进行了重写
+        $themeTemplate      = $themeTemplatePath . $Object->getData('id') . '.' . $viewSuffix;
+        $themeTemplateCss   = $themeTemplatePath . $Object->getData('id') . '.css.' . $viewSuffix;
+        $themeTemplateJs    = $themeTemplatePath . $Object->getData('id') . '.js.' . $viewSuffix;
+
+        // 路径格式化，如果文件不存在，则返回false
+        $themeTemplate      = realpath($themeTemplate);
+        $themeTemplateCss   = realpath($themeTemplateCss);
+        $themeTemplateJs    = realpath($themeTemplateJs);
+
+        // 未对菜单进行重写，则尝试获取当前组件的重写模板
+        if (false === $themeTemplate) {
+            $themeTemplate = $themeTemplatePath . $viewSuffix;
+            $themeTemplate = realpath($themeTemplate);
+        }
+        if (false === $themeTemplateCss) {
+            $themeTemplateCss = $themeTemplatePath . 'css.' . $viewSuffix;
+            $themeTemplateCss = realpath($themeTemplateCss);
+        }
+        if (false === $themeTemplateJs) {
+            $themeTemplateJs = $themeTemplatePath . 'js.' . $viewSuffix;
+            $themeTemplateJs = realpath($themeTemplateJs);
+        } 
+        
+        // 主题文件存在，则调用主题文件进行渲染，CSS,JS同样处理
+        $actionBasePath = APP_PATH . $module .  DS . 'view' . DS . $controller . DS . $action . '.';
+
+        // 找不到特定模板，则调用默认模板
+        if (false !== $themeTemplate)
+        {   
+            $templateHtml = $themeTemplate;
+        } else {
+            $templateHtml = $actionBasePath . $viewSuffix;;
+        }
+
+
+        //  CSS
+        if (false !== $themeTemplateCss)
+        {   
+            $templateCss = $themeTemplateCss;
+        } else {
+            $templateCss = $actionBasePath . 'css.' . $viewSuffix;
+        }
+
+        // JS
+        if (false !== $themeTemplateJs)
+        {   
+            $templateJs = $themeTemplateJs;
+        } else {
+            $templateJs = $actionBasePath . 'js.' . $viewSuffix;
+        }
+
+        // 非开发模式下，打印当前MCA触发信息
+        if (Config::get('app_debug')) {
+            trace('当前调用：' . $controller . '->' . $action . ':' . $Object->getData('id'), $module);
+            trace('当前模板：' . realpath($templateHtml), $module);
+        }
+
+        // 尝试渲染js及css
+        $css = $js = '';
+        try {
+            $css = $View->fetch($templateCss);
+            if (Config::get('app_debug')) {
+                trace('当前CSS模板：' . realpath($templateCss), $module); 
+            }
+        } catch (\Exception $e) {}
+
+        try {
+            $js = $View->fetch($templateJs);
+            if (Config::get('app_debug')) {
+                trace('当前JS模板：' . realpath($templateJs), $module); 
+            }
+        } catch (\Exception $e) {}
+         
+
+        // 获取当前主题
+        return $View->fetch($templateHtml, $vars, $replace, $config) . $css . $js;
+    }
+
+    /**
+     * 通过模块名 类型名 获取路由信息
+     * @param    string                   $module   模块名:block,plugin,field
+     * @param    string                   $typeName 实体类型名称
+     * @return                                array
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T16:01:38+0800
+     */
+    static public function getRouteByModuleTypeName($module, $typeName) {
+        $routeFilePath = APP_PATH . 
+            $module . DS . 
+            'route' . DS .
+            $typeName . 'Route.php';
+        $routeFilePath = realpath($routeFilePath);
+        if (false === $routeFilePath) {
+            $route = [];
+        } else {
+            $route = include $routeFilePath;
+        }
+
+        return $route;
     }
 
 }

@@ -1,0 +1,9 @@
+<!-- Start subMenu -->
+<div class="subMenu">
+    <ul>
+        {volist name="menuModels" id="_menuModel"}
+            <li class="{eq name='_menuModel->isActive()' value='1'}active{/eq}"><h5><a href="{:url('@' . $_menuModel->url)}">{$_menuModel->getData('title')}</a></h5></li>
+        {/volist}
+    </ul>
+</div>
+<!--end subMenu-->

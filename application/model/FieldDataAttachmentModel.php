@@ -8,8 +8,9 @@ use think\File;
 class FieldDataAttachmentModel extends FieldModel
 {
     private $uploadPath   = null;               // 上传路径
-    private $url          = null;               // URL
+    protected $url        = null;               // URL
     protected $token      = null;               // token 
+    protected $data       = ['id' => 0];        // 设置默认值
 
     /**
      * 上传文件
@@ -22,7 +23,7 @@ class FieldDataAttachmentModel extends FieldModel
     {
         // 配置规则初始化
         $rule = [];
-        $config = array_merge($this->getSimpleConfig(), $config);
+        $config = array_merge($this->FieldModel()->getSampleConfig(), $config);
 
         // 文件大小
         if (array_key_exists('size', $config)) {
@@ -49,14 +50,15 @@ class FieldDataAttachmentModel extends FieldModel
         $map['sha1'] = $sha1 = $file->sha1();
         $map['md5'] = $md5 = $file->md5();
 
-        // 使用new self() 避免了其它类继承本类后，仍然可以对应找到正确的数据表名。
-        $Object = new self();
+        // 使用new self() 其它类继承本类后，将对attachment本数据表进行操作。
+        // 使用new static() 其它类继承本类后，将对其它类对应的数据表进行操作。
+        $Object = new static();
         $data = $Object::get($map);
 
-        // 文件存在，则去除field_id 及key_id后复制一份进入数据库
-        if ('' !== $data->getData('id')) {
+        // 文件存在，则更新field_id 及key_id后复制一份进入数据库
+        if (0 !== $data->getData('id')) {
             $Object->data = $data->getData();
-            $Object->setData('field_id', 0);
+            $Object->setData('field_id', $this->FieldModel()->getData('id'));
             $Object->setData('key_id', 0);
             unset($Object->data['id']);
 
@@ -65,16 +67,18 @@ class FieldDataAttachmentModel extends FieldModel
             $info = $file->move($Object->getUploadPath());
             // $Object->setData('user_name', ); todo:取当前用户信息
             $Object->setData('name', $info->getInfo('name'));
-            $Object->setData('save_name', $info->getSaveName());
+            $Object->setData('save_name', $config['uploadPath'] . DS . $info->getSaveName());
             $Object->setData('ext',   $info->getExtension());
             $Object->setData('sha1',  $sha1);
             $Object->setData('md5',   $md5);
             $Object->setData('size',  $info->getInfo('size'));
             $Object->setData('mime',  $info->getMime());
+            $Object->setData('field_id', $this->FieldModel()->getData('id'));
         }
 
         // 新建数据，并将当前对象返回
         $Object->save();
+        $Object->setFieldModel($this->FieldModel());
         return $Object;
     }
 
@@ -88,7 +92,7 @@ class FieldDataAttachmentModel extends FieldModel
     {
         if (null === $this->uploadPath) {
             if (isset($this->getConfig()['uploadPath'])) {
-                $uploadPath = $this->getConfig()['uploadPath']['value'];
+                $uploadPath = $this->FieldModel()->getConfig()['uploadPath']['value'];
             } else {
                 $uploadPath = '/upload';
             }
@@ -107,11 +111,10 @@ class FieldDataAttachmentModel extends FieldModel
      * @DateTime 2016-09-07T13:58:16+0800
      */
     public function getUrl()
-    {
+    {   
         if (null === $this->url) {
-            $this->url = __ROOT__ . $this->getConfig()['uploadPath']['value'] . '/' . $this->getData('save_name');
+            $this->url = __ROOT__  . $this->getData('save_name');
         }
-
         return $this->url;
     }
 
@@ -139,12 +142,14 @@ class FieldDataAttachmentModel extends FieldModel
      */
     static public function updateList($fieldId, $keyId, $id)
     {
-        $self = new self();
+        // 由于被继承使用了，使用static而非self，使其正确对应数据表
+        $self = new static();
         $Object = $self::get(['id' => $id]);
         if ( '' !== $Object->getData('id')) {
+
             // 如果存在历史信息，先删除历史信息
             $oldObject = $self::get(['field_id' => $fieldId, 'key_id' => $keyId]);
-            if ('' !== $oldObject && ($oldObject->getData('id') !== $Object->getData('id'))) {
+            if ( ('' !== $oldObject->getData('id')) && ($oldObject->getData('id') !== $Object->getData('id'))) {
                 $oldObject->delete();
             }
 

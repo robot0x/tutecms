@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+{include file="../head"}
+<body ng-app="webApp">	
+	{yz:block position="header" /}
+    {yz:block position="logo" /}
+    {yz:block position="menu" /} 
+    {yz:block position="slider" /} 
+    {yz:block position="breadCrumb" /}
+
+    <!-- Start content  -->
+    {__CONTENT__}
+    <!-- End content  -->
+
+    <!--footerMenu-->
+    {yz:block position="footerMenu" /}
+    <!--footerMenu-->
+
+    {yz:block position="footer" /}
+
+    {include file="../footer"}
+    
+</body>
+
+</html>

@@ -8,6 +8,8 @@ use app\model\PositionModel;                            // 位置
 use app\model\AccessUserGroupBlockModel;                // 权限：用户组-区块
 use app\model\AccessMenuBlockModel;                     // 权限：菜单-区块
 
+use app\Common;
+
 class BlockController extends AdminController
 {
     public function indexAction()
@@ -38,9 +40,10 @@ class BlockController extends AdminController
         $PositionModels = PositionModel::where($map)->select();
         $this->assign('PositionModels', $PositionModels);
 
-        $MenuModels = MenuModel::getTreeList(0, 2);
+        $MenuModels = MenuModel::getTreeByPid(0);
         $this->assign('MenuModels', $MenuModels);
-        return $this->fetch();
+
+        return $this->fetch() . $this->fetch('editJs');
     }
 
     public function updateAction($id)
@@ -75,39 +78,18 @@ class BlockController extends AdminController
         $BlockModel->save();
 
         // 更新block-menu关联表
-        $AccessMenuBlockModel = new AccessMenuBlockModel;
-        $map = ['block_id' => $id];
-        $AccessMenuBlockModel->where($map)->delete();
-
-        $datas = array();
         if (array_key_exists('menuids', $param))
         {
-            foreach ($param['menuids'] as $key => $value) {
-                array_push($datas, ['block_id' => $id, 'menu_id' => $key]);
-            }
-            $AccessMenuBlockModel->saveAll($datas);
+            $AccessMenuBlockModel = new AccessMenuBlockModel;
+            $AccessMenuBlockModel->updateByBlockIdMenuIds($BlockModel->getData('id'), $param['menuids']);
+        }
+        
+        if (array_key_exists('usergroupname', $param)) {
+            //更新user_group_block表
+            $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
+            $AccessUserGroupBlockModel->updateByBlockIdUserGroupNames($BlockModel->getData('id'), $param['usergroupname']);
         }
 
-        //更新user_group_block表
-        $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
-        $map = ['block_id' => $id];
-        $AccessUserGroupBlockModel->where($map)->delete();
-
-        $datas = array();
-        if (array_key_exists('usergroupname', $param))
-        {
-            foreach ($param['usergroupname'] as $key => $value) {
-                
-                foreach ($param['usergroupname'][$key] as $key1 => $value1) {
-                    $data = [];
-                    $data['block_id'] = $id;
-                    $data['user_group_name'] = $key;
-                    $data['action'] = $key1;
-                    array_push($datas, $data);
-                }
-            } 
-            $AccessUserGroupBlockModel->saveAll($datas);
-        }
         return $this->success('操作成功', url('index'));
     }
     /**
@@ -140,6 +122,9 @@ class BlockController extends AdminController
 
     public function createAction()
     {
+        // 初始化区块模型
+        $BlockModel = new BlockModel;
+        $this->assign('BlockModel', $BlockModel);
 
         $BlockTypeModels = BlockTypeModel::all();
         $this->assign('BlockTypeModels', $BlockTypeModels);
@@ -148,16 +133,17 @@ class BlockController extends AdminController
         $UserGroupModels = UserGroupModel::all();
         $this->assign('UserGroupModels', $UserGroupModels);
 
-        $MenuModels = MenuModel::getTreeList(0, 2);
+        $MenuModels = MenuModel::getTreeByPid(0);
         $this->assign('MenuModels', $MenuModels);
 
         //取type为block的postion传入
         $PositionModel = new PositionModel;
-        $map = array('type' => 'blcok');
-        $Positions = $PositionModel->where($map)->select();
-        $this->assign('Positions', $Positions);
+        $map = array('type' => 'block');
+        $PositionModels = $PositionModel->where($map)->select();
+        $this->assign('PositionModels', $PositionModels);
 
-        return $this->fetch();
+
+        return $this->fetch('edit') . $this->fetch('editJs');
     }
 
     public function saveAction()
@@ -184,30 +170,30 @@ class BlockController extends AdminController
         //直接将menu数据存入表
         $id = $BlockModel->id;
 
-        $AccessMenuBlockModel = new AccessMenuBlockModel;
-        // $map = ['block_id' => $id];
-        // $AccessMenuBlockModel->where($map)->delete();
-
-        //拼接menu_id block_id 存入其中间表
-        if (array_key_exists('menuids', $param)) {
-            $datas = array();
-            foreach ($param['menuids'] as $key => $value) {
-                array_push($datas, ['block_id' => $id, 'menu_id' => $key]);
-            }
-            $AccessMenuBlockModel->saveAll($datas);
+        // 更新block-menu关联表
+        if (array_key_exists('menuids', $param))
+        {
+            $AccessMenuBlockModel = new AccessMenuBlockModel;
+            $AccessMenuBlockModel->updateByBlockIdMenuIds($BlockModel->getData('id'), $param['menuids']);
         }
-
-        $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
         
-        //拼接user_group_name block_id 存入其中间表
+        // 更新用户组 区块 权限表
         if (array_key_exists('usergroupname', $param)) {
-            $datas = array();
-            foreach ($param['usergroupname'] as $key => $value) {
-                array_push($datas, ['user_group_name' => $key, 'block_id' => $id]);
-            }
-            $AccessUserGroupBlockModel->saveAll($datas);
+            //更新user_group_block表
+            $AccessUserGroupBlockModel = new AccessUserGroupBlockModel;
+            $AccessUserGroupBlockModel->updateByBlockIdUserGroupNames($BlockModel->getData('id'), $param['usergroupname']);
         }
         
         return $this->success('添加成功', url('index'));
+    }
+
+    static public function call() {
+        $param = Request::instance()->param();
+        if (!array_key_exists('id', $param) || !array_key_exists('action', $param)) {
+            $this->error('传入的参数有误');
+        }
+
+        
+
     }
 }

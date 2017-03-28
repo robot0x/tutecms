@@ -2,12 +2,16 @@
 namespace app\block\controller;
 
 use think\Controller;
+use think\Config;
+use think\Request;
 
 use app\Common;
 use app\model\BlockModel;                       // 区块 模型
 use app\model\BlockMenuModel;                   // 区块-菜单 模型
 use app\model\MenuModel;                        // 菜单模型
 use app\model\ThemeModel;                       // 主题
+use app\model\UserModel;                        // 用户
+
 
 class BlockController extends Controller
 {
@@ -30,6 +34,17 @@ class BlockController extends Controller
         $this->assign('Common', new Common);
     }
 
+    /**
+     * 生成直接直接显示在前台的URL地址
+     * @param    string                   $action 触发器
+     * @param    array                $param  其它参数
+     * @return   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:44:59+0800
+     */
+    protected function url($action = 'index', $param = []) {
+        return url('admin/call/block?blockId=' . $this->BlockModel->getData('id') . '&action=' . $action, $param);
+    }
 
     static public function instance(BlockModel $BlockModel)
     {
@@ -42,18 +57,13 @@ class BlockController extends Controller
         // 取配置过滤器信息
         $Object->config = $BlockModel->getSampleConfig();
 
-        // 获取当前主题信息
-        $Object->currentThemeModel = ThemeModel::getCurrentThemeModel();
-
-        // 获取过滤器信息并传入V层
-        $filterModels = $Object->BlockModel->getFilterModels();
-        $Object->assign('filterModels', $filterModels);
-
         // 送配置 过滤器至V层
         $Object->assign('config', $Object->config);
+        $Object->assign('BlockModel', $BlockModel);
 
         return $Object;
     }
+
     /**
      * 初始化，供Cx中position标签调用
      * @param  string positionName 位置名字
@@ -93,6 +103,28 @@ class BlockController extends Controller
         echo $resultHtml;
     }
 
+
+    static public function call($blockId, $action) {
+        $BlockModel = BlockModel::get($blockId);
+        $className = 'app\block\controller\\' . $BlockModel->getData('block_type_name') . 'Controller';
+        try 
+        {
+            // 实例化类 并调用
+            $Object = call_user_func_array([$className, 'instance'], [$BlockModel]); 
+            if (method_exists($Object, $action)) {
+                $result = $Object->$action(); 
+            }
+            
+        } catch(\Exception $e) {
+            if (config('app_debug')) {
+                throw $e;
+            }
+        } 
+
+        return $result;
+    } 
+
+
     /**
      * 加载模板输出
      * @access protected
@@ -104,45 +136,10 @@ class BlockController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
+        $module = 'block';
         $controller = Common::getControllerName(get_called_class());
         $action = debug_backtrace()[1]['function'];
-
-        // 拼接主题模板信息
-        $themeTemplate = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'block' . DS .
-            $controller . DS .
-            $action . '.html';
-
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate = realpath($themeTemplate);
-
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-
-        // 不存在，则进行同模块VIEW规则渲染
-        } else {
-            $template = 'block@' . $controller . DS . $action;
-        }
-
-        // 初始化html css js字符串
-        $html = $css = $js = '';
-
-        // 渲染html
-        $html = parent::fetch($template);
-
-        // 尝试渲染js及css
-        try {
-            $js = parent::fetch('block@' . $controller . DS . $action . 'Javascript');
-        } catch (\Exception $e) {}
-
-        try {
-            $css = parent::fetch('block@' . $controller . DS . $action . 'Css');
-        } catch (\Exception $e) {}
-
-        return $html . $js . $css;
+        
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config, $this->BlockModel);
     }
 }

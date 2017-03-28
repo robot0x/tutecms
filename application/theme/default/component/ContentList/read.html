@@ -1,0 +1,39 @@
+{layout name="index" /}
+<section class="main">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mu-contact-area">
+                <!-- start title -->
+                <div class="mu-title">
+                {yz:access type="menu" action="edit"}
+                    <div class="text-right"><a class="btn btn-primary" href="{:app\\Common::url('/edit?id=' . $ContentModel->id)}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a></div>
+                {/yz:access}
+                        
+                    
+                    <h2>{$ContentModel->title}</h2>
+                    <div class="mu-meta">
+                        <span>作者：{$ContentModel->UserModel()->getData('name')}</span>
+                        <span>&nbsp;&nbsp;发布时间：{:date('Y-m-d', $ContentModel->getData('create_time'))}</span>
+                        <span>&nbsp;&nbsp;点击量：{$ContentModel->getData('hit')}</span>
+                    </div>
+                </div>
+                <!-- end title -->
+                <!-- start contact content -->
+                <div class="mu-contact-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {yz:plugin position="beforeContent" object="ContentModel"}
+                        </div>
+                        <div class="col-md-12">
+                        {$ContentModel->FieldXXXXModel('body')->render('index')}
+                        </div>
+                        <div class="col-md-12">
+                            {yz:plugin position="afterContent" object="ContentModel"}
+                        </div>
+                    </div>
+                </div>
+                <!-- end contact content -->
+            </div>
+        </div>
+    </div>
+</section>

@@ -37,6 +37,7 @@ class PluginController extends Controller
         // 送配置 过滤器至V层
         $this->assign('config', $this->config);
         $this->assign('filter', $this->filter);
+        $this->assign('PluginModel', $PluginModel);
     }
 
     /**
@@ -46,7 +47,7 @@ class PluginController extends Controller
      * @return string       html文本
      * @author panjie
      */ 
-    static public function init($name, $object = null)
+    static public function init($name, $action = 'index', $object = null)
     {
         // 找出所有在当前position下的block
         $PluginModel = new PluginModel;
@@ -63,11 +64,19 @@ class PluginController extends Controller
                
                 // 实例化类 并调用
                 $class = new $className($pluginModel);
-                $result = call_user_func_array([$class, 'fetchHtml'], [$object]); 
-                if ($result)
-                {
-                    $resultHtml .= $result;
+                try {
+                    // todo:增加日志
+                    
+                    $result = call_user_func_array([$class, $action], [$object]); 
+                    if ($result) {
+                        $resultHtml .= $result;
+                    }
+                } catch (\Exception $e) {
+                    // 插件方法不存在, 则跳过.
+                    
                 }
+
+                
             } catch(\Exception $e) {
                 if (config('app_debug'))
                 {
@@ -91,23 +100,10 @@ class PluginController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        // 拼接主题模板信息
-        $themeTemplate = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'plugin' . DS .
-            Common::getControllerName(get_called_class()) . DS .
-            'fetchHtml.html';
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate = realpath($themeTemplate);  
+        $module = 'plugin';
+        $controller = Common::getControllerName(get_called_class());
+        $action = debug_backtrace()[1]['function'];
         
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-        }
-
-        // 获取当前主题
-        return $this->view->fetch($template, $vars, $replace, $config);
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config, $this->PluginModel);
     }
 }

@@ -5,28 +5,20 @@ use app\model\ContentTypeModel;         // 文章类别
 
 class ContentController extends AdminController
 {
-    // public function indexAction($category_id)
-    // {
-    //     $map = [];
+    public function indexAction($contentType = 0)
+    {
+        $ContentModel = new ContentModel;
+        $ContentModels = $ContentModel->order('update_time desc')->paginate();
+        $this->assign('ContentModels', $ContentModels);
 
-    //     // 按列表取值
-    //     if ($category_id != 0)
-    //     {
-    //         $map['category_name'] = $category_id;
-    //     }
-
-    //     $ContentModels = ContentModel::all($map);
-    //     $this->assign('ContentModels', $ContentModels);
-    //     return $this->fetch();
-    // }
+        return $this->fetch();
+    }
 
     public function createAction()
     {
         //取出内容类型
         $map = array('is_delete' => 0);
-        $ContentTypeModel  = new ContentTypeModel;
-        $ContentTypeModels = $ContentTypeModel->where($map)->select();
-        $this->assign('ContentTypeModels', $ContentTypeModels);
+        $this->getAndAssignContentTypeTree();
         return $this->fetch('Content/create');
     }
 
@@ -36,7 +28,7 @@ class ContentController extends AdminController
         $ContentModel = new ContentModel;
         $ContentModel->setData('title', $data['title']);
         $ContentModel->setData('content_type_name', $data['content_type_name']);
-        $ContentModel->setData('is_freezed', $data['is_freezed']);
+        // $ContentModel->setData('is_freezed', $data['is_freezed']);
         $ContentModel->setData('weight', $data['weight']);
 
         //验证并保存

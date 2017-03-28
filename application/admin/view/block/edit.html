@@ -1,0 +1,99 @@
+{layout name="index" /}
+<div class="row" ng-controller="blockEdit">
+    <div class="span16">
+        <div class="box pattern pattern-sandstone">
+            <div class="box-header">
+                <i class="icon-table"></i>
+                <h5>
+                {:$BlockModel->title}编辑
+                </h5>
+            </div>
+            <div class="box-content">
+                <div class="form-horizontal">
+                    <div class="control-group">
+                        <div class="controls">
+                            <form action="{:url('update?id=' . $BlockModel->id)}" method="post">
+                                <input type="hidden" name="_method" value="POST" />
+                                <div>
+                                    <label for="">名称</label>
+                                    <input type="text" name="title" value="{$BlockModel->title}" />
+                                </div>
+                                <div>
+                                    <label for="">区块类型</label>
+                                    <select name="block_type_name" class="form-control">
+                                        {volist name="BlockTypeModels" id="BlockTypeModel"}
+                                        <option {eq name="$BlockTypeModel->name" value="$BlockModel->block_type_name" } selected="selected" {/eq}>{$BlockTypeModel->name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="">描述</label>
+                                    <input type="text" name="description" value="{$BlockModel->description}" />
+                                </div>
+                                <div>
+                                    <label for="">所处位置</label>
+                                    <select name="position_name" class="form-control">
+                                        {volist name="PositionModels" id="PositionModel"}
+                                        <option {eq name="$PositionModel->name" value="$BlockModel->position_name" } selected="selected" {/eq}>{$PositionModel->name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="">状态</label>
+                                    <input type="text" name="status" value="{$BlockModel->status}" />
+                                </div>
+                                <div>
+                                    <label for="">权重</label>
+                                    <input type="text" name="weight" value="{$BlockModel->weight}" />
+                                </div>
+                                <div>
+                                    <label for="">配置信息</label>
+                                    <ol>
+                                        {foreach name="$BlockModel->getConfig()" key="key" id="_config"}
+                                        <li>
+                                            <label>{$_config['title']}</label>
+                                            <input type="text" name="config[{$key}]" value="{$_config['value']}">
+                                        </li>
+                                        {/foreach}
+                                    </ol>
+                                </div>
+                                <div>
+                                    <label for="" ng-click="togleMenuAccess()" >菜单权限</label>
+                                    <label ng-show="showMenuAccess">
+                                        <input type="checkbox" ng-click="checkAll()"/>全选/返选</label>
+                                    <ul ng-include="'recursion'" ng-show="showMenuAccess"></ul>
+                                </div>
+                                <script id="recursion" type="text/ng-template">
+                                    <li ng-repeat="(key, MenuModel) in MenuModels">
+                                        <label>
+                                            <input type="checkbox" name="menuids[{{MenuModel.id}}]" ng-checked="MenuModel.access" ng-click="toggle(MenuModel)" /> {{MenuModel.title | depthFilter:MenuModel.depth}}
+                                        </label>
+                                        <ul ng-if="MenuModel._child.length" ng-include="'recursion'" ng-init="MenuModels=MenuModel._child"></ul>
+                                    </li>
+                                </script>
+                                <div>
+                                    <label for="">用户组权限</label>
+                                    <ul>
+                                        {foreach name="UserGroupModels" id="_UserGroupModel"}
+                                        <li>
+                                            {$_UserGroupModel->title} {foreach name="BlockModel->getRoute()" id="_route" key="index"}
+                                            <ul>
+                                                <li>
+                                                    <label>
+                                                        <input type="checkbox" name="usergroupname[{$_UserGroupModel->getData('name')}][{$index}]" {eq name="_UserGroupModel->isAllowedByBlockModelAction($BlockModel, $index)" value="true" }checked="checked" {/eq}> {$_route['title']}
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        {/foreach} {/foreach}
+                                    </ul>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

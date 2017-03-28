@@ -1,0 +1,31 @@
+<ul class="nav nav-pills nav-stacked left" style="
+margin:0px;">
+    <li class="<?php if(isset($curricula)){echo 'active';}  ?>">
+        <a href="{:url('@curricula')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>课程管理</a>
+    </li>
+    <li class="<?php if(isset($teacher)){echo 'active';}  ?>">
+        <a href="{:url('@teacher')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>教师管理</a>
+    </li>
+    <li class="<?php if(isset($klass)){echo 'active';}  ?>">
+        <a href="{:url('@klass')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>班级管理</a>
+    </li>
+    <li class="<?php if(isset($classroom)){echo 'active';}  ?>">
+        <a href="{:url('@classroom')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>教室管理</a>
+    </li>
+    <li class="<?php if(isset($term)){echo 'active';}  ?> test">
+        <a href="{:url('@term')}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>学期管理</a>
+    </li>
+</ul>   
+<style type="text/css">
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #FF7400;
+}
+a {
+    color: black;
+}
+.left {
+    border-bottom-width: 72%;
+    padding-bottom: 72%;
+}
+</style>

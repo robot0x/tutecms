@@ -4,6 +4,7 @@ use app\model\MenuModel;                    // 菜单
 use think\Cache;                            // 缓存
 use think\Request;                          // 请求
 
+use app\model\UserModel;                    // 用户
 use app\Common;                             // 通用类
 use app\model\BlockModel;                   // 区块
 /**
@@ -11,24 +12,21 @@ use app\model\BlockModel;                   // 区块
  */
 class MenuController extends BlockController
 {
-    protected $token;
 	public function index()
 	{
-        // 取当前菜单信息
-        $this->currentMenuModel = MenuModel::getCurrentMenuModel();
-
-        // 取当前菜单类型, 用于按类型生成目录tree
-        $menuTypeName = $this->config['menu_type_name'];
-        $pid = 0;
-
-        // 生成token并送入V层，用于编辑该区块
-        $token = $this->BlockModel->makeToken('edit');
-        $this->assign('token', $token);
+        // 取配置信息中的父菜单ID
+        $pid = $this->config['pid'];
 
         // 取当前菜单类型下可见的菜单列表
-        $menuModels = MenuModel::getAvailableSonMenuModelsByPidMenuTypeName($pid, $menuTypeName);
+        $menuModels = MenuModel::getAvailableSonMenuModelsByPidUserGroupModel($pid, UserModel::getCurrentUserModel()->UserGroupModel());
         $this->assign('menuModels', $menuModels);
-		return $this->fetch('block@Menu/fetchHtml');
+        $this->assign('length', count($menuModels));
+        
+        $this->assign('User', UserModel::getCurrentUserModel());
+        $html = $this->fetch();
+        
+
+        return $html;
 	}
 
     /**
@@ -38,8 +36,7 @@ class MenuController extends BlockController
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-08T18:41:54+0800
      */
-    static public function edit($param = [])
-    {
+    static public function edit($param = []) {
 
     }
 }

@@ -1,0 +1,47 @@
+{layout name="index" /}
+<div class="container content_index">
+    <div class="row title">
+        <div class="col-md-9 col-md-offset-3">
+            <h3>{$ContentModel->MenuModel()->getData('title')}</h3>
+        </div>
+    </div>
+</div>
+<section class="margin20-0px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {yz:block position="listLeft" /}
+            </div>
+            <div class="col-md-9">
+                <div class="mu-contact-area">
+                    <!-- start title -->
+                    {yz:access action="edit"}
+                    <div class="mu-title">
+                        <div class="text-right"><a class="btn-sm btn-primary" href="{:app\\Common::url('/edit?id=' . $ContentModel->id)}"><i class="glyphicon glyphicon-pencil"></i></a>
+                        </div>
+                    </div>
+                    {/yz:access}
+                    <!-- end title -->
+
+                    <!-- start contact content -->
+                    <div class="mu-contact-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {yz:plugin position="beforeContent" object="ContentModel"}
+                            </div>
+                            <div class="col-md-12">
+                                {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"}
+                                {$_FieldXXXXModel->render('index')} {/foreach}
+                            </div>
+                            <div class="col-md-12">
+                                {yz:plugin position="afterContent" object="ContentModel"}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end contact content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

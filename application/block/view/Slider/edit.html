@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="{:url('api/api/index?token=' . $token)}" method="post">
+    <form action="{$saveAction}" method="post">
         <label for="">区块名称：{$BlockModel->getData('title')}</label>
         <div>
             {foreach name="$BlockModel->FieldXXXXModels()" id="_FieldXXXXModel"}
@@ -30,10 +30,6 @@
                 {/foreach}
             </ol>
         </div>
-        <div>
-            <label for="">过滤器信息:</label>
-        </div>
-        {foreach name="BlockModel->getFilterModels()" key="key" id="_FilterModel"} {include file="../../../admin/view/editFilter" /} {/foreach} 
         <button type="submit">submit</button>
     </form>
 </body>

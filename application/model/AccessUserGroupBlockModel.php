@@ -42,4 +42,31 @@ class AccessUserGroupBlockModel extends ModelModel
             return true;
         }
     }
+
+    /**
+     * 更新区块用户组权限信息
+     * @param    int                   $blockId             
+     * @param    array                   $userGroupNames 用户组
+     * @return   [type]                                   [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-22T21:04:47+0800
+     */
+    public function updateByBlockIdUserGroupNames($blockId, $userGroupNames) {
+        $map = ['block_id' => $blockId];
+        $this->where($map)->delete();
+
+        $datas = array();
+        foreach ($userGroupNames as $key => $value) {
+            foreach ($userGroupNames[$key] as $key1 => $value1) {
+                $data = [];
+                $data['block_id'] = $blockId;
+                $data['user_group_name'] = $key;
+                $data['action'] = $key1;
+                array_push($datas, $data);
+            }
+        } 
+
+        $this->saveAll($datas);
+    }
+        
 }

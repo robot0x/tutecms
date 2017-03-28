@@ -1,19 +1,52 @@
 {layout name="index" /}
-<section id="mu-service">
+<div id="home_main" class="main">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="mu-service-area">
-                    <?php $cssClass = ['fa-book', 'fa-users', 'fa-table'];?>
-                    {volist name="ContentFrontpageModels" key="key" id="ContentFrontpageModel"}
-                    <div class="mu-service-single">
-                        <span class="fa fa-book"></span>
-                        <h3><a href="{$ContentFrontpageModel->ContentModel()->id | $filterModels['href']->filter}">{$ContentFrontpageModel->ContentModel()->title | $filterModels['title']->filter}</a></h3>
-                        <p>{$ContentFrontpageModel->ContentModel()->title}</p>
+            <div class="col-md-8">
+                <h2 class="news"><span class="glyphicon glyphicon-tasks
+" aria-hidden="true"></span>&nbsp;新闻</h2>
+                <div class="row">
+                {volist name="newsContentModels" id="_newsContentModel"}
+                    <div class="col-md-4">
+                        <img src="{$_newsContentModel->FieldXXXXModel('image')->getUrl()}" class="img-rounded" />
+                        <p class="small categroy">{$_newsContentModel->MenuModel()->getData('title')}</p>
+                        <h4><a href="{$_newsContentModel->getReadUrl()}">{$_newsContentModel->getData('title')}</a></h4>
+                        <p>{yz:filter name="$_newsContentModel->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 54]" /}</p>
+                        <p class="small text-right date">[{:date('Y-m-d', $_newsContentModel->getData('update_time'))}]</p>
                     </div>
-                    {/volist}
+                {/volist}
+                </div>
+                <h2 class="info"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;通知</h2>
+                {volist name="infoContentModels" id="_infoContentModel"}
+                <div class="col-md-6 day">
+                    <div class="row bg_white">
+                        <div class="col-md-3 day_info text-center">
+                            <div class="header">
+                                周{yz:filter name="$_infoContentModel->getData('update_time')" package="DateFilter" function="getChineseWeek" /}
+                            </div>
+                            <div class="footer">
+                                {:date('m', $_infoContentModel->getData('update_time'))}月{:date('d', $_infoContentModel->getData('update_time'))}日
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h4><a href="{$_infoContentModel->getReadUrl()}">{$_infoContentModel->getData('title')}</a></h4>
+                            <p>{yz:filter name="$_infoContentModel->FieldXXXXModel('body')->getData('value')" package="server\StringServer" function="subHtmlString" param="['length' => 26]" /}</p>
+                        </div>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+            <div class="col-md-4">
+                <h2 class="links"><span class="glyphicon glyphicon-search"></span>&nbsp;快速链接</h2>
+                <div class="row link_lists bg_white">
+                    <?php for($i = 0; $i < 6; $i++) : ?>
+                    <div class="col-md-6 text-center list">
+                        <img src="{:__THEME__}/image/eg.png">
+                        <p><a href="#">公示专区</a></p>
+                    </div>
+                    <?php endfor; ?>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>

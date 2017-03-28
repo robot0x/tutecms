@@ -9,6 +9,7 @@ use think\Config;
 
 use app\model\ThemeModel;                           // 主题
 use app\model\AccessUserGroupFieldModel;            // 用户组字段权限
+use app\model\FieldModel;                           // 字段模型
 
 class FieldController extends Controller
 {
@@ -27,6 +28,29 @@ class FieldController extends Controller
     }
 
     /**
+     * 生成前台可直接调用URL地址
+     * @param    string                   $action 触发器
+     * @param    array                   $param  GET参数
+     * @return   string                           
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:00:15+0800
+     */
+    protected function url($action = 'index', $param = []) {
+        return url('admin/call/field?fieldId=' . $this->FieldDataXXXModel->FieldModel()->getData('id') . '&action=' . $action, $param);
+    }
+
+    /**
+     * 设置FieldModel, 为admin/call提供了set接口
+     * @param    FieldModel               $FieldModel 字段模型
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:00:44+0800
+     */
+    public function setFieldModel(FieldModel $FieldModel) {
+        $this->FieldModel = $FieldModel;
+        return $this;
+    }
+
+    /**
      * 正式渲染字段模型的初始化工作，主要完成对CSS，JS信息的抓取。对其它配置信息的抓取。
      * @param    某个字段类型                   &$FieldDataXXXModel 
      * @return                                          
@@ -38,17 +62,17 @@ class FieldController extends Controller
         $this->FieldDataXXXModel    = $FieldDataXXXModel;
 
         // 送入依赖css, 用于在footer中进行统一引用。
-        if (array_key_exists('css', $FieldDataXXXModel->getSimpleConfig())) {
-            Common::addCss($FieldDataXXXModel->getSimpleConfig()['css']);
+        if (array_key_exists('css', $FieldDataXXXModel->FieldModel()->getSampleConfig())) {
+            Common::addCss($FieldDataXXXModel->FieldModel()->getSampleConfig()['css']);
         }
 
         // 送入依赖js, 用于在footer中进行统一引用。
-        if (array_key_exists('js', $FieldDataXXXModel->getSimpleConfig())) {
-            Common::addJs($FieldDataXXXModel->getSimpleConfig()['js']);
+        if (array_key_exists('js', $FieldDataXXXModel->FieldModel()->getSampleConfig())) {
+            Common::addJs($FieldDataXXXModel->FieldModel()->getSampleConfig()['js']);
         }
 
         // 传入配置信息
-        $this->config = $FieldDataXXXModel->getSimpleConfig();
+        $this->config = $FieldDataXXXModel->FieldModel()->getSampleConfig();
         $this->assign('config', $this->config);
         $this->assign('FieldDataXXXModel', $FieldDataXXXModel);
         $this->assign('randId', rand(1,1023));    // 建立1个1023以内的随机数，防止ID重复
@@ -65,8 +89,8 @@ class FieldController extends Controller
      */
     static public function renderFieldDataModel(&$FieldDataXXXModel, $action)
     {
-        // 首先对权限进行判断,不存在权限，则直接返回''
-        if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldId($FieldDataXXXModel->getData('field_id'))) {
+        // 首先对权限进行判断,不存在权限，则直接返回'' 
+        if (!AccessUserGroupFieldModel::checkCurrentUserIsAllowedByFieldIdAction($FieldDataXXXModel->getData('field_id'), $action)) {
             return '';
         }
 
@@ -93,50 +117,41 @@ class FieldController extends Controller
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        // 未传入模板值，则调用当前 action 对应模板
-        if ('' === $template) {
-            $template = debug_backtrace()[1]['function'];
-        }
-
-        // 获取模板扩展名
-        $viewSuffix = Config::get('template.view_suffix');
-
-        // 获取调用此方法的控制器名及方法名
+        $module = 'field';
         $controller = Common::getControllerName(get_called_class());
-
-        // 拼接主题路径
-        $themeTemplatePath = APP_PATH . 
-            'theme' . DS . 
-            $this->currentThemeModel->getData('name') . DS .
-            'field' . DS .
-            $controller . DS . 
-            $template . '.';
-
-        // 查看字段对象是否被重写
-        $themeTemplate = $themeTemplatePath . $this->FieldDataXXXModel->getData('field_id') . '.' . $viewSuffix;
-        // 路径格式化，如果文件不存在，则返回false
-        $themeTemplate = realpath($themeTemplate);
-
-        // 查看字段模型是否被重写
-        if (false === $themeTemplate) {
-            $themeTemplate = $themeTemplatePath . $viewSuffix;
-            // 路径格式化，如果文件不存在，则返回false
-            $themeTemplate = realpath($themeTemplate);
-        }
+        $action = debug_backtrace()[1]['function'];
         
-        // 主题文件存在，则调用主题文件进行渲染
-        if (false !== $themeTemplate)
-        {   
-            $template = $themeTemplate;
-
-        // 不存在，则进行同模块VIEW规则渲染
-        } else {
-            $template = 'field@' . $controller . '/' . $template;
-        }
-
-        // 渲染html
-        return parent::fetch($template);
+        return Common::fetchByMCA($this->view, $module, $controller, $action, $template, $vars, $replace, $config, $this->FieldDataXXXModel);
     }
 
+    /**
+     * 前台直接调用接口。前台生成URL后，直接触发该函数，该函数自动调用对应的ACTION
+     * @param    int                   $fieldId 字段ID
+     * @param    string                   $action  触发器
+     * @return                               
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-23T19:01:43+0800
+     */
+    static public function call($fieldId, $action) {
+        $FieldModel = FieldModel::get($fieldId);
+        $className = 'app\field\controller\\' . $FieldModel->getData('field_type_name') . 'Controller';
+        $result = '';
+        try  {
+            // 实例化类 并调用
+            if (class_exists($className)) {
+                $Object = new $className;
+                $Object->setFieldModel($FieldModel);
+                if (method_exists($Object, $action)) {
+                    $result = $Object->$action(); 
+                }
+            }
+            
+        } catch(\Exception $e) {
+            if (config('app_debug')) {
+                throw $e;
+            }
+        } 
 
+        return $result;
+    } 
 }

@@ -1,39 +1,18 @@
 {layout name="index" /}
-<section id="mu-contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="mu-contact-area">
-                    <!-- start title -->
-                    <div class="mu-title">
-                        <div class="text-right"><a href="{:app\\Common::getEditUrl()}">编辑</a></div>
-                        <h2>{$ContentModel->title}</h2>
-                        <div class="mu-meta">
-                            <span>By Admin</span>
-                            <span>{$ContentModel->create_time | $filterModels['date']->filter}</span>
-                            <span><i class="fa fa-comments-o"></i>{$ContentModel->hit}</span>
-                        </div>
-                    </div>                   
-                    <!-- end title -->
-                    <!-- start contact content -->
-                    <div class="mu-contact-content">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {yz:plugin position="beforeContent" object="ContentModel"}
-                            </div>
-                            <div class="col-md-12">
-                                 {foreach name="ContentModel->FieldXXXXModels()" id="_FieldXXXXModel"}
-                                    {$_FieldXXXXModel->render('index')}
-                                {/foreach}
-                            </div>
-                            <div class="col-md-12">
-                                {yz:plugin position="afterContent"  object="ContentModel"}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end contact content -->
-                </div>
-            </div>
+<div class="row clearfix">
+    <div class="col-md-3 column">
+        <ul class="nav nav-pills nav-stacked">
+            {volist name="ContentModels" id="_ContentModel" key="key"}
+            <li {eq name="$ContentModel->getData('id')" value="$_ContentModel->getData('id')" } class="active" {/eq}>
+                <a href="{$_ContentModel->id | $filterModels['href']->filter}"><i class="glyphicon glyphglyphicon glyphicon-chevron-right"></i>{$_ContentModel->title | $filterModels['title']->filter}</a>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    <div class="col-md-9 column">
+        <img alt="140x140" src="bootstrap-3.3.5-dist/image/city.jpg" />
+        <div>
+            {$ContentModel->getContent() | htmlspecialchars_decode}
         </div>
     </div>
-</section>
+</div>

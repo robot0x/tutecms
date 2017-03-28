@@ -1,24 +1,25 @@
 <?php
 namespace app\component\controller;
+
+use app\model\UserModel;                            // 用户
+use app\model\ContentModel;                         // 文章
 use app\model\ContentFrontpageModel;                // 首页推荐内容
+use app\model\PluginDataFrontPageNewsModel;         // 首页推荐内容插件
 
 class HomeController extends ComponentController
 {
     public function indexAction()
     {
-        // 定义配置信息
-        $map = [];
-        $offset = 10;
-        $offset = $this->config['count']['value'];
-        $order = ['weight'=>'desc', 'create_time'=>'desc'];
+        // 获取推荐新闻
+        $newsCount = $this->getSampleConfig('newsCount');
+        $newsContentModels = PluginDataFrontPageNewsModel::getAccessContentModelsByActionUserGroupNameTypeCount('index', UserModel::getCurrentUserModel()->UserGroupModel()->getData('name'), 'news');
 
-        // 取推荐新闻，并传给首页
-        $ContentFrontpageModel = new ContentFrontpageModel;
-        $ContentFrontpageModels = $ContentFrontpageModel->order($order)->limit(0, $offset)->select();
-        $this->assign('ContentFrontpageModels', $ContentFrontpageModels);
-
-        unset($ContentFrontpageModels);
-        unset($ContentFrontpageModel);
+        // 获取推荐通知
+        $infoCount = $this->getSampleConfig('infoCount');
+        $infoContentModels = PluginDataFrontPageNewsModel::getAccessContentModelsByActionUserGroupNameTypeCount('index', UserModel::getCurrentUserModel()->UserGroupModel()->getData('name'), 'info');
+        
+        $this->assign('newsContentModels', $newsContentModels);
+        $this->assign('infoContentModels', $infoContentModels);
         return $this->fetch();
     }
 

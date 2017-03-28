@@ -1,21 +1,32 @@
 <?php
 namespace app\model;
 use think\Request;
+use think\Url;
+use think\Cache;
+
 use app\Common;
+
 
 class MenuModel extends ModelModel
 {
-    static private $currentMenuModel = null;    // 当前菜单
-    
+    // 当前菜单
+    static private $currentMenuModel = null;
+    // 父菜单
+    protected $ParentMenuModel;
+    protected $RootMenuModel;
+
     private $config             = null;         // 配置信息
     private $filter             = null;         // 过滤器信息
     private $depth              = 0;            // 菜单深度
     private $ComponentModel     = null;         // 对应的组件
+    private $route              = null;         // 路由信息
+    protected $sampleConfig     = null;         // 简易配置
 
     private $availableSonMenuModels = null;     // 可用的子菜单列表
     private $isHaveAvailableSonMenus = null;    // 是否存在可用的子菜单列表
 
     protected $fatherMenuModel  = null;
+    protected $FieldModels      = null;         // 字段类型
     /**
      * 默认的一些非 空字符串 的设置
      * 用来存在放在空的数据对象中
@@ -32,7 +43,7 @@ class MenuModel extends ModelModel
     public function getRoute()
     {
         if (null === $this->route) {
-            
+
         }
 
         return $this->route;
@@ -63,6 +74,11 @@ class MenuModel extends ModelModel
         return $this->filter;  
     }
 
+    /**
+     * 对应的 组件
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T12:37:24+0800
+     */
     public function ComponentModel()
     {
         if (null === $this->ComponentModel) {
@@ -74,6 +90,12 @@ class MenuModel extends ModelModel
         return $this->ComponentModel;
     }
 
+    /**
+     * 配置信息
+     * @return   [type]                   [description]
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T12:37:34+0800
+     */
     public function getConfig()
     {
         if (null === $this->config)
@@ -83,6 +105,23 @@ class MenuModel extends ModelModel
         }
 
         return $this->config;
+    }
+
+    /**
+     * 获取简易格式的配置信息
+     * @return   array                   
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-24T16:09:17+0800
+     */
+    public function getSampleConfig() {
+        if (null === $this->sampleConfig) {
+            $this->sampleConfig = [];
+            foreach($this->getConfig() as $key => $value) {
+                $this->sampleConfig[$key] = $value['value'];
+            }
+        }
+
+        return $this->sampleConfig;
     }
 
     /**
@@ -135,6 +174,61 @@ class MenuModel extends ModelModel
         return $MenuModels;
     }
 
+    /**
+     * 获取某个PID下的所有列表
+     * @param    int $pid 父级ID
+     * @param int $isDelete
+     * @return array
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-22T14:44:55+0800
+     */
+    public function getListsByPid($pid, $isDelete = 0) {
+        $map = ['pid' => $pid, 'is_delete' => $isDelete];
+        $MenuModels = $this->where($map)->order('weight desc')->select();
+        return $MenuModels;
+    }
+
+    /**
+     * @return MenuModel
+     * Create by panjie@yunzhiclub.com
+     * 获取当前菜单的根菜单
+     */
+    public function getRootMenuModel() {
+        if (null === $this->RootMenuModel) {
+            $this->RootMenuModel = $this;
+            if (0 !== (int)$this->RootMenuModel->getData('pid')) {
+                do {
+                    $this->RootMenuModel = $this->RootMenuModel->getParentMenuModel();
+                } while(0 !== (int)$this->RootMenuModel->getData('pid'));
+            }
+        }
+
+        return $this->RootMenuModel;
+    }
+
+    /**
+     * @return static
+     * Create by panjie@yunzhiclub.com
+     * 获取父级菜单
+     */
+    public function getParentMenuModel() {
+        if (null === $this->ParentMenuModel) {
+            $this->ParentMenuModel = $this::get($this->getData('pid'));
+        }
+        return $this->ParentMenuModel;
+    }
+
+    static public function getTreeByPid($pid) {
+        $map = ['pid' => $pid, 'is_delete' => 0];
+        $self = new self();
+        $MenuModels = $self->where($map)->order('weight desc')->select();
+        foreach ($MenuModels as $key => $MenuModel) {
+            $childMenuModels = self::getTreeByPid($MenuModel->getData('id'));
+            $MenuModels[$key]->setData('_child', $childMenuModels);
+        }
+        unset($self);
+        return $MenuModels;
+    }
     /**
      * 父菜单
      * @return MenuModel 
@@ -251,9 +345,11 @@ class MenuModel extends ModelModel
 
     /**
      * 获取当前菜单的菜单树（从根菜单开始，至本菜单结束）
+     * @param bool $arrayReverse
      * @return lists MenuModel
+     * @internal param 是否翻转数组 $arrayReverse
      */
-    public function getFatherMenuModleTree()
+    public function getFatherMenuModelTree($arrayReverse = true)
     {
         $tree = [];
         $MenuModel = $this;
@@ -261,7 +357,60 @@ class MenuModel extends ModelModel
             array_push($tree, $MenuModel);
             $MenuModel = $MenuModel->fatherMenuModel();
         } while ('' !== $MenuModel->getData('id'));
-        return array_reverse($tree);
+        if ($arrayReverse) {
+            return array_reverse($tree);
+        } else {
+            return $tree;
+        }
+        
+    }
+
+    /**
+     * 通过传入的 action 与 参数 生成对应的URL
+     * @param    string                   $action 触发器 -- 与路由表相对应
+     * @param    array                    $params  参数 与路由表GET信息相对应
+     * @param  string $appendQueryString 追加查询的URL信息
+     * @return   string
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2016-12-27T10:43:12+0800
+     */
+    public function getUrlByActionParams($action = '', $params = [], $appendQueryString = true) {
+        // 获取菜单对应的组件的路由信息
+        $sampleRoute = $this->ComponentModel()->getSampleRoute();
+
+        // 未检测到路由中存在action，则使用index做为默认路由
+        if (!array_key_exists($action, $sampleRoute)) {
+            $action = 'index';
+        }
+
+        // 当前action是否存在于路由表中, 按路由表规则生成路由
+        if (array_key_exists($action, $sampleRoute)) {
+            $route = $sampleRoute[$action][0];     // 获取路由值
+
+            // 使用传入的参数对路由表中对应的 :xxx 字段进行替换
+            $pattern = '/:[a-z]+/';
+            $matches = [];
+            
+            foreach ($params as $param) {
+                $route = preg_replace($pattern, $param, $route,  1);
+            }
+            
+            // 取当前菜单的url信息，拼接当前路由信息，再拼接GET信息后返回
+            $menuUrl = $this->getData('url');
+            $url = Url::build('@' . $menuUrl . $route);
+
+            // 加入追加的查询语义
+            if ($appendQueryString) {
+                $getDataString = htmlspecialchars_decode(Request::instance()->server('REDIRECT_QUERY_STRING'));
+                $url .= '?' . $getDataString;
+            }
+
+            return $url;
+
+        // 当前action并不存在于路由表中，返回 ''
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -358,21 +507,18 @@ class MenuModel extends ModelModel
      * @author panjie panjie@mengyunzhi.com
      * @DateTime 2016-09-13T08:55:26+0800
      */
-    static public function getAvailableSonMenuModelsByPidMenuTypeName($pid, $menuTypeName)
-    {
-        // 找到当前用户组(每个用户只能有一个用户组)
-        $currentFrontUserModel = UserModel::getCurrentFrontUserModel();
-        $currentFrontUserGroupModel = $currentFrontUserModel->UserGroupModel();
-
-        $map = ['pid' => $pid, 'status' => 0, 'is_hidden' => '0', 'menu_type_name' => $menuTypeName];
+    static public function getAvailableSonMenuModelsByPidUserGroupModel($pid, UserGroupModel $UserGroupModel)
+    {        
+        $map = ['pid' => $pid, 'status' => 0, 'is_hidden' => '0'];
         $MenuModel = new MenuModel;
         $availableSonMenuModels = $MenuModel->order('weight desc')->where($map)->select();
         foreach ($availableSonMenuModels as $key => $MenuModel) {
-            if (!$currentFrontUserGroupModel->isIndexAllowedByMenuModel($MenuModel))
+            if (!$UserGroupModel->isIndexAllowedByMenuModel($MenuModel))
             {
                 unset($availableSonMenuModels[$key]);
             }
         }
+            
         return $availableSonMenuModels;
     }
 
@@ -439,4 +585,20 @@ class MenuModel extends ModelModel
         }
         return true;
     }
+
+    /**
+     * 当前菜单类型对应的所有的字段模型 1:n
+     * @return lists FieldModel
+     * @author panjie panjie@mengyunzhi.com
+     * @DateTime 2016-09-02T12:18:22+0800
+     */
+    public function FieldModels()
+    {
+        if (null === $this->FieldModels) {
+            $this->FieldModels = FieldModel::getListsByRelateTypeRelateValue('Menu', $this->getData('id'));
+        }
+
+        return $this->FieldModels;
+    }
+
 }

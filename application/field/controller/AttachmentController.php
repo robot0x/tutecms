@@ -17,7 +17,7 @@ class AttachmentController extends FieldController
     {
         $this->assign('uploadToken', $this->FieldDataXXXModel->makeToken('upload'));
         $this->assign('deleteToken', $this->FieldDataXXXModel->makeToken('delete'));
-        return $this->fetch() . $this->fetch('editJs');
+        return $this->fetch();
     }
 
     /**
@@ -58,7 +58,7 @@ class AttachmentController extends FieldController
         } else {
             // 调用上传操作
             try {
-                $result['data'] = $FieldDataAttachmentModel->upload($file);
+                $result['data'] = $FieldDataAttachmentModel->upload($file, $config);
             } catch (\Exception $e) {
                 $result = [
                     'status' => 'error',

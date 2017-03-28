@@ -7,6 +7,7 @@ use app\Common;
 use app\model\ContentModel;                 // 文章
 use app\model\CategoryModel;                // 类别
 use app\model\FieldModel;                   // 扩展字段类别
+use app\model\PluginModel;                  // 插件
 
 
 class ContentController extends ComponentController
@@ -47,12 +48,18 @@ class ContentController extends ComponentController
             FieldModel::updateLists($data['field_'], $this->ContentModel->getData('id'));
         }
 
+        // 更新插件信息
+        if (isset($data['_plugin_'])) {
+            PluginModel::initi($this->ContentModel, $data['_plugin_'], 'save');
+        }
+
         // 成功返回
         return $this->success('操作成功', url('@' . $this->currentMenuModel->getData('url')));
     }
 
     public function indexAction()
     {
+        $this->ContentModel->addHits();
         $this->assign('ContentModel', $this->ContentModel);
         return $this->fetch();
     }

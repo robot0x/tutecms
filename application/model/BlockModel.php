@@ -22,6 +22,7 @@ class BlockModel extends ModelModel
      * 用来存在放在空的数据对象中
      */
     protected $data = [
+        'id'        => 0,
         'config'    => '[]',
         'filter'    => '[]',
     ];
@@ -51,6 +52,7 @@ class BlockModel extends ModelModel
         {
             $this->config = Common::configMerge($this->BlockTypeModel()->getConfig(), $this->getConfigAttr());
         }
+
         return $this->config;
     }
 
@@ -91,7 +93,6 @@ class BlockModel extends ModelModel
         if (null === $this->FieldModels) {
             $this->FieldModels = FieldModel::getListsByRelateTypeRelateValue('Block', $this->getData('block_type_name'));
         }
-
         return $this->FieldModels;
     }
 
@@ -112,7 +113,6 @@ class BlockModel extends ModelModel
                 array_push($this->FieldXXXXModels, $FieldModel->getFieldDataXXXModelByKeyId($this->getData('id')));
             } 
         }
-        
         return $this->FieldXXXXModels;
     }
     /**
@@ -158,18 +158,6 @@ class BlockModel extends ModelModel
         }
     }
 
-    public function checkIsShow(MenuModel &$MenuModel)
-    {
-        $map = [];
-        $map['block_id']    = $this->data['id'];
-        $map['menu_id']     = $MenuModel->getData('id');
-        if (empty(AccessMenuBlockModel::get($map)->getData()))
-        {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     /**
      * 生成前台可以直接调用的token
@@ -213,7 +201,7 @@ class BlockModel extends ModelModel
             }
         }
 
-        throw new \Exception('not found fieldName:' . $name . ' of ContentModel:' . $this->getData('id'), 1);
+        throw new \Exception('not found field name: "' . $name . '" of BlockModel: ' . $this->getData('id') . '-' . $this->getData('title'), 1);
     }
 
     public function checkIsHave(UserGroupModel &$UserGroupModel)
@@ -237,18 +225,39 @@ class BlockModel extends ModelModel
     public function getRoute()
     {
         if (null === $this->route) {
-            $routeFilePath = APP_PATH . 
-                'block' . DS . 
-                'route' . DS .
-                $this->getData('block_type_name') . 'Route.php';
-            $routeFilePath = realpath($routeFilePath);
-            if (false === $routeFilePath) {
-                $this->route = [];
-            } else {
-                $this->route = include $routeFilePath;
-            }
+            $this->route = Common::getRouteByModuleTypeName('block', $this->getData('block_type_name'));
         }
 
         return $this->route;
+    }
+
+    /**
+     * 获取菜单树的 权限 值，为于生成JSON数据
+     * @param    tree                   &$MenuModels 
+     * @return   tree                                
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-22T20:26:07+0800
+     */
+    public function getMenuModelTreeJsonData(&$MenuModels) {
+        foreach ($MenuModels as $key => $MenuModel) {
+            $map = [];
+            $map['block_id']    = $this->data['id'];
+            $map['menu_id']     = $MenuModel->getData('id');
+
+            if (empty(AccessMenuBlockModel::get($map)->getData()))
+            {
+                $access = false;
+            } else {
+                $access = true;
+            }
+
+            $MenuModels[$key]->setData('access', $access);
+            if (count($MenuModel->getData('_child'))) {
+                $child = $MenuModel->getData('_child');
+                $child = $this->getMenuModelTreeJsonData($child);
+                $MenuModel->setData('_child', $child);
+            }
+        }
+        return $MenuModels;
     }
 }

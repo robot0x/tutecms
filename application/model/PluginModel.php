@@ -2,12 +2,14 @@
 namespace app\model;
 
 use app\Common;
+use think\Loader;
 
 class PluginModel extends ModelModel
 {
     protected $config = null;               // 配置信息
     protected $filter = null;               // 过滤器信息
     protected $PluginTypeModel = null;      // 插件类型MODEL
+    protected $route = null;
 
     /**
      * 区域:插件 = n:1
@@ -120,6 +122,55 @@ class PluginModel extends ModelModel
             return false;
         } else {
             return true;
+        }
+    }
+
+     /**
+     * 获取route文件中信息
+     * @return array 
+     * @author huangshuaibin
+     */
+    public function getRoute()
+    {
+        if (null === $this->route) {
+            $routeFilePath = APP_PATH . 
+                'plugin' . DS . 
+                'route' . DS .
+                $this->getData('plugin_type_name') . 'Route.php';
+            $routeFilePath = realpath($routeFilePath);
+            if (false === $routeFilePath) {
+                $this->route = [];
+            } else {
+                $this->route = include $routeFilePath;
+            }
+        }
+
+        return $this->route;
+    }
+
+    /**
+     * 调用插件的某个ACTION
+     * @param    ContentModel             $ContentModel 上下文
+     * @param    array                   $datas        调用该类传入的插件数据
+     * @param    string                   $action       调用的action
+     * @return                                    
+     * @author 梦云智 http://www.mengyunzhi.com
+     * @DateTime 2017-02-18T19:32:38+0800
+     */
+    static public function initi(ContentModel $ContentModel, $datas, $action) {
+        // 判断传入的datas类型是否为数组
+        if (!is_array($datas)) {
+            return true;
+        }
+
+        foreach ($datas as $pluginName => $value) {
+            $class = 'app\plugin\controller\\' .  Loader::parseName($pluginName, 1) . 'Controller';
+            try {
+                $result = call_user_func_array([$class, $action], [$ContentModel, $value]); 
+               
+            } catch (\Exception $e) {
+                throw $e;
+            }
         }
     }
 }

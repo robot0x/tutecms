@@ -1,0 +1,12 @@
+<section>
+    <div>
+        <?php $currentMenuModel = array_pop($MenuModels); ?>
+        <ol class="breadcrumb">
+            <li id="distance"><a href="{:url('@/')}">首页</a></li>
+            {volist name="MenuModels" key="key" id="menuModel"}
+            <li><a href="{:url('@' . $menuModel->url)}">{$menuModel->title}</a></li>
+            {/volist}
+            <li class="active"><a href="{:url('@' . $currentMenuModel->url)}">{$currentMenuModel->title}</a></li>
+        </ol>
+    </div>
+</section>

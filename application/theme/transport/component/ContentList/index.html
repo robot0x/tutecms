@@ -1,0 +1,32 @@
+{layout name="index" /}
+<div class="container">
+    <div class="row clearfix">
+        {yz:access action="add"}
+        <div class="col-md-12 text-right">
+            <div class="text-right" style="padding-right:15px;">
+                <a class="btn btn-default" href="{yz:url action='add'}"><i class="glyphicon glyphicon-plus">新增</i></a>
+            </div>
+        </div>
+        {/yz:access}
+        <div class="col-md-12 column">
+            {volist name="ContentModels" key="key" id="_ContentModel"}
+            <div class="news-grid">
+                <div class="new-lft-main">
+                    <div class="news-left">
+                        <h4>{:date("d", $_ContentModel->getData('create_time'))}</h4>
+                        <h5>{:date("Y M", $_ContentModel->getData('create_time'))}</h5>
+                    </div>
+                </div>
+                <div class="news-right">
+                    <a href="{yz:url action='read' param='$_ContentModel->id'}"><h6>{$_ContentModel->getData('title')}</h6></a>
+                    <p>{yz:filter input="$_ContentModel->FieldXXXXModel('body')->getData('value')" class="server\StringServer" function="subHtmlString" param='["length" => 135]'}</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            {/volist}
+            <div class="text-center">
+                {$ContentModels->render()}
+            </div>
+        </div>
+    </div>
+</div>

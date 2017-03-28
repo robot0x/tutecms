@@ -1,0 +1,34 @@
+<footer class="bg111B4E">
+    <div class="container positionRelative">
+        <div id="mu-footer">
+            <!-- start footer top -->
+            <div class="mu-footer-top bg111B4E">
+                <div class="mu-footer-top-area bg111B4E">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {volist name="menuModels" id="menuModel" key="index"}
+                            {neq name="index" value="1"}
+                            <div class="item">
+                                <div class="mu-footer-widget">
+                                    <h4>{$menuModel->title}</h4>
+                                    <ul>
+                                        {volist name="menuModel->getAvailableSonMenuModels()" id="sonMenuModel"}
+                                        <li><a href="{:url('@' . $sonMenuModel->url)}">{$sonMenuModel->title}</a></li>
+                                        {/volist}
+                                    </ul>
+                                </div>
+                            </div>
+                            {/neq}
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="qrCode">
+            <img src="{:__THEME__}/image/wxCode.jpeg" alt="二维码">
+        </div>
+    </div>
+    <!-- end footer top -->
+
+</footer>

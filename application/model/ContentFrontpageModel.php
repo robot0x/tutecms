@@ -5,6 +5,7 @@ class ContentFrontpageModel extends ModelModel
 {
     protected $ContentModel;
     protected $pk = 'content_id';
+    protected $data = ['content_id' => 0];
 
     public function ContentModel()
     {

@@ -1,0 +1,72 @@
+<script type="text/javascript">
+    app.controller('blockEdit', function($scope) {
+        // 所有菜单
+        var MenuModels = {:json_encode($BlockModel->getMenuModelTreeJsonData($MenuModels))};
+        var checkAllStatus = true;          // 全选状态
+        $scope.showMenuAccess = true;   // 是否显示菜单权限
+        $scope.showUserGroupAccess = true;  // 是否显示用户组权限
+
+        // 全部切换状态
+        var toggleAll = function (MenuModels, status) {
+            angular.forEach(MenuModels, function(MenuModel, key) {
+                MenuModels[key].access = status;
+                if (MenuModel._child.length) {
+                    toggleAll(MenuModel._child, status);
+                }
+            });
+        };
+
+        // 切换显示/隐藏权限
+        var togleMenuAccess = function () {
+            $scope.showMenuAccess = !$scope.showMenuAccess;
+        };
+
+        var togleUserGroupAccess = function () {
+            $scope.showUserGroupAccess = !$scope.showUserGroupAccess;
+        };
+
+        // 全选/全选
+        var checkAll = function (MenuModels) {
+            toggleAll($scope.MenuModels, checkAllStatus);
+            checkAllStatus = !checkAllStatus;
+        };
+
+        // 子菜单全选切
+        var toggle = function (MenuModel) {
+            MenuModel.access = !MenuModel.access;
+            toggleAll(MenuModel._child, MenuModel.access);
+        };
+
+        $scope.togleMenuAccess = togleMenuAccess;
+        $scope.togleUserGroupAccess = togleUserGroupAccess;
+        $scope.MenuModels = MenuModels;
+        $scope.checkAll = checkAll;
+        $scope.toggle = toggle;
+                                    
+    });
+
+
+/**
+ * @ngdoc filter
+ * @name webAppApp.filter:sexFilter
+ * @function
+ * @description
+ * # sexFilter
+ * Filter in the webAppApp.
+ */
+    app.filter('depthFilter', function() {
+        var getTitleByDepth = function(input, depth) {
+            var i = 0;
+            var prefix = '';
+            for (i=0; i <depth; i++) {
+                prefix += '|----';
+            }
+            return prefix + input;
+        };
+        
+        return function(input, depth) {
+            return getTitleByDepth(input, depth);
+        };
+    });
+
+</script>
