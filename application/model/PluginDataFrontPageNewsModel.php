@@ -75,7 +75,7 @@ class PluginDataFrontPageNewsModel extends ModelModel
     }
 
 
-    static public function getAccessContentModelsByActionUserGroupNameTypeCount($action, $userGroupName, $type = 'news', $count = 5) {
+    static public function getAccessContentModelsByActionUserGroupNameTypeCount($action, $userGroupName, $type = 'news', $count = 6) {
         $contents = Db::view('plugin_data_front_page_news','content_id')
             ->view('content', 'id', 'content.id=plugin_data_front_page_news.content_id', 'LEFT')
             ->view('access_user_group_menu','action,user_group_name','access_user_group_menu.menu_id=content.menu_id','LEFT')
