@@ -319,7 +319,8 @@ class MenuModel extends ModelModel
             $currentFrontUserGroupModel = $currentFrontUserModel->UserGroupModel();
 
             $map = ['pid' => $this->getData('id'), 'status' => 0, 'is_hidden' => '0'];
-            $this->availableSonMenuModels = $this->where($map)->select();
+            $orderBy = 'weight desc';
+            $this->availableSonMenuModels = $this->where($map)->order($orderBy)->select();
             foreach ($this->availableSonMenuModels as $key => $MenuModel) {
                 if (!$currentFrontUserGroupModel->isIndexAllowedByMenuModel($MenuModel))
                 {
