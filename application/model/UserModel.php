@@ -239,7 +239,7 @@ class UserModel extends ModelModel
      * 密码加密算法
      * @param    string                   $password 加密前密码
      * @return   string                             加密后密码
-     * 例：加密前admin , 加密后：87a36a542ff249c8a8a8de1282742fa86452ad13
+     * 例：加密前admin , 加密后：69bfbc2e8df54af9fe751b3dfa4d2e9964ffa496
      * @author 梦云智 http://www.mengyunzhi.com
      * @DateTime 2017-02-21T08:59:42+0800
      */

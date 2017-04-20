@@ -10,7 +10,7 @@
                     <div class="row">
                         {volist name="newsContentModels" id="_newsContentModel"}
                         <div class="col-md-4">
-                            <img src="{$_newsContentModel->FieldXXXXModel('image')->getUrl()}" class="img-rounded"/>
+                            <img src="{$_newsContentModel->FieldXXXXModel('image')->getUrl()}" class="img-rounded" height="150px"/>
                             <p class="small categroy">{$_newsContentModel->MenuModel()->getData('title')}</p>
                             <h4><a href="{$_newsContentModel->getReadUrl()}">{$_newsContentModel->getData('title')}</a>
                             </h4>
