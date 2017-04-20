@@ -201,6 +201,10 @@ body {
     font-weight: bold;
 }
 
+#photowall .body {
+    margin-left:0px;
+    margin-right: 0px;
+}
 /*快速链接 */
 #links {
     padding-bottom:20px;
