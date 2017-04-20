@@ -111,13 +111,6 @@ class ContentListController extends ComponentController
         $FieldDataBodyModel = FieldDataBodyModel::get($id);
         $FieldDataBodyModel->setData('is_delete', 1);
         $FieldDataBodyModel->save();
-        // 删除contentFrontpage表中对应的内容
-        $map['content_id'] = $id;
-        $ContentFrontpageModel = ContentFrontpageModel::get($map)->getData();
-        if (false === empty($ContentFrontpageModel)) {
-            $ContentFrontpageModel = ContentFrontpageModel::get($map);
-            $ContentFrontpageModel->delete();
-        }
        
         return $this->success('删除成功');
     }
