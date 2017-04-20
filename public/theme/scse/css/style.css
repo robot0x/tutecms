@@ -59,7 +59,7 @@ body {
     color: #666;
 }
 
-#home_main h4 a, .blog-container a, .blog-container a:hover, .hotNews a, .hotNews a:hover {
+#home_main h4 a, .blog-container a, .hotNews a {
     color: #9B8131;
 }
 
@@ -273,6 +273,10 @@ body {
 
 .bg31429b {
     background-color: #31429b;
+}
+
+.font9B8131 {
+    color: #9B8131;
 }
 
 #mu-footer .mu-footer-top {

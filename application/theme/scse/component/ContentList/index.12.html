@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h4>
-                                    {$ContentModel->title}
+                                    <a href="{$ContentModel->getUrl('read')}" class="font9B8131">{$ContentModel->title}</a>
                                 </h4>
                                 <p>
                                     {yz:filter name="$ContentModel->FieldXXXXModel('body')->getData('value')"
